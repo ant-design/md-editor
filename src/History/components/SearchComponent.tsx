@@ -1,9 +1,9 @@
 import { Input, Spin } from 'antd';
 import React, { useContext, useRef, useState } from 'react';
-import useClickAway from '../../hooks/useClickAway';
-import { useDebounceFn } from '../../hooks/useDebounceFn';
-import { I18nContext } from '../../i18n';
-import { ActionIconBox } from '../../MarkdownEditor/editor/components';
+import { ActionIconBox } from '../../Components/ActionIconBox';
+import useClickAway from '../../Hooks/useClickAway';
+import { useDebounceFn } from '../../Hooks/useDebounceFn';
+import { I18nContext } from '../../I18n';
 
 function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -17,11 +17,6 @@ function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
       viewBox="0 0 14 14"
       {...props}
     >
-      <defs>
-        <clipPath id="master_svg0_645_36290/645_35767/1_00870">
-          <rect x="0" y="0" width="14" height="14" rx="0" />
-        </clipPath>
-      </defs>
       <g clipPath="url(#master_svg0_645_36290/645_35767/1_00870)">
         <g>
           <path
@@ -46,6 +41,15 @@ interface HistorySearchProps {
   onSearch?: (value: string) => void;
   /** 历史记录类型 */
   type?: 'chat' | 'task';
+  /** 搜索框配置 */
+  searchOptions?: {
+    /** 搜索输入框 placeholder 文案 */
+    placeholder?: string;
+    /** 未展开时的默认文本 */
+    text?: string;
+    /** 搜索触发方式: 'change' - 实时搜索(默认), 'enter' - 回车触发 */
+    trigger?: 'change' | 'enter';
+  };
 }
 
 /**
@@ -84,11 +88,15 @@ interface HistorySearchProps {
 export const HistorySearch: React.FC<HistorySearchProps> = ({
   onSearch,
   type,
+  searchOptions,
 }) => {
   const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [inputValue, setInputValue] = useState('');
   const ref = useRef<HTMLDivElement>(null);
+
+  const trigger = searchOptions?.trigger || 'change';
 
   useClickAway(() => {
     setIsExpanded(false);
@@ -117,6 +125,21 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
     360,
   );
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    if (trigger === 'change') {
+      handleSearchChange.run(e);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (trigger === 'enter' && e.key === 'Enter') {
+      handleSearchWithLoading(inputValue);
+    }
+  };
+
   // 展开后显示搜索框
   return (
     <div
@@ -133,14 +156,15 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
       {isExpanded ? (
         <Input
           placeholder={
-            type === 'task'
+            searchOptions?.placeholder ??
+            (type === 'task'
               ? locale?.['chat.task.search.placeholder'] || '搜索任务'
-              : locale?.['chat.history.search.placeholder'] || '搜索话题'
+              : locale?.['chat.history.search.placeholder'] || '搜索话题')
           }
           prefix={loading ? <Spin size="small" /> : <SearchIcon />}
-          onChange={(e) => {
-            handleSearchChange.run(e);
-          }}
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
           style={{
             width: '100%',
             height: 32,
@@ -160,9 +184,10 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
               flex: 1,
             }}
           >
-            {type === 'task'
-              ? locale?.['chat.history.historyTasks'] || '历史任务'
-              : locale?.['chat.history.historyChats'] || '历史对话'}
+            {searchOptions?.text ??
+              (type === 'task'
+                ? locale?.['chat.history.historyTasks'] || '历史任务'
+                : locale?.['chat.history.historyChats'] || '历史对话')}
           </div>
           <ActionIconBox
             onClick={handleToggleSearch}

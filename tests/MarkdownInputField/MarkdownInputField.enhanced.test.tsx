@@ -9,10 +9,7 @@ import userEvent from '@testing-library/user-event';
 import classNames from 'classnames';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import {
-  MarkdownInputField,
-  generateEdges,
-} from '../../src/MarkdownInputField/MarkdownInputField';
+import { MarkdownInputField } from '../../src/MarkdownInputField/MarkdownInputField';
 import { addGlowBorderOffset } from '../../src/MarkdownInputField/style';
 
 // 创建更真实的 Mock
@@ -128,7 +125,7 @@ vi.mock('../../src/MarkdownInputField/SendButton', () => ({
         disabled={disabled}
         data-typing={typing}
         className={classNames({
-          'ant-md-input-field-send-button-typing': typing,
+          'ant-agentic-md-input-field-send-button-typing': typing,
         })}
         {...props}
       >
@@ -201,36 +198,6 @@ describe('MarkdownInputField Enhanced Tests', () => {
     vi.clearAllMocks();
     user = userEvent.setup();
     mockMarkdownEditor.store.getMDContent.mockReturnValue('# Test Content');
-  });
-
-  describe('generateEdges 函数测试', () => {
-    it('应该正确生成边缘颜色序列', () => {
-      const colors = ['red', 'blue', 'green'];
-      const result = generateEdges(colors);
-
-      expect(result).toEqual([
-        ['red', 'blue', 'green', 'red'],
-        ['blue', 'green', 'red', 'blue'],
-        ['green', 'red', 'blue', 'green'],
-      ]);
-    });
-
-    it('应该处理边界情况', () => {
-      expect(generateEdges([])).toEqual([]);
-
-      // 当只有一个颜色时，扩展基础序列并生成循环动画停靠点，由于颜色相同，结果为重复序列
-      expect(generateEdges(['red'])).toEqual([
-        ['red', 'red', 'red'],
-        ['red', 'red', 'red'],
-      ]);
-
-      // 当有两个颜色时，扩展基础序列以生成平滑的4段循环动画停靠点
-      expect(generateEdges(['red', 'blue'])).toEqual([
-        ['red', 'blue', 'red', 'red'],
-        ['blue', 'red', 'red', 'blue'],
-        ['red', 'red', 'blue', 'red'],
-      ]);
-    });
   });
 
   describe('核心功能测试', () => {

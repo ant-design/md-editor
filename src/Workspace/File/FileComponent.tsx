@@ -1,26 +1,19 @@
-import { CheckOutlined, SearchOutlined } from '@ant-design/icons';
-import {
-  Button,
-  ConfigProvider,
-  Image,
-  Input,
-  Spin,
-  Tooltip,
-  Typography,
-  message,
-} from 'antd';
+import { ConfigProvider, Image, Input, Spin, Typography, message } from 'antd';
 
-import { Empty } from 'antd';
-import classNames from 'classnames';
-import React, { type FC, useContext, useRef, useState } from 'react';
-import { I18nContext } from '../../i18n';
 import {
+  Check,
   ChevronDown as DownIcon,
   Download as DownloadIcon,
   Eye as EyeIcon,
   ChevronRight as RightIcon,
-  MessageSquareShare as ShareIcon,
-} from '../../icons';
+  Search,
+  SquareArrowOutUpRight as ShareIcon,
+} from '@sofa-design/icons';
+import { Empty } from 'antd';
+import classNames from 'classnames';
+import React, { type FC, useContext, useEffect, useRef, useState } from 'react';
+import { ActionIconBox } from '../../Components/ActionIconBox';
+import { I18nContext } from '../../I18n';
 import type { MarkdownEditorProps } from '../../MarkdownEditor';
 import type { FileNode, FileProps, FileType, GroupNode } from '../types';
 import { formatFileSize, formatLastModified } from '../utils';
@@ -85,8 +78,25 @@ const handleDefaultShare = async (file: FileNode, locale?: any) => {
     const shareUrl = file.url || file.previewUrl || window.location.href;
     await navigator.clipboard.writeText(shareUrl);
     message.success({
-      icon: <CheckOutlined style={{ fontSize: 16 }} />,
-      content: locale?.['workspace.file.linkCopied'] || '已复制链接',
+      icon: (
+        <Check
+          style={{
+            fontSize: 16,
+            marginRight: 8,
+            color: 'var(--color-green-control-fill-primary)',
+          }}
+        />
+      ),
+      content: (
+        <span
+          style={{
+            font: 'var(--font-text-body-emphasized-base)',
+            color: 'var(--color-gray-text-default)',
+          }}
+        >
+          {locale?.['workspace.file.linkCopied'] || '已复制链接'}
+        </span>
+      ),
     });
   } catch (error) {
     // 如果复制失败，显示错误提示
@@ -157,7 +167,14 @@ const SearchInput: FC<SearchInputProps> = React.memo(
             locale?.['workspace.searchPlaceholder'] ||
             '搜索文件名'
           }
-          prefix={<SearchOutlined />}
+          prefix={
+            <Search
+              style={{
+                color: 'var(--color-gray-text-secondary)',
+                fontSize: 16,
+              }}
+            />
+          }
           value={keyword ?? ''}
           onChange={(e) => onChange?.(e.target.value)}
         />
@@ -339,58 +356,43 @@ const FileItemComponent: FC<{
             onClick={(e) => e.stopPropagation()}
           >
             {showPreviewButton && (
-              <Tooltip
-                mouseEnterDelay={0.3}
+              <ActionIconBox
                 title={locale?.['workspace.file.preview'] || '预览'}
+                onClick={handlePreview}
+                tooltipProps={{ mouseEnterDelay: 0.3 }}
+                className={classNames(
+                  `${finalPrefixCls}-item-action-btn`,
+                  hashId,
+                )}
               >
-                <Button
-                  size="small"
-                  type="text"
-                  className={classNames(
-                    `${finalPrefixCls}-item-action-btn`,
-                    hashId,
-                  )}
-                  icon={<EyeIcon />}
-                  onClick={handlePreview}
-                  aria-label={locale?.['workspace.file.preview'] || '预览'}
-                />
-              </Tooltip>
+                <EyeIcon />
+              </ActionIconBox>
             )}
             {showShareButton && (
-              <Tooltip
-                mouseEnterDelay={0.3}
+              <ActionIconBox
                 title={locale?.['workspace.file.share'] || '分享'}
+                onClick={handleShare}
+                tooltipProps={{ mouseEnterDelay: 0.3 }}
+                className={classNames(
+                  `${finalPrefixCls}-item-action-btn`,
+                  hashId,
+                )}
               >
-                <Button
-                  size="small"
-                  type="text"
-                  className={classNames(
-                    `${finalPrefixCls}-item-action-btn`,
-                    hashId,
-                  )}
-                  icon={<ShareIcon />}
-                  onClick={handleShare}
-                  aria-label={locale?.['workspace.file.share'] || '分享'}
-                />
-              </Tooltip>
+                <ShareIcon />
+              </ActionIconBox>
             )}
             {showDownloadButton && (
-              <Tooltip
-                mouseEnterDelay={0.3}
+              <ActionIconBox
                 title={locale?.['workspace.file.download'] || '下载'}
+                onClick={handleDownload}
+                tooltipProps={{ mouseEnterDelay: 0.3 }}
+                className={classNames(
+                  `${finalPrefixCls}-item-action-btn`,
+                  hashId,
+                )}
               >
-                <Button
-                  size="small"
-                  type="text"
-                  className={classNames(
-                    `${finalPrefixCls}-item-action-btn`,
-                    hashId,
-                  )}
-                  icon={<DownloadIcon />}
-                  onClick={handleDownload}
-                  aria-label={locale?.['workspace.file.download'] || '下载'}
-                />
-              </Tooltip>
+                <DownloadIcon />
+              </ActionIconBox>
             )}
           </div>
         </>
@@ -405,7 +407,7 @@ const FileItemComponent: FC<{
 // 分组标题栏组件
 const GroupHeader: FC<{
   group: GroupNode;
-  onToggle?: (type: FileType, collapsed: boolean) => void;
+  onToggle?: (groupId: string, type: FileType, collapsed: boolean) => void;
   onGroupDownload?: (files: FileNode[], groupType: FileType) => void;
   prefixCls?: string;
   hashId?: string;
@@ -417,7 +419,7 @@ const GroupHeader: FC<{
   const groupType = group.type || groupTypeInfo.fileType;
 
   const handleToggle = () => {
-    onToggle?.(groupType, !group.collapsed);
+    onToggle?.(group.id!, groupType, !group.collapsed);
   };
 
   const handleDownload = (e: React.MouseEvent) => {
@@ -483,22 +485,17 @@ const GroupHeader: FC<{
               {group.children.length}
             </span>
             {showDownloadButton && (
-              <Tooltip
-                mouseEnterDelay={0.3}
+              <ActionIconBox
                 title={locale?.['workspace.file.download'] || '下载'}
+                onClick={handleDownload}
+                tooltipProps={{ mouseEnterDelay: 0.3 }}
+                className={classNames(
+                  `${finalPrefixCls}-group-action-btn`,
+                  hashId,
+                )}
               >
-                <Button
-                  size="small"
-                  type="text"
-                  className={classNames(
-                    `${finalPrefixCls}-group-action-btn`,
-                    hashId,
-                  )}
-                  icon={<DownloadIcon />}
-                  onClick={handleDownload}
-                  aria-label={`${locale?.['workspace.download'] || '下载'}${group.name}${locale?.['workspace.file'] || '文件'}`}
-                />
-              </Tooltip>
+                <DownloadIcon />
+              </ActionIconBox>
             )}
           </div>
         </>
@@ -513,7 +510,7 @@ const GroupHeader: FC<{
 // 文件分组组件
 const FileGroupComponent: FC<{
   group: GroupNode;
-  onToggle?: (type: FileType, collapsed: boolean) => void;
+  onToggle?: (groupId: string, type: FileType, collapsed: boolean) => void;
   onGroupDownload?: (files: FileNode[], groupType: FileType) => void;
   onDownload?: (file: FileNode) => void;
   onFileClick?: (file: FileNode) => void;
@@ -625,6 +622,8 @@ export const FileComponent: FC<{
   onToggleGroup?: FileProps['onToggleGroup'];
   onPreview?: FileProps['onPreview'];
   onBack?: FileProps['onBack'];
+  /** 重置标识，用于重置预览状态（内部使用） */
+  resetKey?: FileProps['resetKey'];
   /**
    * MarkdownEditor 的配置项，用于自定义预览效果
    * @description 这里的配置会覆盖默认的预览配置
@@ -632,6 +631,11 @@ export const FileComponent: FC<{
   markdownEditorProps?: Partial<
     Omit<MarkdownEditorProps, 'editorRef' | 'initValue' | 'readonly'>
   >;
+  /**
+   * 自定义预览页面右侧操作区域
+   * @description 可以是 ReactNode 或者根据文件返回 ReactNode 的函数
+   */
+  customActions?: React.ReactNode | ((file: FileNode) => React.ReactNode);
   actionRef?: FileProps['actionRef'];
   loading?: FileProps['loading'];
   loadingRender?: FileProps['loadingRender'];
@@ -653,7 +657,9 @@ export const FileComponent: FC<{
   onToggleGroup,
   onPreview,
   onBack,
+  resetKey,
   markdownEditorProps,
+  customActions,
   actionRef,
   loading,
   loadingRender,
@@ -681,6 +687,12 @@ export const FileComponent: FC<{
   >({});
   // 追踪预览请求的序号，避免异步竞态
   const previewRequestIdRef = useRef(0);
+  // 缓存节点 ID，避免每次渲染重新生成（使用 WeakMap 自动清理不再使用的节点）
+  const nodeIdCacheRef = useRef<WeakMap<FileNode | GroupNode, string>>(
+    new WeakMap(),
+  );
+
+  const safeNodes = nodes || [];
 
   // 使用 ConfigProvider 获取前缀类名
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -689,15 +701,24 @@ export const FileComponent: FC<{
 
   const { wrapSSR, hashId } = useFileStyle(prefixCls);
 
-  // 处理分组折叠/展开
-  const handleToggleGroup = (type: FileType, collapsed: boolean) => {
-    // 更新内部状态
-    setCollapsedGroups((prev) => ({
-      ...prev,
-      [type]: collapsed,
-    }));
-    // 如果外部提供了回调，也调用它
-    onToggleGroup?.(type, collapsed);
+  // 确保节点有稳定的唯一 ID（使用缓存）
+  const ensureNodeWithStableId = <T extends FileNode | GroupNode>(
+    node: T,
+  ): T => {
+    if (node.id) return { ...node };
+
+    // 尝试从缓存获取 ID
+    let cachedId = nodeIdCacheRef.current.get(node);
+    if (!cachedId) {
+      // 生成新 ID 并缓存
+      cachedId = generateUniqueId(node);
+      nodeIdCacheRef.current.set(node, cachedId);
+    }
+
+    return {
+      ...node,
+      id: cachedId,
+    };
   };
 
   // 返回列表（供预览页调用）
@@ -708,6 +729,63 @@ export const FileComponent: FC<{
     setCustomPreviewContent(null);
     setCustomPreviewHeader(null);
     setHeaderFileOverride(null);
+  };
+
+  // 监听 resetKey 变化，重置预览状态
+  useEffect(() => {
+    if (resetKey !== undefined && previewFile) {
+      // 当 resetKey 变化且当前处于预览状态时，重置预览状态
+      handleBackToList();
+    }
+  }, [resetKey]);
+
+  // 监听 nodes 变化，同步更新 previewFile
+  useEffect(() => {
+    if (!previewFile) return;
+
+    // 在所有节点中查找与当前预览文件匹配的文件
+    const findUpdatedFile = (
+      nodesList: (FileNode | GroupNode)[],
+    ): FileNode | null => {
+      for (const node of nodesList) {
+        if ('children' in node) {
+          // 分组节点，递归查找子节点
+          const found = findUpdatedFile(node.children);
+          if (found) return found;
+        } else {
+          // 文件节点，比较 ID 或文件引用
+          if (
+            (node.id && node.id === previewFile.id) ||
+            (node.name === previewFile.name && node.type === previewFile.type)
+          ) {
+            return node;
+          }
+        }
+      }
+      return null;
+    };
+
+    const updatedFile = findUpdatedFile(safeNodes);
+
+    // 如果找到了更新的文件，更新 previewFile
+    if (updatedFile) {
+      setPreviewFile(updatedFile);
+    }
+  }, [nodes]);
+
+  // 处理分组折叠/展开
+  const handleToggleGroup = (
+    groupId: string,
+    type: FileType,
+    collapsed: boolean,
+  ) => {
+    // 更新内部状态，使用 groupId 作为 key
+    setCollapsedGroups((prev) => ({
+      ...prev,
+      [groupId]: collapsed,
+    }));
+    // 如果外部提供了回调，也调用它
+    onToggleGroup?.(type, collapsed);
   };
 
   // 包装后的返回逻辑，允许外部拦截
@@ -821,7 +899,7 @@ export const FileComponent: FC<{
     if (!actionRef) return;
     actionRef.current = {
       openPreview: (file: FileNode) => {
-        const fileWithId = ensureNodeWithId(file);
+        const fileWithId = ensureNodeWithStableId(file);
         void handlePreview(fileWithId);
       },
       backToList: () => {
@@ -836,7 +914,6 @@ export const FileComponent: FC<{
     };
   }, [actionRef, handlePreview, handleBackToList]);
 
-  const safeNodes = nodes || [];
   const hasKeyword = Boolean((keyword ?? '').trim());
 
   // 渲染搜索框组件 - 确保在所有情况下都保持一致
@@ -912,6 +989,11 @@ export const FileComponent: FC<{
           }}
           customContent={customPreviewContent || undefined}
           customHeader={customPreviewHeader || undefined}
+          customActions={
+            typeof customActions === 'function'
+              ? customActions(previewFile)
+              : customActions
+          }
           headerFileOverride={headerFileOverride || undefined}
           markdownEditorProps={markdownEditorProps}
         />
@@ -939,17 +1021,15 @@ export const FileComponent: FC<{
     }
 
     return safeNodes.map((node: FileNode | GroupNode) => {
-      const nodeWithId = ensureNodeWithId(node);
+      const nodeWithId = ensureNodeWithStableId(node);
 
       if ('children' in nodeWithId) {
         // 分组节点，使用内部状态覆盖外部的 collapsed 属性
-        const nodeTypeInfo = fileTypeProcessor.inferFileType(nodeWithId);
-        const groupType = nodeWithId.type || nodeTypeInfo.fileType;
         const groupNode: GroupNode = {
           ...nodeWithId,
-          collapsed: collapsedGroups[groupType] ?? nodeWithId.collapsed,
+          collapsed: collapsedGroups[nodeWithId.id!] ?? nodeWithId.collapsed,
           // 确保子节点也有唯一ID
-          children: nodeWithId.children.map(ensureNodeWithId),
+          children: nodeWithId.children.map(ensureNodeWithStableId),
         };
         return (
           <FileGroupComponent

@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { BubbleBeforeNode } from '../../src/Bubble/before';
+import { BubbleBeforeNode } from '../../src/Bubble/BubbleBeforeNode';
 import { BubbleConfigContext } from '../../src/Bubble/BubbleConfigProvide';
 
 // Mock ThoughtChainList 组件

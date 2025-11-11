@@ -3,8 +3,8 @@
  * 展示HTML和Markdown代码块的源码和预览模式切换功能
  */
 
+import { MarkdownEditor } from '@ant-design/agentic-ui';
 import React from 'react';
-import { MarkdownEditor } from '../../src';
 
 const htmlCode = `<div style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px;">
   <h2>HTML 预览演示</h2>

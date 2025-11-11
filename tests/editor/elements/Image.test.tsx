@@ -13,7 +13,7 @@ vi.mock('../../../src/MarkdownEditor/editor/store', () => ({
 }));
 
 // Mock the i18n context
-vi.mock('../../../src/i18n', () => ({
+vi.mock('../../../src/I18n', () => ({
   I18nContext: {
     Consumer: ({ children }: { children: any }) =>
       children({

@@ -2,7 +2,10 @@ import {
   ChatTokenType,
   GenerateStyle,
   useEditorStyleRegister,
-} from '../hooks/useStyle';
+} from '../Hooks/useStyle';
+
+const LIGHT_MODE_BACKGROUND = 'rgba(255, 255, 255, 0.65)';
+const LIGHT_MODE_BACKDROP_FILTER = 'blur(12px)';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -14,16 +17,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       border: 'var(--color-gray-border-light)',
       boxShadow: 'var(--shadow-border-base)',
       minHeight: '20px',
-      width: 'max-content',
+      width: 'auto',
       transition: 'padding 0.2s ease',
       display: 'flex',
       alignItems: 'center',
       flexDirection: 'column',
       gap: '8px',
       zIndex: 1,
-      maxWidth: 'min(800px,100%)',
       padding: '2px',
       paddingRight: '4px',
+      marginBottom: '12px',
+
       '*': {
         boxSizing: 'border-box',
       },
@@ -31,15 +35,35 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         background: 'var(--color-gray-control-fill-active)',
         boxSizing: 'border-box',
         boxShadow: 'var(--shadow-card-base)',
+        [`${token.componentCls}-floating-expand`]: {
+          opacity: 1,
+          transform: 'translateY(0)',
+        },
       },
-      '&-expanded': {
-        borderRadius: '14px',
+      '&-expanded:not(&-light)': {
+        borderRadius: 'var(--radius-card-base)',
         padding: 4,
         gap: 0,
         outline: 'none',
         '&:hover': {
           background: 'var(--color-gray-bg-card-light)',
           boxShadow: 'var(--shadow-border-base)',
+        },
+      },
+      '&-light': {
+        boxShadow: 'none',
+        border: 'none',
+        borderRadius: '14px',
+        padding: 4,
+        background: LIGHT_MODE_BACKGROUND,
+        backdropFilter: LIGHT_MODE_BACKDROP_FILTER,
+        WebkitBackdropFilter: LIGHT_MODE_BACKDROP_FILTER,
+        '&:hover': {
+          background: 'none',
+          boxShadow: 'none',
+          [`${token.componentCls}-header-left-icon-light`]: {
+            color: 'var(--color-gray-text-secondary)',
+          },
         },
       },
       '&-loading': {
@@ -50,7 +74,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&:hover': {
           background: 'var(--color-gray-bg-card-white)',
           boxSizing: 'border-box',
-          boxShadow: 'var(--shadow-card-base)',
+          boxShadow:
+            '0px 0px 1px 0px rgba(0, 19, 41, 0.05),0px 2px 7px 0px rgba(0, 19, 41, 0.05),0px 2px 5px -2px rgba(0, 19, 41, 0.06)',
         },
       },
       '&-success': {
@@ -59,8 +84,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         boxShadow: 'inset 0px 0px 1px 0px rgba(0, 19, 41, 0.15)',
       },
       '&-bar': {
-        borderRadius: '12px',
-        minHeight: '28px',
+        borderRadius: 'var(--radius-card-base)',
+        minHeight: '24px',
         width: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -69,12 +94,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       '&-header': {
-        height: 28,
+        height: 24,
         display: 'flex',
         alignItems: 'center',
         gap: 8,
         flex: 1,
         justifyContent: 'space-between',
+        '&-light': {
+          gap: 4,
+        },
       },
 
       '&-header-left': {
@@ -84,7 +112,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-icon': {
           font: 'var(--font-text-body-emphasized-base)',
           color: 'var(--color-gray-text-default)',
-          width: 20,
           height: 20,
           display: 'flex',
           alignItems: 'center',
@@ -92,6 +119,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           borderRadius: 'var(--radius-control-sm)',
           '&:hover': {
             backgroundColor: 'var(--color-gray-control-fill-hover)',
+          },
+          '&-light': {
+            color: 'var(--color-gray-text-light)',
+            '&:hover': {
+              color: 'var(--color-gray-text-secondary)',
+            },
           },
         },
       },
@@ -106,11 +139,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: 'var(--font-size-base)',
         cursor: 'pointer',
         borderRadius: '12px',
-        transition: 'all 0.2s ease',
-        '&:hover': {
-          background: 'rgba(20, 22, 28, 0.06)',
-          color: '#959DA8',
-        },
+        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
       },
 
       '&-name': {
@@ -120,7 +149,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
         color: 'var(--color-gray-text-secondary)',
         '&-light': {
-          color: 'var(--color-gray-text-default)',
+          color: 'var(--color-gray-text-secondary)',
+          '&:hover': {
+            color: 'var(--color-gray-text)',
+          },
         },
       },
 
@@ -187,12 +219,17 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         padding: 8,
         display: 'flex',
         maxHeight: 700,
+        overflow: 'hidden',
+        overflowY: 'auto',
         position: 'relative',
         '&-light': {
           borderLeft: '1px solid var(--color-gray-border-light)',
           paddingLeft: 12,
           marginLeft: 16,
           marginTop: -10,
+          background: LIGHT_MODE_BACKGROUND,
+          backdropFilter: LIGHT_MODE_BACKDROP_FILTER,
+          WebkitBackdropFilter: LIGHT_MODE_BACKDROP_FILTER,
         },
       },
       '&-container-loading': {
@@ -258,7 +295,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         justifyContent: 'center',
         height: '32px',
-        color: '#767E8B',
+        gap: 4,
         fontSize: 'var(--font-size-base)',
         cursor: 'pointer',
         borderRadius: '20px',
@@ -266,11 +303,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         backdropFilter: 'blur(8px)',
         border: '1px solid rgba(0, 19, 41, 0.1)',
         boxShadow: '0px 2px 8px rgba(0, 19, 41, 0.15)',
-        transition: 'all 0.2s ease',
+        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
+        font: 'var(--font-text-body-emphasized-base)',
+        color: 'var(--color-gray-text-default)',
         padding: '16px 5px',
         zIndex: 10,
+        transform: 'translateY(100%)',
+        opacity: 0,
+        '&:hover': {
+          boxShadow: 'var(--shadow-popover-base)',
+        },
         '&:active': {
           transform: 'translateY(0px)',
+        },
+        '&-hover-visible': {
+          opacity: 1,
+          transform: 'translateY(0)',
         },
       },
     },

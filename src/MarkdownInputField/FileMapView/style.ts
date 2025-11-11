@@ -1,15 +1,16 @@
-﻿import {
+import {
   ChatTokenType,
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../../hooks/useStyle';
+} from '../../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [`${token.componentCls}`]: {
       maxWidth: '100%',
       display: 'flex',
+      minWidth: '0px',
       flexDirection: 'column',
       flexWrap: 'nowrap',
       overflow: 'auto',
@@ -26,9 +27,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-vertical': {
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
         alignItems: 'flex-start',
-        gap: 2,
+        gap: 4,
+        maxWidth: 'calc(285px * 3 + 4px * 2)', // 3列：每列285px，间距4px
       },
       '&::-webkit-scrollbar': {
         width: 6,
@@ -65,22 +68,40 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         },
       },
       [`${token.antCls}-image-mask`]: {
-        borderRadius: 'var(--radius-control-base)',
+        borderRadius: 'var(--radius-card-base)',
       },
       img: {
         objectFit: 'cover',
       },
       '&-image': {
-        borderRadius: 'var(--radius-control-base)',
         opacity: 1,
         background: 'var(--color-gray-bg-card-white)',
         boxSizing: 'border-box',
         boxShadow: 'var(--shadow-control-base)',
-        border: 'var(--color-gray-border-light)',
-        padding: 6,
+        borderRadius: 'var(--radius-card-base)',
+        border: 'none',
+        overflow: 'hidden',
+        img: {
+          maxWidth: '100%',
+          maxHeight: '100%',
+          borderRadius: 'inherit',
+          transition: 'transform 0.3s',
+        },
+        '&:hover': {
+          overflow: 'hidden',
+          img: {
+            transform: 'scale(1.1)',
+            transition: 'transform 0.3s',
+          },
+        },
+      },
+      '&-image-list-view': {
+        background: 'var(--color-gray-bg-tip)',
+        padding: '4px',
+        borderRadius: 'var(--radius-card-base)',
       },
       '&-more-file-container': {
-        width: '294px',
+        width: '285px',
         height: '56px',
         borderRadius: 'var(--radius-card-base)',
         background: 'var(--color-gray-bg-card-white)',
@@ -101,11 +122,10 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
       '&-more-file-name': {
         font: 'var(--font-size-h6)',
-        letterSpacing: 'var(--letter-spacing-h6-base, normal)',
         color: 'var(--color-gray-text-secondary)',
       },
       '&-item': {
-        width: '294px',
+        width: '285px',
         height: '56px',
         borderRadius: 'var(--radius-card-base)',
         opacity: 1,
@@ -158,6 +178,30 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           height: '40px',
           opacity: 1,
           overflow: 'hidden',
+          '&-img': {
+            width: '40px',
+            height: '40px',
+            opacity: 1,
+            background: 'var(--color-gray-bg-card-white)',
+            boxSizing: 'border-box',
+            boxShadow: 'var(--shadow-control-base)',
+            borderRadius: 'var(--radius-base)',
+            border: 'none',
+            overflow: 'hidden',
+            img: {
+              maxWidth: '100%',
+              maxHeight: '100%',
+              borderRadius: 'inherit',
+              transition: 'transform 0.3s',
+            },
+            '&:hover': {
+              overflow: 'hidden',
+              img: {
+                transform: 'scale(1.1)',
+                transition: 'transform 0.3s',
+              },
+            },
+          },
           '> svg': {
             width: '40px',
             height: '40px',
@@ -172,20 +216,25 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-file-name': {
           color: 'var(--color-gray-text-default)',
           fontSize: 'var(--font-text-h6-base)',
-          width: '160px',
+          width: '150px',
           alignItems: 'center',
           lineHeight: '18px',
           fontFamily: token.fontFamily,
           gap: -1,
+          display: 'flex',
+          overflow: 'hidden',
           '&-text': {
-            maxWidth: '160px',
-            whiteSpace: 'nowrap',
+            maxWidth: '150px',
+            whiteSpace: 'nowrap !important',
+            wordWrap: 'normal',
+            wordBreak: 'keep-all',
             width: '100%',
             overflow: 'hidden',
             display: 'inline-block',
             textOverflow: 'ellipsis',
             height: 18,
             lineHeight: 1,
+            verticalAlign: 'top',
           },
         },
         '&-file-name-extension-container': {

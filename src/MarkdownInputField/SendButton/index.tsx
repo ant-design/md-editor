@@ -1,9 +1,9 @@
-﻿import { ConfigProvider } from 'antd';
+import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { useContext, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { CircleStop } from '../../icons';
+import { StopIcon } from '../../AgentRunBar/icons';
 import { useStyle } from './style';
 
 function SendIcon(
@@ -14,11 +14,14 @@ function SendIcon(
     onInit?: () => void;
   },
 ) {
+  const { hover, typing, onInit, ...rest } = props;
+
   useEffect(() => {
-    props.onInit?.();
+    onInit?.();
   }, []);
-  if (props.typing) {
-    return <CircleStop />;
+
+  if (typing) {
+    return <StopIcon {...rest} />;
   }
   return (
     <svg
@@ -27,15 +30,15 @@ function SendIcon(
       width="1em"
       height="1em"
       viewBox="0 0 32 32"
-      {...props}
+      {...rest}
     >
       <motion.circle
         cx="50%"
         cy="50%"
         r="0.5em"
         animate={{
-          fill: props.hover ? '#14161C' : '#001C39',
-          fillOpacity: props.hover ? 1 : 0.03530000150203705,
+          fill: hover ? '#14161C' : '#001C39',
+          fillOpacity: hover ? 1 : 0.03530000150203705,
         }}
         transition={{
           duration: 0.6,
@@ -47,8 +50,8 @@ function SendIcon(
           d="M16.667 12.943l3.528 3.528a.667.667 0 00.943-.942l-4.666-4.667a.665.665 0 00-.943 0l-4.667 4.667a.667.667 0 10.943.942l3.528-3.528v7.724a.667.667 0 101.334 0v-7.724z"
           fillRule="evenodd"
           animate={{
-            fill: props.hover ? '#fff' : '#00183D',
-            fillOpacity: props.hover ? 1 : 0.24709999561309814,
+            fill: hover ? '#fff' : '#00183D',
+            fillOpacity: hover ? 1 : 0.24709999561309814,
           }}
           transition={{
             duration: 0.2,
@@ -149,7 +152,7 @@ export const SendButton: React.FC<SendButtonProps> = (props) => {
     props.onInit?.();
   }, []);
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const baseCls = getPrefixCls('md-input-field-send-button');
+  const baseCls = getPrefixCls('agentic-md-input-field-send-button');
   const { wrapSSR, hashId } = useStyle(baseCls);
 
   if (
@@ -172,7 +175,9 @@ export const SendButton: React.FC<SendButtonProps> = (props) => {
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
+        if (disabled) return;
         if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault(); // 防止键盘事件触发 click 事件
           onClick();
         }
       }}

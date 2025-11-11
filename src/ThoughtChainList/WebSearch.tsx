@@ -2,8 +2,8 @@
 import { Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
 import { WhiteBoxProcessInterface } from '.';
-import { LoadingSpinnerIcon } from '../components/icons/LoadingSpinnerIcon';
-import { I18nContext } from '../i18n';
+import { LoadingSpinnerIcon } from '../Components/icons/LoadingSpinnerIcon';
+import { I18nContext } from '../I18n';
 import { MarkdownEditorProps } from '../MarkdownEditor';
 import { DotLoading } from './DotAni';
 import { MarkdownEditorUpdate } from './MarkdownEditor';
@@ -130,16 +130,29 @@ export const WebSearch = (
                 }}
                 className="code-view"
               >
-                <MarkdownEditorUpdate
-                  {...props.markdownRenderProps}
-                  isFinished={props.isFinished}
-                  typewriter={
-                    !props.output?.response?.error &&
-                    !props.isFinished &&
-                    props.output?.type === 'TOKEN'
-                  }
-                  initValue={props.output?.data?.replace('>', '')}
-                />
+                {props.output?.data ? (
+                  <MarkdownEditorUpdate
+                    {...props.markdownRenderProps}
+                    isFinished={props.isFinished}
+                    typewriter={
+                      !props.output?.response?.error &&
+                      !props.isFinished &&
+                      props.output?.type === 'TOKEN'
+                    }
+                    initValue={props.output.data.replace(/^>/, '')}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      padding: '16px',
+                      textAlign: 'center',
+                      color: '#999',
+                      fontSize: '14px',
+                    }}
+                  >
+                    {i18n?.locale?.['webSearch.noResults'] || '无搜索结果'}
+                  </div>
+                )}
               </div>
             </div>
           ) : null}
@@ -178,8 +191,9 @@ export const WebSearch = (
                     }}
                   />
                   <Typography.Text>
-                    {i18n?.locale?.taskExecutionFailed ||
-                      '任务执行失败，需要修改'}
+                    {i18n?.locale?.['webSearch.searchFailed'] ||
+                      i18n?.locale?.taskExecutionFailed ||
+                      '搜索失败，需要修改'}
                   </Typography.Text>
                 </div>
                 <Typography

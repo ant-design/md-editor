@@ -1,77 +1,12 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { describe, expect, it, vi } from 'vitest';
-import { Loading } from '../../src/components/Loading';
+import { describe, expect, it } from 'vitest';
+import { Loading } from '../../src/Components/Loading';
 
-// Mock useStyle hook
-vi.mock('../../src/components/Loading/style', () => ({
-  useStyle: () => ({
-    wrapSSR: (children: React.ReactNode) => children,
-    hashId: 'test-hash-id',
-  }),
-}));
+describe('Loading 组件', () => {
+  it('应该渲染加载组件', () => {
+    render(<Loading />);
 
-describe('Loading', () => {
-  it('should render loading container', () => {
-    const { container } = render(<Loading />);
-    const loadingContainer = container.querySelector(
-      '[data-testid="loading-container"]',
-    );
-
-    expect(loadingContainer).toBeInTheDocument();
-  });
-
-  it('should render three loading items', () => {
-    const { container } = render(<Loading />);
-    const loadingItems = container.querySelectorAll(
-      '[data-testid="loading-item"]',
-    );
-
-    expect(loadingItems).toHaveLength(3);
-  });
-
-  it('should apply hashId to container and items', () => {
-    const { container } = render(<Loading />);
-    const loadingContainer = container.querySelector(
-      '[data-testid="loading-container"]',
-    );
-    const loadingItems = container.querySelectorAll(
-      '[data-testid="loading-item"]',
-    );
-
-    expect(loadingContainer).toHaveClass('test-hash-id');
-    loadingItems.forEach((item) => {
-      expect(item).toHaveClass('test-hash-id');
-    });
-  });
-
-  it('should have correct class names', () => {
-    const { container } = render(<Loading />);
-    const loadingContainer = container.querySelector(
-      '[data-testid="loading-container"]',
-    );
-    const loadingItems = container.querySelectorAll(
-      '[data-testid="loading-item"]',
-    );
-
-    expect(loadingContainer).toHaveClass('ant-loading-container');
-    loadingItems.forEach((item) => {
-      expect(item).toHaveClass('ant-loading-container-item');
-    });
-  });
-
-  it('should render as a loading animation container', () => {
-    const { container } = render(<Loading />);
-    const loadingContainer = container.querySelector(
-      '[data-testid="loading-container"]',
-    );
-
-    // 检查容器结构
-    expect(loadingContainer?.children).toHaveLength(3);
-
-    // 检查每个子元素都是div
-    Array.from(loadingContainer?.children || []).forEach((child) => {
-      expect(child.tagName).toBe('DIV');
-    });
+    expect(screen.getByTestId('lottie-animation')).toBeInTheDocument();
   });
 });

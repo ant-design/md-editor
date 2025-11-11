@@ -66,27 +66,21 @@ vi.mock('../../../../src/MarkdownEditor/editor/elements/Image', () => ({
   ),
 }));
 
-vi.mock(
-  '../../../../src/MarkdownEditor/editor/components/ActionIconBox',
-  () => ({
-    ActionIconBox: ({ children, ...props }: any) => (
-      <div data-testid="action-icon-box" {...props}>
-        {children}
-      </div>
-    ),
-  }),
-);
+vi.mock('../../../../src/Components/ActionIconBox', () => ({
+  ActionIconBox: ({ children, ...props }: any) => (
+    <div data-testid="action-icon-box" {...props}>
+      {children}
+    </div>
+  ),
+}));
 
-vi.mock(
-  '../../../../src/MarkdownEditor/editor/components/ContributorAvatar',
-  () => ({
-    AvatarList: ({ children, ...props }: any) => (
-      <div data-testid="avatar-list" {...props}>
-        {children}
-      </div>
-    ),
-  }),
-);
+vi.mock('../../../../src/Components/ContributorAvatar', () => ({
+  AvatarList: ({ children, ...props }: any) => (
+    <div data-testid="avatar-list" {...props}>
+      {children}
+    </div>
+  ),
+}));
 
 vi.mock('@ant-design/pro-components', () => ({
   useDebounceFn: vi.fn((fn) => ({
@@ -340,6 +334,177 @@ describe('Media', () => {
 
       const resizeImage = screen.getByTestId('resize-image');
       expect(resizeImage).toHaveAttribute('alt', 'image');
+    });
+  });
+
+  describe('附件类型测试', () => {
+    it('应该渲染附件元素', () => {
+      const attachmentElement: MediaNode = {
+        ...mockElement,
+        url: 'https://example.com/attachment.pdf',
+        alt: 'attachment:document.pdf',
+        otherProps: {
+          updateTime: '2024-10-16',
+          collaborators: [{ 'User A': 5 }, { 'User B': 3 }],
+        },
+      };
+
+      const mockedUseGetSetState = vi.mocked(utils.useGetSetState);
+      const attachmentStateData = {
+        height: 300,
+        dragging: false,
+        loadSuccess: true,
+        url: 'https://example.com/attachment.pdf',
+        selected: false,
+        type: 'attachment',
+      };
+      mockedUseGetSetState.mockReturnValueOnce([
+        () => attachmentStateData,
+        vi.fn((updates) => Object.assign(attachmentStateData, updates)),
+      ]);
+
+      renderWithProvider(
+        <Media element={attachmentElement} attributes={mockAttributes}>
+          {null}
+        </Media>,
+      );
+
+      expect(screen.getByText('document.pdf')).toBeInTheDocument();
+      expect(screen.getByText('2024-10-16')).toBeInTheDocument();
+      // AvatarList 会渲染，检查是否存在 avatar 元素
+      expect(
+        document.querySelector('.ant-agentic-contributor-avatar-list'),
+      ).toBeInTheDocument();
+    });
+
+    it('应该处理没有协作者和更新时间的附件', () => {
+      const attachmentElement: MediaNode = {
+        ...mockElement,
+        url: 'https://example.com/attachment.pdf',
+        alt: 'attachment:document.pdf',
+      };
+
+      const mockedUseGetSetState = vi.mocked(utils.useGetSetState);
+      const attachmentStateData = {
+        height: 300,
+        dragging: false,
+        loadSuccess: true,
+        url: 'https://example.com/attachment.pdf',
+        selected: false,
+        type: 'attachment',
+      };
+      mockedUseGetSetState.mockReturnValueOnce([
+        () => attachmentStateData,
+        vi.fn((updates) => Object.assign(attachmentStateData, updates)),
+      ]);
+
+      renderWithProvider(
+        <Media element={attachmentElement} attributes={mockAttributes}>
+          {null}
+        </Media>,
+      );
+
+      expect(screen.getByText('document.pdf')).toBeInTheDocument();
+    });
+  });
+
+  describe('ResizeImage边界情况测试', () => {
+    it('应该显示加载状态', () => {
+      renderWithProvider(
+        <ResizeImage
+          src="https://example.com/loading-image.jpg"
+          onResizeStart={vi.fn()}
+          onResizeStop={vi.fn()}
+        />,
+      );
+
+      // 在图片加载前应该显示加载图标
+      const container = screen.getByTestId('resize-image-container');
+      expect(container).toBeInTheDocument();
+    });
+
+    it('应该设置默认尺寸', () => {
+      const customSize = { width: 800, height: 600 };
+      renderWithProvider(
+        <ResizeImage
+          src="https://example.com/image.jpg"
+          defaultSize={customSize}
+          onResizeStart={vi.fn()}
+          onResizeStop={vi.fn()}
+        />,
+      );
+
+      const resizeImage = screen.getByTestId('resize-image');
+      expect(resizeImage).toBeInTheDocument();
+    });
+
+    it('应该在选中时显示视觉反馈', () => {
+      renderWithProvider(
+        <ResizeImage
+          src="https://example.com/image.jpg"
+          selected={true}
+          onResizeStart={vi.fn()}
+          onResizeStop={vi.fn()}
+        />,
+      );
+
+      const resizeImage = screen.getByTestId('resize-image');
+      expect(resizeImage).toHaveStyle({
+        outline: '2px solid #1890ff',
+        boxShadow: '0 0 0 2px #1890ff',
+      });
+    });
+  });
+
+  describe('交互事件测试', () => {
+    it('应该阻止拖拽事件', () => {
+      renderWithProvider(
+        <Media element={mockElement} attributes={mockAttributes}>
+          {null}
+        </Media>,
+      );
+
+      const mediaContainer = screen.getByTestId('media-container');
+      const dragEvent = new Event('dragstart', { bubbles: true });
+      const preventDefaultSpy = vi.spyOn(dragEvent, 'preventDefault');
+      const stopPropagationSpy = vi.spyOn(dragEvent, 'stopPropagation');
+
+      mediaContainer.dispatchEvent(dragEvent);
+
+      expect(preventDefaultSpy).toHaveBeenCalled();
+      expect(stopPropagationSpy).toHaveBeenCalled();
+    });
+
+    it('应该处理右键菜单事件', () => {
+      renderWithProvider(
+        <Media element={mockElement} attributes={mockAttributes}>
+          {null}
+        </Media>,
+      );
+
+      const mediaContainer = screen.getByTestId('media-container');
+      const contextMenuEvent = new MouseEvent('contextmenu', { bubbles: true });
+      const stopPropagationSpy = vi.spyOn(contextMenuEvent, 'stopPropagation');
+
+      mediaContainer.dispatchEvent(contextMenuEvent);
+
+      expect(stopPropagationSpy).toHaveBeenCalled();
+    });
+
+    it('应该处理鼠标按下事件', () => {
+      renderWithProvider(
+        <Media element={mockElement} attributes={mockAttributes}>
+          {null}
+        </Media>,
+      );
+
+      const mediaContainer = screen.getByTestId('media-container');
+      const mouseDownEvent = new MouseEvent('mousedown', { bubbles: true });
+      const stopPropagationSpy = vi.spyOn(mouseDownEvent, 'stopPropagation');
+
+      mediaContainer.dispatchEvent(mouseDownEvent);
+
+      expect(stopPropagationSpy).toHaveBeenCalled();
     });
   });
 });

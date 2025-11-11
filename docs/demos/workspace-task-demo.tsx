@@ -1,5 +1,5 @@
+import { Workspace } from '@ant-design/agentic-ui';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Workspace } from '@ant-design/md-editor';
 import React, { useEffect, useState } from 'react';
 
 const WorkspaceTaskDemo: React.FC = () => {

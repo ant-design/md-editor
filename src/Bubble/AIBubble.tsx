@@ -1,11 +1,12 @@
-import { memo, MutableRefObject, useContext, useMemo } from 'react';
+import { memo, MutableRefObject, useContext } from 'react';
 
+import { Loader } from '@sofa-design/icons';
 import { ConfigProvider, Flex } from 'antd';
 import cx from 'classnames';
 import React from 'react';
-import { Loader } from '../icons';
+import { WhiteBoxProcessInterface } from '../ThoughtChainList/types';
 import { BubbleAvatar } from './Avatar';
-import { BubbleBeforeNode } from './before';
+import { BubbleBeforeNode } from './BubbleBeforeNode';
 import { BubbleConfigContext } from './BubbleConfigProvide';
 import { BubbleFileView } from './FileView';
 import { BubbleMessageDisplay } from './MessagesContent';
@@ -15,62 +16,64 @@ import { useStyle } from './style';
 import { BubbleTitle } from './Title';
 import type { BubbleMetaData, BubbleProps } from './type';
 
+const AI_PLACEMENT = 'left' as const;
+
 export const runRender = (
   render: any,
   props: BubbleProps,
-  defaultDom:
-    | string
-    | number
-    | boolean
-    | Iterable<React.ReactNode>
-    | React.JSX.Element
-    | null
-    | undefined,
+  defaultDom: React.ReactNode,
   ...rest: undefined[]
 ) => {
-  if (render) {
-    return render(props, defaultDom, ...rest);
-  }
-  return defaultDom;
+  return render ? render(props, defaultDom, ...rest) : defaultDom;
+};
+
+const isTyping = (originData: any) => {
+  return (
+    originData?.isAborted !== true &&
+    originData?.isFinished === false &&
+    originData?.extra?.isHistory === undefined &&
+    originData?.isFinished !== undefined
+  );
+};
+
+const isSameRoleAsPrevious = (preMessage: any, originData: any) => {
+  if (!preMessage?.role || !originData?.role) return false;
+  return preMessage.role === originData.role;
+};
+
+const getTaskList = (originData: any): WhiteBoxProcessInterface[] => {
+  return (
+    [originData?.extra?.white_box_process].flat(2) as WhiteBoxProcessInterface[]
+  ).filter((item) => item?.info);
+};
+
+const shouldRenderBeforeContent = (
+  placement: string,
+  role: string | undefined,
+  thoughtChainConfig: any,
+  taskListLength: number,
+) => {
+  if (placement !== 'left') return false;
+  if (role === 'bot') return false;
+  if (thoughtChainConfig?.enable === false) return false;
+  if (taskListLength < 1 && !thoughtChainConfig?.alwaysRender) return false;
+  return true;
 };
 
 /**
- * AIBubble 组件 - AI消息气泡组件
+ * AIBubble 组件
  *
- * 该组件专门用于显示AI助手发送的消息，采用左侧布局，支持完整的交互功能。
- * AI消息通常需要显示头像、标题、加载状态、以及各种操作按钮（点赞、点踩、复制等）。
- *
- * @component
- * @description AI消息气泡组件，专门处理AI助手发送的消息
- * @param {BubbleProps & {deps?: any[], bubbleRef?: MutableRefObject<any>}} props - 组件属性
- * @param {string} [props.placement='left'] - 气泡位置，固定为 'left'
- * @param {BubbleAvatarProps} [props.avatar] - 头像配置
- * @param {string | number | Date} [props.time] - 消息时间
- * @param {React.ReactNode} [props.children] - 消息内容
- * @param {string} [props.className] - 自定义CSS类名
- * @param {React.CSSProperties} [props.style] - 自定义样式
- * @param {BubbleRenderConfig} [props.bubbleRenderConfig] - 气泡渲染配置
- * @param {BubbleClassNames} [props.classNames] - 自定义类名配置
- * @param {BubbleStyles} [props.styles] - 自定义样式配置
- * @param {Function} [props.onAvatarClick] - 头像点击回调
- * @param {any[]} [props.deps] - 依赖数组
- * @param {MutableRefObject} [props.bubbleRef] - 气泡引用
+ * 显示AI助手发送的消息，采用左侧布局，支持完整交互功能
  *
  * @example
  * ```tsx
  * <AIBubble
- *   avatar={{
- *     avatar: "https://example.com/ai.jpg",
- *     title: "AI助手"
- *   }}
+ *   avatar={{ avatar: "url", title: "AI助手" }}
  *   time={new Date()}
- *   style={itemStyle}
  * >
- *   这是AI助手的回复
+ *   AI回复内容
  * </AIBubble>
  * ```
- *
- * @returns {React.ReactElement} 渲染的AI消息气泡组件
  */
 export const AIBubble: React.FC<
   BubbleProps & {
@@ -85,94 +88,51 @@ export const AIBubble: React.FC<
     bubbleRenderConfig,
     classNames,
     styles,
+    originData,
+    preMessage,
   } = props;
-
-  const typing = useMemo(() => {
-    return (
-      props.originData?.isAborted !== true &&
-      props.originData?.isFinished === false &&
-      props?.originData?.extra?.isHistory === undefined &&
-      props.originData?.isFinished !== undefined
-    );
-  }, [
-    props.originData?.isAborted,
-    props.originData?.isFinished,
-    props.originData?.extra?.isHistory,
-  ]);
-
-  const preMessageSameRole = useMemo(() => {
-    if (
-      props.preMessage?.role === undefined ||
-      props.originData?.role === undefined
-    ) {
-      return false;
-    }
-    return props.preMessage?.role === props.originData?.role;
-  }, [props.preMessage, props.originData]);
 
   const [hidePadding, setHidePadding] = React.useState(false);
 
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const context = useContext(BubbleConfigContext);
+  const { compact, standalone, locale } = context || {};
 
-  const { compact, standalone, locale } = useContext(BubbleConfigContext) || {};
-
-  const prefixClass = getPrefixCls('agent');
-
-  const time = props?.originData?.createAt || props.time;
-  const avatar = props?.originData?.meta || props.avatar;
-
+  const prefixClass = getPrefixCls('agentic');
   const { wrapSSR, hashId } = useStyle(prefixClass);
 
-  // AI消息的 placement 固定为 'left'
-  const placement = 'left';
+  const typing = isTyping(originData);
+  const preMessageSameRole = isSameRoleAsPrevious(preMessage, originData);
+  const time = originData?.createAt || props.time;
+  const avatar = originData?.meta || props.avatar;
+  const placement = AI_PLACEMENT;
 
-  const titleDom = useMemo(() => {
-    return runRender(
-      bubbleRenderConfig?.titleRender,
-      props,
-      <BubbleTitle
-        bubbleNameClassName={classNames?.bubbleNameClassName}
-        className={classNames?.bubbleListItemTitleClassName}
-        style={styles?.bubbleListItemTitleStyle}
-        prefixClass={cx(`${prefixClass}-bubble-title`)}
-        title={avatar?.title || avatar?.name}
-        placement={placement}
-        time={time}
-      />,
-    );
-  }, [
+  const titleDom = runRender(
     bubbleRenderConfig?.titleRender,
-    classNames?.bubbleListItemTitleClassName,
-    props.originData?.updateAt,
-    time,
-    styles?.bubbleListItemTitleStyle,
-    avatar?.title,
-    placement,
-  ]);
+    props,
+    <BubbleTitle
+      bubbleNameClassName={classNames?.bubbleNameClassName}
+      className={classNames?.bubbleListItemTitleClassName}
+      style={styles?.bubbleListItemTitleStyle}
+      prefixClass={cx(`${prefixClass}-bubble-title`)}
+      title={avatar?.title || avatar?.name}
+      placement={placement}
+      time={time}
+    />,
+  );
 
-  const avatarDom = useMemo(
-    () =>
-      runRender(
-        bubbleRenderConfig?.avatarRender,
-        props,
-        <BubbleAvatar
-          className={classNames?.bubbleListItemAvatarClassName}
-          avatar={avatar?.avatar}
-          background={avatar?.backgroundColor}
-          title={avatar?.title || avatar?.name}
-          onClick={onAvatarClick}
-          prefixCls={`${prefixClass}-bubble-avatar`}
-          style={styles?.bubbleListItemAvatarStyle}
-        />,
-      ),
-    [
-      avatar?.backgroundColor,
-      avatar?.title,
-      props.originData?.updateAt,
-      avatar?.avatar,
-      classNames?.bubbleListItemAvatarClassName,
-      styles?.bubbleListItemAvatarStyle,
-    ],
+  const avatarDom = runRender(
+    bubbleRenderConfig?.avatarRender,
+    props,
+    <BubbleAvatar
+      className={classNames?.bubbleListItemAvatarClassName}
+      avatar={avatar?.avatar}
+      background={avatar?.backgroundColor}
+      title={avatar?.title || avatar?.name}
+      onClick={onAvatarClick}
+      prefixCls={`${prefixClass}-bubble-avatar`}
+      style={styles?.bubbleListItemAvatarStyle}
+    />,
   );
 
   const messageContent = (
@@ -209,6 +169,8 @@ export const AIBubble: React.FC<
             style={{
               minWidth: standalone ? 'min(296px,100%)' : '0px',
               paddingLeft: 12,
+              maxWidth: '100%',
+              width: '100%',
               ...styles?.bubbleListItemExtraStyle,
             }}
             className={cx(
@@ -230,31 +192,28 @@ export const AIBubble: React.FC<
     />
   );
 
-  const childrenDom = useMemo(() => {
-    return runRender(bubbleRenderConfig?.contentRender, props, messageContent);
-  }, [
-    props.originData?.content,
-    props.originData?.feedback,
-    props.originData?.isAborted,
-    props.originData?.isFinished,
-    props.deps,
-  ]);
+  const childrenDom = runRender(
+    bubbleRenderConfig?.contentRender,
+    props,
+    messageContent,
+  );
 
-  const contentBeforeDom = useMemo(
-    () =>
-      runRender(
-        bubbleRenderConfig?.contentBeforeRender,
-        props,
-        <BubbleBeforeNode bubble={props as any} />,
-      ),
-    [
-      bubbleRenderConfig?.contentBeforeRender,
-      props.originData?.extra?.white_box_process,
-      props.originData?.isAborted,
-      props.originData?.isFinished,
-      props.originData?.updateAt,
-      props.deps,
-    ],
+  const taskList = getTaskList(originData);
+  const shouldShowBeforeContent = shouldRenderBeforeContent(
+    placement,
+    originData?.role,
+    context?.thoughtChain,
+    taskList.length,
+  );
+
+  const beforeContent = shouldShowBeforeContent ? (
+    <BubbleBeforeNode bubble={props as any} />
+  ) : null;
+
+  const contentBeforeDom = runRender(
+    bubbleRenderConfig?.contentBeforeRender,
+    props,
+    beforeContent,
   );
 
   const contentAfterDom = runRender(
@@ -291,14 +250,15 @@ export const AIBubble: React.FC<
         gap={12}
       >
         <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-            alignItems: 'flex-start', // AI消息左对齐
-            ...style,
-          }}
-          className={cx(`${prefixClass}-bubble-container`, hashId)}
+          style={style}
+          className={cx(
+            `${prefixClass}-bubble-container`,
+            `${prefixClass}-bubble-container-${placement}`,
+            {
+              [`${prefixClass}-bubble-container-pure`]: props.pure,
+            },
+            hashId,
+          )}
         >
           {preMessageSameRole ? null : (
             <div
@@ -308,10 +268,12 @@ export const AIBubble: React.FC<
                 `${prefixClass}-bubble-avatar-title-ai`, // AI消息头像标题特定样式
                 classNames?.bubbleAvatarTitleClassName,
                 hashId,
+                {
+                  [`${prefixClass}-bubble-avatar-title-pure`]: props.pure,
+                },
               )}
             >
               {avatarDom}
-              {typing && <Loader style={{ fontSize: 16 }} />}
               {titleDom}
             </div>
           )}

@@ -2,7 +2,7 @@
 title: SuggestionList 追问建议
 atomId: SuggestionList
 group:
-  title: 基础组件
+  title: 对话流
   order: 3
 ---
 
@@ -18,15 +18,15 @@ group:
 
 ### SuggestionList
 
-| 参数        | 说明                           | 类型                                        | 默认值       |
-| ----------- | ------------------------------ | ------------------------------------------- | ------------ |
-| className   | 自定义类名                     | `string`                                    | -            |
-| style       | 自定义样式                     | `React.CSSProperties`                       | -            |
-| items       | 建议项列表                     | `SuggestionItem[]`                          | `[]`         |
-| onItemClick | 点击回调（无 item.onClick 时） | `(value: string) => void \| Promise<void>`  | -            |
-| layout      | 布局                           | `'vertical' \| 'horizontal'`                | `'vertical'` |
-| maxItems    | 最大显示数量                   | `number`                                    | `6`          |
-| type        | 样式类型                       | `'basic' \| 'transparent' \| 'white'`       | `'basic'`    |
+| 参数        | 说明                           | 类型                                                                               | 默认值       |
+| ----------- | ------------------------------ | ---------------------------------------------------------------------------------- | ------------ |
+| className   | 自定义类名                     | `string`                                                                           | -            |
+| style       | 自定义样式                     | `React.CSSProperties`                                                              | -            |
+| items       | 建议项列表                     | `SuggestionItem[]`                                                                 | `[]`         |
+| onItemClick | 点击回调（无 item.onClick 时） | `(value: string) => void \| Promise<void>`                                         | -            |
+| layout      | 布局                           | `'vertical' \| 'horizontal'`                                                       | `'vertical'` |
+| maxItems    | 最大显示数量                   | `number`                                                                           | `6`          |
+| type        | 样式类型                       | `'basic' \| 'transparent' \| 'white'`                                              | `'basic'`    |
 | showMore    | 左上角"搜索更多"入口配置       | `{ enable: boolean; onClick?: () => void; text?: string; icon?: React.ReactNode }` | -            |
 
 ### SuggestionItem

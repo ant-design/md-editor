@@ -1,8 +1,8 @@
 ---
 title: Input 输入框
 group:
-  title: 基础组件
-  order: 4
+  title: 通用
+  order: 1
 ---
 
 # Input 输入框
@@ -20,7 +20,7 @@ export default () => {
   return (
     <div style={{ padding: '24px' }}>
       <h1>Input & Select</h1>
-      
+
       <div style={{ marginBottom: '24px' }}>
         <h3>Input 输入框</h3>
         <Flex

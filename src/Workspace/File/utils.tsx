@@ -1,18 +1,19 @@
-import React from 'react';
 import {
-  FileZip as ArchiveIcon,
-  AudioLines as AudioIcon,
-  FileText as CsvIcon,
   FileOther as DefaultFileIcon,
+  FileAudio,
+  FileCsv,
   FileDoc,
   FileFolders,
   FileMarkdown,
+  FileOther,
   FilePdf,
+  FilePic,
+  FileVideo,
   FileXlsx,
   FileXml,
-  FileImage as ImageIcon,
-  File as VideoIcon,
-} from '../../icons';
+  FileZip,
+} from '@sofa-design/icons';
+import React from 'react';
 import {
   FILE_TYPES,
   FileCategory,
@@ -30,17 +31,17 @@ const EXTENSION_ICON_MAP: Record<string, React.ReactNode> = {
   doc: <FileDoc />,
   docx: <FileDoc />,
   pdf: <FilePdf />,
-  csv: <CsvIcon />,
+  csv: <FileCsv />,
   xml: <FileXml />,
   html: <FileXml />,
   md: <FileMarkdown />,
   markdown: <FileMarkdown />,
-  zip: <ArchiveIcon />,
-  rar: <ArchiveIcon />,
-  '7z': <ArchiveIcon />,
-  tar: <ArchiveIcon />,
-  gz: <ArchiveIcon />,
-  bz2: <ArchiveIcon />,
+  zip: <FileZip />,
+  rar: <FileZip />,
+  '7z': <FileZip />,
+  tar: <FileZip />,
+  gz: <FileZip />,
+  bz2: <FileZip />,
 };
 
 // 文件类型到默认图标的映射
@@ -50,11 +51,11 @@ const TYPE_ICON_MAP: Record<FileCategory, React.ReactNode> = {
   [FileCategory.PDF]: <FilePdf />,
   [FileCategory.Word]: <FileDoc />,
   [FileCategory.Excel]: <FileXlsx />,
-  [FileCategory.Image]: <ImageIcon />,
-  [FileCategory.Video]: <VideoIcon />,
-  [FileCategory.Audio]: <AudioIcon />,
-  [FileCategory.Archive]: <ArchiveIcon />,
-  [FileCategory.Other]: <DefaultFileIcon />,
+  [FileCategory.Image]: <FilePic />,
+  [FileCategory.Video]: <FileVideo />,
+  [FileCategory.Audio]: <FileAudio />,
+  [FileCategory.Archive]: <FileZip />,
+  [FileCategory.Other]: <FileOther />,
 };
 
 /**

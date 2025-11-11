@@ -5,25 +5,6 @@ import { AIBubble } from './AIBubble';
 import { UserBubble } from './UserBubble';
 import type { BubbleProps } from './type';
 
-export const runRender = (
-  render: any,
-  props: BubbleProps,
-  defaultDom:
-    | string
-    | number
-    | boolean
-    | Iterable<React.ReactNode>
-    | React.JSX.Element
-    | null
-    | undefined,
-  ...rest: undefined[]
-) => {
-  if (render) {
-    return render(props, defaultDom, ...rest);
-  }
-  return defaultDom;
-};
-
 /**
  * Bubble 组件 - 聊天气泡组件（智能分发器）
  *
@@ -86,7 +67,6 @@ export const Bubble: React.FC<
       props.placement ||
       ((isUserMessage ? 'right' : 'left') as 'left' | 'right'),
   };
-
   // 根据角色分发到对应的子组件
   if (isUserMessage) {
     return <UserBubble {...bubbleProps} pure={false} />;

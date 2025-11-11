@@ -1,4 +1,4 @@
-﻿import { Avatar, ConfigProvider, Tooltip } from 'antd';
+import { Avatar, ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React from 'react';
 import { useStyle } from './style';
@@ -48,7 +48,7 @@ export const AvatarList: React.FC<{
   style?: React.CSSProperties;
 }> = ({ displayList, style }) => {
   const context = React.useContext(ConfigProvider.ConfigContext);
-  const baseCls = context?.getPrefixCls('md-editor-contributor-avatar-list');
+  const baseCls = context?.getPrefixCls('agentic-contributor-avatar-list');
   const { wrapSSR, hashId } = useStyle(baseCls);
   return wrapSSR(
     <>

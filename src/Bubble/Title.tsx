@@ -7,46 +7,37 @@ import {
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../hooks/useStyle';
-import { formatTime } from '../utils/formatTime';
+} from '../Hooks/useStyle';
+import { formatTime } from '../Utils/formatTime';
 import { BubbleProps, MessageBubbleData } from './type';
 
+const TITLE_GAP = 8;
+
+const getFlexDirection = (
+  placement: BubbleProps['placement'],
+): React.CSSProperties['flexDirection'] => {
+  return placement === 'left' ? 'row' : 'row-reverse';
+};
+
 /**
- * Props for the BubbleChatTitle component.
+ * BubbleTitle 组件属性
  */
 export interface TitleProps {
-  /**
-   * The title of the chat item's avatar.
-   */
+  /** 标题内容 */
   title: React.ReactNode;
-
-  /**
-   * The placement of the chat item.
-   */
+  /** 布局位置 */
   placement?: BubbleProps['placement'];
-
-  /**
-   * The time of the chat item.
-   */
+  /** 时间信息 */
   time?: MessageBubbleData['updateAt'] | MessageBubbleData['createAt'];
-
-  /**
-   * Additional class name for the component.
-   */
+  /** 自定义类名 */
   className?: string;
-
-  /**
-   * Prefix class name for the component.
-   */
+  /** 前缀类名 */
   prefixClass?: string;
-
-  /**
-   * Inline style for the component.
-   */
+  /** 自定义样式 */
   style?: React.CSSProperties;
-
+  /** 气泡名称类名 */
   bubbleNameClassName?: string;
-
+  /** 引用内容 */
   quote?: React.ReactNode;
 }
 
@@ -72,47 +63,29 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   };
 };
 
-/**
- * BubbleChat 的标题组件
- * @param prefixCls
- * @returns
- */
-function useStyle(prefixCls?: string) {
+const useStyle = (prefixCls?: string) => {
   return useEditorStyleRegister('Title', (token) => {
-    const proChatToken = {
+    const titleToken = {
       ...token,
       componentCls: `.${prefixCls}`,
     };
-    return [resetComponent(proChatToken), genStyle(proChatToken)];
+    return [resetComponent(titleToken), genStyle(titleToken)];
   });
-}
+};
 
 /**
- * BubbleTitle 组件 - 聊天气泡标题组件
+ * BubbleTitle 组件
  *
- * 该组件用于显示聊天气泡的标题信息，包括标题文本和时间。
- * 支持左右布局，当鼠标悬停时显示时间信息。
- *
- * @component
- * @description 聊天气泡标题组件，显示标题和时间信息
- * @param {TitleProps} props - 组件属性
- * @param {React.ReactNode} [props.title] - 标题内容
- * @param {string | number | Date} [props.time] - 时间信息
- * @param {'left' | 'right'} [props.placement='left'] - 布局方向
- * @param {string} [props.className] - 自定义CSS类名
- * @param {string} [props.prefixClass] - 前缀类名
- * @param {React.CSSProperties} [props.style] - 自定义样式
+ * 显示聊天气泡的标题和时间，支持左右布局
  *
  * @example
  * ```tsx
  * <BubbleTitle
- *   title="用户消息"
+ *   title="AI助手"
  *   time={new Date()}
  *   placement="left"
  * />
  * ```
- *
- * @returns {React.ReactElement} 渲染的标题组件
  */
 export const BubbleTitle: React.FC<TitleProps> = ({
   style,
@@ -126,28 +99,32 @@ export const BubbleTitle: React.FC<TitleProps> = ({
 }) => {
   const { wrapSSR, hashId } = useStyle(prefixClass);
 
+  const flexStyle: React.CSSProperties = {
+    flexDirection: getFlexDirection(placement),
+    display: 'flex',
+    alignItems: 'center',
+    ...style,
+  };
+
   return wrapSSR(
-    <Flex
-      className={cx(hashId, prefixClass, className)}
-      style={{
-        flexDirection: placement === 'left' ? 'row' : 'row-reverse',
-        display: 'flex',
-        alignItems: 'center',
-        ...style,
-      }}
-      gap={8}
-      data-testid="bubble-title"
-    >
-      {title ? <span className={bubbleNameClassName}>{title}</span> : null}
+    <>
+      <Flex
+        className={cx(hashId, prefixClass, className)}
+        style={flexStyle}
+        gap={TITLE_GAP}
+        data-testid="bubble-title"
+      >
+        {title && <span className={bubbleNameClassName}>{title}</span>}
+        {time && (
+          <time
+            className={cx(`${prefixClass}-time`, hashId)}
+            data-testid="bubble-time"
+          >
+            {formatTime(time)}
+          </time>
+        )}
+      </Flex>
       {quote}
-      {time && (
-        <time
-          className={cx(`${prefixClass}-time`, hashId)}
-          data-testid="bubble-time"
-        >
-          {formatTime(time)}
-        </time>
-      )}
-    </Flex>,
+    </>,
   );
 };

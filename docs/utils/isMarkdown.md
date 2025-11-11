@@ -2,6 +2,9 @@
 nav:
   title: 工具函数
   order: 5
+group:
+  title: 工具函数
+  order: 6
 ---
 
 # isMarkdown 工具函数
@@ -41,7 +44,7 @@ nav:
 ## 使用示例
 
 ```typescript | pure
-import { isMarkdown } from '@ant-design/md-editor';
+import { isMarkdown } from '@ant-design/agentic-ui';
 
 // 检测包含 Markdown 的文本
 console.log(isMarkdown('# 标题')); // true

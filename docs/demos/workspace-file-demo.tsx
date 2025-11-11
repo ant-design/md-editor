@@ -1,10 +1,10 @@
-import { CoffeeOutlined } from '@ant-design/icons';
-import { Workspace } from '@ant-design/md-editor';
+import { Workspace } from '@ant-design/agentic-ui';
 import {
   FileNode,
   FileType,
   GroupNode,
-} from '@ant-design/md-editor/Workspace/types';
+} from '@ant-design/agentic-ui/Workspace/types';
+import { CoffeeOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 
@@ -20,6 +20,9 @@ const customMarkdownEditorProps = {
 
 const WorkspaceFileDemo: React.FC = () => {
   const [loading, setLoading] = useState(false);
+  const [generatingContent, setGeneratingContent] = useState(
+    '# Generating ...\n\n',
+  );
   const [nodes] = useState<(FileNode | GroupNode)[]>([
     {
       name: 'Word',
@@ -260,7 +263,7 @@ graph TD
           size: '156B',
           lastModified: '2025-08-01 09:00:00',
           content:
-            '<!doctype html>\n<html lang="zh-CN">\n<head>\n  <meta charset="UTF-8" />\n  <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n  <title>Hello HTML</title>\n  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";padding:24px} .btn{padding:8px 12px;border:1px solid #d9d9d9;border-radius:6px;cursor:pointer} .btn:active{transform:scale(0.98)}</style>\n</head>\n<body>\n  <h1>你好，HTML！</h1>\n  <p>这是一个用于 Workspace 预览的 HTML 示例。</p>\n  <button class="btn" onclick="alert(\'Hello from HTML!\')">点我</button>\n</body>\n</html>',
+            ' <!doctype html>\n<html lang="zh-CN">\n<head>\n  <meta charset="UTF-8" />\n  <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n  <title>Hello HTML</title>\n  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";padding:24px} .btn{padding:8px 12px;border:1px solid #d9d9d9;border-radius:6px;cursor:pointer} .btn:active{transform:scale(0.98)}</style>\n</head>\n<body>\n  <h1>你好，HTML！</h1>\n  <p>这是一个用于 Workspace 预览的 HTML 示例。</p>\n  <button class="btn" onclick="alert(\'Hello from HTML!\')">点我</button>\n</body>\n</html>',
         },
         {
           name: 'App.tsx',
@@ -288,9 +291,46 @@ graph TD
     },
   ]);
 
+  // 模拟内容不断随机组合的效果
   useEffect(() => {
-    console.log(nodes);
-  }, [nodes]);
+    const texts = [
+      '正在分析您的需求...\n',
+      '开始生成内容...\n\n',
+      '## 第一部分：简介\n',
+      '这是一个演示流式内容生成的示例。\n\n',
+      '## 第二部分：功能特性\n',
+      '1. 实时内容追加\n',
+      '2. 流畅的用户体验\n',
+      '3. 支持 Markdown 格式\n\n',
+      '## 第三部分：代码示例\n',
+      '```typescript\n',
+      'const demo = () => {\n',
+      '  console.log("Hello World");\n',
+      '};\n',
+      '```\n\n',
+      '## 第四部分：总结\n',
+      '内容生成完成！\n',
+    ];
+
+    const interval = setInterval(() => {
+      // 随机选择3-8个片段进行组合
+      const randomCount = Math.floor(Math.random() * 6) + 3;
+      const selectedTexts: string[] = [];
+
+      for (let i = 0; i < randomCount; i++) {
+        const randomIndex = Math.floor(Math.random() * texts.length);
+        selectedTexts.push(texts[randomIndex]);
+      }
+
+      const newContent =
+        '# Generating ...\n\n' +
+        selectedTexts.join('') +
+        '\n\n' +
+        Math.random().toString(36).substring(2, 8);
+      setGeneratingContent(newContent);
+    }, 16);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleDownload = (file: FileNode) => {
     console.log('下载单个文件:', file);
@@ -348,35 +388,64 @@ graph TD
 
       <div
         style={{
-          maxWidth: '600px',
+          display: 'flex',
+          gap: '16px',
+          maxHeight: '600px',
+          height: '600px',
         }}
       >
-        <Workspace title="文件管理">
-          <Workspace.File
-            tab={{
-              count: 123,
-            }}
-            nodes={nodes}
-            loading={loading}
-            onDownload={handleDownload}
-            onGroupDownload={handleGroupDownload}
-            onToggleGroup={handleToggleGroup}
-            markdownEditorProps={customMarkdownEditorProps}
-          />
-          <Workspace.Custom
-            tab={{
-              key: 'custom',
-              title: '自定义',
-              icon: <CoffeeOutlined />,
-              count: 123,
-            }}
-          >
-            <div>
-              <div>文件组件演示</div>
-              <p>自定义内容</p>
-            </div>
-          </Workspace.Custom>
-        </Workspace>
+        <div style={{ flex: 1 }}>
+          <Workspace title="文件管理">
+            <Workspace.File
+              tab={{
+                count: 123,
+              }}
+              nodes={nodes}
+              loading={loading}
+              onDownload={handleDownload}
+              onGroupDownload={handleGroupDownload}
+              onToggleGroup={handleToggleGroup}
+              markdownEditorProps={customMarkdownEditorProps}
+            />
+            <Workspace.Custom
+              tab={{
+                key: 'custom',
+                title: '自定义',
+                icon: <CoffeeOutlined />,
+                count: 123,
+              }}
+            >
+              <div>
+                <div>文件组件演示</div>
+                <p>自定义内容</p>
+              </div>
+            </Workspace.Custom>
+          </Workspace>
+        </div>
+        <div style={{ flex: 1 }}>
+          <Workspace title="文件管理">
+            <Workspace.File
+              tab={{
+                count: 2,
+              }}
+              nodes={[
+                {
+                  id: 'customPreviewDomID2',
+                  name: 'md正在加载的文件.docx',
+                  size: '1.8MB',
+                  lastModified: '2025-08-01 09:15:00',
+                  content: generatingContent,
+                  loading: true,
+                },
+              ]}
+              loading={loading}
+              onDownload={handleDownload}
+              onGroupDownload={handleGroupDownload}
+              onToggleGroup={handleToggleGroup}
+              markdownEditorProps={customMarkdownEditorProps}
+            />
+          </Workspace>
+        </div>
       </div>
     </div>
   );

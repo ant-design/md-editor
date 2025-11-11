@@ -1,5 +1,5 @@
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
-import { MarkdownInputField } from '../../src/MarkdownInputField/MarkdownInputField';
 
 /**
  * 粘贴配置演示组件

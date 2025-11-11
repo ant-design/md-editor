@@ -1,4 +1,4 @@
-import { BubbleList } from '@ant-design/md-editor';
+import { BubbleList } from '@ant-design/agentic-ui';
 import React from 'react';
 
 /**
@@ -217,7 +217,7 @@ export default function ClassNamesExtendedDemo() {
 
       <style>{`
         .custom-bubble {
-          transition: all 0.3s ease;
+          transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
         }
         .custom-bubble:hover {
           transform: translateY(-2px);
@@ -268,7 +268,7 @@ export default function ClassNamesExtendedDemo() {
           background: linear-gradient(90deg, #1890ff, #722ed1, #ff7a45);
         }
         .custom-avatar {
-          transition: transform 0.3s ease;
+          transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
         }
         .custom-avatar:hover {
           transform: scale(1.1) rotate(5deg);
@@ -287,6 +287,12 @@ export default function ClassNamesExtendedDemo() {
           bubbleList={sampleMessages}
           classNames={customClassNames}
           styles={customStyles}
+          pure
+          markdownRenderConfig={{
+            tableConfig: {
+              pure: true,
+            },
+          }}
           assistantMeta={{
             avatar: '🤖',
             title: 'AI助手',
@@ -348,6 +354,7 @@ const customStyles = {
   bubbleList={messages}
   classNames={customClassNames}
   styles={customStyles}
+  pure
 />`}
         </pre>
       </div>

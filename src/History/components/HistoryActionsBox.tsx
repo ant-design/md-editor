@@ -1,8 +1,7 @@
+import { Star, StarFill, Trash2 } from '@sofa-design/icons';
 import { ConfigProvider, Popconfirm, Space } from 'antd';
 import React, { useContext, useState } from 'react';
-import { I18nContext } from '../../i18n';
-import { Star, StarFill } from '../../icons';
-import TrashIcon from '../../icons/Trash2';
+import { I18nContext } from '../../I18n';
 import { ActionIconBox } from '../../index';
 import { HistoryActionsBoxProps } from '../types';
 
@@ -94,7 +93,6 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
         <Space size={4}>
           {props.agent?.enabled && props.item && props?.agent?.onFavorite && (
             <ActionIconBox
-              scale
               loading={favoriteLoading}
               onClick={async (e) => {
                 e.stopPropagation();
@@ -178,7 +176,6 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
               }}
             >
               <ActionIconBox
-                scale
                 loading={deleteLoading}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -194,7 +191,7 @@ export const HistoryActionsBox: React.FC<HistoryActionsBoxProps> = (props) => {
                   borderRadius: 'var(--radius-control-sm)',
                 }}
               >
-                <TrashIcon
+                <Trash2
                   style={{
                     fontSize: 14,
                     color: 'var(--color-gray-text-secondary)',

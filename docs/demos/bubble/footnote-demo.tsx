@@ -1,4 +1,3 @@
-import { LinkOutlined } from '@ant-design/icons';
 import {
   Bubble,
   BubbleProps,
@@ -6,8 +5,9 @@ import {
   useRefFunction,
   VisualList,
   VisualListItem,
-} from '@ant-design/md-editor';
-import { ArrowUpRight } from '@ant-design/md-editor/icons/ArrowUpRight1';
+} from '@ant-design/agentic-ui';
+import { LinkOutlined } from '@ant-design/icons';
+import { ArrowUpRight } from '@sofa-design/icons';
 import { Popover } from 'antd';
 import React, { useMemo } from 'react';
 
@@ -239,11 +239,13 @@ export default () => {
       const titleText = (node?.origin_text as string) || hostText;
       return (
         <Popover
-          overlayInnerStyle={{
-            padding: 0,
-            borderRadius: 'var(--radius-card-base)',
-            boxShadow: 'var(--shadow-control-lg)',
-            overflow: 'hidden',
+          styles={{
+            body: {
+              padding: 0,
+              borderRadius: 'var(--radius-card-base)',
+              boxShadow: 'var(--shadow-control-lg)',
+              overflow: 'hidden',
+            },
           }}
           arrow={false}
           content={
@@ -308,6 +310,7 @@ export default () => {
             key={msg.id}
             bubbleRef={bubbleRef}
             avatar={msg.meta!}
+            pure
             originData={msg}
             placement={msg.role === 'user' ? 'right' : 'left'}
             bubbleRenderConfig={{ afterMessageRender }}
@@ -317,6 +320,9 @@ export default () => {
                 onFootnoteDefinitionChange: (list) => {
                   setNodeList(list);
                 },
+              },
+              tableConfig: {
+                pure: true,
               },
             }}
             preMessage={conversation[idx - 1]}

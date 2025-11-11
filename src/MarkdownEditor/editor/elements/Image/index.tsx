@@ -15,10 +15,10 @@ import React, {
 import { useDebounceFn } from '@ant-design/pro-components';
 import { Rnd } from 'react-rnd';
 import { Path, Transforms } from 'slate';
-import { I18nContext } from '../../../../i18n';
+import { ActionIconBox } from '../../../../Components/ActionIconBox';
+import { I18nContext } from '../../../../I18n';
 import { ElementProps, MediaNode } from '../../../el';
 import { useSelStatus } from '../../../hooks/editor';
-import { ActionIconBox } from '../../components/ActionIconBox';
 import { useEditorStore } from '../../store';
 import { useGetSetState } from '../../utils';
 import { getMediaType } from '../../utils/dom';
@@ -410,7 +410,7 @@ export function EditorImage({
   return (
     <div
       {...attributes}
-      className={'ant-md-editor-drag-el'}
+      className={'ant-agentic-md-editor-drag-el'}
       data-be="image"
       data-testid="image-container"
       style={{

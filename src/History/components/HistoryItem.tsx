@@ -1,10 +1,12 @@
+import {
+  CloseCircleFill,
+  FileCheckFill,
+  WarningFill,
+} from '@sofa-design/icons';
 import { Checkbox, ConfigProvider, Divider, Tooltip } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import React, { useContext } from 'react';
-import { I18nContext } from '../../i18n';
-import { CloseCicleFillIcon } from '../../icons/CloseCicleFillIcon';
-import { FileCheckFillIcon } from '../../icons/FileCheckFillIcon';
-import { WarningFillIcon } from '../../icons/WarningFillIcon';
+import { I18nContext } from '../../I18n';
 import { useStyle } from '../style';
 import {
   HistoryDataType,
@@ -25,17 +27,17 @@ const TaskIconMap: (
   return {
     success: (
       <div className={`${prefixCls}-task-icon ${hashId}`}>
-        <FileCheckFillIcon />
+        <FileCheckFill />
       </div>
     ),
     error: (
       <div className={`${prefixCls}-task-icon ${hashId}`}>
-        <WarningFillIcon />
+        <WarningFill />
       </div>
     ),
     cancel: (
       <div className={`${prefixCls}-task-icon ${hashId}`}>
-        <CloseCicleFillIcon />
+        <CloseCircleFill />
       </div>
     ),
   };
@@ -141,6 +143,8 @@ interface HistoryItemProps {
   type?: 'chat' | 'task';
   /** 正在运行的记录ID列表，这些记录将显示运行图标 */
   runningId?: string[];
+  /** 格式化Item右下角日期函数 */
+  itemDateFormatter?: (date: number | string | Date) => string;
 }
 
 /**
@@ -172,11 +176,16 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
     extra,
     runningId,
     customOperationExtra,
+    itemDateFormatter,
   }) => {
     const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-    const prefixCls = getPrefixCls('agent-chat-history-menu');
+    const prefixCls = getPrefixCls('agentic-chat-history-menu');
     const { hashId } = useStyle(prefixCls);
-    const { textRef, isTextOverflow } = useTextOverflow(item.sessionTitle);
+    const displayText = React.useMemo(
+      () => item.displayTitle || item.sessionTitle,
+      [item.displayTitle, item.sessionTitle],
+    );
+    const { textRef, isTextOverflow } = useTextOverflow(displayText);
     const isRunning = React.useMemo(
       () => runningId?.includes(String(item.id || '')),
       [runningId, item.id],
@@ -280,7 +289,7 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
               }}
             >
               <Tooltip
-                title={isTextOverflow ? item.sessionTitle : null}
+                title={isTextOverflow ? displayText : null}
                 mouseEnterDelay={0.3}
                 open={isTextOverflow ? undefined : false}
               >
@@ -294,7 +303,7 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
                     color: 'var(--color-gray-text-default)',
                   }}
                 >
-                  {item.sessionTitle}
+                  {displayText}
                 </div>
               </Tooltip>
             </div>
@@ -315,7 +324,9 @@ const HistoryItemSingle = React.memo<HistoryItemProps>(
             item={item}
             onFavorite={onFavorite}
           >
-            {formatTime(item.gmtCreate)}
+            {itemDateFormatter
+              ? itemDateFormatter(item.gmtCreate as number)
+              : formatTime(item.gmtCreate)}
           </HistoryActionsBox>
           {isValidCustomOperation(customOperationExtra) && (
             <div className={`${prefixCls}-extra-actions ${hashId}`}>
@@ -363,11 +374,16 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
     type,
     runningId,
     customOperationExtra,
+    itemDateFormatter,
   }) => {
     const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-    const prefixCls = getPrefixCls('agent-chat-history-menu');
+    const prefixCls = getPrefixCls('agentic-chat-history-menu');
     const { hashId } = useStyle(prefixCls);
-    const { textRef, isTextOverflow } = useTextOverflow(item.sessionTitle);
+    const displayText = React.useMemo(
+      () => item.displayTitle || item.sessionTitle,
+      [item.displayTitle, item.sessionTitle],
+    );
+    const { textRef, isTextOverflow } = useTextOverflow(displayText);
     const isTask = React.useMemo(() => type === 'task', [type]);
     const { locale } = React.useContext(I18nContext);
     const shouldShowIcon = React.useMemo(
@@ -507,7 +523,7 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
               }}
             >
               <Tooltip
-                title={isTextOverflow ? item.sessionTitle : null}
+                title={isTextOverflow ? displayText : null}
                 mouseEnterDelay={0.3}
                 open={isTextOverflow ? undefined : false}
               >
@@ -517,11 +533,11 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
                     font: isSelected
                       ? 'var(--font-text-h6-base)'
                       : 'var(--font-text-body-base)',
-                    letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+
                     color: 'var(--color-gray-text-default)',
                   }}
                 >
-                  {item.sessionTitle}
+                  {displayText}
                 </div>
               </Tooltip>
             </div>
@@ -561,7 +577,9 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
                   </div>
                   <Divider type="vertical" />
                   <span style={{ minWidth: 26 }}>
-                    {formatTime(item.gmtCreate)}
+                    {itemDateFormatter
+                      ? itemDateFormatter(item.gmtCreate as number)
+                      : formatTime(item.gmtCreate)}
                   </span>
                 </div>
               </Tooltip>
@@ -583,7 +601,9 @@ const HistoryItemMulti = React.memo<HistoryItemProps>(
             item={item}
             onFavorite={onFavorite}
           >
-            {formatTime(item.gmtCreate)}
+            {itemDateFormatter
+              ? itemDateFormatter(item.gmtCreate as number)
+              : formatTime(item.gmtCreate)}
           </HistoryActionsBox>
           {isValidCustomOperation(customOperationExtra) && (
             <div className={`${prefixCls}-extra-actions ${hashId}`}>
@@ -659,6 +679,7 @@ export const HistoryItem = React.memo<HistoryItemProps>(
     type,
     runningId,
     customOperationExtra,
+    itemDateFormatter,
   }) => {
     const isTask = type === 'task';
     const shouldShowIcon =
@@ -682,6 +703,7 @@ export const HistoryItem = React.memo<HistoryItemProps>(
       type,
       runningId,
       customOperationExtra,
+      itemDateFormatter,
     };
 
     /**

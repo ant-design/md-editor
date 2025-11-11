@@ -1,4 +1,4 @@
-import { Bubble, MessageBubbleData } from '@ant-design/md-editor';
+import { Bubble, MessageBubbleData } from '@ant-design/agentic-ui';
 import { Button, message, Space, Switch } from 'antd';
 import React, { useRef, useState } from 'react';
 
@@ -95,6 +95,7 @@ export default () => {
           avatar={mockMessage.meta!}
           placement="left"
           bubbleRef={bubbleRef}
+          pure
           originData={{
             ...mockMessage,
             typing: isLoading,
@@ -116,6 +117,7 @@ export default () => {
           }}
           placement="right"
           bubbleRef={bubbleRef}
+          pure
           originData={{
             id: '3',
             role: 'user',

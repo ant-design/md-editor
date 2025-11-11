@@ -1,11 +1,11 @@
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import React, { useContext } from 'react';
-import { RenderElementProps } from 'slate-react';
+import React, { useContext, useMemo } from 'react';
+import { ReactEditor, RenderElementProps, useSlate } from 'slate-react';
 import { TableNode } from '../../types/Table';
 import { useTableStyle } from './style';
-import { ReadonlyTable } from './Table';
-import { TablePropsContext } from './TableContext';
+import { SlateTable } from './Table';
+import { TablePropsProvider } from './TableContext';
 
 /**
  * 简单表格组件 - 仅支持只读显示
@@ -13,15 +13,19 @@ import { TablePropsContext } from './TableContext';
  */
 export const SimpleTable = (props: RenderElementProps) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const baseCls = getPrefixCls('md-editor-content-table');
+  const baseCls = getPrefixCls('agentic-md-editor-content-table');
+  const editor = useSlate();
   const { wrapSSR, hashId } = useTableStyle(baseCls, {});
 
+  const tablePath = useMemo(
+    () => ReactEditor.findPath(editor, props.element),
+    [props.element],
+  );
+
   return wrapSSR(
-    <TablePropsContext.Provider
-      value={{
-        tablePath: props.element?.path,
-        tableNode: props.element as TableNode,
-      }}
+    <TablePropsProvider
+      tablePath={tablePath}
+      tableNode={props.element as TableNode}
     >
       <div
         {...props.attributes}
@@ -29,10 +33,10 @@ export const SimpleTable = (props: RenderElementProps) => {
         draggable={false}
         className={classNames(`${baseCls}-container`, hashId)}
       >
-        <ReadonlyTable {...props} hashId={hashId}>
+        <SlateTable {...props} hashId={hashId}>
           {props.children}
-        </ReadonlyTable>
+        </SlateTable>
       </div>
-    </TablePropsContext.Provider>,
+    </TablePropsProvider>,
   );
 };

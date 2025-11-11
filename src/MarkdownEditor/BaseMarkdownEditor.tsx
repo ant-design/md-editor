@@ -12,7 +12,7 @@ import { Subject } from 'rxjs';
 import { createEditor, Editor, Selection } from 'slate';
 import { withHistory } from 'slate-history';
 import { withReact } from 'slate-react';
-import { I18nProvide } from '../i18n';
+import { I18nProvide } from '../I18n';
 import { CommentList } from './editor/components/CommentList';
 import { SlateMarkdownEditor } from './editor/Editor';
 import { parserMdToSchema } from './editor/parser/parserMdToSchema';
@@ -40,7 +40,7 @@ import {
   MarkdownEditorProps,
 } from './types';
 import { exportHtml } from './utils/exportHtml';
-import { withTable } from './utils/slate-table/with-table';
+// 原生表格功能已集成到编辑器中
 export { EditorUtils, parserMdToSchema };
 
 export * from './editor/elements';
@@ -116,6 +116,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
     editorRef,
     toc = false,
     readonly,
+    lazy,
     style,
     contentStyle = {
       height: '100%',
@@ -140,25 +141,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
   // markdown 编辑器实例
   const markdownEditorRef = useRef(
     composeEditors(
-      withMarkdown(
-        withTable(withReact(withHistory(createEditor())), {
-          blocks: {
-            table: 'table',
-            thead: 'table-head',
-            tfoot: 'table-footer',
-            tr: 'table-row',
-            th: 'header-cell',
-            td: 'table-cell',
-            content: 'paragraph',
-          },
-          withDelete: true,
-          withFragments: true,
-          withInsertText: true,
-          withNormalization: true,
-          withSelection: true,
-          withSelectionAdjustment: true,
-        }),
-      ),
+      withMarkdown(withReact(withHistory(createEditor()))),
       props.plugins || [],
     ),
   );
@@ -251,6 +234,9 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
       if (item.type === 'listItem' && item.children.length === 0) {
         return false;
       }
+      if (item.type === 'heading' && item.children.length === 0) {
+        return false;
+      }
       return true;
     });
   }, []);
@@ -283,7 +269,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
 
   const context = useContext(ConfigProvider.ConfigContext);
   // ---- css style ----
-  const baseClassName = context?.getPrefixCls(`md-editor`);
+  const baseClassName = context?.getPrefixCls(`agentic-md-editor`);
   const { wrapSSR, hashId } = useStyle(baseClassName);
   // --- css style end ---
 
@@ -391,6 +377,7 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
               <SlateMarkdownEditor
                 prefixCls={baseClassName}
                 {...rest}
+                lazy={lazy}
                 onChange={(value, schema) => {
                   setSchema(schema);
                   rest?.onChange?.(value, schema);
@@ -431,7 +418,9 @@ export const BaseMarkdownEditor: React.FC<MarkdownEditorProps> = (props) => {
                 />
               ) : null}
             </div>
-            {readonly || props?.textAreaProps?.enable ? null : (
+            {readonly ||
+            props?.textAreaProps?.enable ||
+            props?.reportMode ? null : (
               <div
                 className={classNames(`${baseClassName}-focus`)}
                 style={{

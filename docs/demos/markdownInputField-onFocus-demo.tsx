@@ -1,5 +1,5 @@
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 import { default as React } from 'react';
-import { MarkdownInputField } from '../../src/MarkdownInputField/MarkdownInputField';
 
 export default () => {
   const [value, setValue] = React.useState('');

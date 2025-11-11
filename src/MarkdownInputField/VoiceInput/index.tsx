@@ -1,9 +1,10 @@
+import { Mic } from '@sofa-design/icons';
 import { ConfigProvider, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { Voice } from '../../icons';
-import VoicingLottie from '../../icons/animated/VoicingLottie';
+import { I18nContext } from '../../I18n';
+import VoicingLottie from '../../Icons/animated/VoicingLottie';
 import { useStyle } from './style';
 
 export type VoiceRecognizer = {
@@ -27,6 +28,7 @@ type VoiceInputButtonProps = {
   onStart: () => Promise<void>;
   onStop: () => Promise<void>;
   style?: React.CSSProperties;
+  title?: React.ReactNode;
 };
 
 /**
@@ -38,13 +40,45 @@ type VoiceInputButtonProps = {
 export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
   const { recording, disabled, onStart, onStop, style } = props;
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const baseCls = getPrefixCls('md-input-field-voice-button');
+  const baseCls = getPrefixCls('agentic-md-input-field-voice-button');
   const { wrapSSR, hashId } = useStyle(baseCls);
+
+  const dom = props.title ? (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 4,
+      }}
+    >
+      {recording ? <VoicingLottie size={16} /> : <Mic />}
+      <div
+        style={{
+          font: 'var(--font-text-body-base)',
+          letterSpacing: 'var(--letter-spacing-body-base, normal)',
+          color: 'var(--color-gray-text-default)',
+        }}
+      >
+        {props.title}
+      </div>
+    </div>
+  ) : recording ? (
+    <VoicingLottie size={16} />
+  ) : (
+    <Mic />
+  );
+
+  const { locale } = useContext(I18nContext);
 
   return wrapSSR(
     <Tooltip
-      mouseEnterDelay={0.3}
-      title={recording ? '语音输入中，点击可停止。' : '语音输入'}
+      mouseEnterDelay={1}
+      arrow={false}
+      title={
+        recording
+          ? locale?.['input.voiceInputting'] || '语音输入中，点击可停止。'
+          : locale?.['input.voiceInput'] || '语音输入'
+      }
     >
       <div
         data-testid="voice-input-button"
@@ -64,9 +98,7 @@ export const VoiceInputButton: React.FC<VoiceInputButtonProps> = (props) => {
           }
         }}
       >
-        <ErrorBoundary fallback={<div />}>
-          {recording ? <VoicingLottie size={16} /> : <Voice />}
-        </ErrorBoundary>
+        <ErrorBoundary fallback={<div />}>{dom}</ErrorBoundary>
       </div>
     </Tooltip>,
   );

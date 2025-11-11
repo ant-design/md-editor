@@ -2,31 +2,10 @@ import {
   ChatTokenType,
   GenerateStyle,
   useEditorStyleRegister,
-} from '../hooks/useStyle';
+} from '../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
-    [`${token.componentCls}-new-chat`]: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: '8px',
-      cursor: 'pointer',
-      padding: '5px 12px',
-      borderRadius: 'var(--radius-control-base)',
-      background: 'var(--color-primary-control-fill-secondary)',
-      fontSize: '14px',
-      fontWeight: 600,
-      lineHeight: '22px',
-      letterSpacing: 'normal',
-      color: 'var(--color-primary-text-secondary)',
-      boxShadow: 'var(--shadow-border-base)',
-      marginBottom: '12px',
-
-      '&:hover': {
-        background: 'var(--color-primary-control-fill-secondary-hover)',
-      },
-    },
-
     [`${token.componentCls}-load-more`]: {
       height: '48px',
       display: 'flex',
@@ -83,7 +62,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         position: 'relative',
         userSelect: 'none',
         lineHeight: '20px',
-        transition: 'all 0.2s ease',
+        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
         [`${token.componentCls}-task-icon`]: {
           width: '32px',
           height: '32px',
@@ -121,7 +100,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
         [`${token.componentCls}-extra-actions`]: {
           opacity: 0,
-          transition: 'all 0.2s ease',
+          transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
         },
 
         '&-selected': {
@@ -298,7 +277,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 };
 
 export function useStyle(prefixCls?: string) {
-  return useEditorStyleRegister('GroupMenu', (token) => {
+  return useEditorStyleRegister('history-group-menu', (token) => {
     const groupMenuToken = {
       ...token,
       componentCls: `.${prefixCls}`,

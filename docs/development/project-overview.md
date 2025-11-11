@@ -2,6 +2,9 @@
 nav:
   title: 项目研发
   order: 1
+group:
+  title: 开发指南
+  order: 5
 ---
 
 # 项目技术栈与架构说明
@@ -384,7 +387,7 @@ src/Workspace/
 -->
 
 ```
-src/plugins/
+src/Plugins/
 ├── chart/                  # 图表插件
 │   ├── ChartAttrToolBar/   # 图表工具栏
 │   ├── ChartMark/          # 图表标记

@@ -104,7 +104,33 @@ export type MarkdownEditorProps = {
   };
 
   /**
-   * 代码高亮配置
+   * 代码编辑器配置
+   *
+   * 支持配置代码块的显示和编辑行为，基于 Ace Editor。
+   *
+   * @example
+   * ```tsx
+   * <MarkdownEditor
+   *   codeProps={{
+   *     theme: 'monokai', // 代码编辑器主题
+   *     fontSize: 14,
+   *     hideToolBar: false,
+   *     Languages: ['javascript', 'python', 'typescript'],
+   *     showLineNumbers: true,
+   *     wrap: true,
+   *   }}
+   * />
+   * ```
+   *
+   * @property {string[]} [Languages] - 支持的编程语言列表
+   * @property {boolean} [hideToolBar] - 是否隐藏代码块工具栏
+   * @property {boolean} [alwaysExpandedDeepThink] - 是否始终展开深度思考块
+   * @property {string} [theme] - 代码编辑器主题，如 'chrome', 'monokai', 'github', 'dracula' 等
+   * @property {number} [fontSize] - 代码字体大小，默认 12
+   * @property {number} [tabSize] - Tab 缩进大小，默认 4
+   * @property {boolean} [showLineNumbers] - 是否显示行号，默认 true
+   * @property {boolean} [showGutter] - 是否显示代码栏，默认 true
+   * @property {boolean} [wrap] - 是否自动换行，默认 true
    */
   codeProps?: {
     Languages?: string[];
@@ -135,6 +161,69 @@ export type MarkdownEditorProps = {
    */
   readonly?: boolean;
   /**
+   * 懒加载渲染配置
+   * 启用后，每个元素都会被包裹在一个使用 IntersectionObserver 的容器中
+   * 只有当元素进入视口时才会真正渲染，以提升大型文档的性能
+   *
+   * @example
+   * ```tsx
+   * // 基本懒加载配置
+   * lazy={{
+   *   enable: true,
+   *   placeholderHeight: 100,
+   *   rootMargin: '200px'
+   * }}
+   *
+   * // 自定义占位符渲染
+   * lazy={{
+   *   enable: true,
+   *   placeholderHeight: 120,
+   *   rootMargin: '300px',
+   *   renderPlaceholder: ({ height, style, isIntersecting }) => (
+   *     <div style={style}>
+   *       <div>加载中... {isIntersecting ? '(即将显示)' : ''}</div>
+   *     </div>
+   *   )
+   * }}
+   * ```
+   */
+  lazy?: {
+    /**
+     * 是否启用懒加载，默认 false
+     */
+    enable?: boolean;
+    /**
+     * 占位符高度（单位：px），默认 25
+     */
+    placeholderHeight?: number;
+    /**
+     * 提前加载的距离，默认 '200px'
+     * 支持所有 IntersectionObserver rootMargin 的值
+     */
+    rootMargin?: string;
+    /**
+     * 自定义占位符渲染函数
+     * 允许开发者自定义懒加载时的占位符显示内容
+     */
+    renderPlaceholder?: (props: {
+      /** 占位符高度 */
+      height: number;
+      /** 占位符样式 */
+      style: React.CSSProperties;
+      /** 元素是否即将进入视口 */
+      isIntersecting: boolean;
+      /** 元素在文档中的位置信息（可选） */
+      elementInfo?: {
+        /** 元素类型 */
+        type: string;
+        /** 元素在文档中的索引 */
+        index: number;
+        /** 元素总数量 */
+        total: number;
+      };
+    }) => React.ReactNode;
+  };
+  /**
    * 样式
    */
   style?: React.CSSProperties;
@@ -160,8 +249,15 @@ export type MarkdownEditorProps = {
       download?: 'csv';
       copy?: 'md' | 'html' | 'csv';
     };
-    excelMode?: boolean;
+    pure?: boolean;
     previewTitle?: string;
+  };
+  /**
+   * 粘贴配置
+   */
+  pasteConfig?: {
+    enabled?: boolean;
+    allowedTypes?: string[];
   };
   /**
    * 插件配置
@@ -173,8 +269,15 @@ export type MarkdownEditorProps = {
   onChange?: (value: string, schema: Elements[]) => void;
   /**
    * 选择变更回调
+   * @param selection - Slate 选区对象
+   * @param selectedMarkdown - 选中内容的 markdown 文本
+   * @param selectedNodes - 选中的节点数组
    */
-  onSelectionChange?: (selection: any) => void;
+  onSelectionChange?: (
+    selection: Selection | null,
+    selectedMarkdown: string,
+    selectedNodes: Elements[],
+  ) => void;
   comment?: {
     /**
      * 是否启用评论功能
@@ -210,99 +313,20 @@ export type MarkdownEditorProps = {
         attributes: any;
       },
     ) => React.ReactNode;
-    /**
-     * 评论范围拖拽配置
-     */
-    dragRange?: {
-      /**
-       * 是否启用评论范围拖拽功能
-       */
-      enable?: boolean;
-      /**
-       * 拖拽手柄样式配置
-       */
-      handleStyle?: {
-        /**
-         * 手柄颜色
-         */
-        color?: string;
-        /**
-         * 手柄背景色
-         */
-        backgroundColor?: string;
-        /**
-         * 手柄大小
-         */
-        size?: string;
-        /**
-         * 手柄圆角
-         */
-        borderRadius?: string;
-        /**
-         * 手柄透明度
-         */
-        opacity?: number;
-        /**
-         * 自定义手柄类名
-         */
-        className?: string;
-      };
-      /**
-       * 拖拽过程中的高亮样式
-       */
-      highlightStyle?: {
-        /**
-         * 高亮颜色
-         */
-        color?: string;
-        /**
-         * 高亮背景色
-         */
-        backgroundColor?: string;
-        /**
-         * 高亮边框样式
-         */
-        border?: string;
-        /**
-         * 高亮圆角
-         */
-        borderRadius?: string;
-        /**
-         * 高亮透明度
-         */
-        opacity?: number;
-        /**
-         * 自定义高亮类名
-         */
-        className?: string;
-      };
-      /**
-       * 范围更新回调函数
-       * @param commentId 评论ID
-       * @param newRange 新的选中范围
-       * @param newContent 新的选中内容
-       */
-      onRangeChange?: (
-        commentId: string | number,
-        newRange: {
-          anchorOffset: number;
-          focusOffset: number;
-          refContent: string;
-          selection?: {
-            anchor: {
-              path: number[];
-              offset: number;
-            };
-            focus: {
-              path: number[];
-              offset: number;
-            };
-          };
-        },
-        newContent: string,
-      ) => void;
-    };
   };
+
+  onFocus?: (
+    value: string,
+    schema: Elements[],
+    e: React.FocusEvent<HTMLDivElement, Element>,
+  ) => void;
+  onBlur?: (
+    value: string,
+    schema: Elements[],
+    e: React.MouseEvent<HTMLDivElement, Element>,
+  ) => void;
+
+  onPaste?: (e: React.ClipboardEvent<HTMLDivElement>) => void;
 
   /**
    * 其他属性

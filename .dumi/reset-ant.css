@@ -54,7 +54,6 @@
   color: var(--color-gray-text-default);
   border: 1px solid transparent;
 }
-
 .ant-btn-color-default.ant-btn-variant-filled:disabled,
 .ant-btn-color-default.ant-btn-variant-filled.ant-btn-disabled {
   cursor: not-allowed;
@@ -286,7 +285,7 @@
 
 /* --------无边框end-------- */
 
-.ant-segmented {
+.ant-segmented:not(.chaos-segmented) {
   /* 圆角-控件-base */
   border-radius: var(--radius-control-base);
   /* gray/gray-控件填充-按下.激活 */
@@ -294,29 +293,36 @@
   padding: 1px;
 }
 
-.ant-segmented .ant-segmented-item {
-  font-size: var(--font-size-base);
+.ant-segmented:not(.chaos-segmented) .ant-segmented-thumb {
+  border-radius: var(--radius-control-base);
+}
+
+.ant-segmented:not(.chaos-segmented) .ant-segmented-item {
+  border-radius: var(--radius-control-base);
   font: var(--font-text-body-base);
   letter-spacing: var(--letter-spacing-body-base, normal);
   color: var(--color-gray-text-secondary);
 }
 
-.ant-segmented
+.ant-segmented:not(.chaos-segmented)
   .ant-segmented-item:hover:not(.ant-segmented-item-selected):not(
     .ant-segmented-item-disabled
   )::after {
   border-radius: var(--radius-control-base);
 }
 
-.ant-segmented .ant-segmented-item .ant-segmented-item-title {
+.ant-segmented:not(.chaos-segmented)
+  .ant-segmented-item
+  .ant-segmented-item-title {
   display: inline-flex;
   gap: 8px;
   align-items: center;
 }
 
-.ant-segmented .ant-segmented-item .ant-segmented-item-tag {
+.ant-segmented:not(.chaos-segmented)
+  .ant-segmented-item
+  .ant-segmented-item-tag {
   /* 自动布局子元素 */
-  height: 20px;
   min-width: 20px;
   /* 自动布局 */
   display: flex;
@@ -326,14 +332,15 @@
   gap: 8px;
   z-index: 1;
   border-radius: 200px;
-  /* gray/gray-控件填充-按下.激活 */
   background: var(--color-gray-control-fill-active);
   color: var(--color-gray-text-secondary);
   font: var(--font-text-number-xs);
   letter-spacing: var(--letter-spacing-number-xs, normal);
 }
 
-.ant-segmented .ant-segmented-item .ant-segmented-item-label {
+.ant-segmented:not(.chaos-segmented)
+  .ant-segmented-item
+  .ant-segmented-item-label {
   min-height: 14px;
   padding: var(--padding-2x) var(--padding-3x);
   line-height: 14px;
@@ -341,14 +348,14 @@
   align-items: center;
 }
 
-.ant-segmented
+.ant-segmented:not(.chaos-segmented)
   .ant-segmented-item
   .ant-segmented-item-label
   .ant-segmented-item-icon {
   font-size: 16px;
 }
 
-.ant-segmented .ant-segmented-item-selected {
+.ant-segmented:not(.chaos-segmented) .ant-segmented-item-selected {
   font: var(--font-text-h6-base);
   letter-spacing: var(--letter-spacing-h6-base, normal);
   /* gray/gray-文本-默认 */
@@ -430,4 +437,10 @@
   border-color: transparent;
   border: 1px solid transparent;
   box-shadow: none;
+}
+
+#root > div:not(.site-app) {
+  padding: var(--padding-5x);
+  margin: var(--margin-5x);
+  background: var(--color-gray-bg-card-white);
 }

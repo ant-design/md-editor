@@ -1,4 +1,4 @@
-import { Workspace } from '@ant-design/md-editor';
+import { Workspace } from '@ant-design/agentic-ui';
 import React, { useEffect, useState } from 'react';
 
 const WorkspaceRealtimeDemo: React.FC = () => {
@@ -12,7 +12,7 @@ const WorkspaceRealtimeDemo: React.FC = () => {
   useEffect(() => {
     // Shell 命令执行模拟
     const shellCommands = [
-      '$ npm install @ant-design/md-editor',
+      '$ npm install @ant-design/agentic-ui',
       'added 156 packages in 2.3s',
       '$ npm run build',
       'webpack compiled successfully',
@@ -104,7 +104,7 @@ $E = mc^2$
     <div style={{ height: 600, width: '100%' }}>
       <Workspace title="实时监控工作空间">
         <Workspace.Realtime
-          tab={{ key: 'shell', title: 'Shell 终端' }}
+          tab={{ key: 'shell', title: '实时跟随' }}
           data={{
             type: 'shell',
             content: '```bash\n' + shellContent + '\n```',

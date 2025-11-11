@@ -1,7 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable @typescript-eslint/no-loop-func */
-/* eslint-disable no-case-declarations */
+/**
+ * 此文件包含大量相互依赖的函数，为了保持代码的可读性和逻辑分组，
+ * 我们允许函数在定义前使用（函数提升）
+ */
 /* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+
 import json5 from 'json5';
 import type { Root, RootContent, Table } from 'mdast';
 //@ts-ignore
@@ -29,6 +32,12 @@ import { TableNode, TrNode as TableRowNode } from '../types/Table';
 import { EditorUtils } from '../utils';
 import partialJsonParse from './json-parse';
 import mdastParser from './remarkParse';
+
+// 常量定义
+const EMPTY_LINE_DISTANCE_THRESHOLD = 4; // 两个元素之间的行距阈值
+const EMPTY_LINE_CALCULATION_OFFSET = 2; // 计算空行数量时的偏移量
+const EMPTY_LINE_DIVISOR = 2; // 计算空行数量的除数
+const MIN_TABLE_CELL_LENGTH = 5; // 表格单元格最小长度
 
 // 类型定义
 type CodeElement = {
@@ -164,96 +173,176 @@ const myRemark = {
   },
 };
 
-const findImageElement = (str: string) => {
+/**
+ * 检测和解析 think 标签
+ * @param str - 要检测的字符串
+ * @returns think 标签的内容，如果不是 think 标签则返回 null
+ */
+const findThinkElement = (str: string) => {
   try {
-    // 首先尝试匹配包含source标签的video格式
-    const videoWithSourceMatch = str.match(
-      /^\s*<video[^>\n]*>[\s\S]*?<source[^>]*src="([^"\n]+)"[^>]*>[\s\S]*?<\/video>\s*$/,
-    );
-
-    if (videoWithSourceMatch) {
-      const tagName = 'video';
-      const height = str.match(/height="(\d+)"/);
-      const width = str.match(/width="(\d+)"/);
-      const align = str.match(/data-align="(\w+)"/);
-      const controls = str.match(/controls/);
-      const autoplay = str.match(/autoplay/);
-      const loop = str.match(/loop/);
-      const muted = str.match(/muted/);
-      const poster = str.match(/poster="([^"\n]+)"/);
-
+    // 匹配 <think>内容</think> 格式
+    const thinkMatch = str.match(/^\s*<think>([\s\S]*?)<\/think>\s*$/);
+    if (thinkMatch) {
       return {
-        url: decodeURIComponent(videoWithSourceMatch[1]),
-        height: height ? +height[1] : undefined,
-        width: width ? +width[1] : undefined,
-        align: align?.[1],
-        alt: str.match(/alt="([^"\n]+)"/)?.[1],
-        tagName,
-        controls: !!controls,
-        autoplay: !!autoplay,
-        loop: !!loop,
-        muted: !!muted,
-        poster: poster?.[1],
-      };
-    }
-
-    // 匹配完整的 HTML 标签，包括自闭合和带结束标签的
-    const match = str.match(
-      /^\s*<(img|video|iframe)[^>\n]*\/?>(.*<\/(?:img|video|iframe)>)?\s*$/,
-    );
-    // 如果没有匹配到完整标签，尝试匹配自闭合标签
-    const selfClosingMatch = str.match(/^\s*<(img|video|iframe)[^>\n]*\/>\s*$/);
-    // 尝试匹配完整的开始和结束标签
-    const fullTagMatch = str.match(
-      /^\s*<(img|video|iframe)[^>\n]*>.*?<\/(?:img|video|iframe)>\s*$/,
-    );
-    // 尝试匹配只有开始标签的情况
-    const startTagMatch = str.match(/^\s*<(img|video|iframe)[^>\n]*>\s*$/);
-    const fullMatch =
-      fullTagMatch || match || selfClosingMatch || startTagMatch;
-    if (fullMatch) {
-      const tagName = fullMatch[0].match(/<(img|video|iframe)/)?.[1];
-
-      // 首先尝试从video标签本身获取src属性
-      let url = fullMatch[0].match(/src="([^"\n]+)"/);
-
-      // 如果是video标签且没有找到src，尝试从source标签中获取
-      if (tagName === 'video' && !url) {
-        const sourceMatch = fullMatch[0].match(
-          /<source[^>]*src="([^"\n]+)"[^>]*>/,
-        );
-        if (sourceMatch) {
-          url = sourceMatch;
-        }
-      }
-
-      const height = fullMatch[0].match(/height="(\d+)"/);
-      const width = fullMatch[0].match(/width="(\d+)"/);
-      const align = fullMatch[0].match(/data-align="(\w+)"/);
-      const controls = fullMatch[0].match(/controls/);
-      const autoplay = fullMatch[0].match(/autoplay/);
-      const loop = fullMatch[0].match(/loop/);
-      const muted = fullMatch[0].match(/muted/);
-      const poster = fullMatch[0].match(/poster="([^"\n]+)"/);
-
-      return {
-        url: url?.[1],
-        height: height ? +height[1] : undefined,
-        width: width ? +width[1] : undefined,
-        align: align?.[1],
-        alt: fullMatch[0].match(/alt="([^"\n]+)"/)?.[1],
-        tagName,
-        controls: !!controls,
-        autoplay: !!autoplay,
-        loop: !!loop,
-        muted: !!muted,
-        poster: poster?.[1],
+        content: thinkMatch[1].trim(),
       };
     }
     return null;
   } catch (e) {
     return null;
   }
+};
+
+/**
+ * 检测和解析 answer 标签
+ * @param str - 要检测的字符串
+ * @returns answer 标签的内容，如果不是 answer 标签则返回 null
+ */
+const findAnswerElement = (str: string) => {
+  try {
+    // 匹配 <answer>内容</answer> 格式
+    const answerMatch = str.match(/^\s*<answer>([\s\S]*?)<\/answer>\s*$/);
+    if (answerMatch) {
+      return {
+        content: answerMatch[1].trim(),
+      };
+    }
+    return null;
+  } catch (e) {
+    return null;
+  }
+};
+
+/**
+ * 从 HTML 字符串中提取媒体元素属性
+ */
+const extractMediaAttributes = (str: string) => {
+  return {
+    height: str.match(/height="(\d+)"/)?.[1],
+    width: str.match(/width="(\d+)"/)?.[1],
+    align: str.match(/data-align="(\w+)"/)?.[1],
+    alt: str.match(/alt="([^"\n]+)"/)?.[1],
+    controls: str.match(/controls/),
+    autoplay: str.match(/autoplay/),
+    loop: str.match(/loop/),
+    muted: str.match(/muted/),
+    poster: str.match(/poster="([^"\n]+)"/)?.[1],
+  };
+};
+
+/**
+ * 构建媒体元素对象
+ */
+const buildMediaElement = (
+  url: string | undefined,
+  tagName: string,
+  attrs: ReturnType<typeof extractMediaAttributes>,
+) => {
+  return {
+    url,
+    height: attrs.height ? +attrs.height : undefined,
+    width: attrs.width ? +attrs.width : undefined,
+    align: attrs.align,
+    alt: attrs.alt,
+    tagName,
+    controls: !!attrs.controls,
+    autoplay: !!attrs.autoplay,
+    loop: !!attrs.loop,
+    muted: !!attrs.muted,
+    poster: attrs.poster,
+  };
+};
+
+/**
+ * 从字符串中提取视频源 URL
+ */
+const extractVideoSource = (str: string, tagName: string | undefined) => {
+  // 首先尝试从标签本身获取 src 属性
+  let url = str.match(/src="([^"\n]+)"/);
+
+  // 如果是 video 标签且没有找到 src，尝试从 source 标签中获取
+  if (tagName === 'video' && !url) {
+    const sourceMatch = str.match(/<source[^>]*src="([^"\n]+)"[^>]*>/);
+    if (sourceMatch) {
+      url = sourceMatch;
+    }
+  }
+
+  return url?.[1];
+};
+
+/**
+ * 查找并解析媒体元素（img/video/iframe）
+ */
+const findImageElement = (str: string) => {
+  try {
+    // 首先尝试匹配包含 source 标签的 video 格式
+    const videoWithSourceMatch = str.match(
+      /^\s*<video[^>\n]*>[\s\S]*?<source[^>]*src="([^"\n]+)"[^>]*>[\s\S]*?<\/video>\s*$/,
+    );
+
+    if (videoWithSourceMatch) {
+      const attrs = extractMediaAttributes(str);
+      return buildMediaElement(videoWithSourceMatch[1], 'video', attrs);
+    }
+
+    // 尝试匹配各种媒体标签格式
+    const patterns = [
+      /^\s*<(img|video|iframe)[^>\n]*>.*?<\/(?:img|video|iframe)>\s*$/, // 完整标签对
+      /^\s*<(img|video|iframe)[^>\n]*\/?>(.*<\/(?:img|video|iframe)>)?\s*$/, // 完整标签
+      /^\s*<(img|video|iframe)[^>\n]*\/>\s*$/, // 自闭合标签
+      /^\s*<(img|video|iframe)[^>\n]*>\s*$/, // 仅开始标签
+    ];
+
+    for (const pattern of patterns) {
+      const match = str.match(pattern);
+      if (match) {
+        const tagName = match[0].match(/<(img|video|iframe)/)?.[1];
+        const url = extractVideoSource(match[0], tagName);
+        const attrs = extractMediaAttributes(match[0]);
+        return buildMediaElement(url, tagName!, attrs);
+      }
+    }
+
+    return null;
+  } catch (e) {
+    console.error('Failed to parse media element:', e);
+    return null;
+  }
+};
+
+/**
+ * 根据媒体元素信息创建编辑器节点
+ */
+const createMediaNodeFromElement = (
+  mediaElement: ReturnType<typeof findImageElement>,
+) => {
+  if (!mediaElement) return null;
+
+  // 根据标签类型确定媒体类型
+  const mediaTypeMap: Record<string, string> = {
+    video: 'video',
+    iframe: 'iframe',
+    img: 'image',
+  };
+
+  const mediaType = mediaTypeMap[mediaElement.tagName] || 'image';
+
+  return EditorUtils.createMediaNode(
+    decodeURIComponentUrl(mediaElement.url || ''),
+    mediaType,
+    {
+      align: mediaElement.align,
+      alt: mediaElement.alt,
+      height: mediaElement.height,
+      width: mediaElement.width,
+      controls: mediaElement.controls,
+      autoplay: mediaElement.autoplay,
+      loop: mediaElement.loop,
+      muted: mediaElement.muted,
+      poster: mediaElement.poster,
+    },
+  );
 };
 
 const findAttachment = (str: string) => {
@@ -428,7 +517,6 @@ const parseTableOrChart = (
       children: r.children.map(
         (c: { children: string | any[] }, i: string | number) => {
           const mergeInfo = mergeMap.get(`${l}-${i}`);
-
           return {
             type: 'table-cell',
             align: aligns?.[i as number] || undefined,
@@ -448,11 +536,11 @@ const parseTableOrChart = (
               ? [
                   {
                     type: 'paragraph',
-                    children: parserBlock(
+                    children: parseNodes(
                       c.children as any,
+                      plugins,
                       false,
                       c as any,
-                      plugins,
                     ),
                   },
                 ]
@@ -503,7 +591,7 @@ const handleHeading = (
     type: 'head',
     level: currentElement.depth,
     children: currentElement.children?.length
-      ? parserBlock(currentElement.children, false, currentElement, plugins)
+      ? parseNodes(currentElement.children, plugins, false, currentElement)
       : [{ text: '' }],
   };
 };
@@ -540,67 +628,88 @@ const handleHtml = (currentElement: any, parent: any, htmlTag: any[]) => {
     } catch (e) {
       try {
         contextProps = partialJsonParse(value);
-      } catch (error) {}
-      console.log('parse html error', e);
+      } catch (parseError) {
+        console.warn('Failed to parse HTML comment as JSON or partial JSON:', {
+          value,
+          error: parseError,
+        });
+      }
+      console.warn('HTML comment parse fallback attempted:', e);
     }
   }
 
   let el: any;
   if (!parent || ['listItem', 'blockquote'].includes(parent.type)) {
-    const mediaElement = findImageElement(currentElement.value);
-    if (mediaElement) {
-      // 根据标签类型确定媒体类型
-      let mediaType = 'image';
-      if (mediaElement.tagName === 'video') {
-        mediaType = 'video';
-      } else if (mediaElement.tagName === 'iframe') {
-        mediaType = 'iframe';
-      }
-
-      el = EditorUtils.createMediaNode(
-        decodeURIComponentUrl(mediaElement?.url || '')!,
-        mediaType,
-        {
-          align: mediaElement.align,
-          alt: mediaElement.alt,
-          height: mediaElement?.height,
-          width: mediaElement?.width,
-          controls: mediaElement?.controls,
-          autoplay: mediaElement?.autoplay,
-          loop: mediaElement?.loop,
-          muted: mediaElement?.muted,
-          poster: mediaElement?.poster,
-        },
-      );
-    } else if (currentElement.value === '<br/>') {
-      el = { type: 'paragraph', children: [{ text: '' }] };
-    } else if (currentElement.value.match(/^<\/(img|video|iframe)>/)) {
-      // 如果是媒体标签的结束标签，跳过处理
-      el = null;
+    // 检查是否为 <think> 标签
+    const thinkElement = findThinkElement(currentElement.value);
+    if (thinkElement) {
+      // 将 <think> 标签转换为 think 类型的代码块
+      el = {
+        type: 'code',
+        language: 'think',
+        value: thinkElement.content,
+        children: [
+          {
+            text: thinkElement.content,
+          },
+        ],
+      };
     } else {
-      el = currentElement.value.match(
-        /<\/?(table|div|ul|li|ol|p|strong)[^\n>]*?>/,
-      )
-        ? htmlToFragmentList(currentElement.value, '')
-        : {
-            type: 'code',
-            language: 'html',
-            render: true,
-            value: currentElement.value,
-            children: [
-              {
-                text: currentElement.value,
-              },
-            ],
-          };
+      // 检查是否为 <answer> 标签
+      const answerElement = findAnswerElement(currentElement.value);
+      if (answerElement) {
+        // 将 <answer> 标签的内容作为普通文本
+        el = { text: answerElement.content };
+      } else {
+        const mediaElement = findImageElement(currentElement.value);
+        if (mediaElement) {
+          el = createMediaNodeFromElement(mediaElement);
+        } else if (currentElement.value === '<br/>') {
+          el = { type: 'paragraph', children: [{ text: '' }] };
+        } else if (currentElement.value.match(/^<\/(img|video|iframe)>/)) {
+          // 如果是媒体标签的结束标签，跳过处理
+          el = null;
+        } else {
+          // 检查是否为注释（注释需要特殊处理以提取配置）
+          const isComment =
+            currentElement.value.trim().startsWith('<!--') &&
+            currentElement.value.trim().endsWith('-->');
+
+          // 检查是否为标准 HTML 元素或注释
+          if (isComment || isStandardHtmlElement(currentElement.value)) {
+            // 标准 HTML 元素或注释：按原逻辑处理
+            el = currentElement.value.match(
+              /<\/?(table|div|ul|li|ol|p|strong)[^\n>]*?>/,
+            )
+              ? htmlToFragmentList(currentElement.value, '')
+              : {
+                  type: 'code',
+                  language: 'html',
+                  render: true,
+                  value: currentElement.value,
+                  children: [
+                    {
+                      text: currentElement.value,
+                    },
+                  ],
+                };
+          } else {
+            // 非标准元素（如自定义标签）：当作普通文本处理
+            el = { text: currentElement.value };
+          }
+        }
+      }
     }
   } else {
     el = processInlineHtml(currentElement, htmlTag);
   }
 
   if (el && !Array.isArray(el)) {
-    el.isConfig = currentElement?.value?.trim()?.startsWith('<!--');
-    el.otherProps = contextProps;
+    // 只有非文本节点才设置 isConfig 和 otherProps
+    if (!('text' in el && Object.keys(el).length === 1)) {
+      el.isConfig = currentElement?.value?.trim()?.startsWith('<!--');
+      el.otherProps = contextProps;
+    }
   }
 
   return { el, contextProps };
@@ -616,6 +725,18 @@ const processInlineHtml = (currentElement: any, htmlTag: any[]) => {
   const breakMatch = currentElement.value.match(/<br\/?>/);
   if (breakMatch) {
     return { type: 'break', children: [{ text: '\n' }] };
+  }
+
+  // 检查是否为 <answer> 标签（内联场景）
+  const answerElement = findAnswerElement(currentElement.value);
+  if (answerElement) {
+    // 将 <answer> 标签的内容作为普通文本
+    return { text: answerElement.content };
+  }
+
+  // 检查是否为非标准 HTML 元素，如果是则直接当作文本
+  if (!isStandardHtmlElement(currentElement.value)) {
+    return { text: currentElement.value };
   }
 
   const htmlMatch = currentElement.value.match(
@@ -638,25 +759,7 @@ const processInlineHtml = (currentElement: any, htmlTag: any[]) => {
   } else {
     const mediaElement = findImageElement(currentElement.value);
     if (mediaElement) {
-      // 根据标签类型确定媒体类型
-      let mediaType = 'image';
-      if (mediaElement.tagName === 'video') {
-        mediaType = 'video';
-      } else if (mediaElement.tagName === 'iframe') {
-        mediaType = 'iframe';
-      }
-
-      return EditorUtils.createMediaNode(mediaElement?.url, mediaType, {
-        align: mediaElement.align,
-        alt: mediaElement.alt,
-        height: mediaElement?.height,
-        width: mediaElement?.width,
-        controls: mediaElement?.controls,
-        autoplay: mediaElement?.autoplay,
-        loop: mediaElement?.loop,
-        muted: mediaElement?.muted,
-        poster: mediaElement?.poster,
-      });
+      return createMediaNodeFromElement(mediaElement);
     } else {
       return { text: currentElement.value };
     }
@@ -689,7 +792,7 @@ const processHtmlTag = (str: string, tag: string, htmlTag: any[]) => {
         }
       }
     } catch (e) {
-      // Handle error silently
+      console.warn('Failed to parse span style attribute:', { str, error: e });
     }
   } else if (tag === 'a') {
     const url = str.match(/href="([\w:./_\-#\\]+)"/);
@@ -767,11 +870,11 @@ const handleList = (currentElement: any, plugins: MarkdownEditorPlugin[]) => {
     type: 'list',
     order: currentElement.ordered,
     start: currentElement.start,
-    children: parserBlock(
+    children: parseNodes(
       currentElement.children,
+      plugins,
       false,
       currentElement,
-      plugins,
     ),
   };
   el.task = el.children?.some((s: any) => typeof s.checked === 'boolean');
@@ -800,11 +903,11 @@ const handleFootnoteDefinition = (
   currentElement: any,
   plugins: MarkdownEditorPlugin[],
 ) => {
-  const linkNode = parserBlock(
+  const linkNode = parseNodes(
     currentElement.children,
+    plugins,
     false,
     currentElement,
-    plugins,
   )?.at(0) as any;
 
   const cellNode = linkNode?.children?.at(0) as any;
@@ -828,7 +931,7 @@ const handleListItem = (
   plugins: MarkdownEditorPlugin[],
 ) => {
   const children = currentElement.children?.length
-    ? parserBlock(currentElement.children, false, currentElement, plugins)
+    ? parseNodes(currentElement.children, plugins, false, currentElement)
     : ([{ type: 'paragraph', children: [{ text: '' }] }] as any);
 
   let mentions = undefined;
@@ -879,6 +982,125 @@ const handleListItem = (
 };
 
 /**
+ * 处理附件链接
+ */
+const handleAttachmentLink = (currentElement: any) => {
+  const text = currentElement.children
+    .map((n: any) => (n as any).value || '')
+    .join('');
+  const attach = findAttachment(text);
+
+  if (!attach) return null;
+
+  const name = text.match(/>(.*)<\/a>/);
+  return {
+    type: 'attach',
+    url: decodeURIComponentUrl(attach?.url),
+    size: attach.size,
+    children: [
+      {
+        type: 'card-before',
+        children: [{ text: '' }],
+      },
+      {
+        type: 'card-after',
+        children: [{ text: '' }],
+      },
+    ],
+    name: name ? name[1] : attach?.url,
+  };
+};
+
+/**
+ * 处理链接卡片
+ */
+const handleLinkCard = (currentElement: any, config: any) => {
+  const link = currentElement?.children?.at(0) as {
+    type: 'link';
+    url: string;
+    title: string;
+  };
+
+  return {
+    ...config,
+    type: 'link-card',
+    url: decodeURIComponentUrl(link?.url),
+    children: [
+      {
+        type: 'card-before',
+        children: [{ text: '' }],
+      },
+      {
+        type: 'card-after',
+        children: [{ text: '' }],
+      },
+    ],
+    name: link.title,
+  };
+};
+
+/**
+ * 处理段落中的子元素
+ */
+const processParagraphChildren = (
+  currentElement: any,
+  plugins: MarkdownEditorPlugin[],
+) => {
+  const elements = [];
+  let textNodes: any[] = [];
+
+  for (let currentChild of currentElement.children || []) {
+    if (currentChild.type === 'image') {
+      // 将累积的文本节点生成段落
+      if (textNodes.length) {
+        elements.push({
+          type: 'paragraph',
+          children: parseNodes(textNodes, plugins, false, currentElement),
+        });
+        textNodes = [];
+      }
+      // 添加图片节点
+      elements.push(
+        EditorUtils.createMediaNode(
+          decodeURIComponentUrl(currentChild?.url),
+          'image',
+          {
+            alt: currentChild.alt,
+          },
+        ),
+      );
+    } else if (currentChild.type === 'html') {
+      // 跳过媒体标签的结束标签
+      if (currentChild.value.match(/^<\/(img|video|iframe)>/)) {
+        continue;
+      }
+
+      const mediaElement = findImageElement(currentChild.value);
+      if (mediaElement) {
+        const node = createMediaNodeFromElement(mediaElement);
+        if (node) {
+          elements.push(node);
+        }
+      } else {
+        textNodes.push({ type: 'html', value: currentChild.value });
+      }
+    } else {
+      textNodes.push(currentChild);
+    }
+  }
+
+  // 处理剩余的文本节点
+  if (textNodes.length) {
+    elements.push({
+      type: 'paragraph',
+      children: parseNodes(textNodes, plugins, false, currentElement),
+    });
+  }
+
+  return elements;
+};
+
+/**
  * 处理段落节点
  * @param currentElement - 当前处理的段落元素
  * @param config - 配置对象，包含样式和行为设置
@@ -895,30 +1117,8 @@ const handleParagraph = (
     currentElement.children?.[0].type === 'html' &&
     currentElement.children[0].value.startsWith('<a')
   ) {
-    const text = currentElement.children
-      .map((n: any) => (n as any).value || '')
-      .join('');
-    const attach = findAttachment(text);
-
-    if (attach) {
-      const name = text.match(/>(.*)<\/a>/);
-      return {
-        type: 'attach',
-        url: decodeURIComponentUrl(attach?.url),
-        size: attach.size,
-        children: [
-          {
-            type: 'card-before',
-            children: [{ text: '' }],
-          },
-          {
-            type: 'card-after',
-            children: [{ text: '' }],
-          },
-        ],
-        name: name ? name[1] : attach?.url,
-      };
-    }
+    const attachNode = handleAttachmentLink(currentElement);
+    if (attachNode) return attachNode;
   }
 
   // 检查是否是链接卡片
@@ -926,101 +1126,11 @@ const handleParagraph = (
     currentElement?.children?.at(0)?.type === 'link' &&
     config.type === 'card'
   ) {
-    const link = currentElement?.children?.at(0) as {
-      type: 'link';
-      url: string;
-      title: string;
-    };
-
-    return {
-      ...config,
-      type: 'link-card',
-      url: decodeURIComponentUrl(link?.url),
-      children: [
-        {
-          type: 'card-before',
-          children: [{ text: '' }],
-        },
-        {
-          type: 'card-after',
-          children: [{ text: '' }],
-        },
-      ],
-      name: link.title,
-    };
+    return handleLinkCard(currentElement, config);
   }
 
   // 处理混合内容段落
-  const elements = [];
-  let textNodes: any[] = [];
-
-  for (let currentChild of currentElement.children || []) {
-    if (currentChild.type === 'image') {
-      if (textNodes.length) {
-        elements.push({
-          type: 'paragraph',
-          children: parseWithPlugins(textNodes, plugins, false, currentElement),
-        });
-        textNodes = [];
-      }
-      elements.push(
-        EditorUtils.createMediaNode(
-          decodeURIComponentUrl(currentChild?.url),
-          'image',
-          {
-            alt: currentChild.alt,
-          },
-        ),
-      );
-    } else if (currentChild.type === 'html') {
-      // 检查是否是结束标签
-      if (currentChild.value.match(/^<\/(img|video|iframe)>/)) {
-        // 跳过结束标签
-        continue;
-      }
-
-      const mediaElement = findImageElement(currentChild.value);
-      if (mediaElement) {
-        // 根据标签类型确定媒体类型
-        let mediaType = 'image';
-        if (mediaElement.tagName === 'video') {
-          mediaType = 'video';
-        } else if (mediaElement.tagName === 'iframe') {
-          mediaType = 'iframe';
-        }
-
-        elements.push(
-          EditorUtils.createMediaNode(
-            decodeURIComponentUrl(mediaElement?.url || ''),
-            mediaType,
-            {
-              alt: mediaElement.alt,
-              height: mediaElement?.height,
-              width: mediaElement?.width,
-              controls: mediaElement?.controls,
-              autoplay: mediaElement?.autoplay,
-              loop: mediaElement?.loop,
-              muted: mediaElement?.muted,
-              poster: mediaElement?.poster,
-            },
-          ),
-        );
-      } else {
-        textNodes.push({ type: 'html', value: currentChild.value });
-      }
-    } else {
-      textNodes.push(currentChild);
-    }
-  }
-
-  if (textNodes.length) {
-    elements.push({
-      type: 'paragraph',
-      children: parseWithPlugins(textNodes, plugins, false, currentElement),
-    });
-  }
-
-  return elements;
+  return processParagraphChildren(currentElement, plugins);
 };
 
 /**
@@ -1115,7 +1225,7 @@ const handleBlockquote = (
   return {
     type: 'blockquote',
     children: currentElement.children?.length
-      ? parserBlock(currentElement.children, false, currentElement, plugins)
+      ? parseNodes(currentElement.children, plugins, false, currentElement)
       : [{ type: 'paragraph', children: [{ text: '' }] }],
   };
 };
@@ -1174,11 +1284,11 @@ const handleTextAndInlineElements = (
       (currentElement as any)?.children?.some((n: any) => n.type === 'html')
     ) {
       return {
-        ...parserBlock(
+        ...parseNodes(
           (currentElement as any)?.children,
+          plugins,
           false,
           currentElement,
-          plugins,
         )?.at(0),
         url: leaf.url,
       };
@@ -1290,13 +1400,104 @@ const addEmptyLinesIfNeeded = (
     const distance =
       (currentElement.position?.start.line || 0) -
       (preNode.position?.end.line || 0);
-    if (distance >= 4) {
-      const lines = Math.floor((distance - 2) / 2);
+    if (distance >= EMPTY_LINE_DISTANCE_THRESHOLD) {
+      const lines = Math.floor(
+        (distance - EMPTY_LINE_CALCULATION_OFFSET) / EMPTY_LINE_DIVISOR,
+      );
       Array.from(new Array(lines)).forEach(() => {
         els.push({ type: 'paragraph', children: [{ text: '' }] });
       });
     }
   }
+};
+
+/**
+ * 元素类型处理器映射表
+ * 将元素类型映射到对应的处理函数
+ */
+type ElementHandler = {
+  handler: (
+    element: any,
+    plugins: MarkdownEditorPlugin[],
+    config?: any,
+    parent?: RootContent,
+    htmlTag?: { tag: string; color?: string; url?: string }[],
+    preElement?: Element | null,
+  ) => Element | Element[] | null;
+  needsHtmlResult?: boolean;
+};
+
+/**
+ * 元素处理器映射表
+ */
+const elementHandlers: Record<string, ElementHandler> = {
+  heading: { handler: (el, plugins) => handleHeading(el, plugins) },
+  html: { handler: () => null, needsHtmlResult: true },
+  image: { handler: (el) => handleImage(el) },
+  inlineMath: { handler: (el) => handleInlineMath(el) },
+  math: { handler: (el) => handleMath(el) },
+  list: { handler: (el, plugins) => handleList(el, plugins) },
+  footnoteReference: { handler: (el) => handleFootnoteReference(el) },
+  footnoteDefinition: {
+    handler: (el, plugins) => handleFootnoteDefinition(el, plugins),
+  },
+  listItem: { handler: (el, plugins) => handleListItem(el, plugins) },
+  paragraph: {
+    handler: (el, plugins, config) => handleParagraph(el, config, plugins),
+  },
+  inlineCode: { handler: (el) => handleInlineCode(el) },
+  thematicBreak: { handler: () => handleThematicBreak() },
+  code: { handler: (el) => handleCode(el) },
+  yaml: { handler: (el) => handleYaml(el) },
+  blockquote: { handler: (el, plugins) => handleBlockquote(el, plugins) },
+  table: {
+    handler: (el, plugins, config, parent, htmlTag, preElement) =>
+      parseTableOrChart(el, preElement, plugins),
+  },
+  definition: { handler: (el) => handleDefinition(el) },
+};
+
+/**
+ * 处理单个元素
+ */
+const handleSingleElement = (
+  currentElement: RootContent,
+  config: any,
+  plugins: MarkdownEditorPlugin[],
+  parent: RootContent | undefined,
+  htmlTag: { tag: string; color?: string; url?: string }[],
+  preElement: Element | null,
+): { el: Element | Element[] | null; contextProps?: any } => {
+  const elementType = currentElement.type;
+  const handlerInfo = elementHandlers[elementType];
+
+  // 特殊处理 html 类型
+  if (handlerInfo?.needsHtmlResult) {
+    const htmlResult = handleHtml(currentElement, parent, htmlTag);
+    return {
+      el: htmlResult.el,
+      contextProps: htmlResult.contextProps,
+    };
+  }
+
+  // 使用处理器映射表
+  if (handlerInfo) {
+    return {
+      el: handlerInfo.handler(
+        currentElement,
+        plugins || [],
+        config,
+        parent,
+        htmlTag,
+        preElement,
+      ),
+    };
+  }
+
+  // 默认处理
+  return {
+    el: handleTextAndInlineElements(currentElement, htmlTag, plugins || []),
+  };
 };
 
 /**
@@ -1314,113 +1515,15 @@ const addEmptyLinesIfNeeded = (
  *   { type: 'heading', depth: 1, children: [...] },
  *   { type: 'paragraph', children: [...] }
  * ];
- * const slateNodes = parserBlock(markdownNodes, true);
+ * const slateNodes = parseNodes(markdownNodes, true);
  * ```
  */
-const parserBlock = (
-  nodes: RootContent[],
-  top = false,
-  parent: RootContent | undefined = undefined,
-  plugins: MarkdownEditorPlugin[],
-) => {
-  if (!nodes?.length) return [{ type: 'paragraph', children: [{ text: '' }] }];
-
-  let els: (Elements | Text)[] = [];
-  let el: Element | null | Element[] = null;
-  let preNode: null | RootContent = null;
-  let preElement: Element = null;
-  let htmlTag: { tag: string; color?: string; url?: string }[] = [];
-  let contextProps = {};
-  for (let i = 0; i < nodes.length; i++) {
-    const currentElement = nodes[i];
-    const config =
-      preElement?.type === 'code' &&
-      preElement?.language === 'html' &&
-      preElement?.otherProps
-        ? preElement?.otherProps
-        : {};
-
-    switch (currentElement.type) {
-      case 'heading':
-        el = handleHeading(currentElement, plugins || []);
-        break;
-      case 'html':
-        const htmlResult = handleHtml(currentElement, parent, htmlTag);
-        el = htmlResult.el;
-        if (htmlResult.contextProps) {
-          contextProps = { ...contextProps, ...htmlResult.contextProps };
-        }
-        break;
-      case 'image':
-        el = handleImage(currentElement);
-        break;
-      case 'inlineMath':
-        el = handleInlineMath(currentElement);
-        break;
-      case 'math':
-        el = handleMath(currentElement);
-        break;
-      case 'list':
-        el = handleList(currentElement, plugins || []);
-        break;
-      case 'footnoteReference':
-        el = handleFootnoteReference(currentElement);
-        break;
-      case 'footnoteDefinition':
-        el = handleFootnoteDefinition(currentElement, plugins || []);
-        break;
-      case 'listItem':
-        el = handleListItem(currentElement, plugins || []);
-        break;
-      case 'paragraph':
-        el = handleParagraph(currentElement, config, plugins || []);
-        break;
-      case 'inlineCode':
-        el = handleInlineCode(currentElement);
-        break;
-      case 'thematicBreak':
-        el = handleThematicBreak();
-        break;
-      case 'code':
-        el = handleCode(currentElement);
-        break;
-      case 'yaml':
-        el = handleYaml(currentElement);
-        break;
-      case 'blockquote':
-        el = handleBlockquote(currentElement, plugins || []);
-        break;
-      case 'table':
-        el = parseTableOrChart(currentElement, preElement, plugins || []);
-        break;
-      case 'definition':
-        el = handleDefinition(currentElement);
-        break;
-      default:
-        el = handleTextAndInlineElements(
-          currentElement,
-          htmlTag,
-          plugins || [],
-        );
-    }
-
-    addEmptyLinesIfNeeded(els, preNode, currentElement, top);
-
-    if (el) {
-      el = applyContextPropsAndConfig(el, contextProps, config);
-      Array.isArray(el) ? els.push(...el) : els.push(el);
-    }
-
-    preNode = currentElement;
-    preElement = el;
-    el = null;
-  }
-
-  return els;
-};
-
-// Markdown 转 Slate
-const parseWithPlugins = (
+/**
+ * 解析 Markdown AST 节点为 Slate 节点
+ * - 当有插件时，优先使用插件处理
+ * - 插件未处理时，使用默认处理逻辑
+ */
+const parseNodes = (
   nodes: RootContent[],
   plugins: MarkdownEditorPlugin[],
   top = false,
@@ -1438,6 +1541,13 @@ const parseWithPlugins = (
     const currentElement = nodes[i] as any;
     let el: Element | null | Element[] = null;
     let pluginHandled = false;
+
+    const config =
+      preElement?.type === 'code' &&
+      preElement?.language === 'html' &&
+      preElement?.otherProps
+        ? preElement?.otherProps
+        : {};
 
     // 首先尝试使用插件处理
     for (const plugin of plugins) {
@@ -1459,83 +1569,26 @@ const parseWithPlugins = (
 
     // 如果插件没有处理，使用默认处理逻辑
     if (!pluginHandled) {
-      const config =
-        preElement?.type === 'code' &&
-        preElement?.language === 'html' &&
-        preElement?.otherProps
-          ? preElement?.otherProps
-          : {};
+      // 使用统一的处理函数
+      const result = handleSingleElement(
+        currentElement,
+        config,
+        plugins,
+        parent,
+        htmlTag,
+        preElement,
+      );
 
-      switch (currentElement.type) {
-        case 'heading':
-          el = handleHeading(currentElement, plugins || []);
-          break;
-        case 'html':
-          const htmlResult = handleHtml(currentElement, parent, htmlTag);
-          el = htmlResult.el;
-          if (htmlResult.contextProps) {
-            contextProps = { ...contextProps, ...htmlResult.contextProps };
-          }
-          break;
-        case 'image':
-          el = handleImage(currentElement);
-          break;
-        case 'inlineMath':
-          el = handleInlineMath(currentElement);
-          break;
-        case 'math':
-          el = handleMath(currentElement);
-          break;
-        case 'list':
-          el = handleList(currentElement, plugins || []);
-          break;
-        case 'footnoteReference':
-          el = handleFootnoteReference(currentElement);
-          break;
-        case 'footnoteDefinition':
-          el = handleFootnoteDefinition(currentElement, plugins || []);
-          break;
-        case 'listItem':
-          el = handleListItem(currentElement, plugins || []);
-          break;
-        case 'paragraph':
-          el = handleParagraph(currentElement, config, plugins);
-
-          break;
-        case 'inlineCode':
-          el = handleInlineCode(currentElement);
-          break;
-        case 'thematicBreak':
-          el = handleThematicBreak();
-          break;
-        case 'code':
-          el = handleCode(currentElement);
-          break;
-        case 'yaml':
-          el = handleYaml(currentElement);
-          break;
-        case 'blockquote':
-          el = handleBlockquote(currentElement, plugins || []);
-          break;
-        case 'table':
-          el = parseTableOrChart(currentElement, preElement, plugins || []);
-          break;
-        case 'definition':
-          el = handleDefinition(currentElement);
-          break;
-        default:
-          el = handleTextAndInlineElements(
-            currentElement,
-            htmlTag,
-            plugins || [],
-          );
+      el = result.el;
+      if (result.contextProps) {
+        contextProps = { ...contextProps, ...result.contextProps };
       }
     }
 
     addEmptyLinesIfNeeded(els, preNode, currentElement, top);
 
     if (el) {
-      el = applyContextPropsAndConfig(el, contextProps, {});
+      el = applyContextPropsAndConfig(el, contextProps, config);
       Array.isArray(el) ? els.push(...el) : els.push(el);
     }
 
@@ -1547,6 +1600,202 @@ const parseWithPlugins = (
 };
 
 const tableRegex = /^\|.*\|\s*\n\|[-:| ]+\|/m;
+
+/**
+ * 标准 HTML 元素列表
+ * 这些标签会被正常解析为 HTML，其他标签会被当作普通文本处理
+ */
+const STANDARD_HTML_ELEMENTS = new Set([
+  // 文档结构
+  'html',
+  'head',
+  'body',
+  'title',
+  'meta',
+  'link',
+  'style',
+  'script',
+  // 内容分区
+  'header',
+  'nav',
+  'main',
+  'section',
+  'article',
+  'aside',
+  'footer',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  // 文本内容
+  'div',
+  'p',
+  'hr',
+  'pre',
+  'blockquote',
+  // 列表
+  'ul',
+  'ol',
+  'li',
+  'dl',
+  'dt',
+  'dd',
+  // 表格
+  'table',
+  'thead',
+  'tbody',
+  'tfoot',
+  'tr',
+  'th',
+  'td',
+  'caption',
+  'colgroup',
+  'col',
+  // 表单
+  'form',
+  'input',
+  'textarea',
+  'button',
+  'select',
+  'option',
+  'label',
+  'fieldset',
+  'legend',
+  // 内联文本语义
+  'a',
+  'em',
+  'strong',
+  'small',
+  'mark',
+  'del',
+  'ins',
+  'sub',
+  'sup',
+  'i',
+  'b',
+  'u',
+  's',
+  'code',
+  'kbd',
+  'samp',
+  'var',
+  'span',
+  'br',
+  'wbr',
+  // 图片和多媒体
+  'img',
+  'video',
+  'audio',
+  'source',
+  'track',
+  'iframe',
+  'embed',
+  'object',
+  'param',
+  'picture',
+  // 其他
+  'canvas',
+  'svg',
+  'math',
+  'details',
+  'summary',
+  'dialog',
+  'menu',
+  'menuitem',
+  // 字体
+  'font',
+]);
+
+/**
+ * 检查 HTML 标签是否为标准元素
+ * @param htmlString - HTML 字符串
+ * @returns 是否为标准 HTML 元素
+ */
+function isStandardHtmlElement(htmlString: string): boolean {
+  // 提取标签名（支持开始标签和结束标签）
+  const tagMatch = htmlString.match(/<\/?(\w+)/);
+  if (!tagMatch) return false;
+
+  const tagName = tagMatch[1].toLowerCase();
+  return STANDARD_HTML_ELEMENTS.has(tagName);
+}
+
+/**
+ * 预处理特殊标签（think/answer），将其转换为代码块格式
+ * @param markdown - 原始 Markdown 字符串
+ * @param tagName - 标签名称（think 或 answer）
+ * @returns 处理后的 Markdown 字符串
+ */
+function preprocessSpecialTags(
+  markdown: string,
+  tagName: 'think' | 'answer',
+): string {
+  const tagRegex = new RegExp(`<${tagName}>([\\s\\S]*?)<\\/${tagName}>`, 'g');
+
+  return markdown?.replace(tagRegex, (match, content) => {
+    const trimmedContent = content.trim();
+
+    // 如果内容中包含代码块标记（三个反引号），需要进行转义
+    // 策略：使用特殊标记替换代码块，保持原始格式
+    const processedContent = trimmedContent?.replace(
+      /```(\w*)\n?([\s\S]*?)```/g,
+      (_: string, lang: string, code: string) => {
+        // 使用特殊标记包裹，保留语言和代码内容
+        // 格式：【CODE_BLOCK:lang】code【/CODE_BLOCK】
+        const marker = '\u200B'; // 零宽空格，用于标记
+        return `${marker}【CODE_BLOCK:${lang || ''}】\n${code}\n【/CODE_BLOCK】${marker}`;
+      },
+    );
+
+    // 构建对应类型的代码块
+    return `\`\`\`${tagName}\n${processedContent}\n\`\`\``;
+  });
+}
+
+/**
+ * 预处理 <think> 标签，将其转换为 ```think 代码块格式
+ * @param markdown - 原始 Markdown 字符串
+ * @returns 处理后的 Markdown 字符串
+ */
+function preprocessThinkTags(markdown: string): string {
+  return preprocessSpecialTags(markdown, 'think');
+}
+
+/**
+ * 预处理所有非标准 HTML 标签，提取其内容（删除标签本身）
+ * @param markdown - 原始 Markdown 字符串
+ * @returns 处理后的 Markdown 字符串
+ */
+function preprocessNonStandardHtmlTags(markdown: string): string {
+  let result = markdown;
+  let hasNonStandardTags = true;
+
+  // 循环处理，直到没有非标准标签（处理嵌套情况）
+  while (hasNonStandardTags) {
+    const before = result;
+
+    // 匹配所有 HTML 标签对：<tagname>content</tagname>
+    result = result.replace(
+      /<(\w+)>([\s\S]*?)<\/\1>/g,
+      (match, tagName, content) => {
+        // 检查是否为标准 HTML 元素
+        if (STANDARD_HTML_ELEMENTS.has(tagName.toLowerCase())) {
+          // 标准元素保持不变
+          return match;
+        }
+        // 非标准元素只保留内容（不 trim，保持原始格式）
+        return content;
+      },
+    );
+
+    // 如果没有变化，说明处理完成
+    hasNonStandardTags = before !== result;
+  }
+
+  return result;
+}
 
 function preprocessMarkdownTableNewlines(markdown: string) {
   // 检查是否包含表格
@@ -1575,7 +1824,8 @@ function preprocessMarkdownTableNewlines(markdown: string) {
       if (!tableRegex.test(line)) return line; // 如果没有表格，直接返回原始字符串
       // 匹配所有表格的行（确保我们在表格行内匹配换行符）
       return line.replace(/\|([^|]+)\|/g, (match) => {
-        if (match.replaceAll('\n', '')?.length < 5) return match; // 如果匹配的长度小于5，直接返回原始字符串
+        if (match.replaceAll('\n', '')?.length < MIN_TABLE_CELL_LENGTH)
+          return match;
         // 只替换每个表格单元格内的换行符
         return match.split('\n').join('<br>');
       });
@@ -1600,17 +1850,17 @@ export const parserMarkdownToSlateNode = (
   schema: Elements[];
   links: { path: number[]; target: string }[];
 } => {
+  // 先预处理 <think> 标签，再预处理其他非标准 HTML 标签，最后处理表格换行
+  const thinkProcessed = preprocessThinkTags(md || '');
+  const nonStandardProcessed = preprocessNonStandardHtmlTags(thinkProcessed);
   const processedMarkdown = mdastParser.parse(
-    preprocessMarkdownTableNewlines(md || ''),
+    preprocessMarkdownTableNewlines(nonStandardProcessed),
   ) as any;
 
   const markdownRoot = processedMarkdown.children;
+  const pluginList = plugins || [];
 
-  const schema =
-    (plugins || [])?.length > 0
-      ? (parseWithPlugins(markdownRoot, plugins || [], true) as Elements[])
-      : (parserBlock(markdownRoot as any[], true, undefined, []) as Elements[]);
-
+  const schema = parseNodes(markdownRoot, pluginList, true) as Elements[];
   return {
     schema: schema?.filter((item) => {
       if (item.type === 'paragraph' && item.children?.length === 1) {

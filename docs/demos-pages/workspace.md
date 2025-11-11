@@ -2,6 +2,9 @@
 nav:
   title: Demo
   order: 3
+group:
+  title: 通用
+  order: 9
 ---
 
 # 工作空间

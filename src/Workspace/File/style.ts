@@ -1,5 +1,5 @@
-import type { ChatTokenType, GenerateStyle } from '../../hooks/useStyle';
-import { useEditorStyleRegister } from '../../hooks/useStyle';
+import type { ChatTokenType, GenerateStyle } from '../../Hooks/useStyle';
+import { useEditorStyleRegister } from '../../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -20,7 +20,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             height: '40px',
             padding: '8px 0',
             cursor: 'pointer',
-            transition: 'all 0.2s ease',
+            transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
 
             [`&-left, &-right`]: {
               display: 'flex',
@@ -62,6 +62,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
           // 文件数量
           [`&-count`]: {
+            boxSizing: 'border-box',
             color: 'var(--color-gray-text-secondary)',
             font: 'var(--font-text-number-xs)',
             letterSpacing: 'var(--letter-spacing-number-xs, normal)',
@@ -75,7 +76,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             justifyContent: 'center',
           },
           [`&-action-btn`]: {
-            color: 'rgba(80, 92, 113, 0.42)',
+            cursor: 'pointer',
+            transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
           },
           // 分组内容区域
           [`&-content`]: {
@@ -94,7 +96,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       padding: '4px',
       borderRadius: 'var(--radius-control-base)',
       cursor: 'pointer',
-      transition: 'all 0.2s ease',
+      transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
       boxSizing: 'border-box',
 
       '&:last-child': {
@@ -217,6 +219,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       display: 'flex',
       flexDirection: 'column',
       height: '100%',
+      marginLeft: -16,
+      marginRight: -16,
       background: '#fff',
       position: 'relative',
 
@@ -225,7 +229,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         gap: '4px',
-        padding: '8px 12px 8px 0',
+        padding: '8px 12px 8px 8px',
         borderBottom: '1px solid rgba(20, 22, 28, 0.07)',
         background: '#fff',
         flexShrink: 0,
@@ -245,7 +249,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         background: 'none',
         cursor: 'pointer',
         color: '#767e8b',
-        transition: 'all 0.2s ease',
+        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
         borderRadius: '4px',
 
         '&:hover': {
@@ -333,7 +337,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         alignItems: 'center',
         '&-tip': {
           font: 'var(--font-text-h6-base)',
-          letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+
           color: 'var(--color-gray-text-secondary)',
           display: 'flex',
           gap: 8,

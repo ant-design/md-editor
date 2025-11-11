@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ElementProps, InlineKatexNode } from '../../../src/MarkdownEditor/el';
-import { InlineKatex } from '../../../src/plugins/katex/InlineKatex';
+import { InlineKatex } from '../../../src/Plugins/katex/InlineKatex';
 
 // Mock katex
 vi.mock('katex', () => ({
@@ -42,7 +42,7 @@ describe('InlineKatex', () => {
     children: <span>x^2</span>,
     element: mockElement,
     attributes: {
-      'data-slate-node': 'element',
+      'data-slate-node': 'element' as const,
       ref: null,
     },
   };

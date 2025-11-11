@@ -2,7 +2,7 @@ import {
   LowCodeSchema,
   SchemaRenderer,
   validator,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import { Button, Input, message, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 

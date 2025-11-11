@@ -2,6 +2,9 @@
 nav:
   title: 工具函数
   order: 5
+group:
+  title: 工具函数
+  order: 3
 ---
 
 # markdownToHtml 工具函数
@@ -54,7 +57,7 @@ nav:
 ### 异步转换
 
 ```typescript | pure
-import { markdownToHtml } from '@ant-design/md-editor';
+import { markdownToHtml } from '@ant-design/agentic-ui';
 
 const markdown = `
 # 标题
@@ -86,7 +89,7 @@ console.log(html);
 ### 同步转换
 
 ```typescript | pure
-import { markdownToHtmlSync } from '@ant-design/md-editor';
+import { markdownToHtmlSync } from '@ant-design/agentic-ui';
 
 const markdown = '# 标题\n\n这是一个段落。';
 const html = markdownToHtmlSync(markdown);

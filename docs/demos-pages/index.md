@@ -2,6 +2,9 @@
 nav:
   title: Demo
   order: 1
+group:
+  title: 通用
+  order: 5
 ---
 
 # 基础交互

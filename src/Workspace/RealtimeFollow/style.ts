@@ -1,11 +1,12 @@
-import type { ChatTokenType, GenerateStyle } from '../../hooks/useStyle';
-import { useEditorStyleRegister } from '../../hooks/useStyle';
-
+import type { ChatTokenType, GenerateStyle } from '../../Hooks/useStyle';
+import { useEditorStyleRegister } from '../../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [`${token.componentCls}`]: {
       [`&-container`]: {
+        display: 'flex',
+        flexDirection: 'column',
         height: '100%',
       },
 
@@ -13,7 +14,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '8px 16px',
+        padding: '8px 12px',
         marginLeft: -16,
         marginRight: -16,
         borderBottom: '1px solid var(--color-gray-border-light)',
@@ -29,7 +30,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           background: 'none',
           cursor: 'pointer',
           color: '#767e8b',
-          transition: 'all 0.2s ease',
+          transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
           borderRadius: 'var(--radius-control-base)',
           backdropFilter: 'blur(20px)',
 
@@ -79,7 +80,16 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             width: '40px',
             height: '40px',
             color: '#00B5FD',
-            background: 'rgba(219, 248, 255, 1)',
+            background:
+              'linear-gradient(180deg, rgba(0, 181, 253, 0.15), rgba(0, 181, 253, 0.08))',
+          },
+
+          [`&--md`]: {
+            width: '40px',
+            height: '40px',
+            color: '#FF7A00',
+            background:
+              'linear-gradient(180deg, rgba(35, 214, 220, 0.15), rgba(35, 214, 220, 0.08))',
           },
 
           [`&--default`]: {
@@ -111,8 +121,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           lineHeight: '22px',
           letterSpacing: 'normal',
           color: 'var(--color-gray-text-default)',
-          gridColumn: '2', // 与图标同一行，位于第二列
-          alignSelf: 'center',
         },
 
         [`&-subtitle`]: {
@@ -143,25 +151,25 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           alignItems: 'center',
           justifyContent: 'center',
           gap: '8px',
-
-          [`&-extra`]: {
-            '*': {
-              color: 'rgba(80, 92, 113, 0.42)',
-            },
-          },
         },
       },
 
       [`&--shell`]: {
+        height: 'calc(100% + 16px)',
+        paddingTop: 0,
+        paddingBottom: 0,
+        margin: '0 -16px -16px',
+
         [`${token.componentCls}-header`]: {
           marginBottom: 0,
+          marginLeft: 0,
+          marginRight: 0,
         },
 
         [`${token.componentCls}-content`]: {
           width: 'unset',
-          margin: '0 -16px',
-          paddingTop: 16,
-          paddingBottom: 16,
+          margin: 0,
+          flex: 1,
           background: 'var(--color-gray-text-default)',
 
           '.ace-container': {
@@ -183,9 +191,12 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           '.ace_gutter-cell': {
             paddingLeft: 12,
           },
-
+          '.ace-tm .ace_gutter': {
+            background: 'transparent',
+          },
           '.ace-tm .ace_gutter-active-line': {
-            background: 'var(--color-gray-text-default)',
+            color: '#FFFFFF',
+            background: 'transparent',
           },
 
           '.ace-tm .ace_comment': {
@@ -225,7 +236,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       [`&--markdown`]: {
-        '.ant-md-editor-content div[data-be="paragraph"]:last-child': {
+        '.ant-agentic-md-editor-content div[data-be="paragraph"]:last-child': {
           paddingBottom: '16px',
           color: 'var(--color-gray-text-light)',
           font: 'var(--font-text-code-base)',
@@ -236,29 +247,29 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       [`&-content`]: {
         position: 'relative',
         width: 'auto',
-        height: '100%',
+        height: 'calc(100% - 72px)',
         overflow: 'auto',
-        margin: '-4px -16px -16px -16px',
-  
+        margin: '0 -16px',
         '.ant-workspace-html-preview-content': {
           '.ace-container': {
             border: 'unset',
             borderRadius: 'unset',
             boxShadow: 'unset',
           },
-          
+
           '.ace_gutter-cell': {
             paddingLeft: 12,
           },
 
           '.code-editor-container': {
-            maxHeight: '435px',
+            maxHeight: '100%',
+            borderRadius: 'var(--radius-card-base)',
 
             '.code-editor-content': {
               padding: '0!important',
 
               '.ace_gutter': {
-                color: 'var(--color-gray-text-default)',
+                color: 'var(--color-gray-text-light)',
                 font: 'var(--font-text-code-base)',
                 letterSpacing: 'var(--letter-spacing-code-base, normal)',
                 background: 'var(--color-gray-bg-card-white)',
@@ -269,23 +280,32 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               },
 
               '.ace-tm .ace_gutter-active-line': {
+                color: 'var(--color-gray-text-default)',
                 background: 'var(--color-gray-control-fill-hover)',
               },
 
               '.ace-tm .ace_marker-layer .ace_active-line': {
                 background: 'var(--color-gray-control-fill-hover)',
               },
+              '.ace_cursor': {
+                display: 'none !important',
+              },
             },
           },
         },
 
-        '.ace-tm .ace_keyword': {
-          color: '#B14089',
-        },
+        '.code-editor-container': {
+          position: 'relative',
+          borderRadius: 'var(--radius-card-base)',
+          background: 'var(--color-gray-bg-card-white)',
+          transition: 'border-color 0.2s ease-in-out',
+          boxSizing: 'border-box',
+          overflow: 'hidden',
 
-        '.ace_identifier, .ace_paren': {
-          color: '#343A45',
-        }
+          '.ace-github': {
+            background: 'transparent',
+          },
+        },
       },
 
       [`&-overlay`]: {

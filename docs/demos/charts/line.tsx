@@ -1,8 +1,6 @@
+import { LineChart, LineChartDataItem } from '@ant-design/agentic-ui';
 import { Button } from 'antd';
 import React, { useState } from 'react';
-import LineChart, {
-  LineChartDataItem,
-} from '../../../src/plugins/chart/LineChart';
 
 const DynamicLineChartExample: React.FC = () => {
   // 扁平化数据结构

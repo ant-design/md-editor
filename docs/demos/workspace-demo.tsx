@@ -1,8 +1,12 @@
+import { ActionIconBox, Workspace } from '@ant-design/agentic-ui';
 import { DownloadOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { Workspace } from '@ant-design/md-editor';
-import { Copy, Expand, SwitchToWindow } from '@ant-design/md-editor/icons';
-import RealtimeIcon from '@ant-design/md-editor/Workspace/icons/RealtimeIcon';
-import { Button, message, Space } from 'antd';
+import {
+  Copy,
+  Expand,
+  MousePointerClick,
+  SwitchToWindow,
+} from '@sofa-design/icons';
+import { message, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { defaultValue } from './shared/defaultValue';
 
@@ -24,18 +28,6 @@ const Demo = () => {
   <p>这是一个使用 iframe 渲染的 HTML 预览示例。</p>
   <h2>步骤</h2>
   <ol>
-    <li>准备数据</li>
-    <li>运行分析</li>
-    <li>生成结果</li>
-    <li>准备数据</li>
-    <li>运行分析</li>
-    <li>生成结果</li>
-    <li>准备数据</li>
-    <li>运行分析</li>
-    <li>生成结果</li>
-    <li>准备数据</li>
-    <li>运行分析</li>
-    <li>生成结果</li>
     <li>准备数据</li>
     <li>运行分析</li>
     <li>生成结果</li>
@@ -67,42 +59,42 @@ const Demo = () => {
           {sampleHtml.split('\n').length}
         </div>
       </div>
-      <Button
-        size="small"
-        type="text"
-        icon={<Copy />}
+      <ActionIconBox
+        title="复制"
         onClick={() => {
           console.log('复制');
           message.success('复制');
         }}
-      />
-      <Button
-        size="small"
-        type="text"
-        icon={<DownloadOutlined />}
+      >
+        <Copy />
+      </ActionIconBox>
+      <ActionIconBox
+        title="下载"
         onClick={() => {
           console.log('下载');
           message.success('下载');
         }}
-      />
-      <Button
-        size="small"
-        type="text"
-        icon={<SwitchToWindow />}
+      >
+        <DownloadOutlined />
+      </ActionIconBox>
+      <ActionIconBox
+        title="切换"
         onClick={() => {
           console.log('切换');
           message.success('切换');
         }}
-      />
-      <Button
-        size="small"
-        type="text"
-        icon={<Expand />}
+      >
+        <SwitchToWindow />
+      </ActionIconBox>
+      <ActionIconBox
+        title="全屏"
         onClick={() => {
           console.log('全屏');
           message.success('全屏');
         }}
-      />
+      >
+        <Expand />
+      </ActionIconBox>
     </Space>
   );
 
@@ -152,7 +144,7 @@ const Demo = () => {
         <Workspace.Realtime
           tab={{
             key: 'realtime',
-            title: '实时跟随（MD）',
+            title: '实时跟额随',
           }}
           data={{
             type: 'md',
@@ -166,7 +158,7 @@ const Demo = () => {
           tab={{
             key: 'realtimeHtml',
             title: '实时跟随（HTML）',
-            icon: <RealtimeIcon />,
+            icon: <MousePointerClick />,
           }}
           data={{
             type: 'html',
@@ -186,11 +178,7 @@ const Demo = () => {
         <Workspace.Task
           tab={{
             key: 'tasks',
-            title: (
-              <div>
-                任务列表<span style={{ color: 'red' }}>123</span>
-              </div>
-            ),
+            title: <div>任务列表</div>,
           }}
           data={{
             items: [
@@ -239,6 +227,7 @@ const Demo = () => {
         <Workspace.File
           tab={{
             key: 'files',
+            count: 6,
           }}
           nodes={[
             {

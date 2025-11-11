@@ -3,30 +3,36 @@ import {
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../../hooks/useStyle';
+} from '../../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [`${token.componentCls}-container`]: {
-      overflow: 'hidden',
+      // overflow: 'hidden', // 会把Quote的弹框遮挡
+      borderTopLeftRadius: 'inherit',
+      borderTopRightRadius: 'inherit',
     },
 
     [`${token.componentCls}`]: {
       borderWidth: '0px 0px 1px 0px',
       width: '100%',
       height: 'fit-content',
+      borderTopLeftRadius: 'inherit',
+      borderTopRightRadius: 'inherit',
       minHeight: '48px',
       alignSelf: 'stretch',
       borderStyle: 'solid',
       display: 'flex',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       justifyContent: 'space-between',
     },
 
     [`${token.componentCls}-title`]: {
+      flex: 1,
       font: 'var(--font-text-h5-base)',
       letterSpacing: 'var(--letter-spacing-h5-base, normal)',
       color: 'var(--color-primary-control-fill-primary)',
+      minHeight: '28px',
     },
 
     [`${token.componentCls}-right`]: {
@@ -49,7 +55,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
-      transition: 'all 0.3s ease',
+      transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
       color: 'var(--color-gray-text-light)',
 
       '&:hover': {

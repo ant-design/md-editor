@@ -1,9 +1,17 @@
 import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
-import { BaseEditor, createEditor, Editor, Node, Transforms } from 'slate';
+import {
+  BaseEditor,
+  createEditor,
+  Editor,
+  Node,
+  Path,
+  Transforms,
+} from 'slate';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { ReactEditor, withReact } from 'slate-react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { parserMdToSchema } from '../../src';
 import { withMarkdown } from '../../src/MarkdownEditor/editor/plugins/withMarkdown';
 import { EditorStore } from '../../src/MarkdownEditor/editor/store';
 
@@ -179,7 +187,7 @@ describe('EditorStore', () => {
       ] as any);
 
       // 模拟 Path.next 返回有效路径
-      vi.spyOn(require('slate').Path, 'next').mockReturnValue([1]);
+      vi.spyOn(Path, 'next').mockReturnValue([1]);
 
       // 模拟 Transforms.insertNodes 实际执行插入
       vi.spyOn(Transforms, 'insertNodes').mockImplementation((editor) => {
@@ -1537,6 +1545,379 @@ describe('EditorStore', () => {
       const count = store.replaceAll('test', 'replaced', true);
 
       expect(count).toBe(1); // 只有小写的 "test"
+    });
+  });
+
+  describe('setMDContent 长文本处理', () => {
+    beforeEach(() => {
+      // 为测试环境提供 requestAnimationFrame
+      if (typeof window.requestAnimationFrame === 'undefined') {
+        (window as any).requestAnimationFrame = (cb: FrameRequestCallback) => {
+          return setTimeout(() => cb(Date.now()), 0) as any;
+        };
+      }
+    });
+
+    it('应该正常处理短文本（小于 5000 字符）', () => {
+      const shortMd = '# 标题\n\n这是一段内容';
+      store.setMDContent(shortMd);
+
+      expect(editor.children.length).toBeGreaterThan(0);
+      expect(ReactEditor.deselect).toHaveBeenCalled();
+    });
+
+    it('应该对长文本进行拆分处理（大于 5000 字符）', async () => {
+      // 生成一个超过 5000 字符的 markdown 文本
+      const paragraphs = [];
+      for (let i = 0; i < 100; i++) {
+        paragraphs.push(
+          `## 段落标题 ${i}\n\n这是第 ${i} 段的内容，包含一些文本来增加长度。这段话需要足够长才能让整个文档超过5000个字符。我们添加更多的内容来确保测试能够正确验证长文本的拆分处理功能。`,
+        );
+      }
+      const longMd = paragraphs.join('\n\n');
+
+      expect(longMd.length).toBeGreaterThan(5000);
+
+      const result = store.setMDContent(longMd);
+
+      // 使用 RAF 时会返回 Promise
+      if (result) {
+        await result;
+      }
+
+      // 验证内容被正确设置
+      expect(editor.children.length).toBeGreaterThan(0);
+    });
+
+    it('应该处理包含多个双换行符的长文本', async () => {
+      const content = Array(80)
+        .fill(0)
+        .map(
+          (_, i) =>
+            `段落 ${i}：这是第${i}段的内容部分，我们需要增加足够的文本长度来确保整个文档超过5000个字符的阈值，这样才能触发分批处理的逻辑。\n\n这是更多内容来进一步增加长度。`,
+        )
+        .join('\n\n');
+
+      expect(content.length).toBeGreaterThan(5000);
+
+      const result = store.setMDContent(content);
+      if (result) {
+        await result;
+      }
+
+      expect(editor.children.length).toBeGreaterThan(0);
+    });
+
+    it('应该跳过空的拆分块', async () => {
+      const contentWithEmptyChunks = Array(250)
+        .fill(0)
+        .map((_, i) =>
+          i % 2 === 0
+            ? `这是第${i}段的内容块，我们需要包含足够多的文本内容来增加总体长度，以确保能够触发长文本处理的逻辑分支。`
+            : '',
+        )
+        .join('\n\n');
+
+      expect(contentWithEmptyChunks.length).toBeGreaterThan(5000);
+
+      const result = store.setMDContent(contentWithEmptyChunks);
+      if (result) {
+        await result;
+      }
+
+      // 应该成功处理，不会因为空块而出错
+      expect(editor.children.length).toBeGreaterThan(0);
+    });
+
+    it('当内容与当前内容相同时不应更新', () => {
+      const md = '# 测试\n\n内容';
+      store.setMDContent(md);
+
+      vi.clearAllMocks();
+
+      // 再次设置相同内容
+      store.setMDContent(md);
+
+      // 由于内容相同，不应该调用 deselect
+      expect(ReactEditor.deselect).not.toHaveBeenCalled();
+    });
+
+    it('应该支持自定义 chunkSize', () => {
+      // 生成一个 1000 字符的文本
+      const content = Array(50)
+        .fill(0)
+        .map(
+          (_, i) =>
+            `段落${i}：这是一些内容文本，需要足够长来超过阈值触发分批处理`,
+        )
+        .join('\n\n');
+
+      expect(content.length).toBeGreaterThan(500);
+      expect(content.length).toBeLessThan(5000);
+
+      // 使用更小的 chunkSize，触发分批处理
+      store.setMDContent(content, undefined, { chunkSize: 500, useRAF: false });
+
+      expect(editor.children.length).toBeGreaterThan(0);
+      expect(ReactEditor.deselect).toHaveBeenCalled();
+    });
+
+    it('应该支持自定义分隔符（字符串）', async () => {
+      const content = Array(120)
+        .fill(0)
+        .map(
+          (_, i) =>
+            `段落${i}：这是第${i}段的内容，包含足够的文本来增加总长度，确保能够超过5000字符的阈值`,
+        )
+        .join('---'); // 使用 --- 作为分隔符
+
+      expect(content.length).toBeGreaterThan(5000);
+
+      const result = store.setMDContent(content, undefined, {
+        separator: '---',
+      });
+      if (result) {
+        await result;
+      }
+
+      expect(editor.children.length).toBeGreaterThan(0);
+    });
+
+    it('应该支持自定义分隔符（正则表达式）', async () => {
+      const content = Array(120)
+        .fill(0)
+        .map(
+          (_, i) =>
+            `段落${i}：这是第${i}段的内容，包含足够的文本来增加总长度，确保能够超过5000字符的阈值`,
+        )
+        .join('\n===\n'); // 使用 === 分隔
+
+      expect(content.length).toBeGreaterThan(5000);
+
+      // 使用正则表达式匹配包含 = 的分隔符
+      const result = store.setMDContent(content, undefined, {
+        separator: /\n={2,}\n/,
+      });
+      if (result) {
+        await result;
+      }
+
+      expect(editor.children.length).toBeGreaterThan(0);
+    });
+
+    it('应该同时支持自定义 chunkSize 和 separator', async () => {
+      const content = Array(60)
+        .fill(0)
+        .map((_, i) => `内容块${i}：这是一些文本内容，需要足够长度`)
+        .join('|||');
+
+      expect(content.length).toBeGreaterThan(800);
+
+      const result = store.setMDContent(content, undefined, {
+        chunkSize: 800,
+        separator: '|||',
+      });
+      if (result) {
+        await result;
+      }
+
+      expect(editor.children.length).toBeGreaterThan(0);
+    });
+
+    it('应该避免在代码块内部拆分内容', () => {
+      const md = [
+        '```js',
+        "console.log('line 1');",
+        '',
+        "console.log('line 3');",
+        '```',
+        '',
+        '结尾段落',
+      ].join('\n');
+
+      const expectedNodes = parserMdToSchema(md, store.plugins ?? []).schema;
+
+      store.setMDContent(md, undefined, {
+        chunkSize: 20,
+        useRAF: false,
+      });
+
+      expect(editor.children).toEqual(expectedNodes);
+    });
+
+    it('应该在小于 chunkSize 时不进行拆分', () => {
+      const shortContent = '# 标题\n\n简短内容';
+
+      store.setMDContent(shortContent, undefined, { chunkSize: 10000 });
+
+      // 即使有分隔符也不应该拆分，因为内容小于 chunkSize
+      expect(editor.children.length).toBeGreaterThan(0);
+      expect(ReactEditor.deselect).toHaveBeenCalled();
+    });
+
+    it('应该支持使用 requestAnimationFrame 避免卡顿', async () => {
+      const content = Array(120)
+        .fill(0)
+        .map(
+          (_, i) =>
+            `段落${i}：这是第${i}段的内容，包含足够的文本来增加总长度，确保能够超过5000字符的阈值`,
+        )
+        .join('\n\n');
+
+      expect(content.length).toBeGreaterThan(5000);
+
+      // 模拟 requestAnimationFrame
+      let rafCallback: FrameRequestCallback | null = null;
+      vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
+        rafCallback = cb;
+        // 异步执行回调
+        setTimeout(() => rafCallback?.(0), 0);
+        return 1;
+      });
+
+      const result = store.setMDContent(content, undefined, {
+        useRAF: true,
+        batchSize: 10,
+      });
+
+      // 应该返回 Promise
+      expect(result).toBeInstanceOf(Promise);
+
+      // 等待完成
+      await result;
+
+      expect(editor.children.length).toBeGreaterThan(0);
+
+      vi.restoreAllMocks();
+    });
+
+    it('应该支持禁用 RAF 进行同步处理', () => {
+      const content = Array(120)
+        .fill(0)
+        .map(
+          (_, i) =>
+            `段落${i}：这是第${i}段的内容，包含足够的文本来增加总长度，确保能够超过5000字符的阈值`,
+        )
+        .join('\n\n');
+
+      const result = store.setMDContent(content, undefined, {
+        useRAF: false,
+      });
+
+      // 同步执行，不返回 Promise
+      expect(result).toBeUndefined();
+      expect(editor.children.length).toBeGreaterThan(0);
+      expect(ReactEditor.deselect).toHaveBeenCalled();
+    });
+
+    it('应该支持进度回调', async () => {
+      const content = Array(120)
+        .fill(0)
+        .map(
+          (_, i) =>
+            `段落${i}：这是第${i}段的内容，包含足够的文本来增加总长度，确保能够超过5000字符的阈值`,
+        )
+        .join('\n\n');
+
+      const progressValues: number[] = [];
+      const onProgress = vi.fn((progress: number) => {
+        progressValues.push(progress);
+      });
+
+      // 模拟 requestAnimationFrame
+      vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
+        setTimeout(() => cb(0), 0);
+        return 1;
+      });
+
+      const result = store.setMDContent(content, undefined, {
+        useRAF: true,
+        batchSize: 10,
+        onProgress,
+      });
+
+      await result;
+
+      // 应该调用了进度回调
+      expect(onProgress).toHaveBeenCalled();
+      expect(progressValues.length).toBeGreaterThan(0);
+
+      // 最后一次进度应该是 1（100%）
+      expect(progressValues[progressValues.length - 1]).toBe(1);
+
+      // 进度应该是递增的
+      for (let i = 1; i < progressValues.length; i++) {
+        expect(progressValues[i]).toBeGreaterThanOrEqual(progressValues[i - 1]);
+      }
+
+      vi.restoreAllMocks();
+    });
+
+    it('应该在同步模式下也支持进度回调', () => {
+      const content = Array(120)
+        .fill(0)
+        .map(
+          (_, i) =>
+            `段落${i}：这是第${i}段的内容，包含足够的文本来增加总长度，确保能够超过5000字符的阈值`,
+        )
+        .join('\n\n');
+
+      const onProgress = vi.fn();
+
+      store.setMDContent(content, undefined, {
+        useRAF: false,
+        onProgress,
+      });
+
+      // 同步模式下，应该直接调用一次 onProgress(1)
+      expect(onProgress).toHaveBeenCalledWith(1);
+    });
+
+    it('应该支持自定义 batchSize', async () => {
+      const content = Array(120)
+        .fill(0)
+        .map(
+          (_, i) =>
+            `段落${i}：这是第${i}段的内容，包含足够的文本来增加总长度，确保能够超过5000字符的阈值，添加更多内容`,
+        )
+        .join('\n\n');
+
+      expect(content.length).toBeGreaterThan(5000);
+
+      const result = store.setMDContent(content, undefined, {
+        useRAF: true,
+        batchSize: 20, // 自定义批次大小
+      });
+
+      // 应该返回 Promise
+      expect(result).toBeInstanceOf(Promise);
+      await result;
+
+      // 内容应该被正确设置
+      expect(editor.children.length).toBeGreaterThan(0);
+    });
+
+    it('节点数量小于 batchSize 时不应使用 RAF', () => {
+      const content = Array(80)
+        .fill(0)
+        .map(
+          (_, i) =>
+            `段落${i}：这是第${i}段的内容，包含足够的文本来增加总长度，确保能够超过5000字符的阈值`,
+        )
+        .join('\n\n');
+
+      const rafSpy = vi.spyOn(window, 'requestAnimationFrame');
+
+      const result = store.setMDContent(content, undefined, {
+        useRAF: true,
+        batchSize: 1000, // 批次大小大于节点数
+      });
+
+      // 节点数少，应该同步执行
+      expect(result).toBeUndefined();
+      expect(rafSpy).not.toHaveBeenCalled();
+
+      vi.restoreAllMocks();
     });
   });
 });

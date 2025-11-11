@@ -2,7 +2,11 @@ import '@testing-library/jest-dom';
 import { render, waitFor } from '@testing-library/react';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { Mermaid } from '../../../src/plugins/mermaid/Mermaid';
+import { Mermaid } from '../../../src/Plugins/mermaid/Mermaid';
+
+vi.mock('../../../src/Hooks/useIntersectionOnce', () => ({
+  useIntersectionOnce: () => true,
+}));
 
 // Mock mermaid
 vi.mock('mermaid', () => ({
@@ -35,44 +39,31 @@ describe('Mermaid Component', () => {
     vi.clearAllMocks();
   });
 
-  const defaultProps = {
-    el: {
-      type: 'code' as const,
-      language: 'mermaid',
-      value: 'graph TD\nA[开始] --> B[结束]',
-      children: [{ text: '' }] as [{ text: string }],
-    },
+  const defaultElement = {
+    type: 'code' as const,
+    language: 'mermaid',
+    value: 'graph TD\nA[开始] --> B[结束]',
+    children: [{ text: '' }] as [{ text: string }],
   };
+
+  const renderMermaid = (overrides: Partial<typeof defaultElement> = {}) =>
+    render(<Mermaid element={{ ...defaultElement, ...overrides }} />);
 
   describe('基本渲染测试', () => {
     it('应该正确渲染 Mermaid 组件', () => {
-      render(<Mermaid {...defaultProps} />);
+      renderMermaid();
 
       expect(document.body).toBeInTheDocument();
     });
 
     it('应该渲染空状态', () => {
-      const props = {
-        el: {
-          ...defaultProps.el,
-          value: '',
-        },
-      } as any;
-
-      render(<Mermaid {...props} />);
+      renderMermaid({ value: '' });
 
       expect(document.body).toBeInTheDocument();
     });
 
     it('应该渲染错误状态', () => {
-      const props = {
-        el: {
-          ...defaultProps.el,
-          value: 'invalid mermaid code',
-        },
-      } as any;
-
-      render(<Mermaid {...props} />);
+      renderMermaid({ value: 'invalid mermaid code' });
 
       expect(document.body).toBeInTheDocument();
     });
@@ -82,7 +73,7 @@ describe('Mermaid Component', () => {
     it('应该调用 mermaid.render 方法', async () => {
       const mermaid = await import('mermaid');
 
-      render(<Mermaid {...defaultProps} />);
+      renderMermaid();
 
       await waitFor(() => {
         expect(mermaid.default.render).toHaveBeenCalled();
@@ -92,7 +83,7 @@ describe('Mermaid Component', () => {
     it('应该处理 mermaid.render 成功', async () => {
       const mermaid = await import('mermaid');
 
-      render(<Mermaid {...defaultProps} />);
+      renderMermaid();
 
       await waitFor(() => {
         expect(mermaid.default.render).toHaveBeenCalled();
@@ -102,7 +93,7 @@ describe('Mermaid Component', () => {
     it('应该处理 mermaid.render 失败', async () => {
       const mermaid = await import('mermaid');
 
-      render(<Mermaid {...defaultProps} />);
+      renderMermaid();
 
       await waitFor(() => {
         expect(mermaid.default.render).toHaveBeenCalled();
@@ -112,7 +103,7 @@ describe('Mermaid Component', () => {
     it('应该处理 mermaid.parse 失败', async () => {
       const mermaid = await import('mermaid');
 
-      render(<Mermaid {...defaultProps} />);
+      renderMermaid();
 
       // 等待组件渲染完成
       await waitFor(() => {
@@ -129,14 +120,14 @@ describe('Mermaid Component', () => {
       const setTimeoutSpy = vi.spyOn(window, 'setTimeout');
       const clearTimeoutSpy = vi.spyOn(window, 'clearTimeout');
 
-      render(<Mermaid {...defaultProps} />);
+      renderMermaid();
 
       expect(setTimeoutSpy).toHaveBeenCalled();
     });
 
     it('应该在组件卸载时清理定时器', () => {
       const clearTimeoutSpy = vi.spyOn(window, 'clearTimeout');
-      const { unmount } = render(<Mermaid {...defaultProps} />);
+      const { unmount } = renderMermaid();
 
       unmount();
 
@@ -146,40 +137,19 @@ describe('Mermaid Component', () => {
 
   describe('边界情况测试', () => {
     it('应该处理 undefined value', () => {
-      const props = {
-        el: {
-          ...defaultProps.el,
-          value: undefined,
-        },
-      } as any;
-
-      render(<Mermaid {...props} />);
+      renderMermaid({ value: undefined as any });
 
       expect(document.body).toBeInTheDocument();
     });
 
     it('应该处理 null value', () => {
-      const props = {
-        el: {
-          ...defaultProps.el,
-          value: null,
-        },
-      } as any;
-
-      render(<Mermaid {...props} />);
+      renderMermaid({ value: null as any });
 
       expect(document.body).toBeInTheDocument();
     });
 
     it('应该处理空字符串 value', () => {
-      const props = {
-        el: {
-          ...defaultProps.el,
-          value: '',
-        },
-      };
-
-      render(<Mermaid {...props} />);
+      renderMermaid({ value: '' });
 
       expect(document.body).toBeInTheDocument();
     });
@@ -194,14 +164,7 @@ describe('Mermaid Component', () => {
         D --> E
       `;
 
-      const props = {
-        el: {
-          ...defaultProps.el,
-          value: complexCode,
-        },
-      };
-
-      render(<Mermaid {...props} />);
+      renderMermaid({ value: complexCode });
 
       expect(document.body).toBeInTheDocument();
     });
@@ -209,14 +172,14 @@ describe('Mermaid Component', () => {
 
   describe('样式和布局测试', () => {
     it('应该应用正确的样式', () => {
-      render(<Mermaid {...defaultProps} />);
+      renderMermaid();
 
       const container = document.querySelector('div');
       expect(container).toBeInTheDocument();
     });
 
     it('应该设置 contentEditable 为 false', () => {
-      render(<Mermaid {...defaultProps} />);
+      renderMermaid();
 
       const container = document.querySelector('div');
       expect(container).toBeInTheDocument();
@@ -227,7 +190,7 @@ describe('Mermaid Component', () => {
     it('应该显示错误信息', async () => {
       const mermaid = await import('mermaid');
 
-      render(<Mermaid {...defaultProps} />);
+      renderMermaid();
 
       await waitFor(() => {
         expect(document.body).toBeInTheDocument();
@@ -235,14 +198,7 @@ describe('Mermaid Component', () => {
     });
 
     it('应该处理空代码和错误状态', () => {
-      const props = {
-        el: {
-          ...defaultProps.el,
-          value: '',
-        },
-      };
-
-      render(<Mermaid {...props} />);
+      renderMermaid({ value: '' });
 
       expect(document.body).toBeInTheDocument();
     });
@@ -250,17 +206,17 @@ describe('Mermaid Component', () => {
 
   describe('性能测试', () => {
     it('应该处理快速更新的代码', async () => {
-      const { rerender } = render(<Mermaid {...defaultProps} />);
+      const { rerender } = renderMermaid();
 
       // 快速更新代码
-      const newProps = {
-        el: {
-          ...defaultProps.el,
-          value: 'graph TD\nB[新代码] --> C[结束]',
-        },
-      };
-
-      rerender(<Mermaid {...newProps} />);
+      rerender(
+        <Mermaid
+          element={{
+            ...defaultElement,
+            value: 'graph TD\nB[新代码] --> C[结束]',
+          }}
+        />,
+      );
 
       await waitFor(() => {
         expect(document.body).toBeInTheDocument();
@@ -268,10 +224,10 @@ describe('Mermaid Component', () => {
     });
 
     it('应该处理相同的代码不会重复渲染', () => {
-      const { rerender } = render(<Mermaid {...defaultProps} />);
+      const { rerender } = renderMermaid();
 
       // 使用相同的代码重新渲染
-      rerender(<Mermaid {...defaultProps} />);
+      rerender(<Mermaid element={defaultElement} />);
 
       expect(document.body).toBeInTheDocument();
     });

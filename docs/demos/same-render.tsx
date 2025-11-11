@@ -2,7 +2,7 @@
   MarkdownEditor,
   MarkdownEditorInstance,
   parserMdToSchema,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import React, { useEffect } from 'react';
 import { newEnergyFundContent } from './shared/newEnergyFundContent';
 

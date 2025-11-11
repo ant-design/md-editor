@@ -4,8 +4,8 @@ nav:
   order: 1
 atomId: Schema
 group:
-  title: 渲染器
-  order: 3
+  title: 图文输出
+  order: 4
 ---
 
 # Schema - 低代码渲染
@@ -129,7 +129,7 @@ Schema 由以下几个主要部分组成：
 SchemaForm 组件用于根据 schema 定义自动生成表单：
 
 ```tsx | pure
-import { SchemaForm } from '@ant-design/md-editor';
+import { SchemaForm } from '@ant-design/agentic-ui';
 
 const MyFormComponent: React.FC = () => {
   const schema = {
@@ -183,7 +183,7 @@ const MyFormComponent: React.FC = () => {
 SchemaRenderer 组件用于根据 schema 和模板渲染内容：
 
 ```tsx | pure
-import { SchemaRenderer } from '@ant-design/md-editor';
+import { SchemaRenderer } from '@ant-design/agentic-ui';
 
 const MyRendererComponent: React.FC = () => {
   const schema = {
@@ -219,7 +219,7 @@ const MyRendererComponent: React.FC = () => {
 validator 用于验证 schema 数据的合法性：
 
 ```typescript | pure
-import { validator } from '@ant-design/md-editor';
+import { validator } from '@ant-design/agentic-ui';
 
 // 验证整个 schema
 const validateSchema = () => {
@@ -282,7 +282,7 @@ const validateValue = () => {
 
 ```tsx
 import React, { useState } from 'react';
-import { SchemaForm, SchemaRenderer, validator } from '@ant-design/md-editor';
+import { SchemaForm, SchemaRenderer, validator } from '@ant-design/agentic-ui';
 
 const CompleteExample: React.FC = () => {
   const [formValues, setFormValues] = useState({});
@@ -467,7 +467,7 @@ export default CompleteExample;
 
 ```tsx
 import React, { useState } from 'react';
-import { SchemaForm, SchemaRenderer, validator } from '@ant-design/md-editor';
+import { SchemaForm, SchemaRenderer, validator } from '@ant-design/agentic-ui';
 
 const CompleteExample: React.FC = () => {
   const [formValues, setFormValues] = useState({});
@@ -654,7 +654,7 @@ export default CompleteExample;
 
 ```tsx
 import React, { useState, useEffect } from 'react';
-import { SchemaRenderer, validator } from '@ant-design/md-editor';
+import { SchemaRenderer, validator } from '@ant-design/agentic-ui';
 import { Input, Button, message, Spin, Tabs } from 'antd';
 
 const { TextArea } = Input;
@@ -998,7 +998,7 @@ export default SchemaEditor;
 
 ```tsx
 import React, { useState } from 'react';
-import { SchemaForm, SchemaRenderer, validator } from '@ant-design/md-editor';
+import { SchemaForm, SchemaRenderer, validator } from '@ant-design/agentic-ui';
 
 const CompleteExample: React.FC = () => {
   const [formValues, setFormValues] = useState({});

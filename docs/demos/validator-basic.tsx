@@ -1,4 +1,4 @@
-import { validator } from '@ant-design/md-editor';
+import { validator } from '@ant-design/agentic-ui';
 import React, { useEffect, useState } from 'react';
 
 const ValidatorExample: React.FC = () => {

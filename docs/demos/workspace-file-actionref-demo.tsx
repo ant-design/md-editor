@@ -1,4 +1,4 @@
-import { Workspace, type FileActionRef } from '@ant-design/md-editor';
+import { Workspace, type FileActionRef } from '@ant-design/agentic-ui';
 import { Button, Card, Space, message } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 

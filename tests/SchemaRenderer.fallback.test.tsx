@@ -1,6 +1,6 @@
-import { merge } from 'lodash';
+import { merge } from 'lodash-es';
 import { describe, expect, it } from 'vitest';
-import type { ComponentProperties } from '../src/schema/types';
+import type { ComponentProperties } from '../src/Schema/types';
 
 // 模拟 SchemaRenderer 中的 templateData 计算逻辑
 function calculateTemplateDataWithFallbacks(

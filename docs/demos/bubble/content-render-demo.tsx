@@ -1,6 +1,6 @@
+import type { BubbleProps, MessageBubbleData } from '@ant-design/agentic-ui';
+import { Bubble } from '@ant-design/agentic-ui';
 import { LoadingOutlined } from '@ant-design/icons';
-import type { BubbleProps, MessageBubbleData } from '@ant-design/md-editor';
-import { Bubble } from '@ant-design/md-editor';
 import { Button, Progress, Space, Spin, Tag } from 'antd';
 import React, { useRef, useState } from 'react';
 import { BubbleDemoCard } from './BubbleDemoCard';
@@ -454,9 +454,15 @@ const handleClick = useCallback(() => {
         {mockMessages.map((message) => (
           <Bubble
             key={message.id}
+            markdownRenderConfig={{
+              tableConfig: {
+                pure: true,
+              },
+            }}
             avatar={message.meta!}
             placement={message.role === 'user' ? 'right' : 'left'}
             bubbleRef={bubbleRef}
+            pure
             originData={message}
             bubbleRenderConfig={{
               contentRender: getContentRender(),

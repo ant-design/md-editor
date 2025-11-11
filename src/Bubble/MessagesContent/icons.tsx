@@ -12,7 +12,7 @@ import React from 'react';
  *
  * @example
  * ```tsx
- * import { ReloadIcon } from './icons';
+ * import { ReloadIcon } from '@sofa-design/icons'
  *
  * // 基本用法
  * <ReloadIcon onClick={handleReload} />

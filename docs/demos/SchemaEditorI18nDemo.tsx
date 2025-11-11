@@ -1,8 +1,10 @@
+import {
+  I18nProvide,
+  LowCodeSchema,
+  SchemaEditor,
+} from '@ant-design/agentic-ui';
 import { Button, Space } from 'antd';
 import React, { useState } from 'react';
-import { I18nProvide } from '../../src/i18n';
-import { SchemaEditor } from '../../src/schema/SchemaEditor';
-import { LowCodeSchema } from '../../src/schema/types';
 
 const mockSchema: LowCodeSchema = {
   version: '1.0.0',

@@ -411,7 +411,7 @@ describe('Editor onPaste function - Fixed Tests', () => {
     );
 
     const editableElement = editorContainer.querySelector(
-      '.ant-md-editor-content-readonly',
+      '.ant-agentic-md-editor-content-readonly',
     ) as HTMLElement;
 
     await waitFor(() => {

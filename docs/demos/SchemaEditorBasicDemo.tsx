@@ -1,6 +1,5 @@
-import { SchemaEditor } from '@ant-design/md-editor';
+import { LowCodeSchema, SchemaEditor } from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
-import { LowCodeSchema } from '../../src/schema/types';
 
 const MyComponent = () => {
   const [schema, setSchema] = useState<LowCodeSchema>({

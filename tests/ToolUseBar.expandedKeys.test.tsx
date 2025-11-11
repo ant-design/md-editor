@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { ToolUseBar } from '../src/ToolUseBar';
@@ -42,7 +42,7 @@ describe('ToolUseBar - Expanded Keys', () => {
 
     // tool1 应该是展开的
     const contentContainers = container.querySelectorAll(
-      '[class*="ant-tool-use-bar-tool-container"]',
+      '[class*="ant-agentic-tool-use-bar-tool-container"]',
     );
     expect(contentContainers.length).toBe(1);
     expect(contentContainers[0]).toHaveTextContent('Tool 1 content');
@@ -67,7 +67,7 @@ describe('ToolUseBar - Expanded Keys', () => {
     expect(mockOnExpandedKeysChange).toHaveBeenCalledWith(['tool1'], []);
   });
 
-  it('should collapse when clicking expanded item expand button', () => {
+  it('should collapse when clicking expanded item expand button', async () => {
     const mockOnExpandedKeysChange = vi.fn();
 
     // 在受控模式下，我们需要模拟父组件的状态更新行为
@@ -90,7 +90,7 @@ describe('ToolUseBar - Expanded Keys', () => {
 
     // 验证初始状态是展开的
     let contentContainers = container.querySelectorAll(
-      '[class*="ant-tool-use-bar-tool-container"]',
+      '[class*="ant-agentic-tool-use-bar-tool-container"]',
     );
     expect(contentContainers.length).toBe(1);
 
@@ -117,10 +117,12 @@ describe('ToolUseBar - Expanded Keys', () => {
     rerender(<TestComponent />);
 
     // 验证状态已经改变
-    contentContainers = container.querySelectorAll(
-      '[class*="ant-tool-use-bar-tool-container"]',
-    );
-    expect(contentContainers.length).toBe(0);
+    await waitFor(() => {
+      const collapsedContainers = container.querySelectorAll(
+        '[class*="ant-agentic-tool-use-bar-tool-container"]',
+      );
+      expect(collapsedContainers.length).toBe(0);
+    });
   });
 
   it('should support multiple expanded items', () => {
@@ -135,7 +137,7 @@ describe('ToolUseBar - Expanded Keys', () => {
 
     // 应该有两个展开的内容容器
     const contentContainers = container.querySelectorAll(
-      '[class*="ant-tool-use-bar-tool-container"]',
+      '[class*="ant-agentic-tool-use-bar-tool-container"]',
     );
     expect(contentContainers.length).toBe(2);
   });
@@ -150,7 +152,7 @@ describe('ToolUseBar - Expanded Keys', () => {
 
     // tool2 应该是默认展开的
     const contentContainers = container.querySelectorAll(
-      '[class*="ant-tool-use-bar-tool-container"]',
+      '[class*="ant-agentic-tool-use-bar-tool-container"]',
     );
     expect(contentContainers.length).toBe(1);
     expect(contentContainers[0]).toHaveTextContent('Tool 2 error');
@@ -166,7 +168,7 @@ describe('ToolUseBar - Expanded Keys', () => {
 
     // 初始状态应该展开 tool1
     let contentContainers = container.querySelectorAll(
-      '[class*="ant-tool-use-bar-tool-container"]',
+      '[class*="ant-agentic-tool-use-bar-tool-container"]',
     );
     expect(contentContainers.length).toBe(1);
 
@@ -179,7 +181,7 @@ describe('ToolUseBar - Expanded Keys', () => {
     // 在非受控模式下，展开状态应该会改变（因为内部状态会更新）
     // 但根据实际行为，可能需要等待下一个渲染周期
     contentContainers = container.querySelectorAll(
-      '[class*="ant-tool-use-bar-tool-container"]',
+      '[class*="ant-agentic-tool-use-bar-tool-container"]',
     );
 
     // 如果状态没有改变，说明这是预期的行为

@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 import React, { useContext } from 'react';
 import { Editor, Element } from 'slate';
-import { I18nContext } from '../../../../../i18n';
+import { I18nContext } from '../../../../../I18n';
 import { EditorUtils } from '../../../utils/editorUtils';
 
 const LineCode = React.memo(() => {

@@ -1,4 +1,4 @@
-import { History, HistoryDataType } from '@ant-design/md-editor';
+import { History, HistoryDataType } from '@ant-design/agentic-ui';
 import { message } from 'antd';
 import React, { useState } from 'react';
 
@@ -137,6 +137,7 @@ const AgentModeHistoryDemo = () => {
           padding: '20px',
           width: 348,
           margin: '0 auto',
+          borderRadius: '16px',
           border: '1px solid var(--color-gray-border-light)',
         }}
       >

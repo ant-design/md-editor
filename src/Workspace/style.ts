@@ -1,5 +1,5 @@
-import type { ChatTokenType, GenerateStyle } from '../hooks/useStyle';
-import { useEditorStyleRegister } from '../hooks/useStyle';
+import type { ChatTokenType, GenerateStyle } from '../Hooks/useStyle';
+import { useEditorStyleRegister } from '../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -9,6 +9,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       background: 'var(--color-gray-bg-card-white)',
       border: '1px solid rgba(140, 171, 255, 0.12)',
       boxShadow: 'var(--shadow-card-base)',
+      'svg.sofa-icons-icon > g': {
+        clipPath: 'none!important',
+      },
+
+      // 纯净模式样式
+      [`&${token.componentCls}-pure`]: {
+        borderRadius: '0',
+        background: 'transparent',
+        border: 'none',
+        boxShadow: 'none',
+        height: '100%',
+      },
 
       [`${token.componentCls}-header`]: {
         display: 'flex',
@@ -28,7 +40,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         borderRadius: '6px',
         color: 'var(--color-gray-text-secondary)',
         cursor: 'pointer',
-        transition: 'all 0.2s ease',
+        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
 
         '&:hover': {
           color: 'var(--color-gray-text-default)',
@@ -45,26 +57,51 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         margin: 'var(--margin-3x) var(--margin-4x)',
       },
 
+      // 分割线样式
       [`${token.componentCls}-segmented`]: {
-        color: 'var(--color-gray-text-secondary)',
-        font: 'var(--font-text-body-base)',
-        letterSpacing: 'var(--letter-spacing-body-base, normal)',
-        background: 'var(--color-gray-control-fill-active)',
-        borderRadius: '8px',
-
-        // 覆盖 Segmented 组件内部的样式
-        '.ant-segmented-item': {
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '4px',
+        '.ant-segmented-group': {
+          height: '32px',
         },
 
-        '.ant-segmented-item-label': {
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '4px',
+        '&.ant-segmented:not(.chaos-segmented) .ant-segmented-item .ant-segmented-item-label':
+          {
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+
+        '.ant-segmented-item': {
+          '&:has(.ant-segmented-item-label:empty)': {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: '0 0 auto !important',
+            height: '100%',
+            width: '8px',
+            padding: '4px 0',
+            margin: '0 2px',
+            cursor: 'default',
+            pointerEvents: 'none',
+            backgroundColor: 'transparent !important',
+
+            '.ant-segmented-item-label': {
+              padding: '0',
+              height: '100%',
+              width: '1px',
+              backgroundColor: 'var(--color-gray-border-light)',
+            },
+
+            '&:hover': {
+              backgroundColor: 'transparent !important',
+            },
+          },
+        },
+
+        '.ant-segmented-item-disabled': {
+          '&:has(.ant-segmented-item-label:empty)': {
+            opacity: '1 !important',
+          },
         },
       },
 
@@ -97,8 +134,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       },
 
       [`${token.componentCls}-content`]: {
-        height: 'calc(100% - 90px)',
+        height: 'calc(100% - 95px)',
         padding: '0 16px 16px',
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: 0,
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        borderRadius: 'var(--radius-card-base)',
       },
     },
   };

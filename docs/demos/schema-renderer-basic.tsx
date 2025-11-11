@@ -1,4 +1,4 @@
-import { LowCodeSchema, SchemaRenderer } from '@ant-design/md-editor';
+import { LowCodeSchema, SchemaRenderer } from '@ant-design/agentic-ui';
 import React from 'react';
 
 const MyRendererComponent: React.FC = () => {

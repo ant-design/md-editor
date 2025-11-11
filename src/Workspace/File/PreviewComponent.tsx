@@ -1,22 +1,22 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import {
+  Download as DownloadIcon,
+  ArrowLeft as LeftIcon,
+  SquareArrowOutUpRight as ShareIcon,
+} from '@sofa-design/icons';
+import {
   Alert,
   Button,
   ConfigProvider,
   Image,
   Segmented,
   Spin,
-  Tooltip,
   Typography,
 } from 'antd';
 import classNames from 'classnames';
 import React, { type FC, useContext, useEffect, useRef, useState } from 'react';
-import { I18nContext } from '../../i18n';
-import {
-  Download as DownloadIcon,
-  ArrowLeft as LeftIcon,
-  MessageSquareShare as ShareIcon,
-} from '../../icons';
+import { ActionIconBox } from '../../Components/ActionIconBox';
+import { I18nContext } from '../../I18n';
 import {
   MarkdownEditor,
   type MarkdownEditorInstance,
@@ -33,38 +33,74 @@ import { FileProcessResult, fileTypeProcessor } from './FileTypeProcessor';
 import { useFileStyle } from './style';
 import { getFileTypeIcon } from './utils';
 
-export interface PreviewComponentProps {
-  file: FileNode;
-  /**
-   * 提供自定义内容以替换预览区域
-   */
-  customContent?: React.ReactNode;
+const HTML_MIME_TYPE = 'text/html';
+const HTML_EXTENSIONS = ['.html', '.htm'];
+const EDITOR_PADDING = '0 12px';
 
-  /**
-   * 自定义头部（当提供时，将完全替换默认头部：返回、图标、标题、时间、下载等均由外部控制）
-   */
+const isHtmlFile = (fileName: string, mimeType?: string): boolean => {
+  const name = fileName?.toLowerCase() || '';
+  const byExtension = HTML_EXTENSIONS.some((ext) => name.endsWith(ext));
+  const byMimeType = mimeType === HTML_MIME_TYPE;
+  return byExtension || byMimeType;
+};
+
+const getContentStatus = (
+  state: ContentState,
+): 'loading' | 'error' | 'done' => {
+  if ('error' in state) return 'error';
+  return state.status === 'loading' ? 'loading' : 'done';
+};
+
+const buildMarkdownContent = (
+  raw: string,
+  category: string,
+  fileName: string,
+): string => {
+  if (category === 'code') {
+    const language = getLanguageFromFilename(fileName);
+    return wrapContentInCodeBlock(raw, language);
+  }
+  return raw;
+};
+
+type ContentState =
+  | {
+      status: 'idle' | 'loading' | 'ready';
+      mdContent: string;
+      rawContent?: string;
+    }
+  | { status: 'error'; error: string };
+
+/**
+ * PreviewComponent 组件属性
+ */
+export interface PreviewComponentProps {
+  /** 文件数据 */
+  file: FileNode;
+  /** 自定义预览内容 */
+  customContent?: React.ReactNode;
+  /** 自定义头部 */
   customHeader?: React.ReactNode;
+  /** 自定义操作按钮 */
+  customActions?: React.ReactNode;
+  /** 返回回调 */
   onBack?: () => void;
+  /** 下载回调 */
   onDownload?: (file: FileNode) => void;
   /** 分享回调 */
   onShare?: (
     file: FileNode,
     options?: { anchorEl?: HTMLElement; origin?: string },
   ) => void;
-  /**
-   * MarkdownEditor 的配置项，用于自定义预览效果
-   * @description 这里的配置会覆盖默认的预览配置
-   */
+  /** Markdown 编辑器配置 */
   markdownEditorProps?: Partial<
     Omit<MarkdownEditorProps, 'editorRef' | 'initValue' | 'readonly'>
   >;
-  /**
-   * 仅用于覆盖默认头部区域展示的文件信息（不影响实际预览内容）
-   */
+  /** 头部文件信息覆盖 */
   headerFileOverride?: Partial<FileNode>;
 }
 
-// 提取通用的占位符组件
+// 占位符组件
 const PlaceholderContent: FC<{
   children?: React.ReactNode;
   showFileInfo?: boolean;
@@ -124,47 +160,22 @@ const PlaceholderContent: FC<{
 };
 
 /**
- * PreviewComponent 组件 - 文件预览组件
- *
- * 该组件提供文件预览功能，支持多种文件类型的预览，包括图片、文档、代码等。
- * 支持自定义预览内容和头部，提供返回、下载等操作。
- *
- * @component
- * @description 文件预览组件，支持多种文件类型的预览
- * @param {PreviewComponentProps} props - 组件属性
- * @param {FileNode} props.file - 要预览的文件
- * @param {React.ReactNode} [props.customContent] - 自定义预览内容
- * @param {React.ReactNode} [props.customHeader] - 自定义头部内容
- * @param {() => void} props.onBack - 返回按钮的回调
- * @param {(file: FileNode) => void} [props.onDownload] - 下载按钮的回调
- * @param {Partial<MarkdownEditorProps>} [props.markdownEditorProps] - Markdown编辑器配置
+ * 文件预览组件
  *
  * @example
  * ```tsx
  * <PreviewComponent
  *   file={fileNode}
  *   onBack={() => setPreviewFile(null)}
- *   onDownload={(file) => downloadFile(file)}
- *   markdownEditorProps={{
- *     theme: 'dark'
- *   }}
+ *   customActions={<Button icon={<EditIcon />}>编辑</Button>}
  * />
  * ```
- *
- * @returns {React.ReactElement} 渲染的文件预览组件
- *
- * @remarks
- * - 支持多种文件类型的预览（图片、文档、代码、PDF等）
- * - 支持自定义预览内容和头部
- * - 提供HTML预览和代码查看模式
- * - 支持Markdown文件的编辑器预览
- * - 处理文件加载状态和错误状态
- * - 提供文件信息显示和下载功能
  */
 export const PreviewComponent: FC<PreviewComponentProps> = ({
   file,
   customContent,
   customHeader,
+  customActions,
   onBack,
   onDownload,
   onShare,
@@ -172,7 +183,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   headerFileOverride,
 }) => {
   const { locale } = useContext(I18nContext);
-  // 使用 ConfigProvider 获取前缀类名
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const filePrefixCls = getPrefixCls('workspace-file');
   const { wrapSSR, hashId } = useFileStyle(filePrefixCls);
@@ -210,7 +220,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     });
   };
 
-  // 处理文件（当未提供 customContent 时）
   useEffect(() => {
     if (customContent) return;
     try {
@@ -224,40 +233,28 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     }
   }, [file, customContent]);
 
-  // 获取并准备 Markdown/HTML 内容（当未提供 customContent 时）
   useEffect(() => {
-    if (customContent) return;
-    if (!processResult) return;
+    if (customContent || !processResult) return;
 
     const { typeInference, dataSource } = processResult;
+    const isTextOrCode =
+      typeInference.category === 'text' || typeInference.category === 'code';
 
-    // 只处理文本类型和代码类型文件
-    if (typeInference.category !== 'text' && typeInference.category !== 'code')
-      return;
+    if (!isTextOrCode) return;
 
-    const buildMd = (raw: string): string => {
-      if (typeInference.category === 'code') {
-        const language = getLanguageFromFilename(file.name);
-        return wrapContentInCodeBlock(raw, language);
-      }
-      return raw;
-    };
-
-    const setReady = (raw: string) => {
+    const setReadyContent = (raw: string) => {
       setContentState({
         status: 'ready',
-        mdContent: buildMd(raw),
+        mdContent: buildMarkdownContent(raw, typeInference.category, file.name),
         rawContent: raw,
       });
     };
 
-    // 直接内容
     if (dataSource.content) {
-      setReady(dataSource.content);
+      setReadyContent(dataSource.content);
       return;
     }
 
-    // 通过 URL 拉取内容
     if (dataSource.previewUrl) {
       setContentState({ status: 'loading', mdContent: '', rawContent: '' });
 
@@ -268,7 +265,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           }
           return response.text();
         })
-        .then((raw) => setReady(raw))
+        .then(setReadyContent)
         .catch((err) => {
           const errorMessage =
             err instanceof Error ? err.message : '加载文本内容失败';
@@ -278,7 +275,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     }
   }, [processResult, file.name, customContent]);
 
-  // 更新编辑器内容
   useEffect(() => {
     if (customContent) return;
     if (
@@ -290,7 +286,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     }
   }, [contentState, customContent]);
 
-  // 清理资源
   useEffect(() => {
     return () => {
       if (processResult) {
@@ -299,22 +294,19 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     };
   }, [processResult]);
 
-  // 文件变化时重置 HTML 预览模式
   useEffect(() => {
     setHtmlViewMode('preview');
   }, [file.name]);
 
-  const isHtmlFile = (): boolean => {
-    const name = file.name?.toLowerCase() || '';
-    const byExt = name.endsWith('.html') || name.endsWith('.htm');
-    const byMime = processResult?.dataSource.mimeType === 'text/html';
-    return Boolean(byExt || byMime);
-  };
+  const isCurrentFileHtml = isHtmlFile(
+    file.name,
+    processResult?.dataSource.mimeType,
+  );
 
   const renderPreviewContent = () => {
     if (file.loading) {
       return (
-        <div className={classNames(`${prefixCls}-content-loading `, hashId)}>
+        <div className={classNames(`${prefixCls}-content-loading`, hashId)}>
           <span
             className={classNames(`${prefixCls}-content-loading-tip`, hashId)}
           >
@@ -324,7 +316,8 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           <div
             className={classNames(`${prefixCls}-content-loading-inner`, hashId)}
           >
-            {file?.content || '...'}
+            {file?.content?.padEnd(10000, file?.content) ||
+              '...'.padEnd(10000, '...')}
           </div>
         </div>
       );
@@ -361,7 +354,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     const { typeInference, dataSource, canPreview, previewMode } =
       processResult;
 
-    // 如果不支持预览
     if (!canPreview || previewMode === 'none') {
       return (
         <PlaceholderContent prefixCls={prefixCls} hashId={hashId}>
@@ -464,7 +456,8 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
             </div>
             {onDownload && (
               <Button
-                type="primary"
+                color="default"
+                variant="solid"
                 icon={<DownloadIcon />}
                 onClick={handleDownload}
                 aria-label={locale?.['workspace.file.download'] || '下载'}
@@ -477,94 +470,83 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       );
     }
 
-    // 根据文件类型渲染预览内容
-    switch (typeInference.category) {
-      case 'text':
-      case 'code': {
-        if (isHtmlFile()) {
-          const toHtmlStatus = (
-            s: ContentState,
-          ): 'loading' | 'error' | 'done' => {
-            if ('error' in s) return 'error';
-            return s.status === 'loading' ? 'loading' : 'done';
-          };
-          const htmlStatus = toHtmlStatus(contentState);
-          return (
-            <div className={classNames(`${prefixCls}-text`, hashId)}>
-              <HtmlPreview
-                html={contentState.rawContent || ''}
-                status={htmlStatus as any}
-                viewMode={htmlViewMode}
-                onViewModeChange={setHtmlViewMode}
-                iframeProps={{ sandbox: 'allow-scripts' }}
-                showSegmented={false}
-              />
-            </div>
-          );
-        }
-
-        if (contentState.status === 'loading') {
-          return (
-            <PlaceholderContent prefixCls={prefixCls} hashId={hashId}>
-              <Spin size="large" tip="正在加载文件内容..." />
-            </PlaceholderContent>
-          );
-        }
-
+    const renderTextOrCode = () => {
+      if (isCurrentFileHtml) {
+        const htmlStatus = getContentStatus(contentState);
         return (
           <div className={classNames(`${prefixCls}-text`, hashId)}>
-            <MarkdownEditor
-              editorRef={editorRef}
-              {...{
-                initValue: '',
-                readonly: true,
-                contentStyle: { padding: '0 12px' },
-              }}
-              {...markdownEditorProps}
+            <HtmlPreview
+              html={contentState.rawContent || ''}
+              status={htmlStatus as any}
+              viewMode={htmlViewMode}
+              onViewModeChange={setHtmlViewMode}
+              iframeProps={{ sandbox: 'allow-scripts' }}
+              showSegmented={false}
             />
           </div>
         );
       }
 
-      case 'image':
-        if (!dataSource.previewUrl) {
-          return (
-            <PlaceholderContent
-              locale={locale}
-              prefixCls={prefixCls}
-              hashId={hashId}
-            >
-              <p>
-                {locale?.['workspace.file.cannotGetImagePreview'] ||
-                  '无法获取图片预览'}
-              </p>
-            </PlaceholderContent>
-          );
-        }
-
+      if (contentState.status === 'loading') {
         return (
+          <PlaceholderContent prefixCls={prefixCls} hashId={hashId}>
+            <Spin size="large" tip="正在加载文件内容..." />
+          </PlaceholderContent>
+        );
+      }
+
+      return (
+        <div className={classNames(`${prefixCls}-text`, hashId)}>
+          <MarkdownEditor
+            editorRef={editorRef}
+            initValue=""
+            readonly={true}
+            contentStyle={{ padding: EDITOR_PADDING }}
+            {...markdownEditorProps}
+          />
+        </div>
+      );
+    };
+
+    const getPreviewErrorMessage = (category: string): string => {
+      const messages: Record<string, string> = {
+        image:
+          locale?.['workspace.file.cannotGetImagePreview'] ||
+          '无法获取图片预览',
+        video:
+          locale?.['workspace.file.cannotGetVideoPreview'] ||
+          '无法获取视频预览',
+        audio:
+          locale?.['workspace.file.cannotGetAudioPreview'] ||
+          '无法获取音频预览',
+        pdf:
+          locale?.['workspace.file.cannotGetPdfPreview'] || '无法获取PDF预览',
+      };
+      return messages[category] || `无法获取${category}预览`;
+    };
+
+    const renderMediaPreview = (
+      category: 'image' | 'video' | 'audio' | 'pdf',
+    ) => {
+      if (!dataSource.previewUrl) {
+        return (
+          <PlaceholderContent
+            locale={locale}
+            prefixCls={prefixCls}
+            hashId={hashId}
+          >
+            <p>{getPreviewErrorMessage(category)}</p>
+          </PlaceholderContent>
+        );
+      }
+
+      const mediaElements: Record<string, React.ReactNode> = {
+        image: (
           <div className={classNames(`${prefixCls}-image`, hashId)}>
             <Image src={dataSource.previewUrl} alt={file.name} />
           </div>
-        );
-
-      case 'video':
-        if (!dataSource.previewUrl) {
-          return (
-            <PlaceholderContent
-              locale={locale}
-              prefixCls={prefixCls}
-              hashId={hashId}
-            >
-              <p>
-                {locale?.['workspace.file.cannotGetVideoPreview'] ||
-                  '无法获取视频预览'}
-              </p>
-            </PlaceholderContent>
-          );
-        }
-
-        return (
+        ),
+        video: (
           <video
             className={classNames(`${prefixCls}-video`, hashId)}
             src={dataSource.previewUrl}
@@ -575,25 +557,8 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
             <track kind="captions" />
             您的浏览器不支持视频播放
           </video>
-        );
-
-      case 'audio':
-        if (!dataSource.previewUrl) {
-          return (
-            <PlaceholderContent
-              locale={locale}
-              prefixCls={prefixCls}
-              hashId={hashId}
-            >
-              <p>
-                {locale?.['workspace.file.cannotGetAudioPreview'] ||
-                  '无法获取音频预览'}
-              </p>
-            </PlaceholderContent>
-          );
-        }
-
-        return (
+        ),
+        audio: (
           <audio
             className={classNames(`${prefixCls}-audio`, hashId)}
             src={dataSource.previewUrl}
@@ -603,25 +568,8 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           >
             您的浏览器不支持音频播放
           </audio>
-        );
-
-      case 'pdf':
-        if (!dataSource.previewUrl) {
-          return (
-            <PlaceholderContent
-              locale={locale}
-              prefixCls={prefixCls}
-              hashId={hashId}
-            >
-              <p>
-                {locale?.['workspace.file.cannotGetPdfPreview'] ||
-                  '无法获取PDF预览'}
-              </p>
-            </PlaceholderContent>
-          );
-        }
-
-        return (
+        ),
+        pdf: (
           <embed
             className={classNames(`${prefixCls}-pdf`, hashId)}
             src={dataSource.previewUrl}
@@ -629,7 +577,22 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
             width="100%"
             height="100%"
           />
-        );
+        ),
+      };
+
+      return mediaElements[category];
+    };
+
+    switch (typeInference.category) {
+      case 'text':
+      case 'code':
+        return renderTextOrCode();
+
+      case 'image':
+      case 'video':
+      case 'audio':
+      case 'pdf':
+        return renderMediaPreview(typeInference.category);
 
       default:
         return (
@@ -712,7 +675,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
           </div>
 
           <div className={classNames(`${prefixCls}-actions`, hashId)}>
-            {!customContent && isHtmlFile() && (
+            {!customContent && isCurrentFileHtml && (
               <Segmented
                 size="small"
                 options={[
@@ -729,35 +692,32 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
                 onChange={(val) => setHtmlViewMode(val as 'preview' | 'code')}
               />
             )}
-            {onShare && file.canShare === true && (
-              <Tooltip
-                mouseEnterDelay={0.3}
-                title={locale?.['workspace.file.share'] || '分享'}
+            {customActions && (
+              <div
+                className={classNames(`${prefixCls}-custom-actions`, hashId)}
               >
-                <Button
-                  size="small"
-                  type="text"
-                  className={classNames(`${prefixCls}-item-action-btn`, hashId)}
-                  icon={<ShareIcon />}
-                  aria-label={locale?.['workspace.file.share'] || '分享'}
-                  onClick={handleShare}
-                />
-              </Tooltip>
+                {customActions}
+              </div>
+            )}
+            {onShare && file.canShare === true && (
+              <ActionIconBox
+                title={locale?.['workspace.file.share'] || '分享'}
+                onClick={handleShare}
+                tooltipProps={{ mouseEnterDelay: 0.3 }}
+                className={classNames(`${prefixCls}-item-action-btn`, hashId)}
+              >
+                <ShareIcon />
+              </ActionIconBox>
             )}
             {onDownload && (
-              <Tooltip
-                mouseEnterDelay={0.3}
+              <ActionIconBox
                 title={locale?.['workspace.file.download'] || '下载'}
+                onClick={handleDownload}
+                tooltipProps={{ mouseEnterDelay: 0.3 }}
+                className={classNames(`${prefixCls}-item-action-btn`, hashId)}
               >
-                <Button
-                  size="small"
-                  type="text"
-                  className={classNames(`${prefixCls}-item-action-btn`, hashId)}
-                  icon={<DownloadIcon />}
-                  onClick={handleDownload}
-                  aria-label={locale?.['workspace.file.download'] || '下载'}
-                />
-              </Tooltip>
+                <DownloadIcon />
+              </ActionIconBox>
             )}
           </div>
         </div>

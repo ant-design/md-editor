@@ -2,7 +2,7 @@
  * MarkdownInputField 组件全面测试文件
  */
 
-import { MarkdownInputField } from '@ant-design/md-editor';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -92,9 +92,9 @@ vi.mock('../../src/MarkdownInputField/SkillModeBar', () => ({
         })()}
         {skillMode.closable !== false && (
           <button
+            type="button"
             data-testid="skill-mode-close"
             onClick={() => onSkillModeOpenChange?.(false)}
-            type="button"
           >
             关闭
           </button>
@@ -319,19 +319,6 @@ describe('MarkdownInputField Comprehensive Tests', () => {
   });
 
   describe('样式和主题', () => {
-    it('应该应用自定义背景色', () => {
-      const bgColorList = ['#f0f0f0', '#e0e0e0', '#d0d0d0', '#c0c0c0'] as [
-        string,
-        string,
-        string,
-        string,
-      ];
-      render(
-        <MarkdownInputField {...defaultProps} bgColorList={bgColorList} />,
-      );
-      expect(screen.getByTestId('base-markdown-editor')).toBeInTheDocument();
-    });
-
     it('应该应用自定义圆角', () => {
       render(<MarkdownInputField {...defaultProps} borderRadius={8} />);
       expect(screen.getByTestId('base-markdown-editor')).toBeInTheDocument();

@@ -2,6 +2,9 @@
 nav:
   title: 项目研发
   order: 3
+group:
+  title: 开发指南
+  order: 6
 ---
 
 # CSS-in-JS 方案指南
@@ -695,7 +698,7 @@ const useStyles = createStyles(({ token }) => ({
     backgroundColor: token.colorBgContainer,
     color: token.colorText,
     minHeight: '100vh',
-    transition: 'all 0.3s ease',
+    transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
   },
 
   header: {
@@ -737,6 +740,7 @@ const ThemeToggle: React.FC = () => {
         <header className={styles.header}>
           <h1>主题切换示例</h1>
           <button
+            type="button"
             className={styles.toggleButton}
             onClick={() => setIsDark(!isDark)}
           >

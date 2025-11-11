@@ -1,4 +1,4 @@
-import { BaseMarkdownEditor } from '@ant-design/md-editor';
+import { BaseMarkdownEditor } from '@ant-design/agentic-ui';
 import React from 'react';
 
 const CardSelectionDemo = () => {

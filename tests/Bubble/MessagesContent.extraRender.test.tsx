@@ -27,7 +27,7 @@ vi.mock('../../src/Bubble/MessagesContent/EXCEPTION', () => ({
 }));
 
 // Mock hooks
-vi.mock('../../src/hooks/useRefFunction', () => ({
+vi.mock('../../src/Hooks/useRefFunction', () => ({
   useRefFunction: vi.fn((fn) => fn),
 }));
 

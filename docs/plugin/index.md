@@ -2,6 +2,9 @@
 nav:
   title: 插件
   order: 2
+group:
+  title: 通用
+  order: 3
 ---
 
 # 插件
@@ -218,9 +221,9 @@ function MarkdownEditorWithPlugins({ children }) {
 
 ```typescript | pure
 import React, { useRef } from 'react';
-import { MarkdownEditor } from '@ant-design/md-editor';
-import { MarkdownEditorInstance } from '@ant-design/md-editor';
-import { MarkdownEditorPlugin } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
+import { MarkdownEditorInstance } from '@ant-design/agentic-ui';
+import { MarkdownEditorPlugin } from '@ant-design/agentic-ui';
 
 // 简单的自定义代码块插件
 const customCodePlugin: MarkdownEditorPlugin = {
@@ -321,8 +324,8 @@ console.log("这是普通的 JavaScript 代码");
       <h1>简单的 toMarkdown 插件示例</h1>
 
       <div style={{ marginBottom: '20px' }}>
-        <button
-          onClick={handleExportMarkdown}
+         <button
+          type="button"onClick={handleExportMarkdown}
           style={{
             padding: '8px 16px',
             backgroundColor: '#1890ff',
@@ -372,8 +375,8 @@ console.log("这是普通的 JavaScript 代码");
 
 ```typescript | pure
 import React, { useState } from 'react';
-import { MarkdownEditor } from '@ant-design/md-editor';
-import { MarkdownEditorPlugin } from '@ant-design/md-editor';
+import { MarkdownEditor } from '@ant-design/agentic-ui';
+import { MarkdownEditorPlugin } from '@ant-design/agentic-ui';
 
 // 自定义代码块插件 - 将特殊的代码块转换为警告格式
 const customCodeBlockPlugin: MarkdownEditorPlugin = {

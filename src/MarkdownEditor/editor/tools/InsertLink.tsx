@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { DeleteOutlined } from '@ant-design/icons';
-import { useRefFunction } from '@ant-design/md-editor/hooks/useRefFunction';
 import { Input, InputRef, Modal, Tooltip } from 'antd';
 import React, { useCallback, useContext, useRef } from 'react';
 import { Selection, Text, Transforms } from 'slate';
-import { I18nContext } from '../../../i18n';
+import { useRefFunction } from '../../../Hooks/useRefFunction';
+import { I18nContext } from '../../../I18n';
 import { IEditor } from '../../BaseMarkdownEditor';
 import { useSubject } from '../../hooks/subscribe';
 import { useEditorStore } from '../store';

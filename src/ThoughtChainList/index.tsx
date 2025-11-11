@@ -1,4 +1,11 @@
 import { CloseCircleFilled } from '@ant-design/icons';
+import {
+  ChevronsDownUp,
+  ChevronsUpDown,
+  CircleCheckBig,
+  Loader,
+  Sparkles,
+} from '@sofa-design/icons';
 import { ConfigProvider, Descriptions, Drawer, Typography } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
@@ -7,16 +14,9 @@ import { motion } from 'framer-motion';
 import { merge } from 'lodash-es';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { useAutoScroll } from '../hooks/useAutoScroll';
-import { I18nContext } from '../i18n';
-import {
-  ChevronsDownUp,
-  ChevronsUpDown,
-  CircleCheckBig,
-  Loader,
-  Sparkles,
-} from '../icons';
-import { ActionIconBox } from '../MarkdownEditor/editor/components/ActionIconBox';
+import { ActionIconBox } from '../Components/ActionIconBox';
+import { useAutoScroll } from '../Hooks/useAutoScroll';
+import { I18nContext } from '../I18n';
 import { MarkdownEditorProps } from '../MarkdownEditor/types';
 import { DotLoading } from './DotAni';
 import { FlipText } from './FlipText';
@@ -129,25 +129,25 @@ const DocumentDrawer = React.memo<{
         items={
           [
             {
-              label: '名称',
+              label: locale?.['common.name'] || '名称',
               span: 1,
               children: docMeta?.doc_name || docMeta?.answer,
             },
             {
-              label: '更新时间',
+              label: locale?.['common.updateTime'] || '更新时间',
               span: 1,
               children: dayjs(docMeta?.upload_time).format(
                 'YYYY-MM-DD HH:mm:ss',
               ),
             },
             {
-              label: '类型',
+              label: locale?.['common.type'] || '类型',
               span: 1,
               children: docMeta?.type,
             },
             docMeta?.origin_text
               ? {
-                  label: '内容',
+                  label: locale?.['common.content'] || '内容',
                   span: 1,
                   children: docMeta?.origin_text,
                 }

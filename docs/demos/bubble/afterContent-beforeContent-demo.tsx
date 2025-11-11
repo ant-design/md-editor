@@ -1,6 +1,5 @@
+import { Bubble, MessageBubbleData } from '@ant-design/agentic-ui';
 import React from 'react';
-import { Bubble } from '../../../src/Bubble';
-import { MessageBubbleData } from '../../../src/Bubble/type';
 import { BubbleDemoCard } from './BubbleDemoCard';
 
 const AfterContentBeforeContentDemo: React.FC = () => {
@@ -132,6 +131,7 @@ const customAfterContentRender = (props) => {
       <div style={{ padding: 24 }}>
         <Bubble
           originData={mockMessageData}
+          pure
           bubbleRenderConfig={{
             beforeMessageRender: customBeforeContentRender,
             afterMessageRender: customAfterContentRender,

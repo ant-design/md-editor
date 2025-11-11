@@ -1,7 +1,5 @@
+import { ScatterChart, ScatterChartDataItem } from '@ant-design/agentic-ui';
 import React from 'react';
-import ScatterChart, {
-  ScatterChartDataItem,
-} from '../../../src/plugins/chart/ScatterChart';
 
 const ScatterChartDemo: React.FC = () => {
   // 固定的散点图数据

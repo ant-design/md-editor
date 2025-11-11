@@ -1,8 +1,9 @@
 import {
   ChatTokenType,
+  CSSInterpolation,
   resetComponent,
   useEditorStyleRegister,
-} from '../hooks/useStyle';
+} from '../Hooks/useStyle';
 import { BubbleProps } from './type';
 
 const genStyle = (
@@ -14,15 +15,19 @@ const genStyle = (
       '&-bubble': {
         position: 'relative',
         maxWidth: '100vw',
-        paddingTop: 'var(--padding-3x)',
-        marginBottom: 'var(--margin-6x)',
         cursor: 'pointer',
+
         '&&-compact': {
           padding: 'var(--padding-0-5x)',
         },
+        '&:hover': {
+          [`${token.componentCls}-bubble-title-time`]: {
+            visibility: 'visible',
+          },
+        },
       },
 
-      '.md-editor-code': {
+      '.agentic-md-editor-code': {
         borderRadius: '12px !important',
         overflow: 'auto',
         padding: 'var(--padding-3x)',
@@ -32,15 +37,21 @@ const genStyle = (
         height: 40,
       },
       '&-bubble-avatar-title': {
+        paddingTop: 'var(--padding-3x)',
         lineHeight: '20px',
         textAlign: 'justify',
         letterSpacing: 'normal',
         color: 'var(--color-gray-text-default)',
         fontSize: '1em',
         display: 'flex',
-        alignItems: 'center',
         gap: 'var(--margin-1x)',
-        paddingLeft: '20px',
+        '&-pure': {
+          paddingLeft: '20px',
+        },
+        '&-quote': {
+          marginBottom: '0px',
+          flexDirection: 'column',
+        },
         [`span.${classNames?.bubbleNameClassName}`]: {
           fontWeight: 600,
           fontSize: '1em',
@@ -57,6 +68,11 @@ const genStyle = (
       '&-bubble-container': {
         width: '100%',
         display: 'flex',
+        flexDirection: 'column',
+        gap: 8,
+        '&-pure': {
+          gap: 4,
+        },
         '&-right': {
           alignItems: 'flex-end',
         },
@@ -77,8 +93,7 @@ const genStyle = (
         width: 'max-content',
         borderRadius: '12px',
         background: 'var(--color-gray-bg-card-white)',
-        boxShadow:
-          '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
+        boxShadow: 'var(--shadow-control-base)',
         display: 'flex',
         flexDirection: 'column',
         zIndex: 0,
@@ -121,9 +136,11 @@ const genStyle = (
         maxWidth: 'min(860px,100%)',
         '&-left': {
           justifyContent: 'flex-start',
+          maxWidth: 'min(860px,100%)',
         },
         '&-right': {
           justifyContent: 'flex-end',
+          maxWidth: 'min(860px,100%)',
         },
       },
       '&-bubble-before': {
@@ -132,9 +149,11 @@ const genStyle = (
         maxWidth: 'min(860px,100%)',
       },
       '&-bubble-content-right': {
-        borderRadius: '16px 2px 16px 16px',
+        maxWidth: '75%',
+        borderRadius: '16px 16px 2px 16px',
         background: 'var(--color-primary-control-fill-secondary-active)',
         color: 'var(--color-gray-text-default)',
+        boxShadow: 'none',
         '&&-pure': {
           background: 'var(--color-primary-control-fill-primary)',
         },
@@ -148,11 +167,12 @@ const genStyle = (
         },
         '&-container-user': {
           alignItems: 'flex-end',
+          maxWidth: 'max(668px,75%)',
         },
         '&-content-user': {
           background: 'var(--color-primary-bg-card-light)',
           color: 'var(--color-gray-text-default)',
-          borderRadius: '12px 6px 12px 12px',
+          borderRadius: '12px 12px 2px 12px',
           maxWidth: '668px',
           '&&-pure': {
             background: 'var(--color-primary-control-fill-primary)',
@@ -211,6 +231,9 @@ export function useStyle(
       componentCls: `.${prefixCls}`,
     };
 
-    return [resetComponent(proChatToken), genStyle(proChatToken, classNames)];
+    return [
+      resetComponent(proChatToken),
+      genStyle(proChatToken, classNames),
+    ] as CSSInterpolation[];
   });
 }

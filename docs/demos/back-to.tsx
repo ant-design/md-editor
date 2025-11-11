@@ -3,7 +3,7 @@ import {
   BubbleList,
   BubbleMetaData,
   MessageBubbleData,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import React, { useRef, useState } from 'react';
 
 // 创建模拟消息
@@ -65,6 +65,12 @@ export default () => {
         bubbleRef={bubbleRef}
         assistantMeta={assistantMeta}
         userMeta={userMeta}
+        pure
+        markdownRenderConfig={{
+          tableConfig: {
+            pure: true,
+          },
+        }}
       />
       <BackTo.Top
         tooltip="去顶部"

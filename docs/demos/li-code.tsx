@@ -3,7 +3,7 @@ import {
   MarkdownEditor,
   MarkdownEditorInstance,
   parserMarkdownToSlateNode,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import React, { useEffect, useRef } from 'react';
 
 const defaultValue =

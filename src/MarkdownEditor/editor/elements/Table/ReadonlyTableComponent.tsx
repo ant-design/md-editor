@@ -1,5 +1,6 @@
 import { FullscreenOutlined } from '@ant-design/icons';
-import { ConfigProvider, Modal, Popover } from 'antd';
+import { Copy } from '@sofa-design/icons';
+import { ConfigProvider, Modal } from 'antd';
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 import React, {
@@ -9,9 +10,8 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { I18nContext } from '../../../../i18n';
-import { Copy } from '../../../../icons';
-import { ActionIconBox } from '../../components/ActionIconBox';
+import { ActionIconBox } from '../../../../Components/ActionIconBox';
+import { I18nContext } from '../../../../I18n';
 import { useEditorStore } from '../../store';
 import { TableNode } from '../../types/Table';
 import { parserSlateNodeToMarkdown } from '../../utils';
@@ -107,10 +107,15 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
       () => (
         <table
           ref={tableTargetRef}
-          style={{
-            userSelect: 'none',
-          }}
-          className={classNames(`${baseCls}-editor-table`, hashId)}
+          className={classNames(
+            `${baseCls}-editor-table`,
+            'readonly',
+            hashId,
+            `${baseCls}-readonly-table`,
+            {
+              [`${baseCls}-readonly-pure`]: editorProps?.tableConfig?.pure,
+            },
+          )}
         >
           <colgroup>
             {colWidths.map((colWidth: number, index: number) => (
@@ -124,13 +129,7 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
               />
             ))}
           </colgroup>
-          <tbody
-            style={{
-              userSelect: 'none',
-            }}
-          >
-            {children}
-          </tbody>
+          <tbody>{children}</tbody>
         </table>
       ),
       [colWidths, children, hashId, baseCls],
@@ -139,7 +138,10 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
     // 缓存操作按钮内容
     const popoverContent = useMemo(
       () => (
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div
+          style={{ display: 'flex', gap: 8 }}
+          className={classNames(hashId, `${baseCls}-readonly-table-actions`)}
+        >
           {actions?.fullScreen && (
             <ActionIconBox
               title={i18n?.locale?.fullScreen || '全屏'}
@@ -169,39 +171,16 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
 
     return (
       <>
-        <Popover
-          trigger={['click', 'hover']}
-          arrow={false}
-          styles={{
-            body: {
-              padding: 8,
-            },
+        <div
+          className={classNames(baseCls, hashId)}
+          style={{
+            flex: 1,
+            minWidth: 0,
           }}
-          align={{
-            offset: [4, 40],
-          }}
-          zIndex={999}
-          placement="topLeft"
-          content={popoverContent}
         >
-          <div
-            className={classNames(baseCls, hashId)}
-            style={{
-              flex: 1,
-              minWidth: 0,
-            }}
-            onDragStart={(e) => {
-              // 阻止拖拽开始时的文字选择
-              e.preventDefault();
-            }}
-            onDoubleClick={(e) => {
-              // 阻止双击选择文字
-              e.preventDefault();
-            }}
-          >
-            {tableDom}
-          </div>
-        </Popover>
+          {tableDom}
+          {popoverContent}
+        </div>
 
         {previewOpen && (
           <Modal
@@ -217,7 +196,7 @@ export const ReadonlyTableComponent: React.FC<ReadonlyTableComponentProps> =
               className={classNames(
                 baseCls,
                 hashId,
-                getPrefixCls('md-editor-content'),
+                getPrefixCls('agentic-md-editor-content'),
               )}
               style={{
                 flex: 1,

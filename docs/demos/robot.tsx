@@ -5,7 +5,7 @@ import {
   TASK_STATUS,
   TaskRunning,
   ThinkingLottie,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
 
 export default () => {

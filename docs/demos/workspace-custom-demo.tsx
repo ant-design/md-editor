@@ -1,4 +1,4 @@
-import { Workspace } from '@ant-design/md-editor';
+import { Workspace } from '@ant-design/agentic-ui';
 import { Button, Card, Progress, Statistic, Table, Tag } from 'antd';
 import React, { useState } from 'react';
 import {

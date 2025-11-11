@@ -4,6 +4,7 @@ import React, { CSSProperties, useContext } from 'react';
 import { Editor, Path, Transforms } from 'slate';
 
 import { ReactEditor, RenderElementProps, RenderLeafProps } from 'slate-react';
+import { I18nContext } from '../../../I18n';
 import { MarkdownEditorProps } from '../../types';
 import { useEditorStore } from '../store';
 import { EditorUtils } from '../utils/editorUtils';
@@ -12,7 +13,6 @@ import { Break } from './Break';
 import { WarpCard } from './Card';
 import { Code } from './Code';
 import { CommentView } from './Comment';
-import { Description } from './Description';
 import { FootnoteDefinition } from './FootnoteDefinition';
 import { FootnoteReference } from './FootnoteReference';
 import { Head } from './Head';
@@ -124,7 +124,8 @@ const MElementComponent = (
     readonly?: boolean;
   },
 ) => {
-  const dom = tableRenderElement(props);
+  const dom = tableRenderElement(props, { readonly: props.readonly });
+
   if (dom) {
     return dom;
   }
@@ -157,8 +158,6 @@ const MElementComponent = (
       return <Schema {...props} />;
     case 'apaasify':
       return <Schema {...props} />;
-    case 'description':
-      return <Description {...props}>{props.children}</Description>;
     case 'image':
       return <EditorImage {...props} />;
     case 'media':
@@ -314,7 +313,8 @@ const MLeafComponent = (
   const { markdownEditorRef, markdownContainerRef, readonly, setShowComment } =
     useEditorStore();
   const context = useContext(ConfigProvider.ConfigContext);
-  const mdEditorBaseClass = context?.getPrefixCls('md-editor-content');
+  const { locale } = useContext(I18nContext);
+  const mdEditorBaseClass = context?.getPrefixCls('agentic-md-editor-content');
   const leaf = props.leaf;
   const style: CSSProperties = {};
   let prefixClassName = classNames(props.hashId);
@@ -400,7 +400,9 @@ const MLeafComponent = (
                 }
               }, 0);
             }}
-            placeholder={placeholder || '请输入'}
+            placeholder={
+              placeholder || locale?.['input.placeholder'] || '请输入'
+            }
           >
             {children}
           </TagPopup>
@@ -453,9 +455,8 @@ const MLeafComponent = (
       }
     } catch (e) {}
   };
-
   if (leaf?.url && readonly) {
-    return (
+    const renderDom = (
       <span
         data-be="link"
         draggable={false}
@@ -474,21 +475,24 @@ const MLeafComponent = (
         }}
         id={leaf?.url}
         data-slate-inline={true}
-        style={{
-          ...style,
-          font: 'var(--font-text-body-lg)',
-          letterSpacing: 'var(--letter-spacing-body-lg, normal)',
-          color: 'var(--color-gray-text-default)',
-          textDecoration: 'underline',
-          textDecorationColor:
-            style?.color || 'var(--color-gray-text-disabled)',
-          textUnderlineOffset: '4px',
-          cursor: 'pointer',
-        }}
         {...props.attributes}
       >
         {children}
       </span>
+    );
+
+    if (!props.leaf.comment) return renderDom;
+    return (
+      <CommentView
+        id={`comment-${props.leaf?.id}`}
+        comment={props.comment}
+        hashId={props.hashId}
+        selection={leaf?.selection}
+        commentItem={props.leaf?.comment ? (props.leaf.data as any) : null}
+        setShowComment={setShowComment}
+      >
+        {renderDom}
+      </CommentView>
     );
   }
 
@@ -497,6 +501,7 @@ const MLeafComponent = (
     [`${mdEditorBaseClass}-fnd`]: leaf.fnd,
     [`${mdEditorBaseClass}-comment`]: leaf.comment,
   });
+
   let dom = (
     <span
       {...props.attributes}
@@ -525,19 +530,7 @@ const MLeafComponent = (
       className={fncClassName ? fncClassName : undefined}
       style={{
         fontSize: leaf.fnc ? 10 : undefined,
-        ...(leaf.url
-          ? {
-              ...style,
-              font: 'var(--font-text-body-lg)',
-              letterSpacing: 'var(--letter-spacing-body-lg, normal)',
-              color: 'var(--color-gray-text-default)',
-              textDecoration: 'underline',
-              textDecorationColor:
-                style?.color || 'var(--color-gray-text-disabled)',
-              textUnderlineOffset: '4px',
-              cursor: 'pointer',
-            }
-          : style),
+        ...style,
       }}
     >
       {leaf.fnc || leaf.identifier

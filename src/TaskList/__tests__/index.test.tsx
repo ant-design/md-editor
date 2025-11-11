@@ -4,10 +4,10 @@ import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { TaskList } from '..';
 
-// 模拟 LoadingLottie 组件
-vi.mock('../LoadingLottie', () => ({
-  LoadingLottie: ({ size }: { size: number }) => (
-    <div data-testid="loading-lottie" data-size={size}>
+// 模拟 Loading 组件
+vi.mock('../../Components/Loading', () => ({
+  Loading: ({ size }: { size: number }) => (
+    <div data-testid="task-list-loading" data-size={size}>
       Loading...
     </div>
   ),
@@ -60,7 +60,7 @@ describe('TaskList', () => {
       expect(taskItems).toHaveLength(3);
 
       // 由于组件类型限制，loading状态不在mockItems中，所以没有loading组件
-      const loadingComponents = screen.queryAllByTestId('loading-lottie');
+      const loadingComponents = screen.queryAllByTestId('task-list-loading');
       expect(loadingComponents).toHaveLength(0);
     });
 

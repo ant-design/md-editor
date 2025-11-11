@@ -1,4 +1,4 @@
-import { isMarkdown } from '@ant-design/md-editor';
+import { isMarkdown } from '@ant-design/agentic-ui';
 import { describe, expect, it } from 'vitest';
 
 describe('isMarkdown', () => {

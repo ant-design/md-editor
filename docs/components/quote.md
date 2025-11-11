@@ -2,8 +2,8 @@
 title: Quote 引用组件
 atomId: Quote
 group:
-  title: 组件
-  order: 2
+  title: 对话流
+  order: 6
 ---
 
 # Quote 引用组件
@@ -28,6 +28,12 @@ Quote 组件是一个现代化的文件引用卡片组件，为代码引用和�
 展示 Quote 组件的基础功能，包括文件信息显示、内容预览和关闭操作。
 
 <code src="../demos/quote-demo.tsx"></code>
+
+### 在 MarkdownInputField 中使用
+
+在输入框中使用 Quote 组件展示代码引用上下文，通过 `skillMode` 配合 `beforeTools` 属性实现。
+
+<code src="../demos/quote-with-input-demo.tsx" iframe="600"></code>
 
 ## 📖 API 参考
 
@@ -229,4 +235,72 @@ const handleFileClick = (fileName: string, lineRange?: string) => {
   onClose={handleClose}
   onFileClick={handleFileClick}
 />;
+```
+
+## 🎯 使用场景
+
+### 在 MarkdownInputField 中展示代码上下文
+
+Quote 组件可以与 `MarkdownInputField` 完美配合，在用户输入时展示相关的代码引用和上下文信息。
+
+#### 实现步骤
+
+**1. 配置技能模式**
+
+通过 `skillMode` 属性启用引用上下文模式：
+
+```tsx | pure
+<MarkdownInputField
+  skillMode={{
+    open: true,
+    title: '引用上下文模式',
+    closable: true,
+  }}
+  onSkillModeOpenChange={(open) => {
+    setSkillModeOpen(open);
+  }}
+/>
+```
+
+**2. 使用 skillMode.title 添加 Quote 组件**
+
+通过 `skillMode.title` 属性将 Quote 引用作为标题内容：
+
+```tsx | pure
+<MarkdownInputField
+  placeholder="在这里输入你的问题..."
+  onSend={handleSend}
+  skillMode={{
+    open: true,
+    title: (
+      <>
+        <Quote
+          fileName="src/components/UserProfile.tsx"
+          lineRange="45-60"
+          quoteDescription="用户资料组件的状态管理逻辑"
+          popupDetail={userProfileCode}
+          popupDirection="left"
+        />
+
+        <Quote
+          fileName="src/utils/api.ts"
+          lineRange="12-25"
+          quoteDescription="API请求工具函数"
+          popupDetail={apiCode}
+          closable
+          onClose={() => handleRemoveQuote('api')}
+        />
+
+        <Quote
+          fileName="src/types/user.ts"
+          lineRange="5-15"
+          quoteDescription="用户资料的类型定义"
+          popupDetail={typeDefinition}
+        />
+      </>
+    ),
+    closable: true,
+  }}
+  onSkillModeOpenChange={(open) => setSkillModeOpen(open)}
+/>
 ```

@@ -2,7 +2,7 @@ import {
   BubbleList,
   BubbleMetaData,
   MessageBubbleData,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import { Button, InputNumber, message } from 'antd';
 import React, { useRef, useState } from 'react';
 
@@ -123,6 +123,12 @@ export default () => {
         }}
       >
         <BubbleList
+          markdownRenderConfig={{
+            tableConfig: {
+              pure: true,
+            },
+          }}
+          pure
           bubbleList={bubbleList}
           bubbleListRef={bubbleListRef}
           bubbleRef={bubbleRef}

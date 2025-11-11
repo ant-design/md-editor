@@ -98,8 +98,8 @@ describe('MarkdownInputField - toolsRender', () => {
 
     const toolsContainer = screen
       .getByTestId('custom-tool')
-      .closest('.ant-md-input-field-send-tools');
-    expect(toolsContainer).toHaveClass('ant-md-input-field-send-tools');
+      .closest('.ant-agentic-md-input-field-send-tools');
+    expect(toolsContainer).toHaveClass('ant-agentic-md-input-field-send-tools');
   });
 
   it('should not interfere with send button functionality', () => {
@@ -136,8 +136,8 @@ describe('MarkdownInputField - toolsRender', () => {
 
     const wrapper = screen
       .getByTestId('custom-tool')
-      .closest('.ant-md-input-field');
-    expect(wrapper).toHaveClass('ant-md-input-field-disabled');
+      .closest('.ant-agentic-md-input-field');
+    expect(wrapper).toHaveClass('ant-agentic-md-input-field-disabled');
   });
 });
 
@@ -191,7 +191,9 @@ describe('MarkdownInputField - voiceInput', () => {
     const voiceBtn = screen.getByTestId('voice-input-button');
     // disabled class applied
     expect(
-      voiceBtn.className.includes('ant-md-input-field-voice-button-disabled'),
+      voiceBtn.className.includes(
+        'ant-agentic-md-input-field-voice-button-disabled',
+      ),
     ).toBeTruthy();
 
     fireEvent.click(voiceBtn);
@@ -389,5 +391,38 @@ describe('MarkdownInputField - voiceInput', () => {
       expect(start).toHaveBeenCalledTimes(1);
       expect(voiceBtn).toHaveAttribute('aria-pressed', 'true');
     });
+  });
+});
+
+describe('MarkdownInputField - allowEmptySubmit', () => {
+  it('should not call onSend when empty by default', () => {
+    const onSend = vi.fn();
+    render(<MarkdownInputField value="" onSend={onSend} />);
+    const sendButton = screen.getByTestId('send-button');
+    fireEvent.click(sendButton);
+    expect(onSend).not.toHaveBeenCalled();
+  });
+
+  it('should call onSend with empty string when allowEmptySubmit enabled', () => {
+    const onSend = vi.fn();
+    render(<MarkdownInputField value="" allowEmptySubmit onSend={onSend} />);
+    const sendButton = screen.getByTestId('send-button');
+    fireEvent.click(sendButton);
+    expect(onSend).toHaveBeenCalledWith('');
+  });
+
+  it('should treat whitespace-only as empty unless allowEmptySubmit provided', () => {
+    const onSend = vi.fn();
+    const { rerender } = render(
+      <MarkdownInputField value="   " onSend={onSend} />,
+    );
+    fireEvent.click(screen.getByTestId('send-button'));
+    expect(onSend).not.toHaveBeenCalled();
+
+    rerender(
+      <MarkdownInputField value="   " allowEmptySubmit onSend={onSend} />,
+    );
+    fireEvent.click(screen.getByTestId('send-button'));
+    expect(onSend).toHaveBeenCalledWith('');
   });
 });

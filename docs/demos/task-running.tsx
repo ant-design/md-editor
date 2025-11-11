@@ -2,7 +2,7 @@ import {
   TASK_RUNNING_STATUS,
   TASK_STATUS,
   TaskRunning,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
 
 export default () => {

@@ -802,4 +802,199 @@ function hello() {
       });
     });
   });
+
+  describe('handleThinkTag', () => {
+    it('should parse <think> tag to think code block', () => {
+      const markdown = '<think>深度思考内容</think>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toMatchObject({
+        type: 'code',
+        language: 'think',
+        value: '深度思考内容',
+        children: [{ text: '深度思考内容' }],
+      });
+    });
+
+    it('should parse <think> tag with multiline content', () => {
+      const markdown = '<think>第一行思考\n第二行思考\n第三行思考</think>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toMatchObject({
+        type: 'code',
+        language: 'think',
+        value: '第一行思考\n第二行思考\n第三行思考',
+      });
+    });
+
+    it('should handle <think> tag with nested code block', () => {
+      const markdown = `<think>
+分析问题：
+
+\`\`\`javascript
+console.log('测试代码');
+\`\`\`
+
+这是嵌套的代码块
+</think>`;
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toMatchObject({
+        type: 'code',
+        language: 'think',
+      });
+
+      // 验证内容包含特殊标记
+      const codeNode = result.schema[0] as { value?: string };
+      const value = codeNode.value as string;
+      expect(value).toContain('【CODE_BLOCK:javascript】');
+      expect(value).toContain('【/CODE_BLOCK】');
+      expect(value).toContain("console.log('测试代码');");
+    });
+
+    it('should handle <think> tag with nested think code block', () => {
+      const markdown = `<think>
+第一步：理解需求
+
+\`\`\`think
+这是嵌套的 think 代码块
+\`\`\`
+
+第二步：实现方案
+</think>`;
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toMatchObject({
+        type: 'code',
+        language: 'think',
+      });
+
+      // 验证嵌套的 think 代码块被正确转换
+      const codeNode = result.schema[0] as { value?: string };
+      const value = codeNode.value as string;
+      expect(value).toContain('【CODE_BLOCK:think】');
+      expect(value).toContain('这是嵌套的 think 代码块');
+    });
+  });
+
+  describe('handleCustomHtmlTags', () => {
+    it('should extract content from non-standard HTML tags (hide tags)', () => {
+      const markdown = '<custom>自定义内容</custom>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toEqual({
+        type: 'paragraph',
+        children: [{ text: '自定义内容' }],
+      });
+    });
+
+    it('should extract content from multiple custom tags', () => {
+      const markdown = '<foo>内容1</foo> 和 <bar>内容2</bar>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0].type).toBe('paragraph');
+      // 验证自定义标签内容被提取
+      const text = result.schema[0].children
+        .map((child: any) => child.text)
+        .join('');
+      expect(text).toBe('内容1 和 内容2');
+      expect(text).not.toContain('<foo>');
+      expect(text).not.toContain('</foo>');
+    });
+
+    it('should handle standard HTML tags normally', () => {
+      const markdown = '<div>标准 HTML</div>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      // 标准 HTML 标签应该被解析为 HTML 代码块或片段
+      expect(result.schema).toHaveLength(1);
+      // div 标签会被 htmlToFragmentList 处理
+      expect(result.schema[0].type).not.toBe('paragraph');
+    });
+
+    it('should extract content from nested custom tags', () => {
+      const markdown = '<outer><inner>嵌套内容</inner></outer>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      // 嵌套标签都会被移除，只保留最内层的内容
+      const text = result.schema[0].children
+        .map((child: any) => child.text)
+        .join('');
+      expect(text).toBe('嵌套内容');
+    });
+  });
+
+  describe('handleAnswerTag', () => {
+    it('should extract content from <answer> tag (hide tags)', () => {
+      const markdown = '<answer>这是答案内容</answer>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toEqual({
+        type: 'paragraph',
+        children: [{ text: '这是答案内容' }],
+      });
+    });
+
+    it('should extract multiline content from <answer> tag', () => {
+      const markdown = '<answer>第一行答案\n第二行答案</answer>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toEqual({
+        type: 'paragraph',
+        children: [{ text: '第一行答案\n第二行答案' }],
+      });
+    });
+
+    it('should handle empty <answer> tag', () => {
+      const markdown = '<answer></answer>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toEqual({
+        type: 'paragraph',
+        children: [{ text: '' }],
+      });
+    });
+
+    it('should handle both <think> and <answer> tags correctly', () => {
+      const markdown = `<think>思考过程</think>
+
+<answer>答案内容</answer>`;
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(2);
+      // think 被转换为代码块
+      expect(result.schema[0]).toMatchObject({
+        type: 'code',
+        language: 'think',
+        value: '思考过程',
+      });
+      // answer 只显示内容
+      expect(result.schema[1]).toEqual({
+        type: 'paragraph',
+        children: [{ text: '答案内容' }],
+      });
+    });
+
+    it('should handle <answer> with special characters', () => {
+      const markdown =
+        '<answer>答案：这是一个包含特殊字符的答案！@#$%</answer>';
+      const result = parserMarkdownToSlateNode(markdown);
+
+      expect(result.schema).toHaveLength(1);
+      expect(result.schema[0]).toEqual({
+        type: 'paragraph',
+        children: [{ text: '答案：这是一个包含特殊字符的答案！@#$%' }],
+      });
+    });
+  });
 });

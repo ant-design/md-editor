@@ -14,7 +14,7 @@ import {
   normalizeLanguage,
   saveLanguage,
   type LanguageType,
-} from '../../src/utils/language';
+} from '../../src/Utils/language';
 
 // Mock DOM APIs
 const mockNavigator = {

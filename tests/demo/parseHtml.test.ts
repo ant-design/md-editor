@@ -1,4 +1,4 @@
-﻿import { docxDeserializer } from '@ant-design/md-editor';
+﻿import { docxDeserializer } from '@ant-design/agentic-ui';
 import { describe, expect, it } from 'vitest';
 
 import { html, rtl } from './word';

@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { HistoryLoadMore } from '../../src/History/components/LoadMoreComponent';
 import { HistoryNewChat } from '../../src/History/components/NewChatComponent';
 import { HistorySearch } from '../../src/History/components/SearchComponent';
-import { cnLabels, enLabels, I18nContext } from '../../src/i18n';
+import { cnLabels, enLabels, I18nContext } from '../../src/I18n';
 import { TaskList } from '../../src/TaskList';
 
 // Mock components that might not be available in test environment
@@ -21,8 +21,8 @@ vi.mock('../../src/MarkdownEditor/editor/components', () => ({
   ),
 }));
 
-vi.mock('../../src/TaskList/LoadingLottie', () => ({
-  LoadingLottie: () => <span>LoadingLottie</span>,
+vi.mock('../../src/Components/Loading', () => ({
+  Loading: () => <span>Loading</span>,
 }));
 
 describe('Component Integration Tests', () => {
@@ -98,8 +98,9 @@ describe('Component Integration Tests', () => {
           </I18nContext.Provider>,
         );
 
-        const searchButton = screen.getByTitle('搜索');
+        const searchButton = screen.getByTestId('action-icon-box');
         expect(searchButton).toBeInTheDocument();
+        expect(searchButton).toHaveAttribute('data-title', '搜索');
       });
 
       it('should render search button title in English', () => {
@@ -109,8 +110,9 @@ describe('Component Integration Tests', () => {
           </I18nContext.Provider>,
         );
 
-        const searchButton = screen.getByTitle('Search');
+        const searchButton = screen.getByTestId('action-icon-box');
         expect(searchButton).toBeInTheDocument();
+        expect(searchButton).toHaveAttribute('data-title', 'Search');
       });
     });
 
@@ -178,8 +180,11 @@ describe('Component Integration Tests', () => {
       expect(screen.getByText('Test Task 2')).toBeInTheDocument();
 
       // Check if expand/collapse buttons have correct titles
-      const expandButtons = screen.getAllByTitle('收起');
+      const expandButtons = screen.getAllByTestId('action-icon-box');
       expect(expandButtons).toHaveLength(2);
+      expandButtons.forEach((button) => {
+        expect(button).toHaveAttribute('data-title', '收起');
+      });
     });
 
     it('should render task list with English labels', () => {
@@ -194,8 +199,11 @@ describe('Component Integration Tests', () => {
       expect(screen.getByText('Test Task 2')).toBeInTheDocument();
 
       // Check if expand/collapse buttons have correct titles
-      const expandButtons = screen.getAllByTitle('Collapse');
+      const expandButtons = screen.getAllByTestId('action-icon-box');
       expect(expandButtons).toHaveLength(2);
+      expandButtons.forEach((button) => {
+        expect(button).toHaveAttribute('data-title', 'Collapse');
+      });
     });
 
     it('should render expand buttons with correct titles', () => {
@@ -205,8 +213,11 @@ describe('Component Integration Tests', () => {
         </I18nContext.Provider>,
       );
 
-      const expandButtons = screen.getAllByTitle('收起');
+      const expandButtons = screen.getAllByTestId('action-icon-box');
       expect(expandButtons).toHaveLength(2);
+      expandButtons.forEach((button) => {
+        expect(button).toHaveAttribute('data-title', '收起');
+      });
 
       // Verify that task content is visible (expanded by default)
       expect(screen.getByText('Task content 1')).toBeInTheDocument();

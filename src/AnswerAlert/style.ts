@@ -2,14 +2,14 @@ import {
   ChatTokenType,
   GenerateStyle,
   useEditorStyleRegister,
-} from '../hooks/useStyle';
+} from '../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
     [token.componentCls]: {
       display: 'inline-flex',
       flexDirection: 'column',
-      padding: '3px 8px',
+      padding: '3px 4px 3px 8px',
       color: 'var(--color-gray-text-default)',
       background: 'var(--color-gray-bg-card-white)',
       borderRadius: 'var(--radius-control-base)',
@@ -18,7 +18,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       '&-content': {
         display: 'flex',
         alignItems: 'center',
-        gap: 8,
       },
 
       '&-icon': {
@@ -29,6 +28,8 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
 
       '&-message': {
         flex: 1,
+        paddingLeft: 8,
+        paddingRight: 8,
         font: 'var(--font-text-body-emphasized-base)',
         letterSpacing: 'var(--letter-spacing-body-emphasized-base, normal)',
       },
@@ -52,7 +53,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         border: 'none',
         outline: 'none',
         cursor: 'pointer',
-        transition: 'all 0.2s ease',
+        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
 
         '&:hover': {
           backgroundColor: 'var(--color-gray-control-fill-active)',

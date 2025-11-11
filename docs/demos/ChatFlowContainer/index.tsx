@@ -1,13 +1,15 @@
 import {
   BackTo,
   BubbleList,
-  ChatFlowContainer,
-  ChatFlowContainerRef,
+  ChatLayout,
+  ChatLayoutRef,
+  History,
+  HistoryDataType,
   MessageBubbleData,
   TASK_RUNNING_STATUS,
   TASK_STATUS,
   TaskRunning,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import React, { useEffect, useRef, useState } from 'react';
 import {
   assistantMeta,
@@ -19,16 +21,105 @@ import {
 } from './data';
 import './style.css';
 
+const StandaloneHistoryDemo = () => {
+  const [currentSessionId, setCurrentSessionId] = useState('session-2');
+
+  // 模拟请求函数
+  const mockRequest = async ({ agentId }: { agentId: string }) => {
+    // 模拟 API 请求
+    return [
+      {
+        id: '1',
+        sessionId: 'session-1',
+        sessionTitle: '让黄河成为造福人民的幸福河',
+        agentId: agentId,
+        gmtCreate: 1703123456789, // 2023-12-21 10:30:56
+        gmtLastConverse: 1703123456789,
+        isFavorite: true,
+      },
+      {
+        id: '2',
+        sessionId: 'session-2',
+        sessionTitle: '才读昔楚雄，又见今人勇。',
+        agentId: agentId,
+        gmtCreate: 1703037056789, // 2023-12-20 10:30:56
+        gmtLastConverse: 1703037056789,
+        isFavorite: false,
+      },
+      {
+        id: '3',
+        sessionId: 'session-3',
+        sessionTitle:
+          '金山银山不如绿水青山，生态环境保护是一个长期任务，要久久为功。',
+        agentId: agentId,
+        gmtCreate: 1702950656789, // 2023-12-19 10:30:56
+        gmtLastConverse: 1702950656789,
+      },
+      {
+        id: '4',
+        sessionId: 'session-4',
+        sessionTitle: '才读昔楚雄，又见今人勇。',
+        agentId: agentId,
+        gmtCreate: 1702950656789, // 2023-12-19 10:30:56
+        gmtLastConverse: 1702950656789,
+      },
+      {
+        id: '5',
+        sessionId: 'session-5',
+        sessionTitle: '县县通高速，铺就乡村幸福路',
+        agentId: agentId,
+        gmtCreate: 1702950656789, // 2023-12-19 10:30:56
+        gmtLastConverse: 1702950656789,
+      },
+    ] as HistoryDataType[];
+  };
+
+  const handleSelected = (sessionId: string) => {
+    setCurrentSessionId(sessionId);
+    console.log('选择会话:', sessionId);
+  };
+
+  // 处理加载更多
+  const handleLoadMore = async () => {
+    // 模拟加载更多
+    await new Promise((resolve) => {
+      setTimeout(resolve, 2000);
+    });
+  };
+
+  return (
+    <History
+      agentId="test-agent"
+      sessionId={currentSessionId}
+      request={mockRequest}
+      onClick={handleSelected}
+      standalone
+      type="chat"
+      agent={{
+        enabled: true,
+        onSearch: () => {},
+        onNewChat: () => {},
+        onLoadMore: handleLoadMore,
+        onFavorite: async () => {
+          await new Promise((resolve) => {
+            setTimeout(resolve, 1000);
+          });
+        },
+      }}
+    />
+  );
+};
+
 /**
- * ChatFlowContainer 对话流容器组件演示
+ * ChatLayout 对话布局组件演示
  *
- * 展示 ChatFlowContainer 组件的完整功能，包括：
+ * 展示 ChatLayout 组件的完整功能，包括：
  * - 头部区域的标题、折叠按钮和分享按钮
  * - 内容区域的对话消息展示
  * - 底部区域的输入框和发送按钮
  * - 左右侧边栏的折叠功能
  */
-const ChatFlowContainerDemo: React.FC = () => {
+const ChatLayoutDemo: React.FC = () => {
   const [leftCollapsed, setLeftCollapsed] = useState(false);
   const [bubbleList, setBubbleList] = useState<MessageBubbleData[]>(() => {
     const messages: MessageBubbleData[] = [];
@@ -43,7 +134,7 @@ const ChatFlowContainerDemo: React.FC = () => {
     return messages;
   });
 
-  const containerRef = useRef<ChatFlowContainerRef>(null);
+  const containerRef = useRef<ChatLayoutRef>(null);
 
   // 使用 useRef 管理重试状态，避免全局污染
   const isRetryingRef = useRef(false);
@@ -122,99 +213,119 @@ const ChatFlowContainerDemo: React.FC = () => {
   const handleViewResult = () => {
     console.log('查看任务结果');
   };
+  useEffect(() => {
+    handleRetry();
+  }, []);
   // ***************** Footer Task Running End ***************** //
 
   return (
-    <div className="custom-chat-container-demo">
-      {/* 左侧边栏 */}
-      <div className={`sidebar-left ${leftCollapsed ? 'collapsed' : ''}`}>
-        <div className="sidebar-left-content">
-          <h3>左侧边栏</h3>
-          <p>这里可以放置历史记录、设置等内容</p>
+    <div style={{ padding: 8, backgroundColor: 'var(--color-gray-bg-page)' }}>
+      <div className="custom-chat-container-demo">
+        {/* 左侧边栏 */}
+        <div className={`sidebar-left ${leftCollapsed ? 'collapsed' : ''}`}>
+          <div className="sidebar-left-content">
+            <StandaloneHistoryDemo />
+          </div>
         </div>
-      </div>
 
-      {/* 主对话区域 */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <ChatFlowContainer
-          ref={containerRef}
-          title="AI 助手"
-          onLeftCollapse={handleLeftCollapse}
-          onShare={handleShare}
-          footer={
-            <div
-              style={{
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
+        {/* 主对话区域 */}
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            minWidth: 0,
+          }}
+        >
+          <ChatLayout
+            ref={containerRef}
+            header={{
+              title: 'AI 助手',
+              onLeftCollapse: handleLeftCollapse,
+              onShare: handleShare,
+            }}
+            footer={
               <div
                 style={{
-                  position: 'absolute',
-                  top: '-16px',
-                  left: '50%',
-                  transform: 'translate(-50%, -100%)',
+                  position: 'relative',
                   display: 'flex',
+                  flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: 16,
                 }}
               >
-                <BackTo.Top
-                  tooltip="去顶部"
-                  shouldVisible={200}
-                  target={() =>
-                    containerRef.current?.scrollContainer as HTMLElement
-                  }
+                <div
                   style={{
-                    position: 'relative',
-                    bottom: 0,
-                    insetInlineEnd: 0,
+                    position: 'absolute',
+                    top: '-16px',
+                    left: '50%',
+                    transform: 'translate(-50%, -100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 16,
                   }}
-                />
-                <BackTo.Bottom
-                  tooltip="去底部"
-                  shouldVisible={200}
-                  target={() =>
-                    containerRef.current?.scrollContainer as HTMLElement
-                  }
-                  style={{
-                    position: 'relative',
-                    bottom: 0,
-                    insetInlineEnd: 0,
-                  }}
+                >
+                  <BackTo.Top
+                    tooltip="去顶部"
+                    shouldVisible={200}
+                    target={() =>
+                      containerRef.current?.scrollContainer as HTMLElement
+                    }
+                    style={{
+                      position: 'relative',
+                      bottom: 0,
+                      insetInlineEnd: 0,
+                    }}
+                  />
+                  <BackTo.Bottom
+                    tooltip="去底部"
+                    shouldVisible={200}
+                    target={() =>
+                      containerRef.current?.scrollContainer as HTMLElement
+                    }
+                    style={{
+                      position: 'relative',
+                      bottom: 0,
+                      insetInlineEnd: 0,
+                    }}
+                  />
+                </div>
+                <TaskRunning
+                  title={`任务已完成, 耗时03分00秒`}
+                  taskStatus={TASK_STATUS.SUCCESS}
+                  taskRunningStatus={TASK_RUNNING_STATUS.COMPLETE}
+                  onPause={noop}
+                  onResume={noop}
+                  onStop={noop}
+                  onCreateNewTask={handleCreateNewTask}
+                  onReplay={handleRetry}
+                  onViewResult={handleViewResult}
                 />
               </div>
-              <TaskRunning
-                title={`任务已完成, 耗时03分00秒`}
-                taskStatus={TASK_STATUS.SUCCESS}
-                taskRunningStatus={TASK_RUNNING_STATUS.COMPLETE}
-                onPause={noop}
-                onResume={noop}
-                onStop={noop}
-                onCreateNewTask={handleCreateNewTask}
-                onReplay={handleRetry}
-                onViewResult={handleViewResult}
-              />
-            </div>
-          }
-        >
-          <BubbleList
-            style={{
-              paddingBottom: '60px',
-            }}
-            pure
-            bubbleList={bubbleList}
-            assistantMeta={assistantMeta}
-            userMeta={userMeta}
-          />
-        </ChatFlowContainer>
+            }
+          >
+            <BubbleList
+              style={{
+                paddingBottom: '60px',
+              }}
+              pure
+              onLike={() => {}}
+              onDisLike={() => {}}
+              shouldShowVoice={true}
+              markdownRenderConfig={{
+                tableConfig: {
+                  pure: true,
+                },
+              }}
+              bubbleList={bubbleList}
+              assistantMeta={assistantMeta}
+              userMeta={userMeta}
+            />
+          </ChatLayout>
+        </div>
       </div>
     </div>
   );
 };
 
-export default ChatFlowContainerDemo;
+export default ChatLayoutDemo;

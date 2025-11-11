@@ -1,10 +1,8 @@
-import LoadingLottie from '@ant-design/md-editor/TaskList/LoadingLottie';
+import { Loading } from '../../Components/Loading';
+import { Check, CircleDashed, OctagonX } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { type FC, useContext } from 'react';
-import DashPendingIcon from '../icons/DashPendingIcon';
-import ErrorIcon from '../icons/ErrorIcon';
-import SuccessIcon from '../icons/SuccessIcon';
 import { useTaskStyle } from './style';
 
 export interface TaskItemInput {
@@ -21,20 +19,26 @@ const StatusIcon: FC<{
 }> = ({ status }) => {
   switch (status) {
     case 'success':
-      return <SuccessIcon />;
+      return (
+        <Check style={{ color: 'var(--color-green-control-fill-primary)' }} />
+      );
     case 'error':
-      return <ErrorIcon />;
+      return (
+        <OctagonX style={{ color: 'var(--color-red-control-fill-primary)' }} />
+      );
     case 'loading':
-      return <LoadingLottie />;
+      return <Loading style={{ color: 'var(--color-gray-text-disabled)' }} />;
     case 'pending':
     default:
-      return <DashPendingIcon />;
+      return (
+        <CircleDashed style={{ color: 'var(--color-gray-text-disabled)' }} />
+      );
   }
 };
 
 export const TaskList: FC<{ data: TaskItemInput }> = ({ data }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('workspace-task');
+  const prefixCls = getPrefixCls('agentic-workspace-task');
   const { wrapSSR, hashId } = useTaskStyle(prefixCls);
 
   return wrapSSR(

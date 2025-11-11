@@ -53,7 +53,7 @@ vi.mock('slate', () => ({
   },
 }));
 
-vi.mock('../../../i18n', () => ({
+vi.mock('../../../I18n', () => ({
   I18nContext: React.createContext({
     locale: 'zh-CN',
     t: (key: string) => key,

@@ -1,4 +1,4 @@
-import { VisualList, VisualListItem } from '@ant-design/md-editor';
+import { VisualList, VisualListItem } from '@ant-design/agentic-ui';
 import React from 'react';
 
 const mockData: VisualListItem[] = [
@@ -8,7 +8,7 @@ const mockData: VisualListItem[] = [
   },
   {
     title: 'li-jia-nan',
-    src: 'https://avatars.githubusercontent.com/u/49217418?s=40&v=4',
+    src: '',
   },
   {
     title: 'MadCcc',

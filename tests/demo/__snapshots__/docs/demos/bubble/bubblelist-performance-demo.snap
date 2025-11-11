@@ -125,6 +125,7 @@
           bubblelistref="[object Object]"
           bubbleref="[object Object]"
           data-testid="bubble-list"
+          markdownrenderconfig="[object Object]"
           style="height: 500px; overflow: auto;"
           usermeta="[object Object]"
         >

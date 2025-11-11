@@ -1,11 +1,11 @@
-﻿import {
+import {
   MARKDOWN_EDITOR_EVENTS,
   MarkdownEditor,
   MarkdownEditorInstance,
-} from '@ant-design/md-editor';
-import { ChartElement } from '@ant-design/md-editor/plugins/chart';
-import { CodeElement } from '@ant-design/md-editor/plugins/code';
-import { MermaidElement } from '@ant-design/md-editor/plugins/mermaid';
+} from '@ant-design/agentic-ui';
+import { ChartElement } from '@ant-design/agentic-ui/Plugins/chart';
+import { CodeElement } from '@ant-design/agentic-ui/Plugins/code';
+import { MermaidElement } from '@ant-design/agentic-ui/Plugins/mermaid';
 import { Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { newEnergyFundContent } from './shared/newEnergyFundContent';
@@ -109,6 +109,9 @@ export default () => {
             render: (props, _) => {
               return <Tooltip title={props.children}>{_}</Tooltip>;
             },
+          }}
+          tableConfig={{
+            pure: true,
           }}
           onChange={(e, value) => {
             console.log(value);

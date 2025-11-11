@@ -2,6 +2,9 @@
 nav:
   title: Demo
   order: 1
+group:
+  title: 通用
+  order: 8
 ---
 
 # 编辑器基础功能
@@ -15,8 +18,6 @@ nav:
 <code src="../demos/comment-highlight-demo.tsx" background="var(--main-bg-color)" iframe=540></code>
 
 <code src="../demos/empty.tsx" background="var(--main-bg-color)" iframe=540 ></code>
-
-<code src="../demos/pure.tsx" background="var(--main-bg-color)" iframe=540></code>
 
 ## 编辑器模式
 

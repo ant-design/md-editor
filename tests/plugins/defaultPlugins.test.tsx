@@ -1,19 +1,23 @@
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { standardPlugins } from '../../src/plugins/defaultPlugins';
+import { standardPlugins } from '../../src/Plugins/defaultPlugins';
 
 // Mock plugins
-vi.mock('../../src/plugins/code', () => ({
+vi.mock('../../src/Plugins/code', () => ({
   CodeElement: vi.fn(() => <div>Code Element</div>),
 }));
 
-vi.mock('../../src/plugins/chart', () => ({
+vi.mock('../../src/Plugins/chart', () => ({
   ChartElement: vi.fn(() => <div>Chart Element</div>),
 }));
 
-vi.mock('../../src/plugins/katex', () => ({
+vi.mock('../../src/Plugins/katex', () => ({
   KatexElement: vi.fn(() => <div>Katex Element</div>),
   InlineKatex: vi.fn(() => <span>Inline Katex</span>),
+}));
+
+vi.mock('../../src/Plugins/mermaid/Mermaid', () => ({
+  Mermaid: vi.fn(() => <div>Mermaid Element</div>),
 }));
 
 describe('defaultPlugins', () => {
@@ -35,6 +39,7 @@ describe('defaultPlugins', () => {
     expect(elements).toHaveProperty('chart');
     expect(elements).toHaveProperty('katex');
     expect(elements).toHaveProperty('inline-katex');
+    expect(elements).toHaveProperty('mermaid');
   });
 
   it('should have function components as elements', () => {
@@ -44,6 +49,7 @@ describe('defaultPlugins', () => {
     expect(typeof elements.chart).toBe('function');
     expect(typeof elements.katex).toBe('function');
     expect(typeof elements['inline-katex']).toBe('function');
+    expect(typeof elements.mermaid).toBe('function');
   });
 
   it('should maintain plugin structure consistency', () => {
@@ -55,6 +61,7 @@ describe('defaultPlugins', () => {
         code: expect.any(Function),
         chart: expect.any(Function),
         katex: expect.any(Function),
+        mermaid: expect.any(Function),
         'inline-katex': expect.any(Function),
       },
     });

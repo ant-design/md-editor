@@ -1,9 +1,9 @@
-import { PlusOutlined } from '@ant-design/icons';
 import {
   BubbleList,
   BubbleMetaData,
   MessageBubbleData,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
+import { PlusOutlined } from '@ant-design/icons';
 import { Button, message } from 'antd';
 import React, { useCallback, useRef, useState } from 'react';
 import { BubbleDemoCard } from './BubbleDemoCard';
@@ -81,6 +81,12 @@ export default () => {
 
       {/* 消息列表 */}
       <BubbleList
+        markdownRenderConfig={{
+          tableConfig: {
+            pure: true,
+          },
+        }}
+        pure
         bubbleList={bubbleList}
         bubbleListRef={bubbleListRef}
         bubbleRef={bubbleRef}

@@ -18,7 +18,9 @@ export const FootnoteReference = (
         data-be={'paragraph'}
         data-testid="footnote-reference"
         className={
-          !str ? 'ant-md-editor-drag-el empty' : 'ant-md-editor-drag-el'
+          !str
+            ? 'ant-agentic-md-editor-drag-el empty'
+            : 'ant-agentic-md-editor-drag-el'
         }
         onDragStart={(e) => store.dragStart(e, markdownContainerRef.current!)}
         data-empty={!str && selected ? 'true' : undefined}

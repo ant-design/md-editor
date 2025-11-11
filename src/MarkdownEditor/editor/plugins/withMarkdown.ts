@@ -1,4 +1,4 @@
-﻿import { Editor, Node, Operation, Path, Range, Transforms } from 'slate';
+import { Editor, Node, Operation, Path, Range, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 export const inlineNode = new Set(['break']);
@@ -34,12 +34,11 @@ const clearCardAreaText = (editor: Editor, path: Path) => {
           }
         }
       } catch (domError) {
-        console.log('DOM operation failed, falling back to Slate transforms');
+        // DOM operation failed, falling back to Slate transforms
       }
     }
   } catch (error) {
     // 如果操作失败，忽略错误
-    console.log('clearCardAreaText error:', error);
   }
 };
 
@@ -353,6 +352,17 @@ const handleCodeTagOperation = (
         return true;
       }
 
+      if (currentNode.text === operation.text) {
+        Editor.withoutNormalizing(editor, () => {
+          Transforms.removeNodes(editor, { at: operation.path });
+          Transforms.insertNodes(
+            editor,
+            { ...currentNode, tag: true, code: true, text: ' ' },
+            { at: operation.path, select: true },
+          );
+        });
+        return true;
+      }
       // 光标在 tag 内部，执行原始的删除操作
       apply(operation);
       return true;
@@ -361,7 +371,6 @@ const handleCodeTagOperation = (
 
   if (operation.type === 'insert_text') {
     const currentNode = Node.get(editor, operation.path);
-
     if (
       currentNode?.tag &&
       operation.text === ' ' &&
@@ -374,6 +383,22 @@ const handleCodeTagOperation = (
         Transforms.insertNodes(editor, [{ text: ' ' }]);
         return true;
       }
+    }
+
+    if (
+      currentNode?.tag &&
+      operation.text.trim().length > 0 &&
+      currentNode.text.trim().length === 0
+    ) {
+      Editor.withoutNormalizing(editor, () => {
+        Transforms.removeNodes(editor, { at: operation.path });
+        Transforms.insertNodes(
+          editor,
+          { ...currentNode, tag: true, code: true, text: operation.text },
+          { at: operation.path, select: true },
+        );
+      });
+      return true;
     }
   }
 

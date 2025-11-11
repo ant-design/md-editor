@@ -1,9 +1,9 @@
+import { Bubble, MessageBubbleData } from '@ant-design/agentic-ui';
 import {
   HeartOutlined,
   ShareAltOutlined,
   StarOutlined,
 } from '@ant-design/icons';
-import { Bubble, MessageBubbleData } from '@ant-design/md-editor';
 import { Button, Space, Tag } from 'antd';
 import React, { useRef, useState } from 'react';
 
@@ -209,9 +209,15 @@ export default function ExtraRenderDemo() {
           <Bubble
             key={message.id}
             avatar={message.meta!}
+            markdownRenderConfig={{
+              tableConfig: {
+                pure: true,
+              },
+            }}
             originData={message}
             placement={message.role === 'user' ? 'right' : 'left'}
             bubbleRef={bubbleRef}
+            pure
             bubbleRenderConfig={getBubbleRenderConfig()}
             onLike={async (data) => {
               console.log('点赞:', data);

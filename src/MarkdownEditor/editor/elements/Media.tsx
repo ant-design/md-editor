@@ -11,11 +11,10 @@ import React, {
 import { useDebounceFn } from '@ant-design/pro-components';
 import { Rnd } from 'react-rnd';
 import { Transforms } from 'slate';
-import { EarthIcon } from '../../../components/icons/Earth';
-import { I18nContext } from '../../../i18n';
+import { ActionIconBox } from '../../../Components/ActionIconBox';
+import { I18nContext } from '../../../I18n';
 import { ElementProps, MediaNode } from '../../el';
 import { useSelStatus } from '../../hooks/editor';
-import { ActionIconBox } from '../components/ActionIconBox';
 import { AvatarList } from '../components/ContributorAvatar';
 import { useEditorStore } from '../store';
 import { useGetSetState } from '../utils';
@@ -371,12 +370,6 @@ export function Media({
               minWidth: 0,
             }}
           >
-            <EarthIcon
-              style={{
-                width: 56,
-                height: 56,
-              }}
-            />
             <div
               style={{
                 flex: 1,
@@ -465,7 +458,7 @@ export function Media({
   return (
     <div {...attributes}>
       <div
-        className={'ant-md-editor-drag-el'}
+        className={'ant-agentic-md-editor-drag-el'}
         data-be="media"
         data-testid="media-container"
         style={{

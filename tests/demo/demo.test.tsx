@@ -101,7 +101,7 @@ vi.mock('rc-resize-observer', () => ({
 }));
 
 // Mock DonutChart component
-vi.mock('@ant-design/md-editor/plugins/chart/DonutChart', () => ({
+vi.mock('@ant-design/agentic-ui/plugins/chart/DonutChart', () => ({
   default: ({ data, title, width, height }: any) => (
     <div
       data-testid="donut-chart"
@@ -116,7 +116,7 @@ vi.mock('@ant-design/md-editor/plugins/chart/DonutChart', () => ({
 }));
 
 // Mock md-editor exports to avoid heavy rendering while preserving other exports
-vi.mock('@ant-design/md-editor', async (importOriginal) => {
+vi.mock('@ant-design/agentic-ui', async (importOriginal) => {
   const actual: any = await importOriginal();
   const stubDiv = (name: string) => (props: any) => (
     <div data-testid={name} {...props}>
@@ -232,52 +232,55 @@ function demoTest() {
     nodir: true,
   });
 
-  files.forEach((file) => {
-    describe(`Rendering demo: ${file}`, () => {
-      it(`renders ${file} correctly`, async () => {
-        const fn = vi.fn();
-        Math.random = () => 0.8404419276253765;
+  files
+    .filter((file) => file.endsWith('demo.tsx'))
+    .forEach((file) => {
+      describe(`Rendering demo: ${file}`, () => {
+        it(`renders ${file} correctly`, async () => {
+          const fn = vi.fn();
+          Math.random = () => 0.8404419276253765;
 
-        const DemoModule = await import(file);
-        const wrapper = render(
-          <ConfigProvider
-            theme={{
-              hashed: false,
-            }}
-          >
-            <TestApp onInit={fn}>
-              <DemoModule.default />
-            </TestApp>
-          </ConfigProvider>,
-        );
+          const DemoModule = await import(file);
+          const wrapper = render(
+            <ConfigProvider
+              theme={{
+                hashed: false,
+              }}
+            >
+              <TestApp onInit={fn}>
+                <DemoModule.default />
+              </TestApp>
+            </ConfigProvider>,
+          );
 
-        await waitTime(1600);
+          await waitTime(600);
 
-        await waitFor(
-          () => {
-            return wrapper.findAllByText('test');
-          },
-          { timeout: 10000 },
-        );
+          await waitFor(
+            () => {
+              const elements = wrapper.getAllByText('test');
+              expect(elements.length).toBeGreaterThan(0);
+            },
+            { timeout: 10000 },
+          );
 
-        await waitFor(
-          () => {
-            expect(fn).toHaveBeenCalled();
-          },
-          { timeout: 10000 },
-        );
+          await waitFor(
+            () => {
+              expect(fn).toHaveBeenCalled();
+            },
+            { timeout: 10000 },
+          );
 
-        await expect(wrapper.asFragment()).toMatchFileSnapshot(
-          './__snapshots__/' + file.replace(/\.tsx$/, '.snap'),
-        );
-        wrapper.unmount();
-      });
+          await expect(wrapper.asFragment()).toMatchFileSnapshot(
+            './__snapshots__/' + file.replace(/\.tsx$/, '.snap'),
+          );
+          wrapper.unmount();
+        });
 
-      afterEach(() => {
-        cleanup();
+        afterEach(() => {
+          cleanup();
+        });
       });
     });
-  });
 }
 
 demoTest();

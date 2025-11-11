@@ -1,5 +1,5 @@
+import { ToolUseBar } from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
-import { ToolUseBar } from '../../src/ToolUseBar';
 
 const ToolUseBarActiveKeysDemo = () => {
   const [activeKeys, setActiveKeys] = useState<string[]>([]);

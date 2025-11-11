@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
 import {
   cleanHtml,
   extractTextFromHtml,
   htmlToMarkdown,
   isHtml,
-} from '../../src/MarkdownEditor/editor/utils/htmlToMarkdown';
+} from '@ant-design/agentic-ui';
+import React, { useState } from 'react';
 
 const HtmlToMarkdownDemo: React.FC = () => {
   const [htmlInput, setHtmlInput] = useState(`

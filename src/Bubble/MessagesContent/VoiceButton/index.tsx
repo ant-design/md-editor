@@ -1,11 +1,10 @@
-import { DownOutlined } from '@ant-design/icons';
+import { ChevronDown, Pause, Play } from '@sofa-design/icons';
 import { ConfigProvider, Dropdown, Flex, Tooltip } from 'antd';
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
-import { useSpeechSynthesis } from '../../../hooks/useSpeechSynthesis';
-import { Pause, Play } from '../../../icons';
-import VoicePlayLottie from '../../../icons/animated/VoicePlayLottie';
-import VoicingLottie from '../../../icons/animated/VoicingLottie';
+import { useSpeechSynthesis } from '../../../Hooks/useSpeechSynthesis';
+import VoicePlayLottie from '../../../Icons/animated/VoicePlayLottie';
+import VoicingLottie from '../../../Icons/animated/VoicingLottie';
 import { useStyle } from './style';
 import { UseSpeechAdapter } from './types';
 
@@ -136,7 +135,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
               {isPlayHover ? (
                 <VoicePlayLottie size={16} autoplay={true} loop={false} />
               ) : (
-                <Play />
+                <Play fontSize={14} />
               )}
             </Flex>
           </Tooltip>
@@ -154,7 +153,11 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
           >
             <Tooltip title={tooltipText} mouseEnterDelay={0.1}>
               <Flex align="center" justify="center">
-                {isPlayingHovered ? <Pause /> : <VoicingLottie size={16} />}
+                {isPlayingHovered ? (
+                  <Pause fontSize={14} />
+                ) : (
+                  <VoicingLottie size={16} />
+                )}
               </Flex>
             </Tooltip>
           </div>
@@ -172,7 +175,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
               <span style={{ fontSize: 12 }}>
                 {rate === 1 ? '倍速' : rateDisplay}
               </span>
-              <DownOutlined style={{ fontSize: 12 }} />
+              <ChevronDown fontSize={14} />
             </div>
           </Dropdown>
         </div>

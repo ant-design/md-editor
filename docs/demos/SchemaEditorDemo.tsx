@@ -1,6 +1,5 @@
+import { LowCodeSchema, SchemaEditor } from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
-import { SchemaEditor } from '../../src/schema/SchemaEditor';
-import { LowCodeSchema } from '../../src/schema/types';
 
 /**
  * SchemaEditor 演示页面
@@ -177,8 +176,8 @@ export default function SchemaEditorDemo() {
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
             {examples.map((example, index) => (
               <button
-                type="button"
                 key={index}
+                type="button"
                 onClick={() => loadExample(example)}
                 style={{
                   padding: '8px 16px',

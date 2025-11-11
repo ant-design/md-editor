@@ -1,6 +1,7 @@
 import { EllipsisOutlined, LoadingOutlined } from '@ant-design/icons';
 import React, { useCallback, useContext, useState } from 'react';
-import { I18nContext } from '../../i18n';
+import { useRefFunction } from '../../Hooks/useRefFunction';
+import { I18nContext } from '../../I18n';
 /**
  * 历史记录加载更多组件属性接口
  */
@@ -58,11 +59,6 @@ const MoreTaskIcon = (props: React.SVGProps<SVGSVGElement>) => {
       viewBox="0 0 16 16"
       {...props}
     >
-      <defs>
-        <clipPath id="master_svg0_2168_68970/645_11584/440_02432">
-          <rect x="0" y="0" width="16" height="16" rx="0" />
-        </clipPath>
-      </defs>
       <g clipPath="url(#master_svg0_2168_68970/645_11584/440_02432)">
         <g>
           <path
@@ -84,18 +80,21 @@ export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = ({
 }) => {
   const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
+  const loadingRef = React.useRef(false);
 
-  const onClickFn = async () => {
+  const onClickFn = useRefFunction(async () => {
     try {
-      if (loading) return;
+      if (loadingRef.current) return;
+      loadingRef.current = true;
       setLoading(true);
       await onLoadMore();
     } catch (error) {
       console.error(error);
     } finally {
+      loadingRef.current = false;
       setLoading(false);
     }
-  };
+  });
 
   const handleKeyDown = useCallback<React.KeyboardEventHandler<HTMLDivElement>>(
     (event: React.KeyboardEvent<HTMLDivElement>) => {

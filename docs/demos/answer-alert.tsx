@@ -1,13 +1,11 @@
-import { AnswerAlert, Bubble, MessageBubbleData } from '@ant-design/md-editor';
+import { AnswerAlert, Bubble, MessageBubbleData } from '@ant-design/agentic-ui';
 import React from 'react';
 
 // Mock data for the demo
 const mockMessage: MessageBubbleData = {
   id: '1',
   role: 'assistant',
-  content: `
-
-我是 Ant Design 聊天助手，可以帮你：
+  content: `我是 Ant Design 聊天助手，可以帮你：
 
 - **回答问题** - 解答技术相关疑问
 - **代码示例** - 提供组件使用示例
@@ -42,9 +40,32 @@ const AnsweringIndicatorDemo = () => {
         pure
         avatar={mockMessage.meta}
         placement="left"
+        markdownRenderConfig={{
+          tableConfig: {
+            pure: true,
+          },
+        }}
+        bubbleRenderConfig={{
+          extraRender(props, defaultDoms) {
+            return (
+              <>
+                <AnswerAlert
+                  message="LUI chat 已完成当前任务"
+                  type="success"
+                  showIcon
+                  style={{
+                    width: 'fit-content',
+                    marginLeft: 'var(--padding-5x)',
+                    marginBottom: 4,
+                  }}
+                />
+                {defaultDoms}
+              </>
+            );
+          },
+        }}
         originData={mockMessage}
       />
-      <AnswerAlert message="LUI chat 已完成当前任务" type="success" showIcon />
     </div>
   );
 };

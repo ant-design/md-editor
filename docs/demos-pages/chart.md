@@ -2,6 +2,9 @@
 nav:
   title: Demo
   order: 2
+group:
+  title: 通用
+  order: 7
 ---
 
 # 原子图表
@@ -44,6 +47,10 @@ nav:
 ### 条形图（横向）
 
 <code src="../demos/charts/bar/bar-horizontal.tsx" background="var(--main-bg-color)" iframe=540></code>
+
+### 条形堆叠图（横向堆叠）
+
+<code src="../demos/charts/bar/bar-horizontal-stacked.tsx" background="var(--main-bg-color)" iframe=540></code>
 
 ## 漏斗图
 

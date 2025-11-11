@@ -1,13 +1,14 @@
 ﻿import { ExportOutlined, RightOutlined } from '@ant-design/icons';
-import { DocMeta } from '@ant-design/md-editor/ThoughtChainList';
+
 import { ConfigProvider, Descriptions, Drawer, Popover } from 'antd';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import React, { useContext } from 'react';
-import { I18nContext } from '../../i18n';
+import { ActionIconBox } from '../../Components/ActionIconBox';
+import { I18nContext } from '../../I18n';
 import { BaseMarkdownEditor } from '../../MarkdownEditor/BaseMarkdownEditor';
-import { ActionIconBox } from '../../MarkdownEditor/editor/components/ActionIconBox';
+import { DocMeta } from '../../ThoughtChainList/types';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { DocInfoListProps } from '../types/DocInfo';
 import { useStyle } from './docInfoStyle';

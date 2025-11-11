@@ -1,9 +1,9 @@
-﻿import {
+import {
   ChatTokenType,
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../../hooks/useStyle';
+} from '../../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -11,20 +11,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      width: '2em',
+      minWidth: '2em',
       height: '2em',
       fontSize: '16px',
       padding: '0.5em',
       borderRadius: '8px',
       transition: 'background-color 0.3s ease',
       cursor: 'pointer',
+      color: 'var(--color-gray-text-secondary)',
+      gap: 4,
       '&:hover': {
-        backgroundColor: 'rgba(0, 28, 57, 0.0353)',
+        backgroundColor: 'var(--color-gray-control-fill-hover)',
       },
       [`${token.componentCls}-file-list`]: {
         '&-item': {
           width: '178px',
-
           height: '56px',
           borderRadius: '12px',
           opacity: 1,
@@ -50,7 +51,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
               display: 'flex',
               width: '112px',
               '&-text': {
-                maxWidth: '92px',
+                maxWidth: '98px',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 WebkitLineClamp: 1,
@@ -73,9 +74,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
             background: '#353E5C',
             fontSize: 12,
             position: 'absolute',
-            top: -6,
+            top: 2,
             borderRadius: '50%',
-            right: -6,
+            right: 2,
             color: '#FFFFFF',
             display: 'flex',
             justifyContent: 'center',

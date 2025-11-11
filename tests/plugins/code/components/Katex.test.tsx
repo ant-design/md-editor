@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { Katex } from '../../../../src/plugins/code/CodeUI/Katex/Katex';
+import { Katex } from '../../../../src/Plugins/code/CodeUI/Katex/Katex';
 
 describe('Katex Component', () => {
   const defaultProps = {

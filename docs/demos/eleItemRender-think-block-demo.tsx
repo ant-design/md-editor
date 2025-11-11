@@ -1,6 +1,5 @@
+import { CodeNode, MarkdownEditor } from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
-import { MarkdownEditor } from '../../src/MarkdownEditor';
-import { CodeNode } from '../../src/MarkdownEditor/el';
 
 /**
  * eleItemRender Think 块自定义渲染 Demo
@@ -199,7 +198,8 @@ const AdvancedThinkBlock: React.FC<{ element: CodeNode }> = ({ element }) => {
               fontWeight: '500',
               padding: '4px 8px',
               borderRadius: '4px',
-              transition: 'background-color 0.2s',
+              transition:
+                'background-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = '#f7fafc';
@@ -219,7 +219,7 @@ const AdvancedThinkBlock: React.FC<{ element: CodeNode }> = ({ element }) => {
           lineHeight: '1.7',
           whiteSpace: 'pre-wrap',
           fontSize: '13px',
-          transition: 'all 0.3s ease',
+          transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
           maxHeight: isExpanded ? 'none' : '120px',
           overflow: 'hidden',
         }}

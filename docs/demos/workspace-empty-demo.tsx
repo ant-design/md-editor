@@ -1,21 +1,18 @@
-import { I18nContext, Workspace } from '@ant-design/md-editor';
+import { Workspace } from '@ant-design/agentic-ui';
 import { Empty } from 'antd';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 const WorkspaceRealtimeEmptyDemo: React.FC = () => {
   const [htmlContent] = useState('');
   const [mdContent] = useState('');
   const [shellContent] = useState('');
-  const { setLanguage } = useContext(I18nContext);
-  // 触发时
-  setLanguage?.('zh-CN');
 
   return (
     <div style={{ height: 520, width: '100%' }}>
       <Workspace title="实时跟随空状态示例">
         {/* 默认空态：使用 AntD Empty */}
         <Workspace.Realtime
-          tab={{ key: 'markdown-empty', title: 'Markdown 空态' }}
+          tab={{ key: 'markdown-empty', title: '实时跟随' }}
           data={{
             type: 'md',
             content: mdContent,

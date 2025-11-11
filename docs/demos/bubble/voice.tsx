@@ -1,4 +1,4 @@
-import { Bubble, MessageBubbleData } from '@ant-design/md-editor';
+import { Bubble, MessageBubbleData } from '@ant-design/agentic-ui';
 import React from 'react';
 
 const message: MessageBubbleData = {
@@ -26,7 +26,13 @@ export default () => {
         originData={message}
         avatar={message.meta}
         placement="left"
+        pure
         shouldShowVoice={true}
+        markdownRenderConfig={{
+          tableConfig: {
+            pure: true,
+          },
+        }}
       />
 
       <div

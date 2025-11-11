@@ -1,7 +1,7 @@
+import { CloseCircleFill, CornerLeftUp, QuoteBefore } from '@sofa-design/icons';
 import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
-import { CloseCircleFill, CornerLeftUp, QuoteBefore } from '../icons';
 import { useStyle } from './style';
 
 /**
@@ -88,7 +88,7 @@ export const Quote: React.FC<QuoteProps> = ({
   onFileClick,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const prefixCls = getPrefixCls('quote');
+  const prefixCls = getPrefixCls('agentic-quote');
   const { wrapSSR, hashId } = useStyle(prefixCls);
 
   // 处理文件名点击

@@ -53,7 +53,7 @@ describe('GroupMenu', () => {
     const { container } = renderWithConfig(<GroupMenu items={mockItems} />);
 
     const menuContainer = container.firstChild as HTMLElement;
-    expect(menuContainer).toHaveClass('ant-agent-chat-history-menu');
+    expect(menuContainer).toHaveClass('ant-agentic-chat-history-menu');
   });
 
   it('应该处理菜单项点击', () => {

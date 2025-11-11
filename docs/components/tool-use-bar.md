@@ -2,8 +2,8 @@
 title: ToolUseBar 工具使用栏
 atomId: ToolUseBar
 group:
-  title: 数据展示
-  order: 2
+  title: 对话流
+  order: 3
 ---
 
 # ToolUseBar 组件
@@ -11,6 +11,47 @@ group:
 ToolUseBar 是一个用于显示工具调用列表的组件，支持工具状态显示和交互功能。
 
 ## 代码演示
+
+### 轻量思考
+
+```tsx
+import { ToolUseBarThink } from '@ant-design/agentic-ui';
+import { useState, useEffect } from 'react';
+
+const fullThinkContent = `好的，我现在需要帮用户汇总谷歌I/O 2025大会的重要信息。首先，我得仔细看看用户提供的搜索结果，找出相关的信息点。
+      用户给了19个网页的结果，我需要逐一浏览，提取关键内容。
+      首先，大会的时间和地点。网页1、2、5、10、12、16都提到了时间，大部分说是在5月20日至21日举行，地点是加州山景城的Shoreline Amphitheatre。网页3和12提到具体日程，主题演讲在凌晨1点开始，开发者主题演讲在4：30 am。不过要注意时区转换，比如网页5提到北京时间是5月21日凌晨，这可能对国内用户来说需要换算时间。
+      接下来是大会的主要内容和亮点。AI肯定是重点，多个网页提到Gemini的更新，比如网页3、9、10、11、13、18. Gemini 2 5 Pro模型会被详细介绍，可能还有订阅服务的变化。网页18还提到250美元的UItra会员，这可能和Gemini Advanced有关。
+      此外，Project Astra作为下一代AI助手，网页3、10、13都有提到，可能涉及移动和可穿戴设备。
+      需要整合这些信息，分时间地点、核心内容、硬件动态、其他产品、合作与竞争几个部分。注意引用多个网页，避免重复引用同一个网页。比如AI部分可以引用网页3、9、10、11、13、18，智能眼镜引用4、6、7、8、19等。确保每个点都有对应的引用，并且正确标注。需要整合这些信息，分时间地点、核心内容、硬件动态、其他产品、合作与竞争几个部分。注意引用多个网页，避免重复引用同一个网页。比如AI部分可以引用网页3、9、10、11、13、18，智能眼镜引用4、6、7、8、19等。确保每个点都有对应的引用，并且正确标注。需要整合这些信息，分时间地点、核心内容、硬件动态、其他产品、合作与竞争几个部分。注意引用多个网页，避免重复引用同一个网页。比如AI部分可以引用网页3、9、10、11、13、18，智能眼镜引用4、6、7、8、19等。确保每个点都有对应的引用，并且正确标注。需要整合这些信息，分时间地点、核心内容、硬件动态、其他产品、合作与竞争几个部分。注意引用多个网页，避免重复引用同一个网页。比如AI部分可以引用网页3、9、10、11、13、18，智能眼镜引用4、6、7、8、19等。确保每个点都有对应的引用，并且正确标注。`;
+
+export default () => {
+  const [thinkContent, setThinkContent] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (currentIndex < fullThinkContent.length) {
+      const timer = setTimeout(() => {
+        // 每次添加一定数量的字符，模拟思考流
+        const chunkSize = Math.floor(Math.random() * 10) + 5; // 每次添加5-15个字符
+        setThinkContent(fullThinkContent.slice(0, currentIndex + chunkSize));
+        setCurrentIndex(currentIndex + chunkSize);
+      }, 100); // 每100ms添加一次
+
+      return () => clearTimeout(timer);
+    }
+  }, [currentIndex]);
+
+  return (
+    <ToolUseBarThink
+      light
+      toolName="轻量思考"
+      thinkContent={thinkContent}
+      isThinkLoading={currentIndex < fullThinkContent.length}
+    />
+  );
+};
+```
 
 <code src="../demos/tool-use-bar-basic.tsx">基础用法</code>
 

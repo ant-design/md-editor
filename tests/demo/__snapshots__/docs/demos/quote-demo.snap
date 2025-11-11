@@ -16,11 +16,11 @@
           基础用法
         </h3>
         <div
-          class="ant-quote-container"
+          class="ant-agentic-quote-container"
           data-testid="quote-container"
         >
           <div
-            class="ant-quote-quote-icon"
+            class="ant-agentic-quote-quote-icon"
             data-testid="quote-icon"
           >
             <svg
@@ -56,18 +56,18 @@
             </svg>
           </div>
           <span
-            class="ant-quote-quoteDescription"
+            class="ant-agentic-quote-quoteDescription"
             data-testid="quote-description"
           >
             这是一个工具函数的引用，用于处理数据格式化
           </span>
           <div
-            class="ant-quote-popup"
+            class="ant-agentic-quote-popup"
             data-testid="quote-popup"
             style="left: 0px;"
           >
             <div
-              class="ant-quote-popup-header"
+              class="ant-agentic-quote-popup-header"
               data-testid="quote-popup-header"
             >
               <div
@@ -108,20 +108,20 @@
                 </svg>
               </div>
               <span
-                class="ant-quote-popup-title"
+                class="ant-agentic-quote-popup-title"
                 data-testid="quote-popup-title"
               >
                 utils/helper.ts
               </span>
               <span
-                class="ant-quote-popup-range"
+                class="ant-agentic-quote-popup-range"
                 data-testid="quote-popup-range"
               >
                 (12-25)
               </span>
             </div>
             <div
-              class="ant-quote-popup-content"
+              class="ant-agentic-quote-popup-content"
               data-testid="quote-popup-content"
             >
               export const formatData = (data: any) =&gt; {
@@ -141,11 +141,11 @@
           可关闭的引用
         </h3>
         <div
-          class="ant-quote-container"
+          class="ant-agentic-quote-container"
           data-testid="quote-container"
         >
           <div
-            class="ant-quote-quote-icon"
+            class="ant-agentic-quote-quote-icon"
             data-testid="quote-icon"
           >
             <svg
@@ -181,13 +181,13 @@
             </svg>
           </div>
           <span
-            class="ant-quote-quoteDescription"
+            class="ant-agentic-quote-quoteDescription"
             data-testid="quote-description"
           >
             Button组件的点击事件处理逻辑
           </span>
           <div
-            class="ant-quote-close-button"
+            class="ant-agentic-quote-close-button"
             data-testid="quote-close-button"
           >
             <svg
@@ -228,11 +228,11 @@
           不传文件名
         </h3>
         <div
-          class="ant-quote-container"
+          class="ant-agentic-quote-container"
           data-testid="quote-container"
         >
           <div
-            class="ant-quote-quote-icon"
+            class="ant-agentic-quote-quote-icon"
             data-testid="quote-icon"
           >
             <svg
@@ -268,18 +268,18 @@
             </svg>
           </div>
           <span
-            class="ant-quote-quoteDescription"
+            class="ant-agentic-quote-quoteDescription"
             data-testid="quote-description"
           >
             这是一个没有文件来源的引用内容
           </span>
           <div
-            class="ant-quote-popup"
+            class="ant-agentic-quote-popup"
             data-testid="quote-popup"
             style="left: 0px;"
           >
             <div
-              class="ant-quote-popup-content"
+              class="ant-agentic-quote-popup-content"
               data-testid="quote-popup-content"
             >
               这里是详细的说明文本，可以包含多行内容。
@@ -294,11 +294,11 @@
           纯内容引用
         </h3>
         <div
-          class="ant-quote-container"
+          class="ant-agentic-quote-container"
           data-testid="quote-container"
         >
           <div
-            class="ant-quote-quote-icon"
+            class="ant-agentic-quote-quote-icon"
             data-testid="quote-icon"
           >
             <svg
@@ -334,7 +334,7 @@
             </svg>
           </div>
           <span
-            class="ant-quote-quoteDescription"
+            class="ant-agentic-quote-quoteDescription"
             data-testid="quote-description"
           >
             项目使用说明和API文档
@@ -346,11 +346,11 @@
           长文件名测试
         </h3>
         <div
-          class="ant-quote-container"
+          class="ant-agentic-quote-container"
           data-testid="quote-container"
         >
           <div
-            class="ant-quote-quote-icon"
+            class="ant-agentic-quote-quote-icon"
             data-testid="quote-icon"
           >
             <svg
@@ -386,18 +386,18 @@
             </svg>
           </div>
           <span
-            class="ant-quote-quoteDescription"
+            class="ant-agentic-quote-quoteDescription"
             data-testid="quote-description"
           >
             这是一个很长的文件路径，用来测试文件名的省略效果
           </span>
           <div
-            class="ant-quote-popup"
+            class="ant-agentic-quote-popup"
             data-testid="quote-popup"
             style="left: 0px;"
           >
             <div
-              class="ant-quote-popup-header"
+              class="ant-agentic-quote-popup-header"
               data-testid="quote-popup-header"
             >
               <div
@@ -438,20 +438,20 @@
                 </svg>
               </div>
               <span
-                class="ant-quote-popup-title"
+                class="ant-agentic-quote-popup-title"
                 data-testid="quote-popup-title"
               >
                 src/components/ComplexComponent/SubComponent/VeryLongFileName.tsxsrc/components/ComplexComponent/SubComponent/VeryLongFileName.tsx
               </span>
               <span
-                class="ant-quote-popup-range"
+                class="ant-agentic-quote-popup-range"
                 data-testid="quote-popup-range"
               >
                 (100-150)
               </span>
             </div>
             <div
-              class="ant-quote-popup-content"
+              class="ant-agentic-quote-popup-content"
               data-testid="quote-popup-content"
             >
               interface VeryLongInterfaceName {
@@ -477,11 +477,11 @@
               左侧弹出（默认）
             </h4>
             <div
-              class="ant-quote-container"
+              class="ant-agentic-quote-container"
               data-testid="quote-container"
             >
               <div
-                class="ant-quote-quote-icon"
+                class="ant-agentic-quote-quote-icon"
                 data-testid="quote-icon"
               >
                 <svg
@@ -517,18 +517,18 @@
                 </svg>
               </div>
               <span
-                class="ant-quote-quoteDescription"
+                class="ant-agentic-quote-quoteDescription"
                 data-testid="quote-description"
               >
                 左侧对齐的工具函数
               </span>
               <div
-                class="ant-quote-popup"
+                class="ant-agentic-quote-popup"
                 data-testid="quote-popup"
                 style="left: 0px;"
               >
                 <div
-                  class="ant-quote-popup-header"
+                  class="ant-agentic-quote-popup-header"
                   data-testid="quote-popup-header"
                 >
                   <div
@@ -569,20 +569,20 @@
                     </svg>
                   </div>
                   <span
-                    class="ant-quote-popup-title"
+                    class="ant-agentic-quote-popup-title"
                     data-testid="quote-popup-title"
                   >
                     src/utils/leftAlign.ts
                   </span>
                   <span
-                    class="ant-quote-popup-range"
+                    class="ant-agentic-quote-popup-range"
                     data-testid="quote-popup-range"
                   >
                     (1-20)
                   </span>
                 </div>
                 <div
-                  class="ant-quote-popup-content"
+                  class="ant-agentic-quote-popup-content"
                   data-testid="quote-popup-content"
                 >
                   export const leftAlign = (text: string, width: number) =&gt; {
@@ -603,11 +603,11 @@ const aligned = leftAlign('Hello', 10);
               右侧弹出
             </h4>
             <div
-              class="ant-quote-container"
+              class="ant-agentic-quote-container"
               data-testid="quote-container"
             >
               <div
-                class="ant-quote-quote-icon"
+                class="ant-agentic-quote-quote-icon"
                 data-testid="quote-icon"
               >
                 <svg
@@ -643,18 +643,18 @@ const aligned = leftAlign('Hello', 10);
                 </svg>
               </div>
               <span
-                class="ant-quote-quoteDescription"
+                class="ant-agentic-quote-quoteDescription"
                 data-testid="quote-description"
               >
                 右侧对齐的工具函数
               </span>
               <div
-                class="ant-quote-popup"
+                class="ant-agentic-quote-popup"
                 data-testid="quote-popup"
                 style="right: 0px;"
               >
                 <div
-                  class="ant-quote-popup-header"
+                  class="ant-agentic-quote-popup-header"
                   data-testid="quote-popup-header"
                 >
                   <div
@@ -695,20 +695,20 @@ const aligned = leftAlign('Hello', 10);
                     </svg>
                   </div>
                   <span
-                    class="ant-quote-popup-title"
+                    class="ant-agentic-quote-popup-title"
                     data-testid="quote-popup-title"
                   >
                     src/utils/rightAlign.ts
                   </span>
                   <span
-                    class="ant-quote-popup-range"
+                    class="ant-agentic-quote-popup-range"
                     data-testid="quote-popup-range"
                   >
                     (1-20)
                   </span>
                 </div>
                 <div
-                  class="ant-quote-popup-content"
+                  class="ant-agentic-quote-popup-content"
                   data-testid="quote-popup-content"
                 >
                   export const rightAlign = (text: string, width: number) =&gt; {

@@ -2,8 +2,12 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { I18nContext } from '../../../src/i18n';
-import { ChartRender } from '../../../src/plugins/chart/ChartRender';
+import { I18nContext } from '../../../src/I18n';
+import { ChartRender } from '../../../src/Plugins/chart/ChartRender';
+
+vi.mock('../../../src/Hooks/useIntersectionOnce', () => ({
+  useIntersectionOnce: () => true,
+}));
 
 // Mock Chart.js（补齐 CategoryScale 等导出）
 vi.mock('chart.js', () => ({
@@ -29,25 +33,35 @@ vi.mock('chart.js', () => ({
 
 // Mock react-chartjs-2 to prevent DOM operations
 vi.mock('react-chartjs-2', () => ({
-  Doughnut: vi.fn().mockImplementation(() => (
-    <div data-testid="doughnut-chart">Mocked Doughnut Chart</div>
-  )),
-  Bar: vi.fn().mockImplementation(() => (
-    <div data-testid="bar-chart">Mocked Bar Chart</div>
-  )),
-  Line: vi.fn().mockImplementation(() => (
-    <div data-testid="line-chart">Mocked Line Chart</div>
-  )),
-  Scatter: vi.fn().mockImplementation(() => (
-    <div data-testid="scatter-chart">Mocked Scatter Chart</div>
-  )),
-  Radar: vi.fn().mockImplementation(() => (
-    <div data-testid="radar-chart">Mocked Radar Chart</div>
-  )),
+  Doughnut: vi
+    .fn()
+    .mockImplementation(() => (
+      <div data-testid="doughnut-chart">Mocked Doughnut Chart</div>
+    )),
+  Bar: vi
+    .fn()
+    .mockImplementation(() => (
+      <div data-testid="bar-chart">Mocked Bar Chart</div>
+    )),
+  Line: vi
+    .fn()
+    .mockImplementation(() => (
+      <div data-testid="line-chart">Mocked Line Chart</div>
+    )),
+  Scatter: vi
+    .fn()
+    .mockImplementation(() => (
+      <div data-testid="scatter-chart">Mocked Scatter Chart</div>
+    )),
+  Radar: vi
+    .fn()
+    .mockImplementation(() => (
+      <div data-testid="radar-chart">Mocked Radar Chart</div>
+    )),
 }));
 
 // Mock ChartMark components
-vi.mock('../../../src/plugins/chart/ChartMark', () => ({
+vi.mock('../../../src/Plugins/chart/ChartMark', () => ({
   Pie: vi.fn().mockImplementation((props) => (
     <div data-testid="pie-chart">
       Pie Chart - {props.xField} vs {props.yField}
@@ -76,7 +90,7 @@ vi.mock('../../../src/plugins/chart/ChartMark', () => ({
 }));
 
 // Mock the actual ChartMark components
-vi.mock('../../../src/plugins/chart/ChartMark/index', () => ({
+vi.mock('../../../src/Plugins/chart/ChartMark/index', () => ({
   Pie: vi.fn().mockImplementation((props) => (
     <div data-testid="pie-chart">
       Pie Chart - {props.xField} vs {props.yField}
@@ -105,7 +119,7 @@ vi.mock('../../../src/plugins/chart/ChartMark/index', () => ({
 }));
 
 // Mock ChartAttrToolBar
-vi.mock('../../../src/plugins/chart/ChartAttrToolBar', () => ({
+vi.mock('../../../src/Plugins/chart/ChartAttrToolBar', () => ({
   ChartAttrToolBar: vi.fn().mockImplementation((props) => (
     <div data-testid="chart-attr-toolbar">
       {props.title}
@@ -117,7 +131,7 @@ vi.mock('../../../src/plugins/chart/ChartAttrToolBar', () => ({
 }));
 
 // Mock the actual ChartAttrToolBar component
-vi.mock('../../../src/plugins/chart/ChartAttrToolBar/index', () => ({
+vi.mock('../../../src/Plugins/chart/ChartAttrToolBar/index', () => ({
   ChartAttrToolBar: vi.fn().mockImplementation((props) => (
     <div data-testid="chart-attr-toolbar">
       {props.title}
@@ -128,21 +142,21 @@ vi.mock('../../../src/plugins/chart/ChartAttrToolBar/index', () => ({
   )),
 }));
 
-// Mock useFullScreenHandle
-vi.mock('../../../src/MarkdownEditor/hooks/useFullScreenHandle', () => ({
-  useFullScreenHandle: vi.fn().mockReturnValue({
-    active: false,
-    enter: vi.fn(),
-    exit: vi.fn(),
-    node: { current: document.body },
-  }),
-}));
+const createRuntimeComponent =
+  (testId: string) => (props: { title?: string }) => (
+    <div data-testid={testId}>{props.title ?? `mock-${testId}`}</div>
+  );
 
-// Mock ActionIconBox
-vi.mock('../../../src/MarkdownEditor/editor/components', () => ({
-  ActionIconBox: vi
-    .fn()
-    .mockImplementation(() => <div data-testid="action-icon">Action Icon</div>),
+vi.mock('../../../src/Plugins/chart/loadChartRuntime', () => ({
+  loadChartRuntime: vi.fn(async () => ({
+    AreaChart: createRuntimeComponent('area-chart'),
+    BarChart: createRuntimeComponent('bar-chart'),
+    DonutChart: createRuntimeComponent('donut-chart'),
+    FunnelChart: createRuntimeComponent('funnel-chart'),
+    LineChart: createRuntimeComponent('line-chart'),
+    RadarChart: createRuntimeComponent('radar-chart'),
+    ScatterChart: createRuntimeComponent('scatter-chart'),
+  })),
 }));
 
 describe('ChartRender', () => {
@@ -193,12 +207,13 @@ describe('ChartRender', () => {
     Object.defineProperty(window, 'notRenderChart', {
       value: false,
       writable: true,
+      configurable: true,
     });
     // 确保 window 对象存在
     if (typeof window === 'undefined') {
       global.window = {} as any;
     }
-    
+
     // Mock DOM methods that Chart.js might use
     Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
       value: vi.fn(() => ({
@@ -341,7 +356,8 @@ describe('ChartRender', () => {
         </I18nContext.Provider>,
       );
 
-      expect(container.firstChild).toBeNull();
+      expect(container.firstChild).toBeInTheDocument();
+      expect(container.firstChild?.hasChildNodes?.()).toBe(false);
     });
 
     it('应该在 notRenderChart 环境下返回 null', () => {
@@ -356,7 +372,8 @@ describe('ChartRender', () => {
         </I18nContext.Provider>,
       );
 
-      expect(container.firstChild).toBeNull();
+      expect(container.firstChild).toBeInTheDocument();
+      expect(container.firstChild?.hasChildNodes?.()).toBe(false);
     });
   });
 
@@ -488,8 +505,8 @@ describe('ChartRender', () => {
         </I18nContext.Provider>,
       );
 
-      // 检查组件是否返回 null（无效图表类型应该返回 null）
-      expect(container.firstChild).toBeNull();
+      // 无效图表类型时保持容器但不渲染内容
+      expect(container.firstChild).toBeInTheDocument();
     });
 
     it('应该处理没有标题的情况', () => {

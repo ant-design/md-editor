@@ -1,8 +1,8 @@
 ---
-title: ChatFlowContainer - 对话流容器组件
-atomId: ChatFlowContainer
+title: ChatLayout - 对话流容器组件
+atomId: ChatLayout
 group:
-  title: 组件
+  title: 布局
   order: 2
 ---
 
@@ -12,11 +12,11 @@ group:
 
 ## 基础用法
 
-<code src="../demos/ChatFlowContainer/index.tsx"></code>
+<code src="../demos/ChatFlowContainer/index.tsx" iframe=620></code>
 
 ## API 参考
 
-### ChatFlowContainerProps
+### ChatLayoutProps
 
 | 属性             | 类型                | 默认值    | 描述                 |
 | ---------------- | ------------------- | --------- | -------------------- |

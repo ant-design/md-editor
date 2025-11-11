@@ -1,4 +1,4 @@
-﻿import { AttachmentFile, FileMapView } from '@ant-design/md-editor';
+﻿import { AttachmentFile, FileMapView } from '@ant-design/agentic-ui';
 import React from 'react';
 
 const fileMap = new Map<string, AttachmentFile>();

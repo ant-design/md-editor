@@ -1,5 +1,5 @@
-import { PreviewComponent, Workspace } from '@ant-design/md-editor';
-import type { FileNode } from '@ant-design/md-editor/Workspace/types';
+import { PreviewComponent, Workspace } from '@ant-design/agentic-ui';
+import type { FileNode } from '@ant-design/agentic-ui/Workspace/types';
 import { Modal, message } from 'antd';
 import React, { useMemo, useState } from 'react';
 

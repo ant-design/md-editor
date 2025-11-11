@@ -2,20 +2,20 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { I18nContext } from '../../src/i18n';
+import { I18nContext } from '../../src/I18n';
 import { TaskList } from '../../src/TaskList';
 
-// Mock LoadingLottie
-vi.mock('../../src/TaskList/LoadingLottie', () => ({
-  LoadingLottie: ({ size, ...props }: any) => (
-    <div data-testid="loading-lottie" data-size={size} {...props}>
-      LoadingLottie
+// Mock Loading 组件
+vi.mock('../../src/Components/Loading', () => ({
+  Loading: ({ size, ...props }: any) => (
+    <div data-testid="task-list-loading" data-size={size} {...props}>
+      Loading
     </div>
   ),
 }));
 
 // Mock ActionIconBox
-vi.mock('../../src/MarkdownEditor/editor/components', () => ({
+vi.mock('../../src/Components/ActionIconBox', () => ({
   ActionIconBox: ({ title, iconStyle, onClick, children, ...props }: any) => (
     <div
       data-testid="action-icon-box"
@@ -47,7 +47,7 @@ describe('TaskList Component', () => {
     children,
   }) => (
     <ConfigProvider>
-      <I18nContext.Provider value={{ locale: mockLocale as any }}>
+      <I18nContext.Provider value={{ locale: mockLocale as any } as any}>
         {children}
       </I18nContext.Provider>
     </ConfigProvider>
@@ -123,9 +123,9 @@ describe('TaskList Component', () => {
       </TestWrapper>,
     );
 
-    const loadingLottie = screen.getByTestId('loading-lottie');
-    expect(loadingLottie).toBeInTheDocument();
-    expect(loadingLottie).toHaveAttribute('data-size', '16');
+    const loadingComponent = screen.getByTestId('task-list-loading');
+    expect(loadingComponent).toBeInTheDocument();
+    expect(loadingComponent).toHaveAttribute('data-size', '16');
   });
 
   it('应该支持点击展开/折叠', () => {
@@ -302,7 +302,7 @@ describe('TaskList Component', () => {
   it('应该处理缺失的国际化文本', () => {
     render(
       <ConfigProvider>
-        <I18nContext.Provider value={{ locale: null }}>
+        <I18nContext.Provider value={{ locale: null } as any}>
           <TaskList items={mockItems} />
         </I18nContext.Provider>
       </ConfigProvider>,

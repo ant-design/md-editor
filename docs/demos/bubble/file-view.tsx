@@ -1,5 +1,5 @@
-import type { AttachmentFile, MessageBubbleData } from '@ant-design/md-editor';
-import { Bubble } from '@ant-design/md-editor';
+import type { AttachmentFile, MessageBubbleData } from '@ant-design/agentic-ui';
+import { Bubble } from '@ant-design/agentic-ui';
 import React, { useRef } from 'react';
 
 const createMockFile = (
@@ -98,9 +98,15 @@ export default () => {
       {/* Message with multiple files */}
       <Bubble
         avatar={mockMessage.meta!}
+        markdownRenderConfig={{
+          tableConfig: {
+            pure: true,
+          },
+        }}
         placement="left"
         deps={deps}
         bubbleRef={bubbleRef}
+        pure
         originData={mockMessage}
       />
 
@@ -109,7 +115,13 @@ export default () => {
         avatar={mockImageMessage.meta!}
         placement="left"
         deps={deps}
+        markdownRenderConfig={{
+          tableConfig: {
+            pure: true,
+          },
+        }}
         bubbleRef={bubbleRef}
+        pure
         originData={mockImageMessage}
       />
     </div>

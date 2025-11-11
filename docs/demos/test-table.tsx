@@ -2,7 +2,7 @@ import {
   MarkdownEditor,
   MarkdownEditorInstance,
   parserMdToSchema,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import { ConfigProvider, Divider } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import React from 'react';
@@ -83,9 +83,6 @@ export default () => {
             console.log('onChange', e, s);
             markdownEditorRef.current?.store?.setMDContent?.(e);
           }}
-          tableConfig={{
-            excelMode: true,
-          }}
           initSchemaValue={parserMdToSchema(defaultValue).schema}
         />
         <Divider
@@ -143,9 +140,7 @@ export default () => {
           <li>
             <strong>tableConfig</strong>: 表格配置对象
           </li>
-          <li>
-            <strong>tableConfig.excelMode</strong>: 启用 Excel 模式
-          </li>
+
           <li>
             <strong>tableConfig.minColumn</strong>: 最小列数
           </li>

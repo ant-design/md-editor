@@ -19,6 +19,7 @@ export interface TabItem {
   title?: ReactNode;
   icon?: ReactNode;
   content?: ReactNode;
+  componentType?: string; // 组件类型，用于判断是否在特定组件后插入分隔符
 }
 
 // 工作空间主组件属性
@@ -30,6 +31,8 @@ export interface WorkspaceProps {
   title?: ReactNode;
   onClose?: () => void;
   children?: React.ReactNode;
+  /** 纯净模式，关闭阴影和边框 */
+  pure?: boolean;
 }
 
 // 子组件基础属性
@@ -347,6 +350,8 @@ export interface FileProps extends BaseChildProps {
   onDownload?: (file: FileNode) => void;
   onFileClick?: (file: FileNode) => void;
   onToggleGroup?: (groupType: FileType, collapsed: boolean) => void;
+  /** 重置标识，用于重置预览状态（内部使用） */
+  resetKey?: number;
   onPreview?: (
     file: FileNode,
   ) =>
@@ -377,17 +382,27 @@ export interface FileProps extends BaseChildProps {
     Omit<MarkdownEditorProps, 'editorRef' | 'initValue' | 'readonly'>
   >;
   /**
+   * 自定义预览页面右侧操作区域
+   * @description 可以是 ReactNode 或者根据文件返回 ReactNode 的函数
+   */
+  customActions?: React.ReactNode | ((file: FileNode) => React.ReactNode);
+  /**
    * 对外暴露的操作引用，允许外部主动打开预览或返回列表
    */
   actionRef?: React.MutableRefObject<FileActionRef | null>;
   /**
-   * 是否显示加载状态
-   * @description 当为true时，显示加载动画，通常在文件列表数据加载过程中使用
+   * @deprecated 请使用 isLoading 代替
+   * @description 已废弃，将在未来版本移除
    */
   loading?: boolean;
   /**
+   * 是否显示加载状态
+   * @description 当为true时，显示加载动画，通常在文件列表数据加载过程中使用
+   */
+  isLoading?: boolean;
+  /**
    * 自定义加载渲染函数
-   * @description 当loading为true时，如果提供了此函数则使用自定义渲染，否则使用默认的Spin组件
+   * @description 当isLoading为true时，如果提供了此函数则使用自定义渲染，否则使用默认的Spin组件
    */
   loadingRender?: () => React.ReactNode;
   /**

@@ -2,7 +2,7 @@ import {
   ChatTokenType,
   GenerateStyle,
   useEditorStyleRegister,
-} from '../hooks/useStyle';
+} from '../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -73,7 +73,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           font: 'var(--font-text-h6-base)',
           marginLeft: 12,
           textAlign: 'justify',
-          letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+
           color: 'var(--color-gray-text-default)',
         },
 
@@ -96,13 +96,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           flexShrink: 0,
           width: 16,
           height: 16,
-          color: 'var(--color-gray-text-default)',
-          cursor: 'pointer',
-          transition: 'all 0.3s ease',
-          '&:hover': {
-            backgroundColor: 'var(--color-gray-control-fill-hover)',
-            borderRadius: 'var(--radius-control-sm)',
-          },
+          transition: 'all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)',
         },
       },
 

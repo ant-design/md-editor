@@ -24,13 +24,13 @@ import {
   MarkdownEditorInstance,
   MarkdownEditorProps,
 } from '../types';
+import { LazyElement } from './components/LazyElement';
 import { MElement, MLeaf } from './elements';
 
 import { useDebounceFn } from '@ant-design/pro-components';
 import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react';
-import { useRefFunction } from '../../hooks/useRefFunction';
+import { useRefFunction } from '../../Hooks/useRefFunction';
 import { PluginContext } from '../plugin';
-import { useOptimizedPaste } from './hooks/useOptimizedPaste';
 import {
   handleFilesPaste,
   handleHtmlPaste,
@@ -162,6 +162,30 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
     setDomRect,
   } = useEditorStore();
 
+  // 懒加载元素索引计数器
+  const lazyElementIndexRef = useRef(0);
+  // 用于标记是否已在当前渲染周期重置过索引
+  const hasResetIndexRef = useRef(false);
+
+  // 计算懒加载元素总数的函数
+  const countLazyElements = useCallback((nodes: any[]): number => {
+    let count = 0;
+    const traverse = (nodeList: any[]) => {
+      nodeList.forEach((node) => {
+        // 跳过表格单元格和表格行
+        if (node.type !== 'table-cell' && node.type !== 'table-row') {
+          count++;
+        }
+        // 继续遍历子节点（例如表格内的元素）
+        if (node.children && Array.isArray(node.children)) {
+          traverse(node.children);
+        }
+      });
+    };
+    traverse(nodes);
+    return count;
+  }, []);
+
   const changedMark = useRef(false);
   const value = useRef<any[]>([EditorUtils.p]);
   const nodeRef = useRef<MarkdownEditorInstance>();
@@ -172,19 +196,6 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
   const onKeyDown = useKeyboard(store, markdownEditorRef, props);
   const onChange = useOnchange(markdownEditorRef.current, props.onChange);
   const high = useHighlight(store);
-
-  // 使用优化的粘贴处理
-  const { optimizedInsertText, cleanup } = useOptimizedPaste({
-    onPasteStart: () => {
-      // 可以在这里显示粘贴开始的状态
-    },
-    onPasteEnd: () => {
-      // 可以在这里清理粘贴结束的状态
-    },
-    onPasteError: (error) => {
-      console.error('粘贴处理失败:', error);
-    },
-  });
 
   const childrenIsEmpty = useMemo(() => {
     if (!markdownEditorRef.current?.children) return false;
@@ -236,16 +247,44 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
 
   const handleSelectionChange = useDebounceFn(
     async (e: React.ReactEventHandler<HTMLDivElement>) => {
+      const currentSelection = markdownEditorRef.current.selection;
+
+      // 获取选中内容的 markdown 和节点
+      const getSelectionContent = (selection: BaseSelection | null) => {
+        if (!selection || Range.isCollapsed(selection)) {
+          return { markdown: '', nodes: [] };
+        }
+
+        try {
+          const fragment = Editor.fragment(
+            markdownEditorRef.current,
+            selection,
+          );
+          const markdown = parserSlateNodeToMarkdown(fragment);
+          return { markdown, nodes: fragment };
+        } catch (error) {
+          console.error('Failed to get selection content:', error);
+          return { markdown: '', nodes: [] };
+        }
+      };
+
       if (!readonly) {
         // 非只读模式下的选区处理
         const event = new CustomEvent<BaseSelection>(
           MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
           {
             ...e,
-            detail: markdownEditorRef.current.selection,
+            detail: currentSelection,
           },
         );
         markdownContainerRef?.current?.dispatchEvent(event);
+
+        // 调用 props.onSelectionChange 回调
+        if (props.onSelectionChange) {
+          const { markdown, nodes } = getSelectionContent(currentSelection);
+          props.onSelectionChange?.(currentSelection, markdown, nodes);
+        }
+
         return;
       }
       if (typeof window === 'undefined') return;
@@ -253,6 +292,10 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       const domSelection = window.getSelection();
       if (!domSelection) {
         setDomRect?.(null);
+        // 调用 props.onSelectionChange 回调（无选中）
+        if (props.onSelectionChange) {
+          props.onSelectionChange?.(null, '', []);
+        }
         return;
       }
 
@@ -275,6 +318,12 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
           );
           markdownContainerRef?.current?.dispatchEvent(event);
 
+          // 调用 props.onSelectionChange 回调
+          if (props.onSelectionChange) {
+            const { markdown, nodes } = getSelectionContent(selection);
+            props.onSelectionChange?.(selection, markdown, nodes);
+          }
+
           // 只有在有实际选中文本时才显示工具栏
           if (!Range.isCollapsed(selection)) {
             const range = ReactEditor.toDOMRange(
@@ -292,6 +341,10 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
           }
         } else {
           setDomRect?.(null);
+          // 调用 props.onSelectionChange 回调（无选中）
+          if (props.onSelectionChange) {
+            props.onSelectionChange?.(null, '', []);
+          }
         }
       } catch (error) {
         console.error('Selection change error:', error);
@@ -322,13 +375,6 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       initialNote();
     }
   }, [props.instance, markdownEditorRef.current]);
-
-  // 清理粘贴处理资源
-  useEffect(() => {
-    return () => {
-      cleanup();
-    };
-  }, [cleanup]);
 
   useEffect(() => {
     const footnoteDefinitionList = markdownEditorRef.current.children
@@ -614,6 +660,8 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       }
     }
 
+    props.onPaste?.(event);
+
     const types = event.clipboardData?.types || ['text/plain'];
 
     // 默认允许的类型
@@ -694,7 +742,7 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
 
       // 如果是表格或者代码块，直接插入文本
       if (shouldInsertTextDirectly(markdownEditorRef.current, selection)) {
-        await optimizedInsertText(markdownEditorRef.current, text);
+        Transforms.insertText(markdownEditorRef.current, text);
         return;
       }
 
@@ -792,6 +840,16 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
 
   const elementRenderElement = useCallback(
     (eleProps: RenderElementProps) => {
+      // 在每个渲染周期的第一次调用时重置索引
+      if (!hasResetIndexRef.current) {
+        lazyElementIndexRef.current = 0;
+        hasResetIndexRef.current = true;
+        // 使用 Promise 在下一个事件循环重置标记
+        Promise.resolve().then(() => {
+          hasResetIndexRef.current = false;
+        });
+      }
+
       const defaultDom = (
         <ErrorBoundary
           fallbackRender={() => {
@@ -818,13 +876,53 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       }
 
       // Then allow eleItemRender to process the result
-      if (!props.eleItemRender) return renderedDom;
-      if (eleProps.element.type === 'table-cell') return renderedDom;
-      if (eleProps.element.type === 'table-row') return renderedDom;
+      if (props.eleItemRender) {
+        if (
+          eleProps.element.type !== 'table-cell' &&
+          eleProps.element.type !== 'table-row'
+        ) {
+          renderedDom = props.eleItemRender(
+            eleProps,
+            renderedDom,
+          ) as React.ReactElement;
+        }
+      }
 
-      return props.eleItemRender(eleProps, renderedDom) as React.ReactElement;
+      // Finally, wrap with LazyElement if lazy mode is enabled
+      if (props.lazy?.enable) {
+        // 不对表格单元格和表格行进行懒加载，避免破坏表格结构
+        if (
+          eleProps.element.type === 'table-cell' ||
+          eleProps.element.type === 'table-row'
+        ) {
+          return renderedDom;
+        }
+
+        // 获取当前索引并递增
+        const currentIndex = lazyElementIndexRef.current;
+        lazyElementIndexRef.current += 1;
+
+        // 计算总元素数
+        const totalElements = countLazyElements(value.current);
+        return (
+          <LazyElement
+            placeholderHeight={props.lazy?.placeholderHeight}
+            rootMargin={props.lazy?.rootMargin}
+            renderPlaceholder={props.lazy?.renderPlaceholder}
+            elementInfo={{
+              type: eleProps.element.type,
+              index: currentIndex,
+              total: totalElements,
+            }}
+          >
+            {renderedDom}
+          </LazyElement>
+        );
+      }
+
+      return renderedDom;
     },
-    [props.eleItemRender, plugins, readonly],
+    [props.eleItemRender, props.lazy, plugins, readonly, countLazyElements],
   );
 
   const renderMarkdownLeaf = useRefFunction((leafComponentProps) => {
@@ -865,83 +963,137 @@ export const SlateMarkdownEditor = (props: MEditorProps) => {
       const itemMap = commentMap.get(path.join(','));
       if (!itemMap) return decorateList;
       itemMap.forEach((itemList) => {
-        const item = itemList[0];
-        const { anchor, focus } = item.selection || {};
+        itemList?.forEach((item) => {
+          const { anchor, focus } = item.selection || {};
 
-        let newSelection: BaseSelection | undefined = undefined;
-        let fragment = undefined;
-        if (
-          anchor &&
-          focus &&
-          isPath(anchor.path) &&
-          focus.path &&
-          isPath(focus.path) &&
-          Editor.hasPath(markdownEditorRef.current, anchor.path) &&
-          Editor.hasPath(markdownEditorRef.current, focus.path)
-        ) {
-          newSelection = {
-            anchor: {
-              path: findLeafPath(markdownEditorRef.current, anchor.path),
-              offset: anchor.offset,
-            },
-            focus: {
-              path: findLeafPath(markdownEditorRef.current, focus.path),
-              offset: focus.offset,
-            },
-          } as BaseSelection;
-          fragment = Editor.fragment(markdownEditorRef.current, newSelection!);
-        } else if (item.refContent) {
-          const findDom = findByPathAndText(
-            markdownEditorRef.current,
-            item.path,
-            item.refContent,
-          ).at(0);
-
-          if (findDom) {
+          let newSelection: BaseSelection | undefined = undefined;
+          let fragment = undefined;
+          if (
+            anchor &&
+            focus &&
+            isPath(anchor.path) &&
+            focus.path &&
+            isPath(focus.path) &&
+            Editor.hasPath(markdownEditorRef.current, anchor.path) &&
+            Editor.hasPath(markdownEditorRef.current, focus.path)
+          ) {
             newSelection = {
               anchor: {
-                ...anchor,
-                path: findLeafPath(markdownEditorRef.current, findDom.path),
-                offset: findDom.offset.start,
+                path: findLeafPath(markdownEditorRef.current, anchor.path),
+                offset: anchor.offset,
               },
               focus: {
-                ...focus,
-                path: findLeafPath(markdownEditorRef.current, findDom.path),
-                offset: findDom.offset.end,
+                path: findLeafPath(markdownEditorRef.current, focus.path),
+                offset: focus.offset,
               },
-            };
-            fragment = Editor.fragment(markdownEditorRef.current, newSelection);
-          }
-        }
+            } as BaseSelection;
+            fragment = Editor.fragment(
+              markdownEditorRef.current,
+              newSelection!,
+            );
+          } else if (item.refContent) {
+            const findDom = findByPathAndText(
+              markdownEditorRef.current,
+              item.path,
+              item.refContent,
+            ).at(0);
 
-        // 尝试调整路径，处理可能的节点变化
+            if (findDom) {
+              newSelection = {
+                anchor: {
+                  ...anchor,
+                  path: findLeafPath(markdownEditorRef.current, findDom.path),
+                  offset: findDom.offset.start,
+                },
+                focus: {
+                  ...focus,
+                  path: findLeafPath(markdownEditorRef.current, findDom.path),
+                  offset: findDom.offset.end,
+                },
+              };
+              fragment = Editor.fragment(
+                markdownEditorRef.current,
+                newSelection,
+              );
+            } else {
+              // 检查 focus.path 是否存在且有效
+              if (
+                focus &&
+                focus.path &&
+                isPath(focus.path) &&
+                Editor.hasPath(markdownEditorRef.current, focus.path)
+              ) {
+                try {
+                  // 获取 focus.path 对应的节点
+                  const [node] = Editor.node(
+                    markdownEditorRef.current,
+                    item.path,
+                  );
 
-        if (fragment && newSelection) {
-          const newAnchorPath = newSelection.anchor.path;
-          const newFocusPath = newSelection.focus.path;
-          if (
-            isPath(newFocusPath) &&
-            isPath(newAnchorPath) &&
-            Editor.hasPath(markdownEditorRef.current, newAnchorPath) &&
-            Editor.hasPath(markdownEditorRef.current, newFocusPath)
-          ) {
-            ranges.push({
-              anchor: {
-                path: newAnchorPath,
-                offset: newSelection.anchor.offset,
-              },
-              focus: { path: newFocusPath, offset: newSelection.focus.offset },
-              data: itemList,
-              comment: true,
-              id: item.id,
-              selection: newSelection,
-              updateTime: itemList
-                .map((i) => i.updateTime)
-                .sort()
-                .join(','),
-            } as Range);
+                  // 检查该节点是否是 table 类型
+                  if (
+                    (node as any)?.type === 'table' ||
+                    (node as any)?.type === 'card'
+                  ) {
+                    // 获取 table 节点的开始和结尾位置
+                    const startPoint = Editor.start(
+                      markdownEditorRef.current,
+                      item.path,
+                    );
+                    const endPoint = Editor.end(
+                      markdownEditorRef.current,
+                      item.path,
+                    );
+
+                    newSelection = {
+                      anchor: startPoint,
+                      focus: endPoint,
+                    } as BaseSelection;
+
+                    fragment = Editor.fragment(
+                      markdownEditorRef.current,
+                      newSelection!,
+                    );
+                  }
+                } catch (error) {
+                  console.error('Error selecting table node:', error);
+                }
+              }
+            }
           }
-        }
+
+          // 尝试调整路径，处理可能的节点变化
+
+          if (fragment && newSelection) {
+            const newAnchorPath = newSelection.anchor.path;
+            const newFocusPath = newSelection.focus.path;
+            if (
+              isPath(newFocusPath) &&
+              isPath(newAnchorPath) &&
+              Editor.hasPath(markdownEditorRef.current, newAnchorPath) &&
+              Editor.hasPath(markdownEditorRef.current, newFocusPath)
+            ) {
+              ranges.push({
+                anchor: {
+                  path: newAnchorPath,
+                  offset: newSelection.anchor.offset,
+                },
+                focus: {
+                  path: newFocusPath,
+                  offset: newSelection.focus.offset,
+                },
+                data: itemList,
+                comment: true,
+                id: item.id,
+                selection: newSelection,
+                updateTime: itemList
+                  .map((i) => i.updateTime)
+                  .sort()
+                  .join(','),
+              } as Range);
+            }
+          }
+        });
       });
       return decorateList.concat(ranges as any[]);
     } catch (error) {

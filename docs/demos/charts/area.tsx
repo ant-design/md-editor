@@ -1,8 +1,6 @@
+import { AreaChart, AreaChartDataItem } from '@ant-design/agentic-ui';
 import { Button } from 'antd';
 import React, { useState } from 'react';
-import AreaChart, {
-  AreaChartDataItem,
-} from '../../../src/plugins/chart/AreaChart';
 
 const DynamicAreaChartExample: React.FC = () => {
   // 扁平化数据结构

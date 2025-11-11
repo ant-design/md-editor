@@ -28,12 +28,12 @@ import { useDotAniStyle } from './style';
  * - 样式定义在 index.css 文件中
  */
 export const DotLoading = () => {
-  const { wrapSSR, hashId } = useDotAniStyle('md-editor-loader');
+  const { wrapSSR, hashId } = useDotAniStyle('agentic-md-editor-loader');
 
   return wrapSSR(
     <div
       data-testid="dot-loading"
-      className={classNames('md-editor-loader', hashId)}
+      className={classNames('agentic-md-editor-loader', hashId)}
       role="progressbar"
       aria-label="Loading"
     />,

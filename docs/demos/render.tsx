@@ -1,4 +1,4 @@
-﻿import { MarkdownEditor } from '@ant-design/md-editor';
+﻿import { MarkdownEditor } from '@ant-design/agentic-ui';
 import { Card } from 'antd';
 import React from 'react';
 import { newEnergyFundContent } from './shared/newEnergyFundContent';

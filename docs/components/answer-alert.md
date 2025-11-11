@@ -2,8 +2,8 @@
 title: AnswerAlert 应答中断提示
 atomId: AnswerAlert
 group:
-  title: 组件
-  order: 2
+  title: 对话流
+  order: 3
 ---
 
 # AnswerAlert 应答中断提示
@@ -46,7 +46,7 @@ AnswerAlert 是一个用于展示系统状态和用户提示的组件，特别�
 ### 基础用法
 
 ```tsx
-import { AnswerAlert } from '@ant-design/md-editor';
+import { AnswerAlert } from '@ant-design/agentic-ui';
 import { Space } from 'antd';
 
 export default () => {
@@ -66,17 +66,22 @@ export default () => {
 ### 带描述的提示
 
 ```tsx
-import { AnswerAlert } from '@ant-design/md-editor';
+import { AnswerAlert } from '@ant-design/agentic-ui';
 import { Button, Space } from 'antd';
+import { AiAgentManagement } from '@sofa-design/icons';
 
 export default () => {
   return (
     <AnswerAlert
       message="LUI Chat 已停止，你的额度不足，无法继续。"
+      icon={<AiAgentManagement />}
+      showIcon
       description={
-        <Space direction="vertical">
+        <Space direction="vertical" variant="solid">
           每日额度将在每天 08:00 更新
-          <Button type="primary">继续对话</Button>
+          <Button color="default" variant="solid">
+            继续对话
+          </Button>
         </Space>
       }
     />
@@ -88,7 +93,7 @@ export default () => {
 
 ```tsx
 import React from 'react';
-import { AnswerAlert } from '@ant-design/md-editor';
+import { AnswerAlert } from '@ant-design/agentic-ui';
 
 export default () => {
   const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -110,7 +115,7 @@ export default () => {
 ### 自定义操作按钮
 
 ```tsx
-import { AnswerAlert } from '@ant-design/md-editor';
+import { AnswerAlert } from '@ant-design/agentic-ui';
 import { Button, Space } from 'antd';
 
 export default () => {
@@ -137,7 +142,7 @@ export default () => {
 ### 自定义图标
 
 ```tsx
-import { AnswerAlert } from '@ant-design/md-editor';
+import { AnswerAlert } from '@ant-design/agentic-ui';
 import { SmileOutlined } from '@ant-design/icons';
 
 export default () => {
@@ -156,7 +161,7 @@ export default () => {
 ### 复杂内容描述
 
 ```tsx
-import { AnswerAlert } from '@ant-design/md-editor';
+import { AnswerAlert } from '@ant-design/agentic-ui';
 import { Button, Space, Typography } from 'antd';
 
 const { Text, Link } = Typography;

@@ -1,0 +1,34 @@
+import { ScatterChart, ScatterChartDataItem } from '@ant-design/agentic-ui';
+import React from 'react';
+
+const ScatterChartToolbarFilterExample: React.FC = () => {
+  const data: ScatterChartDataItem[] = [
+    { category: '产品A', x: 20, y: 65 },
+    { category: '产品A', x: 25, y: 75 },
+    { category: '产品A', x: 30, y: 85 },
+    { category: '产品A', x: 35, y: 70 },
+    { category: '产品A', x: 40, y: 95 },
+    { category: '产品B', x: 18, y: 55 },
+    { category: '产品B', x: 22, y: 65 },
+    { category: '产品B', x: 28, y: 75 },
+    { category: '产品B', x: 32, y: 60 },
+    { category: '产品B', x: 38, y: 85 },
+  ];
+
+  return (
+    <div style={{ padding: '20px' }}>
+      <div style={{ marginBottom: '20px' }}>
+        <ScatterChart
+          title="散点图工具栏过滤器"
+          data={data}
+          width={600}
+          height={400}
+          renderFilterInToolbar
+          dataTime="2024年数据"
+        />
+      </div>
+    </div>
+  );
+};
+
+export default ScatterChartToolbarFilterExample;

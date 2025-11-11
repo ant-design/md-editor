@@ -1,9 +1,9 @@
-﻿import {
+import {
   ChatTokenType,
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../../../hooks/useStyle';
+} from '../../../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
@@ -13,7 +13,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       flexDirection: 'row',
       overflow: 'auto',
       gap: 'var(--margin-2x)',
-      maxHeight: '127px',
+      maxHeight: '128px',
       height: 'max-content',
       marginRight: '40px',
       borderRadius: 'inherit',
@@ -30,7 +30,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         fontSize: 'var(--font-size-lg)',
         position: 'absolute',
         top: 'var(--margin-3x)',
-        borderRadius: '50%',
         right: 'var(--margin-3x)',
         color: 'var(--color-gray-text-light)',
         display: 'flex',
@@ -47,10 +46,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         opacity: 1,
         borderRadius: 'var(--radius-card-base)',
         background: 'var(--color-gray-bg-card-white)',
-        boxShadow:
-          '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
+        boxShadow: 'var(--shadow-control-base)',
         boxSizing: 'border-box',
-        padding: 'var(--padding-2x)',
+        padding: 'var(--padding-1x)',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
@@ -58,7 +56,6 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         gap: 'var(--margin-2x)',
         position: 'relative',
         '&:hover': {
-          backgroundColor: 'var(--color-gray-bg-card-light)',
           [`${token.componentCls}-item-close-icon`]: {
             display: 'flex',
           },
@@ -66,7 +63,32 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-file-icon': {
           width: '40px',
           height: '40px',
+          minWidth: '40px',
           opacity: 1,
+          '&-img': {
+            width: '40px',
+            height: '40px',
+            opacity: 1,
+            background: 'var(--color-gray-bg-card-white)',
+            boxSizing: 'border-box',
+            boxShadow: 'var(--shadow-control-base)',
+            borderRadius: 'var(--radius-base)',
+            border: 'none',
+            overflow: 'hidden',
+            img: {
+              maxWidth: '100%',
+              maxHeight: '100%',
+              borderRadius: 'inherit',
+              transition: 'transform 0.3s',
+            },
+            '&:hover': {
+              overflow: 'hidden',
+              img: {
+                transform: 'scale(1.1)',
+                transition: 'transform 0.3s',
+              },
+            },
+          },
           '>svg': {
             width: '40px',
             height: '40px',
@@ -77,21 +99,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           flexDirection: 'column',
           justifyContent: 'space-between',
           gap: 'var(--margin-0-5x)',
+          flex: 1,
+          minWidth: 0,
         },
         '&-file-name': {
           display: 'flex',
-          width: '112px',
+          width: '100%',
           alignItems: 'center',
           lineHeight: 'var(--line-height-xs)',
           fontFamily: token.fontFamily,
-          gap: -1,
           '&-text': {
             font: 'var(--font-text-body-emphasized-sm)',
             letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
             color: 'var(--color-gray-text-default)',
-            maxWidth: '92px',
+            maxWidth: '112px',
+            width: '100%',
             whiteSpace: 'nowrap',
-            width: 'max-content',
             overflow: 'hidden',
             display: '-webkit-box',
             '-webkit-line-clamp': '1',
@@ -104,6 +127,26 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           font: 'var(--font-text-body-sm)',
           letterSpacing: 'var(--letter-spacing-body-sm, normal)',
           color: 'var(--color-gray-text-light)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 4,
+          '&-error': {
+            color: 'var(--color-red-a10)',
+          },
+          '&-item:not(:last-child)': {
+            lineHeight: '9px',
+            display: 'flex',
+            gap: 4,
+            alignItems: 'center',
+            height: 12,
+            '&:after': {
+              content: '""',
+              display: 'block',
+              width: '1px',
+              height: '12px',
+              background: 'var(--color-gray-border-light)',
+            },
+          },
         },
         '&-close-icon': {
           width: 'var(--padding-4x)',
@@ -111,9 +154,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           backgroundColor: 'var(--color-gray-text-default)',
           fontSize: 'var(--font-size-sm)',
           position: 'absolute',
-          top: -6,
+          top: 2,
           borderRadius: '50%',
-          right: -6,
+          right: 2,
           color: 'var(--color-gray-contrast)',
           display: 'none',
           justifyContent: 'center',
@@ -126,16 +169,22 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         '&-uploading-icon': {
           width: '40px',
           height: '40px',
-          fontSize: 'var(--font-size-2xl)',
+          fontSize: '40px',
           display: 'flex',
-          padding: 'var(--padding-2x)',
+        },
+        '&-error-icon': {
+          width: '40px',
+          height: '40px',
+          fontSize: '40px',
+          display: 'flex',
         },
       },
     },
     [`${token.componentCls}-container`]: {
-      background: 'var(--color-gray-bg-page-light)',
-      '&:hover': {
-        backgroundColor: 'var(--color-gray-bg-card-light)',
+      background: 'var(--color-gray-bg-page)',
+      borderBottom: '1px solid rgba(0, 16, 64, 0.0627)',
+      '&-empty': {
+        border: 'none',
       },
     },
   };

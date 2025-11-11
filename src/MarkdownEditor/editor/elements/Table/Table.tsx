@@ -6,6 +6,8 @@ import { RenderElementProps } from 'slate-react';
 import stringWidth from 'string-width';
 import { useEditorStore } from '../../store';
 import { ReadonlyTableComponent } from './ReadonlyTableComponent';
+import { TablePropsContext } from './TableContext';
+import { TableRowIndex } from './TableRowIndex';
 import useScrollShadow from './useScrollShadow';
 
 /**
@@ -34,7 +36,7 @@ import useScrollShadow from './useScrollShadow';
  *
  * @see https://reactjs.org/docs/hooks-intro.html React Hooks
  */
-export const ReadonlyTable = ({
+export const SlateTable = ({
   hashId,
   children,
   ...props
@@ -44,8 +46,9 @@ export const ReadonlyTable = ({
 } & RenderElementProps) => {
   const { readonly, markdownContainerRef } = useEditorStore();
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
+  const { tablePath } = useContext(TablePropsContext);
 
-  const baseCls = getPrefixCls('md-editor-content-table');
+  const baseCls = getPrefixCls('agentic-md-editor-content-table');
   const tableTargetRef = useRef<HTMLTableElement>(null);
 
   // 总是调用 hooks，避免条件调用
@@ -77,8 +80,11 @@ export const ReadonlyTable = ({
 
     // 只获取一次容器宽度
     const containerWidth =
-      (markdownContainerRef?.current?.querySelector('.ant-md-editor-content')
-        ?.clientWidth || 400) - 32;
+      (markdownContainerRef?.current?.querySelector(
+        '.ant-agentic-md-editor-content',
+      )?.clientWidth || 400) -
+      32 -
+      12;
     const maxColumnWidth = containerWidth / 4;
     const minColumnWidth = 60;
 
@@ -141,13 +147,13 @@ export const ReadonlyTable = ({
         : 0;
 
       const minWidth = markdownContainerRef?.current?.querySelector(
-        '.ant-md-editor-content',
+        '.ant-agentic-md-editor-content',
       )?.clientWidth;
 
       const dom = tableRef.current as HTMLDivElement;
       if (dom) {
         setTimeout(() => {
-          dom.style.minWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${maxWidth || minWidth || 'xxx'}px,300px)`;
+          dom.style.minWidth = `min(${((minWidth || 200) * 0.95).toFixed(0)}px,${maxWidth || minWidth || 'xxx'}px,200px)`;
         }, 200);
       }
     };
@@ -174,9 +180,6 @@ export const ReadonlyTable = ({
     () => (
       <table
         ref={tableTargetRef}
-        style={{
-          userSelect: 'none',
-        }}
         className={classNames(`${baseCls}-editor-table`, hashId)}
         onDragStart={(e) => {
           // 阻止拖拽开始事件
@@ -185,6 +188,13 @@ export const ReadonlyTable = ({
         }}
       >
         <colgroup>
+          <col
+            style={{
+              width: 12,
+              minWidth: 12,
+              maxWidth: 12,
+            }}
+          />
           {(colWidths || []).map((colWidth: number, index: number) => {
             return (
               <col
@@ -198,11 +208,10 @@ export const ReadonlyTable = ({
             );
           }) || null}
         </colgroup>
-        <tbody
-          style={{
-            userSelect: 'none',
-          }}
-        >
+        <tbody>
+          {readonly ? null : (
+            <TableRowIndex colWidths={colWidths} tablePath={tablePath} />
+          )}
           {children}
         </tbody>
       </table>

@@ -3,7 +3,7 @@ import {
   ChatTokenType,
   GenerateStyle,
   useEditorStyleRegister,
-} from '../hooks/useStyle';
+} from '../Hooks/useStyle';
 
 // 定义旋转动画
 const stopIconRotate = new Keyframes('stopIconRotate', {
@@ -69,7 +69,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         animationIterationCount: 'infinite',
         pointerEvents: 'none',
         overflow: 'hidden',
-        transition: 'background 0.25s',
+        transition: 'background 0.25s cubic-bezier(0.645, 0.045, 0.355, 1)',
       },
 
       '&-background': {
@@ -115,7 +115,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           color: 'var(--color-gray-text-default)',
           lineHeight: '20px',
           font: 'var(--font-text-h6-base)',
-          letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           WebkitBoxOrient: 'vertical',

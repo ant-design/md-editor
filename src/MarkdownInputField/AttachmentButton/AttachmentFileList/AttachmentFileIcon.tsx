@@ -1,5 +1,6 @@
+import { Eye, FileFailed, FileUploadingSpin } from '@sofa-design/icons';
+import { Image } from 'antd';
 import React from 'react';
-import { Loader } from '../../../icons';
 import { getFileTypeIcon } from '../../../Workspace/File/utils';
 import { FileType } from '../../../Workspace/types';
 import { AttachmentFile } from '../types';
@@ -38,34 +39,52 @@ import { isImageFile } from '../utils';
  * - 图片自适应显示
  * - 图标居中显示
  */
+const IMAGE_STYLE: React.CSSProperties = {
+  width: '40px',
+  height: '40px',
+  overflow: 'hidden',
+};
+
+const IMAGE_PREVIEW_CONFIG = {
+  mask: (
+    <div>
+      <Eye />
+    </div>
+  ),
+  visible: false,
+};
+
 export const AttachmentFileIcon: React.FC<{
   file: AttachmentFile;
-  className?: string;
+  className: string;
   style?: React.CSSProperties;
 }> = (props) => {
-  const file = props.file;
+  const { file, className } = props;
+
+  // 上传中状态
   if (file.status === 'uploading') {
-    return <Loader />;
+    return <FileUploadingSpin />;
   }
+
+  // 错误状态
+  if (file.status === 'error') {
+    return <FileFailed />;
+  }
+
+  // 图片文件预览
   if (isImageFile(file)) {
     return (
-      <div
-        style={{
-          width: '40px',
-          height: '40px',
-          overflow: 'hidden',
-          borderRadius: '6px',
-          backgroundImage: `url(${file.url})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
+      <Image
+        src={file.url}
+        style={IMAGE_STYLE}
+        rootClassName={className}
+        preview={IMAGE_PREVIEW_CONFIG}
+        alt={file.name}
       />
     );
   }
-  return getFileTypeIcon(
-    file.type?.split('/').at(-1) as FileType,
-    '',
-    file.name,
-  );
+
+  // 其他类型文件图标
+  const fileType = file.type?.split('/').at(-1) as FileType;
+  return getFileTypeIcon(fileType, '', file.name);
 };

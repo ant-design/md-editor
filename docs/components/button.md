@@ -1,230 +1,37 @@
 ---
 title: Button 按钮
 group:
-  title: 基础组件
-  order: 2
+  title: 通用
+  order: 1
 ---
 
 # Button 按钮
 
-按钮组件用于触发操作。
+按钮组件用于触发操作，提供多种样式和交互方式。
 
-## 代码演示
+## BaseButton 基础按钮
+
+提供多种按钮样式，包括主按钮、次按钮、Ghost 按钮、文本按钮和 CTA 按钮。支持不同尺寸和状态（普通、禁用、加载中）。
 
 ```tsx
-import { Button, Flex } from 'antd';
-import React from 'react';
-import {
-  ThemeProvider,
-  globalThemeToken,
-  useCSSVariables,
-} from '@ant-design/theme-token';
-import { Plus } from '@ant-design/md-editor/dist/icons';
+import { BaseButtonDemo } from '../demos/button.tsx';
+export default () => <BaseButtonDemo />;
+```
 
-export default () => {
-  useCSSVariables('ThemeExample', globalThemeToken);
-  return (
-    <Flex
-      gap={12}
-      vertical
-      style={{
-        padding: '24px',
-      }}
-    >
-      <h1>Button</h1>
-      <Flex
-        gap={12}
-        style={{
-          border: '2px dashed #8358F6',
-          padding: '24px',
-        }}
-      >
-        <Button color="default" variant="solid" icon={<Plus />}>
-          主按钮
-        </Button>
-        <Button color="default" variant="solid" disabled icon={<Plus />}>
-          主按钮
-        </Button>
-        <Button
-          loading
-          color="default"
-          variant="solid"
-          style={{
-            background: 'var(--color-gray-text-disabled)',
-          }}
-          icon={<Plus />}
-        >
-          主按钮
-        </Button>
-      </Flex>
+## IconButton 图标按钮
 
-      <Flex
-        gap={12}
-        style={{
-          border: '2px dashed #8358F6',
-          padding: '24px',
-        }}
-      >
-        <Button color="default" variant="filled" icon={<Plus />}>
-          次按钮
-        </Button>
-        <Button color="default" variant="filled" disabled icon={<Plus />}>
-          次按钮
-        </Button>
-        <Button loading color="default" variant="filled" icon={<Plus />}>
-          次按钮
-        </Button>
-      </Flex>
+仅显示图标的按钮，适用于工具栏和操作栏。支持三种样式：主按钮、次按钮和无边框按钮。
 
-      <Flex
-        gap={12}
-        style={{
-          border: '2px dashed #8358F6',
-          padding: '24px',
-        }}
-      >
-        <Button color="default" icon={<Plus />}>
-          Ghost 按钮
-        </Button>
-        <Button color="default" disabled icon={<Plus />}>
-          Ghost 按钮
-        </Button>
-        <Button loading color="default" icon={<Plus />}>
-          Ghost 按钮
-        </Button>
-      </Flex>
-      <Flex
-        gap={12}
-        style={{
-          border: '2px dashed #8358F6',
-          padding: '24px',
-        }}
-      >
-        <Button type="text">Text按钮</Button>
-        <Button type="text" disabled>
-          Text(disabled)
-        </Button>
-        <Button type="text" loading>
-          Text(loading)
-        </Button>
-      </Flex>
+```tsx
+import { IconButtonDemo } from '../demos/button.tsx';
+export default () => <IconButtonDemo />;
+```
 
-      <Flex
-        gap={12}
-        style={{
-          border: '2px dashed #8358F6',
-          padding: '24px',
-        }}
-      >
-        <Button type="primary">Primary按钮</Button>
-        <Button type="primary" disabled>
-          Primary(disabled)
-        </Button>
-        <Button type="primary" loading>
-          Primary(loading)
-        </Button>
-      </Flex>
+## SwitchButton开关按钮
 
-      <Flex
-        gap={12}
-        style={{
-          border: '2px dashed #8358F6',
-          padding: '24px',
-        }}
-      >
-        <Button icon={<Plus />} />
-        <Button icon={<Plus />} disabled />
-        <Button icon={<Plus />} loading />
-      </Flex>
-      <Flex
-        gap={12}
-        style={{
-          border: '2px dashed #8358F6',
-          padding: '24px',
-        }}
-      >
-        <Button color="default" variant="filled" icon={<Plus />} />
-        <Button color="default" variant="filled" icon={<Plus />} disabled />
-        <Button color="default" variant="filled" icon={<Plus />} loading />
-      </Flex>
-      <Flex
-        gap={12}
-        style={{
-          border: '2px dashed #8358F6',
-          padding: '24px',
-        }}
-      >
-        <Button color="default" variant="text" icon={<Plus />} />
-        <Button color="default" variant="text" icon={<Plus />} disabled />
-        <Button color="default" variant="text" icon={<Plus />} loading />
-      </Flex>
+带有切换状态的按钮，可显示激活/未激活状态。支持图标和触发图标的组合显示。
 
-      <Flex
-        gap={12}
-        style={{
-          border: '2px dashed #8358F6',
-          padding: '24px',
-        }}
-      >
-        <Button size="large" color="default" variant="solid" icon={<Plus />}>
-          主按钮
-        </Button>
-        <Button
-          size="large"
-          color="default"
-          variant="solid"
-          disabled
-          icon={<Plus />}
-        >
-          主按钮
-        </Button>
-        <Button
-          loading
-          size="large"
-          color="default"
-          variant="solid"
-          style={{
-            background: 'var(--color-gray-text-disabled)',
-          }}
-          icon={<Plus />}
-        >
-          主按钮
-        </Button>
-      </Flex>
-
-      <Flex
-        gap={12}
-        style={{
-          border: '2px dashed #8358F6',
-          padding: '24px',
-        }}
-      >
-        <Button size="small" color="default" variant="solid" icon={<Plus />}>
-          主按钮
-        </Button>
-        <Button
-          size="small"
-          color="default"
-          variant="solid"
-          disabled
-          icon={<Plus />}
-        >
-          主按钮
-        </Button>
-        <Button
-          loading
-          size="small"
-          color="default"
-          variant="solid"
-          style={{
-            background: 'var(--color-gray-text-disabled)',
-          }}
-          icon={<Plus />}
-        >
-          主按钮
-        </Button>
-      </Flex>
-    </Flex>
-  );
-};
+```tsx
+import { SwitchButtonDemo } from '../demos/button.tsx';
+export default () => <SwitchButtonDemo />;
 ```

@@ -1,13 +1,10 @@
 import { ExportOutlined } from '@ant-design/icons';
-import {
-  Chunk,
-  WhiteBoxProcessInterface,
-} from '@ant-design/md-editor/ThoughtChainList';
 import { Popover, Tooltip, Typography } from 'antd';
 import React, { useContext, useMemo } from 'react';
-import { I18nContext } from '../../i18n';
-import { Loader } from '../../icons';
-import { ActionIconBox, MarkdownEditor, useRefFunction } from '../../index';
+import { ActionIconBox } from '../../Components/ActionIconBox';
+import { I18nContext } from '../../I18n';
+import { MarkdownEditor, useRefFunction } from '../../index';
+import { Chunk, WhiteBoxProcessInterface } from '../../ThoughtChainList/types';
 import { BubbleConfigContext } from '../BubbleConfigProvide';
 import { BubbleProps, MessageBubbleData } from '../type';
 import { BubbleExtra } from './BubbleExtra';
@@ -136,7 +133,6 @@ export const BubbleMessageDisplay: React.FC<
             className="agent-item-default-content"
             data-testid="message-content"
           >
-            <Loader />
             {locale?.['chat.message.thinking'] || '思考中...'}
           </div>
         );
@@ -213,7 +209,6 @@ export const BubbleMessageDisplay: React.FC<
           <MarkdownPreview
             beforeContent={beforeContent}
             afterContent={afterContent}
-            {...props.markdownRenderConfig}
             placement={props.placement}
             markdownRenderConfig={props.markdownRenderConfig}
             isFinished={true}

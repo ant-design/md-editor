@@ -2,14 +2,14 @@ import { defineConfig } from 'dumi';
 
 export default defineConfig({
   outputPath: 'docs-dist',
-  title: 'markdown-editor',
+  title: 'AgenticUI',
   mfsu: false,
   themeConfig: {
-    logo: 'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*WWGySab93QoAAAAAAAAAAAAADkN6AQ/original',
-    name: 'markdown-editor',
+    logo: 'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*ObqVQoMht3oAAAAARuAAAAgAekN6AQ/fmt.webp',
+    name: 'AgenticUI',
   },
   favicons: [
-    'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*WWGySab93QoAAAAAAAAAAAAADkN6AQ/original',
+    'https://mdn.alipayobjects.com/huamei_ptjqan/afts/img/A*ObqVQoMht3oAAAAARuAAAAgAekN6AQ/original',
   ],
   resolve: {
     docDirs: ['docs', 'src/schema'],

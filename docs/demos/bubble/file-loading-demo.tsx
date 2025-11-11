@@ -2,7 +2,7 @@ import {
   AttachmentFile,
   Bubble,
   MessageBubbleData,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import { Button, message, Space, Switch } from 'antd';
 import React, { useRef, useState } from 'react';
 
@@ -148,6 +148,12 @@ export default () => {
           avatar={mockFileMessage.meta!}
           placement="left"
           bubbleRef={bubbleRef}
+          pure
+          markdownRenderConfig={{
+            tableConfig: {
+              pure: true,
+            },
+          }}
           originData={{
             ...mockFileMessage,
             typing: isFileLoading,
@@ -163,6 +169,11 @@ export default () => {
 
         {/* 用户消息（对比） */}
         <Bubble
+          markdownRenderConfig={{
+            tableConfig: {
+              pure: true,
+            },
+          }}
           avatar={{
             avatar:
               'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
@@ -171,6 +182,7 @@ export default () => {
           }}
           placement="right"
           bubbleRef={bubbleRef}
+          pure
           originData={{
             id: '3',
             role: 'user',

@@ -1,8 +1,8 @@
 ---
 title: Segmented 分段控制器
 group:
-  title: 基础组件
-  order: 3
+  title: 通用
+  order: 1
 ---
 
 # Segmented 分段控制器
@@ -20,7 +20,7 @@ export default () => {
   return (
     <div style={{ padding: '24px' }}>
       <h1>Segmented</h1>
-      
+
       <div style={{ marginBottom: '24px' }}>
         <h3>基础用法</h3>
         <Segmented

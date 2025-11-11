@@ -1,18 +1,16 @@
-import { ConfigProvider } from 'antd';
+﻿import { ConfigProvider } from 'antd';
 import classNames from 'classnames';
-import RcResizeObserver from 'rc-resize-observer';
 import { useMergedState } from 'rc-util';
 import React, {
+  useCallback,
   useContext,
   useEffect,
   useImperativeHandle,
   useMemo,
+  useRef,
   useState,
 } from 'react';
-import { Editor, Transforms } from 'slate';
-import { ReactEditor } from 'slate-react';
-import { useRefFunction } from '../hooks/useRefFunction';
-import { I18nContext } from '../i18n';
+import { useRefFunction } from '../Hooks/useRefFunction';
 import {
   BaseMarkdownEditor,
   Elements,
@@ -20,24 +18,22 @@ import {
   MarkdownEditorProps,
 } from '../MarkdownEditor';
 import {
-  AttachmentButton,
-  AttachmentButtonProps,
   upLoadFileToServer,
+  type AttachmentButtonProps,
 } from './AttachmentButton';
-import { SupportedFileFormats } from './AttachmentButton/AttachmentButtonPopover';
 import { AttachmentFileList } from './AttachmentButton/AttachmentFileList';
-import { AttachmentFile } from './AttachmentButton/types';
-import { RefinePromptButton } from './RefinePromptButton';
-import { SendButton } from './SendButton';
+import type { AttachmentFile } from './AttachmentButton/types';
+import { getFileListFromDataTransferItems } from './FilePaste';
+import { useFileUploadManager } from './FileUploadManager';
+import { QuickActions } from './QuickActions';
+import { SendActions } from './SendActions';
 import type { SkillModeConfig } from './SkillModeBar';
 import { SkillModeBar } from './SkillModeBar';
-import { addGlowBorderOffset, useStyle } from './style';
+import { useStyle } from './style';
 import { Suggestion } from './Suggestion';
-import {
-  VoiceInputButton,
-  type CreateRecognizer,
-  type VoiceRecognizer,
-} from './VoiceInput';
+import TopOperatingArea from './TopOperatingArea';
+import type { CreateRecognizer } from './VoiceInput';
+import { useVoiceInputManager } from './VoiceInputManager';
 
 /**
  * Markdown 输入字段的属性接口
@@ -216,6 +212,7 @@ export type MarkdownInputFieldProps = {
       MarkdownInputFieldProps['attachment'] & {
         isHover: boolean;
         isLoading: boolean;
+        collapseSendActions?: boolean;
         fileUploadStatus: 'uploading' | 'done' | 'error';
       },
     defaultActions: React.ReactNode[],
@@ -282,6 +279,20 @@ export type MarkdownInputFieldProps = {
   refinePrompt?: {
     enable: boolean;
     onRefine: (input: string) => Promise<string>;
+  };
+  /**
+   * 放大功能配置
+   * @description 仅保留对象形态：{ enable: boolean }
+   * @default { enable: false }
+   * @example
+   * ```tsx
+   * <MarkdownInputField enlargeable={{ enable: true }} />
+   * ```
+   */
+  enlargeable?: {
+    enable?: boolean;
+    /** 放大状态下的目标高度（px），默认 980 */
+    height?: number;
   };
 
   /**
@@ -393,30 +404,74 @@ export type MarkdownInputFieldProps = {
    * }}
    */
   onSkillModeOpenChange?: (open: boolean) => void;
-};
 
-/**
- * 根据提供的颜色数组生成边缘颜色序列。
- * 对于数组中的每种颜色，该函数会创建一个新的序列，其中颜色按照循环顺序排列，
- * 并在序列末尾再添加当前颜色。
- *
- * @param colors - 要处理的颜色数组
- * @returns 一个二维数组，每个子数组包含从特定位置开始循环的颜色序列，并在末尾重复当前颜色
- * @example
- * // 返回 [['red', 'blue', 'green', 'red'], ['blue', 'green', 'red', 'blue'], ['green', 'red', 'blue', 'green']]
- * generateEdges(['red', 'blue', 'green'])
- */
-export const generateEdges = (colors: string[]): string[][] => {
-  if (!Array.isArray(colors) || colors.length === 0) return [];
-  // 至少保证 3 个颜色，便于后续得到 4 段动画停靠点
-  const base =
-    colors.length >= 3
-      ? colors
-      : [...colors, ...colors.slice(0, 3 - colors.length)];
-  return base.map((current, index) => {
-    const rotated = base.slice(index).concat(base.slice(0, index));
-    return [...rotated, current];
-  });
+  /**
+   * 是否允许在内容为空时也触发发送
+   * @description 默认情况下输入内容为空（且无附件、未录音）时点击发送按钮不会触发 onSend。开启该配置后即使内容为空字符串也会调用 onSend('')。
+   * @default false
+   * @example
+   * <MarkdownInputField allowEmptySubmit onSend={(v) => submit(v)} /> // v 可能为 ''
+   */
+  allowEmptySubmit?: boolean;
+
+  /**
+   * 是否显示顶部操作区域
+   * @description 控制是否渲染顶部操作区域组件
+   * @default false
+   * @example
+   * <MarkdownInputField isShowTopOperatingArea={false} />
+   */
+  isShowTopOperatingArea?: boolean;
+
+  /**
+   * 顶部操作区域回到顶部/底部功能的目标元素引用
+   * @description 传递给 TopOperatingArea 组件中 BackTo 功能的目标滚动容器引用，如果不传则默认为 window
+   * @example
+   * ```tsx
+   * const scrollRef = useRef<HTMLDivElement>(null);
+   *
+   * <div ref={scrollRef} style={{ height: '400px', overflow: 'auto' }}>
+   *   <MarkdownInputField targetRef={scrollRef} />
+   * </div>
+   * ```
+   */
+  targetRef?: React.RefObject<HTMLDivElement>;
+
+  /**
+   * 顶部操作区域自定义操作按钮渲染函数
+   * @description 用于在顶部操作区域中央渲染自定义操作按钮
+   * @returns 要渲染的操作按钮节点
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   operationBtnRender={() => (
+   *     <>
+   *       <Button>按钮1</Button>
+   *       <Button>按钮2</Button>
+   *     </>
+   *   )}
+   * />
+   * ```
+   */
+  operationBtnRender?: () => React.ReactNode;
+
+  /**
+   * 是否在顶部操作区域显示回到顶部/底部按钮
+   * @description 控制顶部操作区域右侧是否显示回到顶部和回到底部的按钮功能
+   * - 当为 `true` 时，显示回到顶部和回到底部按钮
+   * - 当为 `false` 时，隐藏这些按钮
+   * - 按钮会根据滚动位置自动判断是否显示（需要滚动距离大于5px）
+   * @default true
+   * @example
+   * ```tsx
+   * <MarkdownInputField
+   *   isShowTopOperatingArea={true}
+   *   isShowBackTo={false} // 隐藏回到顶部/底部按钮
+   *   targetRef={scrollRef}
+   * />
+   * ```
+   */
+  isShowBackTo?: boolean;
 };
 
 /**
@@ -467,18 +522,24 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   borderRadius = 16,
   onBlur,
   onFocus,
+  isShowTopOperatingArea = false,
   ...props
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const { locale } = useContext(I18nContext);
-  const baseCls = getPrefixCls('md-input-field');
+  const baseCls = getPrefixCls('agentic-md-input-field');
   const { wrapSSR, hashId } = useStyle(baseCls);
   const [isHover, setHover] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [refineStatus, setRefineStatus] = useState<'idle' | 'loading'>('idle');
+  const [isEnlarged, setIsEnlarged] = React.useState(false);
   const markdownEditorRef = React.useRef<MarkdownEditorInstance>();
   const quickActionsRef = React.useRef<HTMLDivElement>(null);
   const actionsRef = React.useRef<HTMLDivElement>(null);
+  const isSendingRef = React.useRef(false); // 防重复触发标记
+  const [collapseSendActions, setCollapseSendActions] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    if (window.innerWidth < 460) return true;
+    return false;
+  });
 
   const [value, setValue] = useMergedState('', {
     value: props.value,
@@ -495,26 +556,23 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     return Math.max(bottomOverlayPadding, topOverlayPadding);
   }, [props.toolsRender, rightPadding, topRightPadding, quickRightOffset]);
 
+  const collapsedHeight = useMemo(() => {
+    const mh = props.style?.maxHeight;
+    const base =
+      typeof mh === 'number' ? mh : mh ? parseFloat(String(mh)) || 114 : 114;
+    return base;
+  }, [props.style?.maxHeight, props.attachment?.enable]);
+
+  const collapsedHeightPx = useMemo(() => {
+    const extra = props.attachment?.enable ? 90 : 0;
+    return collapsedHeight + extra;
+  }, [props.style?.maxHeight, props.attachment?.enable]);
+
   const [fileMap, setFileMap] = useMergedState<
     Map<string, AttachmentFile> | undefined
   >(undefined, {
     value: props.attachment?.fileMap,
     onChange: props.attachment?.onFileMapChange,
-  });
-
-  // 语音输入
-  const [recording, setRecording] = useState(false);
-  const recognizerRef = React.useRef<VoiceRecognizer | null>(null);
-  const pendingRef = React.useRef(false);
-  // 句子开始索引
-  const sentenceStartIndexRef = React.useRef<number>(0);
-
-  const updateCurrentSentence = useRefFunction((text: string) => {
-    const currentAll = markdownEditorRef?.current?.store?.getMDContent() || '';
-    const prefix = currentAll.slice(0, sentenceStartIndexRef.current);
-    const next = `${prefix}${text}`;
-    markdownEditorRef?.current?.store?.setMDContent(next);
-    setValue(next);
   });
 
   // 是否需要多行布局
@@ -532,47 +590,44 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     props?.toolsRender,
   ]);
 
-  const startRecording = useRefFunction(async () => {
-    if (!props.voiceRecognizer) return;
-    if (recording || pendingRef.current) return;
-    pendingRef.current = true;
-    try {
-      const recognizer = await props.voiceRecognizer({
-        onSentenceBegin: () => {
-          // 记录当前内容位置，重置本句累积
-          const current =
-            markdownEditorRef?.current?.store?.getMDContent() || '';
-          sentenceStartIndexRef.current = current.length;
-        },
-        onPartial: updateCurrentSentence,
-        onSentenceEnd: updateCurrentSentence,
-        onError: () => {
-          setRecording(false);
-          recognizerRef.current?.stop?.().catch(() => void 0);
-          recognizerRef.current = null;
-          pendingRef.current = false;
-        },
-      });
-      recognizerRef.current = recognizer;
-      await recognizerRef.current.start();
-      setRecording(true);
-    } catch (e) {
-      recognizerRef.current = null;
-    } finally {
-      pendingRef.current = false;
+  // 计算最小高度
+  const computedMinHeight = useMemo(() => {
+    if (isEnlarged) return 'auto';
+    // 如果同时有放大按钮和提示词优化按钮，最小高度为 140px
+    if (props?.enlargeable?.enable && props?.refinePrompt?.enable) {
+      return 140;
     }
+    // 其他多行布局情况，最小高度为 106px
+    if (isMultiRowLayout) return 106;
+    // 默认使用传入的 minHeight 或 0
+    return props.style?.minHeight || 0;
+  }, [
+    isEnlarged,
+    props?.enlargeable?.enable,
+    props?.refinePrompt?.enable,
+    isMultiRowLayout,
+    props.style?.minHeight,
+  ]);
+
+  // 文件上传管理
+  const {
+    fileUploadDone,
+    supportedFormat,
+    uploadImage,
+    updateAttachmentFiles,
+    handleFileRemoval,
+    handleFileRetry,
+  } = useFileUploadManager({
+    attachment: props.attachment,
+    fileMap,
+    onFileMapChange: setFileMap,
   });
 
-  const stopRecording = useRefFunction(async () => {
-    if (!recording || pendingRef.current) return;
-    pendingRef.current = true;
-    try {
-      await recognizerRef.current?.stop();
-    } finally {
-      setRecording(false);
-      recognizerRef.current = null;
-      pendingRef.current = false;
-    }
+  // 语音输入管理
+  const { recording, startRecording, stopRecording } = useVoiceInputManager({
+    voiceRecognizer: props.voiceRecognizer,
+    editorRef: markdownEditorRef,
+    onValueChange: setValue,
   });
 
   useEffect(() => {
@@ -580,22 +635,17 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     markdownEditorRef.current?.store?.setMDContent(value);
   }, [props.value]);
 
-  useEffect(() => {
-    return () => {
-      recognizerRef.current?.stop().catch(() => void 0);
-    };
-  }, []);
-
   useImperativeHandle(props.inputRef, () => markdownEditorRef.current);
 
-  // 判断是否所有文件上传完成
-  const fileUploadDone = useMemo(() => {
-    return fileMap?.size
-      ? Array.from(fileMap?.values() || []).every(
-          (file) => file.status === 'done',
-        )
-      : true;
-  }, [fileMap]);
+  // 已移除 enlargeTargetRef，不需要校验容器定位
+
+  /**
+   * 处理放大缩小按钮点击
+   * @description 切换编辑器的放大/缩小状态
+   */
+  const handleEnlargeClick = useRefFunction(() => {
+    setIsEnlarged(!isEnlarged);
+  });
 
   /**
    * 发送消息的函数
@@ -613,6 +663,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const sendMessage = useRefFunction(async () => {
     if (props.disabled) return;
     if (props.typing) return;
+    // 防止重复触发：如果正在加载中，直接返回
+    if (isLoading) return;
+    // 使用 ref 防止快速连续触发
+    if (isSendingRef.current) return;
+
     // 如果处于录音中：优先停止录音或输入
     if (recording) await stopRecording();
     const mdValue = markdownEditorRef?.current?.store?.getMDContent();
@@ -622,183 +677,38 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
       props.onChange?.(mdValue);
     }
 
-    if (props.onSend && mdValue) {
+    // allowEmptySubmit 开启时，即使内容为空也允许触发发送
+    if (props.onSend && (props.allowEmptySubmit || mdValue)) {
+      // 设置发送标记
+      isSendingRef.current = true;
       setIsLoading(true);
       try {
-        await props.onSend(mdValue);
+        await props.onSend(mdValue || '');
         markdownEditorRef?.current?.store?.clearContent();
         props.onChange?.('');
         setValue('');
         setFileMap?.(new Map());
+      } catch (error) {
+        console.error('Send message failed:', error);
+        throw error;
       } finally {
         setIsLoading(false);
+        // 重置发送标记
+        isSendingRef.current = false;
       }
     }
   });
 
   /**
-   * 生成背景颜色列表
-   * @description 该函数用于生成背景颜色列表，默认使用三种颜色。
-   * @returns {string[][]} 颜色列表
+   * 放大状态样式计算
    */
-  const colorList = useMemo(() => {
-    return generateEdges(
-      props.bgColorList || ['#CD36FF', '#FFD972', '#eff0f1'],
-    );
-  }, [props.bgColorList?.join(',')]);
-
-  /**
-   * 更新附件文件列表
-   */
-  const updateAttachmentFiles = useRefFunction(
-    (newFileMap?: Map<string, AttachmentFile>) => {
-      setFileMap?.(new Map(newFileMap));
-    },
-  );
-
-  /**
-   * 背景容器尺寸计算
-   */
-  const bgSize = useMemo(() => {
-    const height = props.style?.height
-      ? addGlowBorderOffset(props.style.height)
-      : addGlowBorderOffset('100%');
-    const width = props.style?.width
-      ? addGlowBorderOffset(props.style.width)
-      : addGlowBorderOffset('100%');
-    return { height, width };
-  }, [props.style?.height, props.style?.width]);
-  // 默认支持的文件格式
-  const supportedFormat = useMemo(() => {
-    if (props.attachment?.supportedFormat) {
-      return props.attachment.supportedFormat;
-    }
-    return SupportedFileFormats.image;
-  }, [props.attachment?.supportedFormat]);
-
-  /**
-   * 上传图片的函数
-   * @description 该函数用于处理图片上传的逻辑，包括创建文件输入框和上传文件到服务器。
-   * @returns {Promise<void>} 上传操作的Promise
-   */
-  const uploadImage = useRefFunction(async () => {
-    const input = document.createElement('input');
-    input.id = 'uploadImage' + '_' + Math.random();
-    input.type = 'file';
-
-    input.accept = supportedFormat?.extensions?.join(',') || 'image/*';
-
-    input.multiple = true;
-    input.style.display = 'none';
-    input.onchange = async (e: any) => {
-      if (input.dataset.readonly) {
-        return;
-      }
-      input.dataset.readonly = 'true';
-      try {
-        await upLoadFileToServer(e.target.files, {
-          ...props.attachment,
-          fileMap,
-          onFileMapChange: (newFileMap) => {
-            updateAttachmentFiles(newFileMap);
-          },
-          locale,
-        });
-      } catch (error) {
-        console.error('Error uploading files:', error);
-      } finally {
-        input.value = '';
-        delete input.dataset.readonly;
-      }
-    };
-    if (input.dataset.readonly) {
-      return;
-    }
-    input.click();
-    input.remove();
-  });
-  /**
-   * 构造消息发送操作按钮数组
-   *
-   * @returns {React.ReactNode[]} 过滤后的操作按钮数组，包括：
-   *   - 附件按钮（如果启用）：用于管理文件上传
-   *   - 发送按钮：用于发送消息或停止当前操作
-   *
-   * 根据当前状态，发送按钮有不同行为：
-   * - 正在输入或加载时：点击会停止当前操作
-   * - 其他情况：点击会发送消息
-   *
-   * 依赖项包括附件配置、文件上传状态、加载状态、悬停状态、禁用状态、
-   * 输入状态、发送消息函数和回调函数等。
-   */
-  const defaultSendActions = useMemo(() => {
-    return [
-      props.attachment?.enable ? (
-        <AttachmentButton
-          uploadImage={uploadImage}
-          key="attachment-button"
-          {...props.attachment}
-          supportedFormat={supportedFormat}
-          fileMap={fileMap}
-          onFileMapChange={(fileMap) => {
-            updateAttachmentFiles(fileMap);
-          }}
-          disabled={!fileUploadDone}
-        />
-      ) : null,
-      props.voiceRecognizer ? (
-        <VoiceInputButton
-          key="voice-input-button"
-          recording={recording}
-          disabled={props.disabled}
-          onStart={startRecording}
-          onStop={stopRecording}
-        />
-      ) : null,
-      <SendButton
-        key="send-button"
-        typing={!!props.typing || isLoading}
-        isSendable={
-          !!value?.trim() || (fileMap && fileMap.size > 0) || recording
-        }
-        disabled={props.disabled}
-        onClick={() => {
-          if (props.typing || isLoading) {
-            setIsLoading(false);
-            props.onStop?.();
-            return;
-          }
-          if (props.onSend) {
-            sendMessage();
-          }
-        }}
-      />,
-    ].filter(Boolean);
-  }, [
-    props.attachment,
-    fileUploadDone,
-    value,
-    isLoading,
-    isHover,
-    props.disabled,
-    props.typing,
-    recording,
-    sendMessage,
-    props.onSend,
-    props.onStop,
-    props.voiceRecognizer,
-  ]);
-
-  const handleFileRemoval = useRefFunction(async (file: AttachmentFile) => {
-    try {
-      await props.attachment?.onDelete?.(file);
-      const map = new Map(fileMap);
-      map.delete(file.uuid!);
-      updateAttachmentFiles(map);
-    } catch (error) {
-      console.error('Error removing file:', error);
-    }
-  });
+  const enlargedStyle = useMemo(() => {
+    if (!isEnlarged) return {};
+    return {
+      maxHeight: '980px',
+      minHeight: '280px',
+    } as React.CSSProperties;
+  }, [isEnlarged]);
 
   const beforeTools = useMemo(() => {
     if (props.beforeToolsRender) {
@@ -811,31 +721,153 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     return null;
   }, [props, isHover, isLoading]);
 
-  // 统一应用内容到编辑器与受控值
-  const applyEditorContent = useRefFunction((text: string) => {
-    markdownEditorRef?.current?.store?.setMDContent(text);
-    setValue(text);
-    props.onChange?.(text);
-  });
+  const inputRef = useRef<HTMLDivElement>(null);
 
-  const handleRefine = useRefFunction(async () => {
-    if (!props.refinePrompt?.enable) return;
-    if (!props.refinePrompt?.onRefine) return;
-    if (refineStatus === 'loading') return;
-    const current =
-      markdownEditorRef?.current?.store?.getMDContent?.() ?? value ?? '';
-    setRefineStatus('loading');
-    try {
-      const refined = await props.refinePrompt.onRefine(current);
-      applyEditorContent(refined ?? '');
-      setRefineStatus('idle');
-    } catch (e) {
-      setRefineStatus('idle');
+  const activeInput = useRefFunction((active: boolean) => {
+    if (inputRef.current) {
+      if (active) {
+        inputRef.current.tabIndex = 1;
+        inputRef.current?.classList.add('active');
+      } else {
+        inputRef.current.tabIndex = -1;
+        inputRef.current?.classList.remove('active');
+      }
     }
   });
 
+  useEffect(() => {
+    if (!inputRef.current) return;
+    if (process.env.NODE_ENV === 'test') return;
+    const handleResize = () => {
+      if (!inputRef.current) return;
+      if (process.env.NODE_ENV === 'test') return;
+      if (inputRef.current?.clientWidth < 481) {
+        setCollapseSendActions(true);
+      } else {
+        setCollapseSendActions(false);
+      }
+    };
+    handleResize();
+    const resizeObserver = new ResizeObserver(handleResize);
+    resizeObserver.observe(inputRef.current);
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
+  // 图片粘贴上传
+  const handlePaste = useCallback(
+    async (e: React.ClipboardEvent<HTMLDivElement>) => {
+      const imageFiles = (await getFileListFromDataTransferItems(e)).filter(
+        (file) => file.type.startsWith('image/'),
+      );
+      upLoadFileToServer(imageFiles, {
+        ...markdownProps?.attachment,
+        fileMap,
+        onFileMapChange: setFileMap,
+      });
+    },
+    [fileMap, markdownProps?.attachment],
+  );
+
+  // 预计算：附件列表节点，减少 JSX 嵌套
+  const attachmentList = useMemo(() => {
+    if (!props.attachment?.enable) return null;
+    return (
+      <AttachmentFileList
+        fileMap={fileMap}
+        onDelete={handleFileRemoval}
+        onRetry={handleFileRetry}
+        onClearFileMap={() => {
+          updateAttachmentFiles(new Map());
+        }}
+      />
+    );
+  }, [
+    fileMap,
+    props.attachment?.enable,
+    handleFileRemoval,
+    handleFileRetry,
+    updateAttachmentFiles,
+  ]);
+
+  // 键盘事件：早返回减少嵌套
+  const handleKeyDown = useRefFunction(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      const triggerSendKey = props.triggerSendKey || 'Enter';
+      if (markdownEditorRef?.current?.store.inputComposition) return;
+
+      const isEnter = e.key === 'Enter';
+      const isMod = e.ctrlKey || e.metaKey;
+
+      if (triggerSendKey === 'Enter') {
+        if (!(isEnter && !isMod)) return;
+        e.stopPropagation();
+        e.preventDefault();
+        if (props.onSend) sendMessage();
+        return;
+      }
+
+      if (triggerSendKey === 'Mod+Enter') {
+        if (!(isEnter && isMod)) return;
+        e.stopPropagation();
+        e.preventDefault();
+        // 防止重复触发：检查是否已经在加载中
+        if (props.onSend && !isLoading && !props.disabled && !props.typing) {
+          sendMessage();
+        }
+      }
+    },
+  );
+
+  // 预计算：SendActions 节点，统一渲染，避免重复 JSX
+  const sendActionsNode = (
+    <SendActions
+      attachment={{
+        ...props.attachment,
+        supportedFormat,
+        fileMap,
+        onFileMapChange: setFileMap,
+        upload: props.attachment?.upload
+          ? (file: any) => props.attachment!.upload!(file, 0)
+          : undefined,
+      }}
+      voiceRecognizer={props.voiceRecognizer}
+      value={value}
+      disabled={props.disabled}
+      typing={props.typing}
+      isLoading={isLoading}
+      fileUploadDone={fileUploadDone}
+      recording={recording}
+      collapseSendActions={collapseSendActions}
+      allowEmptySubmit={props.allowEmptySubmit}
+      uploadImage={uploadImage}
+      onStartRecording={startRecording}
+      onStopRecording={stopRecording}
+      onSend={sendMessage}
+      onStop={() => {
+        setIsLoading(false);
+        props.onStop?.();
+      }}
+      actionsRender={props.actionsRender}
+      prefixCls={baseCls}
+      hashId={hashId}
+      hasTools={!!props.toolsRender}
+      onResize={setRightPadding}
+    />
+  );
+
   return wrapSSR(
     <>
+      {isShowTopOperatingArea && (
+        <div className={classNames(`${baseCls}-top-area`, hashId)}>
+          <TopOperatingArea
+            targetRef={props.targetRef}
+            operationBtnRender={props.operationBtnRender}
+            isShowBackTo={props.isShowBackTo}
+          />
+        </div>
+      )}
       {beforeTools ? (
         <div className={classNames(`${baseCls}-before-tools`, hashId)}>
           {beforeTools}
@@ -849,181 +881,68 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
         }}
       >
         <div
+          ref={inputRef}
           className={classNames(baseCls, hashId, props.className, {
             [`${baseCls}-disabled`]: props.disabled,
             [`${baseCls}-typing`]: false,
             [`${baseCls}-loading`]: isLoading,
             [`${baseCls}-is-multi-row`]: isMultiRowLayout,
+            [`${baseCls}-enlarged`]: isEnlarged,
           })}
           style={{
             ...props.style,
+            ...enlargedStyle,
+            height: isEnlarged
+              ? `${props.enlargeable?.height ?? 980}px`
+              : `min(${collapsedHeightPx}px,100%)`,
             borderRadius: borderRadius || 16,
+            minHeight: computedMinHeight,
+            cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
+            opacity: props.disabled ? 0.5 : 1,
+            maxHeight: isEnlarged ? 'none' : `min(${collapsedHeightPx}px,100%)`,
+            transition:
+              'height, max-height 0.3s,border-radius 0.3s,box-shadow 0.3s,transform 0.3s,opacity 0.3s,background 0.3s',
           }}
+          tabIndex={1}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
-          onKeyDown={(e) => {
-            if (markdownEditorRef?.current?.store.inputComposition) {
-              return;
-            }
-            const { triggerSendKey = 'Enter' } = props;
-            if (
-              triggerSendKey === 'Enter' &&
-              e.key === 'Enter' &&
-              !(e.ctrlKey || e.metaKey)
-            ) {
-              e.stopPropagation();
-              e.preventDefault();
-              if (props.onSend) {
-                sendMessage();
-              }
-              return;
-            }
-            if (
-              triggerSendKey === 'Mod+Enter' &&
-              (e.ctrlKey || e.metaKey) &&
-              e.key === 'Enter'
-            ) {
-              e.stopPropagation();
-              e.preventDefault();
-              if (props.onSend) {
-                sendMessage();
-              }
-            }
-          }}
-          onClick={(e) => {
-            if (markdownEditorRef?.current?.store.inputComposition) {
-              return;
-            }
-            if (props.disabled) {
-              return;
-            }
-            if (actionsRef.current?.contains(e.target as Node)) {
-              return;
-            }
-            if (quickActionsRef.current?.contains(e.target as Node)) {
-              return;
-            }
-            if (
-              markdownEditorRef.current?.store?.editor &&
-              !ReactEditor.isFocused(markdownEditorRef.current?.store?.editor)
-            ) {
-              const editor =
-                markdownEditorRef.current?.markdownEditorRef.current;
-              if (editor) {
-                ReactEditor.focus(editor);
-                Transforms.move(editor, { distance: 1, unit: 'offset' });
-                Transforms.select(editor, {
-                  anchor: Editor.end(editor, []),
-                  focus: Editor.end(editor, []),
-                });
-              }
-            }
-          }}
+          onKeyDown={handleKeyDown}
         >
           <div
-            className={classNames(`${baseCls}-background`, hashId, {
-              [`${baseCls}-hover`]: isHover,
-            })}
             style={{
-              minHeight: props.style?.minHeight || 0,
-              height: bgSize.height,
-              width: bgSize.width,
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              fill="none"
-              version="1.1"
-              width="100%"
-              style={{
-                borderRadius: 'inherit',
-              }}
-              height="100%"
-            >
-              <defs>
-                <radialGradient
-                  cx="0.5"
-                  cy="1"
-                  r="0.5"
-                  id="master_svg1_55_47405"
-                >
-                  {colorList.map((color, index) => {
-                    return (
-                      <stop
-                        key={index}
-                        offset={`${(index * 100) / colorList.length}%`}
-                        stopColor={color[0]}
-                        stopOpacity="0.4"
-                      >
-                        <animate
-                          attributeName="stop-color"
-                          values={`${color[0]}; ${color[1]}; ${color[2]}; ${color[3]};${color[0]}`}
-                          dur="4s"
-                          repeatCount="indefinite"
-                        />
-                      </stop>
-                    );
-                  })}
-                </radialGradient>
-              </defs>
-              <g>
-                <rect
-                  x={0}
-                  y={0}
-                  width="100%"
-                  height="100%"
-                  fill="url(#master_svg1_55_47405)"
-                />
-              </g>
-            </svg>
-          </div>
-
-          <div
-            style={{
-              flex: 1,
-              backgroundColor: '#fff',
-              width: '100%',
               display: 'flex',
-              zIndex: 9,
               flexDirection: 'column',
-              boxSizing: 'border-box',
-              borderRadius: (borderRadius || 16) - 2 || 10,
-              cursor: isLoading || props.disabled ? 'not-allowed' : 'auto',
-              opacity: props.disabled ? 0.5 : 1,
-              minHeight: isMultiRowLayout ? 96 : undefined,
+              borderTopLeftRadius: 'inherit',
+              borderTopRightRadius: 'inherit',
+              maxHeight: isEnlarged
+                ? 'none'
+                : (() => {
+                    const mh = props.style?.maxHeight;
+                    const base =
+                      typeof mh === 'number'
+                        ? mh
+                        : mh
+                          ? parseFloat(String(mh)) || 400
+                          : 400;
+                    const extra = props.attachment?.enable ? 90 : 0;
+                    return `min(${base + extra}px)`;
+                  })(),
+              height: isEnlarged ? '100%' : 'auto',
+              flex: 1,
             }}
+            className={classNames(`${baseCls}-editor`, hashId, {
+              [`${baseCls}-editor-hover`]: isHover,
+              [`${baseCls}-editor-disabled`]: props.disabled,
+            })}
           >
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                borderRadius: (borderRadius || 16) - 2 || 10,
-                maxHeight: `min(${(Number(props.style?.maxHeight) || 400) + (props.attachment?.enable ? 90 : 0)}px)`,
-                flex: 1,
-              }}
-              className={classNames(`${baseCls}-editor`, hashId, {
-                [`${baseCls}-editor-hover`]: isHover,
-                [`${baseCls}-editor-disabled`]: props.disabled,
-              })}
-            >
-              {/* 技能模式部分 */}
-              <SkillModeBar
-                skillMode={props.skillMode}
-                onSkillModeOpenChange={props.onSkillModeOpenChange}
-              />
+            {/* 技能模式部分 */}
+            <SkillModeBar
+              skillMode={props.skillMode}
+              onSkillModeOpenChange={props.onSkillModeOpenChange}
+            />
 
-              {useMemo(() => {
-                return props.attachment?.enable ? (
-                  <AttachmentFileList
-                    fileMap={fileMap}
-                    onDelete={handleFileRemoval}
-                    onClearFileMap={() => {
-                      updateAttachmentFiles(new Map());
-                    }}
-                  />
-                ) : null;
-              }, [fileMap?.values(), props.attachment?.enable])}
+            <div className={classNames(`${baseCls}-editor-content`, hashId)}>
+              {attachmentList}
 
               <BaseMarkdownEditor
                 editorRef={markdownEditorRef}
@@ -1042,7 +961,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                 }}
                 readonly={isLoading}
                 contentStyle={{
-                  padding: '12px 8px 12px 12px',
+                  padding: 'var(--padding-3x)',
                 }}
                 textAreaProps={{
                   enable: true,
@@ -1059,199 +978,89 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
                   setValue(value);
                   props.onChange?.(value);
                 }}
-                onFocus={onFocus}
-                onBlur={onBlur}
+                onFocus={(value, schema, e) => {
+                  onFocus?.(value, schema, e);
+                  activeInput(true);
+                }}
+                onBlur={(value, schema, e) => {
+                  onBlur?.(value, schema, e);
+                  activeInput(false);
+                }}
+                onPaste={(e) => {
+                  handlePaste(e);
+                }}
                 titlePlaceholderContent={props.placeholder}
                 toc={false}
                 pasteConfig={props.pasteConfig}
                 {...markdownProps}
               />
             </div>
-            {props.toolsRender ? (
-              <div
-                style={{
-                  display: 'flex',
-                  boxSizing: 'border-box',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: 8,
-                  width: '100%',
-                  minHeight: 42,
-                  paddingRight: 8,
-                  paddingLeft: 8,
-                }}
-              >
-                {props.toolsRender ? (
-                  <div
-                    ref={actionsRef}
-                    contentEditable={false}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
-                    onKeyDown={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
-                    className={classNames(`${baseCls}-send-tools`, hashId)}
-                  >
-                    {props.toolsRender
-                      ? props.toolsRender({
-                          value,
-                          fileMap,
-                          onFileMapChange: setFileMap,
-                          ...props,
-                          isHover,
-                          isLoading,
-                          fileUploadStatus: fileUploadDone
-                            ? 'done'
-                            : 'uploading',
-                        })
-                      : []}
-                  </div>
-                ) : null}
-                <RcResizeObserver
-                  onResize={(e) => {
-                    setRightPadding(e.offsetWidth);
-                  }}
-                >
-                  <div
-                    ref={actionsRef}
-                    contentEditable={false}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
-                    onKeyDown={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
-                    className={classNames(
-                      `${baseCls}-send-actions`,
-                      {
-                        [`${baseCls}-send-has-tools`]: props.toolsRender,
-                      },
-                      hashId,
-                    )}
-                  >
-                    {props.actionsRender
-                      ? props.actionsRender(
-                          {
-                            value,
-                            ...props,
-                            fileMap,
-                            onFileMapChange: setFileMap,
-                            isHover,
-                            isLoading,
-                            fileUploadStatus: fileUploadDone
-                              ? 'done'
-                              : 'uploading',
-                          },
-                          defaultSendActions,
-                        )
-                      : defaultSendActions}
-                  </div>
-                </RcResizeObserver>
-              </div>
-            ) : (
-              <RcResizeObserver
-                onResize={(e) => {
-                  setRightPadding(e.offsetWidth);
-                }}
-              >
-                <div
-                  ref={actionsRef}
-                  contentEditable={false}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                  }}
-                  onKeyDown={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                  }}
-                  className={classNames(
-                    `${baseCls}-send-actions`,
-                    {
-                      [`${baseCls}-send-has-tools`]: props.toolsRender,
-                    },
-                    hashId,
-                  )}
-                >
-                  {props.actionsRender
-                    ? props.actionsRender(
-                        {
-                          value,
-                          ...props,
-                          fileMap,
-                          onFileMapChange: setFileMap,
-                          isHover,
-                          isLoading,
-                          fileUploadStatus: fileUploadDone
-                            ? 'done'
-                            : 'uploading',
-                        },
-                        defaultSendActions,
-                      )
-                    : defaultSendActions}
-                </div>
-              </RcResizeObserver>
-            )}
-            {props?.quickActionRender || props.refinePrompt?.enable ? (
-              <RcResizeObserver
-                onResize={(e) => {
-                  setTopRightPadding(e.offsetWidth);
-                  try {
-                    const styles = window.getComputedStyle(
-                      quickActionsRef.current as Element,
-                    );
-                    const right = parseFloat(styles.right || '0');
-                    if (!Number.isNaN(right)) setQuickRightOffset(right);
-                  } catch {}
-                }}
-              >
-                <div
-                  ref={quickActionsRef}
-                  contentEditable={false}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                  }}
-                  onKeyDown={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                  }}
-                  className={classNames(`${baseCls}-quick-actions`, hashId)}
-                >
-                  {(props?.quickActionRender
-                    ? props?.quickActionRender({
-                        value,
-                        fileMap,
-                        onFileMapChange: setFileMap,
-                        ...props,
-                        isHover,
-                        isLoading,
-                        fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
-                      })
-                    : []
-                  )?.concat(
-                    props.refinePrompt?.enable
-                      ? [
-                          <RefinePromptButton
-                            key="refine-prompt"
-                            isHover={isHover}
-                            disabled={props.disabled}
-                            status={refineStatus}
-                            onRefine={handleRefine}
-                          />,
-                        ]
-                      : [],
-                  )}
-                </div>
-              </RcResizeObserver>
-            ) : null}
           </div>
+          {props.toolsRender ? (
+            <div
+              style={{
+                backgroundColor: '#fff',
+                display: 'flex',
+                boxSizing: 'border-box',
+                borderRadius: 'inherit',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 8,
+                width: '100%',
+                paddingRight: 'var(--padding-3x)',
+                paddingLeft: 'var(--padding-3x)',
+                paddingBottom: 'var(--padding-3x)',
+              }}
+            >
+              <div
+                ref={actionsRef}
+                contentEditable={false}
+                className={classNames(`${baseCls}-send-tools`, hashId)}
+              >
+                {props.toolsRender({
+                  value,
+                  fileMap,
+                  onFileMapChange: setFileMap,
+                  ...props,
+                  isHover,
+                  isLoading,
+                  fileUploadStatus: fileUploadDone ? 'done' : 'uploading',
+                })}
+              </div>
+              {sendActionsNode}
+            </div>
+          ) : (
+            sendActionsNode
+          )}
+          {props?.quickActionRender || props.refinePrompt?.enable ? (
+            <QuickActions
+              ref={quickActionsRef}
+              value={value}
+              fileMap={fileMap}
+              onFileMapChange={setFileMap}
+              isHover={isHover}
+              isLoading={isLoading}
+              disabled={props.disabled}
+              fileUploadStatus={fileUploadDone ? 'done' : 'uploading'}
+              refinePrompt={props.refinePrompt}
+              editorRef={markdownEditorRef}
+              onValueChange={(text) => {
+                setValue(text);
+                props.onChange?.(text);
+              }}
+              quickActionRender={props.quickActionRender as any}
+              prefixCls={baseCls}
+              hashId={hashId}
+              enlargeable={!!props.enlargeable?.enable}
+              isEnlarged={isEnlarged}
+              onEnlargeClick={handleEnlargeClick}
+              onResize={(width, rightOffset) => {
+                setTopRightPadding(width);
+                setQuickRightOffset(rightOffset);
+              }}
+            />
+          ) : null}
         </div>
       </Suggestion>
     </>,

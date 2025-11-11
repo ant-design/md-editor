@@ -2,8 +2,8 @@
 title: VisualList 视觉列表
 atomId: VisualList
 group:
-  title: 基础组件
-  order: 2
+  title: 通用
+  order: 1
 ---
 
 # VisualList 视觉列表
@@ -49,7 +49,7 @@ group:
 ### 基础用法
 
 ```tsx | pure
-import { VisualList, VisualListItem } from '@ant-design/md-editor';
+import { VisualList, VisualListItem } from '@ant-design/agentic-ui';
 
 const imageData: VisualListItem[] = [
   {

@@ -3,9 +3,11 @@ import {
   GenerateStyle,
   resetComponent,
   useEditorStyleRegister,
-} from '../../../hooks/useStyle';
+} from '../../../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
+  const playBoxSize = 28;
+  const innerBoxSize = 24;
   return {
     [token.componentCls]: {
       display: 'flex',
@@ -16,15 +18,18 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 20,
-        height: 20,
+        width: playBoxSize, // 28
+        height: playBoxSize,
         cursor: 'pointer',
         borderRadius: 6,
         boxSizing: 'border-box',
       },
 
       '&-playBox:hover': {
-        background: 'rgba(0, 28, 57, 0.0353)',
+        background: 'var(--color-gray-control-fill-hover)',
+        borderRadius: 'var(--radius-control-base)',
+        backdropFilter: 'blur(20px)',
+        boxSizing: 'border-box',
       },
 
       '&-playingWrap': {
@@ -33,10 +38,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         justifyContent: 'space-between',
         borderRadius: 6,
         background: '#FFFFFF',
-        boxShadow:
-          '0px 0px 1px 0px rgba(0, 19, 41, 0.2),0px 1.5px 4px -1px rgba(0, 19, 41, 0.04)',
-        width: 82,
-        height: 24,
+        boxShadow: 'var(--shadow-control-base)',
+        width: 86,
+        height: 28,
         padding: '2px',
       },
 
@@ -44,13 +48,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 20,
-        height: 20,
+        width: innerBoxSize, // 24
+        height: innerBoxSize, // 24
         borderRadius: 6,
         cursor: 'pointer',
       },
       '&-playingBox:hover': {
-        background: 'rgba(0, 28, 57, 0.0353)',
+        background: 'var(--color-gray-control-fill-hover)',
       },
 
       '&-rateBox': {
@@ -59,13 +63,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
         justifyContent: 'space-between',
         padding: '6px 8px',
         width: 56,
-        height: 20,
+        height: innerBoxSize, // 24
         gap: 2,
         cursor: 'pointer',
         borderRadius: 6,
       },
       '&-rateBox:hover': {
-        background: 'rgba(0, 28, 57, 0.0353)',
+        background: 'var(--color-gray-control-fill-hover)',
       },
 
       '&-rateItem': {

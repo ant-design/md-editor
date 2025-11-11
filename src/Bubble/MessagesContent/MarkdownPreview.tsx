@@ -1,4 +1,4 @@
-﻿import { Popover, theme } from 'antd';
+import { Popover, theme } from 'antd';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import {
@@ -142,6 +142,7 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
           actions: {
             fullScreen: 'modal',
           },
+          ...(props.markdownRenderConfig?.tableConfig || {}),
         }}
         rootContainer={htmlRef as any}
         editorStyle={{
@@ -167,6 +168,8 @@ export const MarkdownPreview = (props: MarkdownPreviewProps) => {
         color: token.colorError,
         borderRadius: '16px 16px 2px 16px',
         border: '1px solid ' + token.colorErrorBorder,
+        marginLeft: props.placement === 'right' ? 0 : 24,
+        marginRight: props.placement === 'right' ? 24 : 0,
       }}
     >
       {locale?.['error.unexpected'] || '出现点意外情况，请重新发送'}

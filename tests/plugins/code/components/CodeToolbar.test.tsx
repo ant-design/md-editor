@@ -8,7 +8,7 @@ import { CodeNode } from '../../../../src/MarkdownEditor/el';
 import {
   CodeToolbar,
   CodeToolbarProps,
-} from '../../../../src/plugins/code/components/CodeToolbar';
+} from '../../../../src/Plugins/code/components/CodeToolbar';
 
 // Mock 依赖
 vi.mock('copy-to-clipboard');
@@ -36,7 +36,7 @@ vi.mock('antd', () => ({
   ),
 }));
 
-vi.mock('../../../../src/plugins/code/components/LanguageSelector', () => ({
+vi.mock('../../../../src/Plugins/code/components/LanguageSelector', () => ({
   LanguageSelector: ({ element, setLanguage }: any) => (
     <div data-testid="language-selector">
       <span data-testid="current-language">
@@ -53,26 +53,18 @@ vi.mock('../../../../src/plugins/code/components/LanguageSelector', () => ({
   ),
 }));
 
-vi.mock(
-  '../../../../src/MarkdownEditor/editor/components/ActionIconBox',
-  () => ({
-    ActionIconBox: ({
-      children,
-      title,
-      onClick,
-      'data-testid': testId,
-    }: any) => (
-      <button
-        type="button"
-        data-testid={testId || 'action-icon'}
-        title={title}
-        onClick={onClick}
-      >
-        {children}
-      </button>
-    ),
-  }),
-);
+vi.mock('../../../../src/Components/ActionIconBox', () => ({
+  ActionIconBox: ({ children, title, onClick, 'data-testid': testId }: any) => (
+    <button
+      type="button"
+      data-testid={testId || 'action-icon'}
+      title={title}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  ),
+}));
 
 describe('CodeToolbar', () => {
   const defaultElement: CodeNode = {
@@ -92,6 +84,9 @@ describe('CodeToolbar', () => {
     },
     isSelected: false,
     onSelectionChange: vi.fn(),
+    theme: 'github',
+    setTheme: vi.fn(),
+    isExpanded: true,
   };
 
   beforeEach(() => {

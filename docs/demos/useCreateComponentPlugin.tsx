@@ -2,7 +2,7 @@
   BaseMarkdownEditor,
   MarkdownEditorPlugin,
   parserMdToSchema,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import React, { useEffect, useMemo, useRef } from 'react';
 
 const useCreateComponentPlugin = (tagName: string, targetType: string) => {

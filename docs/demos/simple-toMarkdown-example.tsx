@@ -2,7 +2,7 @@ import {
   MarkdownEditor,
   MarkdownEditorInstance,
   MarkdownEditorPlugin,
-} from '@ant-design/md-editor';
+} from '@ant-design/agentic-ui';
 import React, { useRef } from 'react';
 
 // 简单的自定义代码块插件
