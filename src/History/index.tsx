@@ -1,4 +1,4 @@
-﻿import { History as HistoryIcon } from '@sofa-design/icons';
+﻿import { HistoryOutlined } from '@ant-design/icons';
 import { ConfigProvider, Popover } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useRef } from 'react';
@@ -233,7 +233,7 @@ export const History: React.FC<HistoryProps> = (props) => {
           key="history"
           title={locale?.['chat.history'] || '历史记录'}
         >
-          <HistoryIcon />
+          <HistoryOutlined />
         </ActionIconBox>
       </div>
     </Popover>
