@@ -194,6 +194,7 @@ const customStyles = {
   bubbleList={messages}
   classNames={customClassNames}
   styles={customStyles}
+  pure
 /&gt;
         </pre>
       </div>
