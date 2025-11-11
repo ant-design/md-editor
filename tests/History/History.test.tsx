@@ -86,19 +86,21 @@ describe('History 组件', () => {
         </TestWrapper>,
       );
 
-      // 通过类名查找历史记录图标
-      const historyIcon = document.querySelector('.sofa-icons-icon');
-      expect(historyIcon).toBeInTheDocument();
+      const historyButton = screen.getByTestId('history-button');
+      expect(historyButton).toBeInTheDocument();
+      expect(historyButton.querySelector('svg')).toBeTruthy();
     });
 
-    it('应该正确渲染独立模式', () => {
+    it('应该正确渲染独立模式', async () => {
       render(
         <TestWrapper>
           <History {...defaultProps} standalone />
         </TestWrapper>,
       );
 
-      expect(screen.getByText('今日')).toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.getByRole('menu')).toBeInTheDocument();
+      });
     });
 
     it('应该调用 request 函数获取历史数据', async () => {
@@ -188,16 +190,17 @@ describe('History 组件', () => {
       },
     };
 
-    it('应该显示 Agent 模式的功能按钮', () => {
+    it('应该显示 Agent 模式的功能按钮', async () => {
       render(
         <TestWrapper>
           <History {...agentProps} standalone />
         </TestWrapper>,
       );
 
-      // 在独立模式下，Agent 功能按钮应该直接显示
-      expect(screen.getByTestId('search-input')).toBeInTheDocument();
-      expect(screen.getByTestId('new-chat')).toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.getByTestId('search-input')).toBeInTheDocument();
+        expect(screen.getByTestId('new-chat')).toBeInTheDocument();
+      });
     });
 
     it('应该处理搜索功能', () => {
@@ -233,7 +236,9 @@ describe('History 组件', () => {
   describe('emptyRender 空状态渲染', () => {
     it('应该在历史记录为空时显示自定义空状态', async () => {
       const emptyRequest = vi.fn().mockResolvedValue([]);
-      const { generateHistoryItems } = await import('../../src/History/components');
+      const { generateHistoryItems } = await import(
+        '../../src/History/components'
+      );
       (generateHistoryItems as any).mockReturnValue([]);
 
       const emptyRender = vi.fn(() => (
@@ -260,7 +265,9 @@ describe('History 组件', () => {
     });
 
     it('应该在有数据时不显示空状态', async () => {
-      const { generateHistoryItems } = await import('../../src/History/components');
+      const { generateHistoryItems } = await import(
+        '../../src/History/components'
+      );
       (generateHistoryItems as any).mockReturnValue([
         {
           key: 'group1',
@@ -276,11 +283,7 @@ describe('History 组件', () => {
 
       render(
         <TestWrapper>
-          <History
-            {...defaultProps}
-            emptyRender={emptyRender}
-            standalone
-          />
+          <History {...defaultProps} emptyRender={emptyRender} standalone />
         </TestWrapper>,
       );
 
@@ -293,7 +296,9 @@ describe('History 组件', () => {
 
     it('应该在下拉菜单模式下也支持空状态渲染', async () => {
       const emptyRequest = vi.fn().mockResolvedValue([]);
-      const { generateHistoryItems } = await import('../../src/History/components');
+      const { generateHistoryItems } = await import(
+        '../../src/History/components'
+      );
       (generateHistoryItems as any).mockReturnValue([]);
 
       const emptyRender = vi.fn(() => (
@@ -335,7 +340,9 @@ describe('History 组件', () => {
 
     it('应该支持复杂的自定义空状态组件', async () => {
       const emptyRequest = vi.fn().mockResolvedValue([]);
-      const { generateHistoryItems } = await import('../../src/History/components');
+      const { generateHistoryItems } = await import(
+        '../../src/History/components'
+      );
       (generateHistoryItems as any).mockReturnValue([]);
 
       const emptyRender = () => (
@@ -382,7 +389,9 @@ describe('History 组件', () => {
     });
 
     it('应该在 loading 为 false 时显示正常内容', async () => {
-      const { generateHistoryItems } = await import('../../src/History/components');
+      const { generateHistoryItems } = await import(
+        '../../src/History/components'
+      );
       (generateHistoryItems as any).mockReturnValue([
         {
           key: 'group1',

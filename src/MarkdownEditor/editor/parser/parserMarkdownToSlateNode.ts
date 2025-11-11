@@ -38,8 +38,13 @@ const EMPTY_LINE_DISTANCE_THRESHOLD = 4; // 两个元素之间的行距阈值
 const EMPTY_LINE_CALCULATION_OFFSET = 2; // 计算空行数量时的偏移量
 const EMPTY_LINE_DIVISOR = 2; // 计算空行数量的除数
 const MIN_TABLE_CELL_LENGTH = 5; // 表格单元格最小长度
-const INLINE_MATH_CURRENCY_PATTERN = /^[+-]?\d{1,3}(?:,\d{3})*(?:\.\d+)?$/;
-const INLINE_MATH_SIMPLE_NUMBER_PATTERN = /^[+-]?\d+(?:\.\d+)?%?$/;
+const INLINE_MATH_SUFFIX_PATTERN = '(?:%|[kKmMbB]|千|万|亿|兆|万亿|百万|亿万)?';
+const INLINE_MATH_CURRENCY_PATTERN = new RegExp(
+  `^[+-]?\\d{1,3}(?:,\\d{3})*(?:\\.\\d+)?${INLINE_MATH_SUFFIX_PATTERN}$`,
+);
+const INLINE_MATH_SIMPLE_NUMBER_PATTERN = new RegExp(
+  `^[+-]?\\d+(?:\\.\\d+)?${INLINE_MATH_SUFFIX_PATTERN}$`,
+);
 
 const shouldTreatInlineMathAsText = (rawValue: string): boolean => {
   const trimmedValue = rawValue.trim();
@@ -174,7 +179,7 @@ const stringifyObj = remark()
   .use(remarkParse)
   .use(fixStrongWithSpecialChars)
   .use(remarkMath as any, {
-    singleDollarTextMath: true, // 允许单美元符号渲染内联数学公式
+    singleDollarTextMath: false,
   })
   .use(remarkRehype as any, { allowDangerousHtml: true })
   .use(rehypeRaw)
