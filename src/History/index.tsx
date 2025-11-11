@@ -1,10 +1,11 @@
-import { History as HistoryIcon } from '@sofa-design/icons';
+﻿import { History as HistoryIcon } from '@sofa-design/icons';
 import { ConfigProvider, Popover } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useRef } from 'react';
 import useClickAway from '../Hooks/useClickAway';
 import { ActionIconBox, BubbleConfigContext } from '../index';
 import {
+  HistoryEmpty,
   HistoryLoadMore,
   HistoryNewChat,
   HistorySearch,
@@ -111,46 +112,66 @@ export const History: React.FC<HistoryProps> = (props) => {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 12,
+          height: '100%',
         }}
       >
+        {/* 新对话按钮 - 固定位置 */}
         {props.agent?.enabled && !!props.agent?.onNewChat && (
-          <HistoryNewChat onNewChat={handleNewChat} />
+          <div style={{ flexShrink: 0, marginBottom: 12 }}>
+            <HistoryNewChat onNewChat={handleNewChat} />
+          </div>
         )}
 
+        {/* 搜索框 - 固定位置 */}
         {props.agent?.enabled && !!props.agent?.onSearch && (
-          <HistorySearch
-            searchKeyword={searchKeyword}
-            onSearch={handleSearch}
-            type={props.type}
-            searchOptions={props.agent?.searchOptions}
-          />
-        )}
-
-        {props.slots?.beforeHistoryList?.(filteredList)}
-
-        {items?.length === 0 && !props.loading && props?.emptyRender ? (
-          props.emptyRender()
-        ) : (
-          <>
-            <GroupMenu
-              selectedKeys={[props.sessionId]}
-              inlineIndent={20}
-              items={items}
-              className={menuPrefixCls}
-              loading={props.loading}
+          <div style={{ flexShrink: 0 }}>
+            <HistorySearch
+              searchKeyword={searchKeyword}
+              onSearch={handleSearch}
+              type={props.type}
+              searchOptions={props.agent?.searchOptions}
             />
-            {props.agent?.enabled && !!props.agent?.onLoadMore && (
-              <HistoryLoadMore
-                onLoadMore={handleLoadMore}
-                type={props.type}
-                className={classNames(`${menuPrefixCls}-load-more`, hashId, {
-                  chat: props.type !== 'task',
-                })}
-              />
-            )}
-          </>
+          </div>
         )}
+
+        {/* 列表内容 - 可滚动区域 */}
+        <div
+          className={classNames(`${menuPrefixCls}-scroll-container`, hashId)}
+          style={{
+            flex: 1,
+            overflow: 'auto',
+            minHeight: 0,
+          }}
+        >
+          {props.slots?.beforeHistoryList?.(filteredList)}
+
+          {items?.length === 0 && !props.loading ? (
+            props.emptyRender ? (
+              props.emptyRender()
+            ) : (
+              <HistoryEmpty />
+            )
+          ) : (
+            <>
+              <GroupMenu
+                selectedKeys={[props.sessionId]}
+                inlineIndent={20}
+                items={items}
+                className={menuPrefixCls}
+                loading={props.loading}
+              />
+              {props.agent?.enabled && !!props.agent?.onLoadMore && (
+                <HistoryLoadMore
+                  onLoadMore={handleLoadMore}
+                  type={props.type}
+                  className={classNames(`${menuPrefixCls}-load-more`, hashId, {
+                    chat: props.type !== 'task',
+                  })}
+                />
+              )}
+            </>
+          )}
+        </div>
       </div>,
     );
   }
@@ -171,8 +192,10 @@ export const History: React.FC<HistoryProps> = (props) => {
       getPopupContainer={(p) => p.parentElement || document.body}
       content={
         <>
-          {items?.length === 0 && !props?.loading && props?.emptyRender ? (
-            <div data-testid="empty-state-popover">{props.emptyRender()}</div>
+          {items?.length === 0 && !props?.loading ? (
+            <div data-testid="empty-state-popover">
+              {props.emptyRender ? props.emptyRender() : <HistoryEmpty />}
+            </div>
           ) : (
             <GroupMenu
               selectedKeys={[props.sessionId]}

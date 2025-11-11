@@ -12,6 +12,7 @@ export {
 } from './HistoryRunningIcon';
 
 // 功能组件
+export { HistoryEmpty } from './HistoryEmpty';
 export { HistoryLoadMore } from './LoadMoreComponent';
 export { HistoryNewChat } from './NewChatComponent';
 export { HistorySearch } from './SearchComponent';

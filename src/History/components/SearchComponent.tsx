@@ -99,7 +99,9 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
   const trigger = searchOptions?.trigger || 'change';
 
   useClickAway(() => {
-    setIsExpanded(false);
+    if (!inputValue) {
+      setIsExpanded(false);
+    }
   }, ref);
 
   const handleSearchWithLoading = async (value: string) => {
@@ -150,7 +152,6 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
         justifyContent: 'space-between',
         height: 32, // 固定高度为32px
         padding: isExpanded ? 0 : '0 6px 0 12px', // 输入框状态下移除padding
-        marginBottom: 4,
       }}
     >
       {isExpanded ? (
@@ -161,7 +162,15 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
               ? locale?.['chat.task.search.placeholder'] || '搜索任务'
               : locale?.['chat.history.search.placeholder'] || '搜索话题')
           }
-          prefix={loading ? <Spin size="small" /> : <SearchIcon />}
+          prefix={
+            loading ? (
+              <Spin size="small" />
+            ) : (
+              <SearchIcon
+                style={{ color: 'var(--color-gray-text-secondary)' }}
+              />
+            )
+          }
           value={inputValue}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}

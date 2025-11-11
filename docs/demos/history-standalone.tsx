@@ -52,6 +52,22 @@ const StandaloneHistoryDemo = () => {
         gmtCreate: 1702950656789, // 2023-12-19 10:30:56
         gmtLastConverse: 1702950656789,
       },
+      {
+        id: '6',
+        sessionId: 'session-6',
+        sessionTitle: '请为我生成一个关于AI的报告',
+        agentId: agentId,
+        gmtCreate: 1702950656789, // 2023-12-19 10:30:56
+        gmtLastConverse: 1702950656789,
+      },
+      {
+        id: '7',
+        sessionId: 'session-7',
+        sessionTitle: '请帮我规划一条重庆两日游路线',
+        agentId: agentId,
+        gmtCreate: 1702950656789, // 2023-12-19 10:30:56
+        gmtLastConverse: 1702950656789,
+      },
     ] as HistoryDataType[];
   };
 
@@ -83,6 +99,7 @@ const StandaloneHistoryDemo = () => {
           width: 348,
           margin: '0 auto',
           borderRadius: '16px',
+          height: 400,
           border: '1px solid var(--color-gray-border-light)',
         }}
       >
@@ -93,7 +110,6 @@ const StandaloneHistoryDemo = () => {
           onClick={handleSelected}
           standalone
           type="chat"
-          emptyRender={() => <div>暂无历史记录</div>}
           agent={{
             enabled: true,
             onSearch: () => {},
