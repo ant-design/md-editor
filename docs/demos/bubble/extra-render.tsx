@@ -217,6 +217,7 @@ export default function ExtraRenderDemo() {
             originData={message}
             placement={message.role === 'user' ? 'right' : 'left'}
             bubbleRef={bubbleRef}
+            pure
             bubbleRenderConfig={getBubbleRenderConfig()}
             onLike={async (data) => {
               console.log('点赞:', data);

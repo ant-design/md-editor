@@ -106,6 +106,7 @@ export default () => {
         placement="left"
         deps={deps}
         bubbleRef={bubbleRef}
+        pure
         originData={mockMessage}
       />
 
@@ -120,6 +121,7 @@ export default () => {
           },
         }}
         bubbleRef={bubbleRef}
+        pure
         originData={mockImageMessage}
       />
     </div>

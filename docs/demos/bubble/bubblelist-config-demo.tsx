@@ -126,6 +126,7 @@ export default () => {
               pure: true,
             },
           }}
+          pure
           bubbleList={sampleMessages}
           bubbleListRef={bubbleListRef}
           bubbleRef={bubbleRef}

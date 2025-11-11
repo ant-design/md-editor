@@ -309,6 +309,7 @@ const customTitleRender = (props: any) => {
             }}
             placement={message.role === 'assistant' ? 'left' : 'right'}
             bubbleRef={bubbleRef}
+            pure
             originData={message}
             onLike={handleLike}
             onDisLike={handleDisLike}
