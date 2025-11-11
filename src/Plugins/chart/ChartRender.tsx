@@ -219,8 +219,6 @@ export const ChartRender: React.FC<{
     !renderDescriptionsFallback;
 
   React.useEffect(() => {
-    if (!shouldLoadRuntime) return;
-    if (!isIntersecting) return;
     if (runtime) return;
     if (isRuntimeLoading) return;
     if (runtimeError) return;
@@ -601,6 +599,12 @@ export const ChartRender: React.FC<{
         </div>
       );
     }
+
+    console.log(
+      'isRuntimeLoading || !isIntersecting',
+      isRuntimeLoading || !isIntersecting,
+      isIntersecting,
+    );
 
     if (!runtime && shouldLoadRuntime) {
       const height = config?.height || 240;

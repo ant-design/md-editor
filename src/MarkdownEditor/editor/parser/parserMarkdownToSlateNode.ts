@@ -38,6 +38,22 @@ const EMPTY_LINE_DISTANCE_THRESHOLD = 4; // 两个元素之间的行距阈值
 const EMPTY_LINE_CALCULATION_OFFSET = 2; // 计算空行数量时的偏移量
 const EMPTY_LINE_DIVISOR = 2; // 计算空行数量的除数
 const MIN_TABLE_CELL_LENGTH = 5; // 表格单元格最小长度
+const INLINE_MATH_CURRENCY_PATTERN = /^[+-]?\d{1,3}(?:,\d{3})*(?:\.\d+)?$/;
+const INLINE_MATH_SIMPLE_NUMBER_PATTERN = /^[+-]?\d+(?:\.\d+)?%?$/;
+
+const shouldTreatInlineMathAsText = (rawValue: string): boolean => {
+  const trimmedValue = rawValue.trim();
+  if (!trimmedValue) {
+    return true;
+  }
+  if (/[=^_\\{}]/.test(trimmedValue)) {
+    return false;
+  }
+  return (
+    INLINE_MATH_CURRENCY_PATTERN.test(trimmedValue) ||
+    INLINE_MATH_SIMPLE_NUMBER_PATTERN.test(trimmedValue)
+  );
+};
 
 // 类型定义
 type CodeElement = {
@@ -158,7 +174,7 @@ const stringifyObj = remark()
   .use(remarkParse)
   .use(fixStrongWithSpecialChars)
   .use(remarkMath as any, {
-    singleDollarTextMath: false, // 暂时禁用单美元符号，只使用双美元符号 $$...$$
+    singleDollarTextMath: true, // 允许单美元符号渲染内联数学公式
   })
   .use(remarkRehype as any, { allowDangerousHtml: true })
   .use(rehypeRaw)
@@ -383,11 +399,19 @@ const parseText = (
     if (n.type === 'inlineCode')
       leafs.push({ ...leaf, text: (n as any).value, code: true });
     if (n.type === 'inlineMath') {
+      const inlineMathValue =
+        typeof (n as any).value === 'string'
+          ? ((n as any).value as string)
+          : '';
+      if (shouldTreatInlineMathAsText(inlineMathValue)) {
+        leafs.push({ ...leaf, text: `$${inlineMathValue}$` });
+        continue;
+      }
       // 处理内联数学公式，返回一个特殊的节点而不是叶子节点
       leafs.push({
         ...leaf,
         type: 'inline-katex',
-        children: [{ text: (n as any).value }],
+        children: [{ text: inlineMathValue }],
       } as any);
       continue; // 跳过后面的默认处理
     }
@@ -839,9 +863,17 @@ const handleImage = (currentElement: any) => {
  * @returns 返回格式化的内联KaTeX节点对象
  */
 const handleInlineMath = (currentElement: any) => {
+  const inlineMathValue =
+    typeof currentElement?.value === 'string' ? currentElement.value : '';
+  if (shouldTreatInlineMathAsText(inlineMathValue)) {
+    return {
+      type: 'paragraph',
+      children: [{ text: `$${inlineMathValue}$` }],
+    } as any;
+  }
   return {
     type: 'inline-katex',
-    children: [{ text: currentElement.value }],
+    children: [{ text: inlineMathValue }],
   } as InlineKatexNode;
 };
 

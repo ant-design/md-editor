@@ -56,7 +56,7 @@ export const InlineKatex = ({
   useEffect(() => {
     if (!selected) {
       const value = Node.string(element);
-      katex.render(value, renderEl.current!, {
+      katex.render(`${value}`, renderEl.current!, {
         strict: false,
         output: 'html',
         throwOnError: false,
@@ -74,6 +74,7 @@ export const InlineKatex = ({
     return (
       <span
         {...attributes}
+        className="katex"
         data-be={'inline-katex'}
         style={{
           position: 'relative',
@@ -113,6 +114,7 @@ export const InlineKatex = ({
         {children}
       </span>
       <span
+        className="katex"
         contentEditable={false}
         ref={renderEl}
         onClick={() => {
@@ -124,7 +126,6 @@ export const InlineKatex = ({
         style={{
           margin: '0 0.25rem',
           userSelect: 'none',
-          fontSize: 0,
           visibility: selected ? 'hidden' : 'visible',
           width: selected ? '0' : 'auto',
           height: selected ? '0' : 'auto',

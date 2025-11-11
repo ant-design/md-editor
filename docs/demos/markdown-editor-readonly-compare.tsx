@@ -41,6 +41,14 @@ flowchart TD
     C -->|Three| F[fa:fa-car Car]
  
 \`\`\`
+
+## 数学公式
+
+$$
+int_0^1 x^2 dx = \frac{1}{3}
+$$
+
+$E=mc^2$
 `;
 
 export default () => {

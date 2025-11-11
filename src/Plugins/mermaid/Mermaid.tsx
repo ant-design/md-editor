@@ -85,7 +85,6 @@ export const Mermaid = (props: { element: CodeNode }) => {
     if (!isBrowser) {
       return undefined;
     }
-    console.log('props---', props);
     const nextCode = props.element.value || '';
     const currentState = state();
 
