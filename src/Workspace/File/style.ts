@@ -3,6 +3,14 @@ import { useEditorStyleRegister } from '../../Hooks/useStyle';
 
 const genStyle: GenerateStyle<ChatTokenType> = (token) => {
   return {
+    // 定位高亮动画关键帧
+    '@keyframes flash-shadow': {
+      '0%, 100%': {
+        boxShadow:
+          '-5.23px -3.23px 12px 0 rgba(229, 255, 115, 40%), 4.23px 5.23px 16px 0 rgba(0, 206, 255, 24.12%)',
+      },
+    },
+
     // 文件组件样式
     [`${token.componentCls}-container`]: {
       height: '100%',
@@ -98,6 +106,14 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       cursor: 'pointer',
       transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
       boxSizing: 'border-box',
+
+      // 定位高亮动画
+      '&:target': {
+        animationName: 'flash-shadow',
+        animationDuration: '3s',
+        animationTimingFunction: 'ease-in-out',
+        animationIterationCount: 1,
+      },
 
       '&:last-child': {
         marginBottom: 0,

@@ -5,6 +5,7 @@ import {
   ChevronDown as DownIcon,
   Download as DownloadIcon,
   Eye as EyeIcon,
+  Locate,
   ChevronRight as RightIcon,
   Search,
   SquareArrowOutUpRight as ShareIcon,
@@ -121,6 +122,7 @@ interface AccessibleButtonProps {
   onClick: (e: React.MouseEvent) => void;
   className?: string;
   ariaLabel: string;
+  id?: string;
 }
 
 const AccessibleButton: FC<AccessibleButtonProps> = ({
@@ -128,8 +130,10 @@ const AccessibleButton: FC<AccessibleButtonProps> = ({
   onClick,
   className,
   ariaLabel,
+  id,
 }) => (
   <div
+    id={id}
     className={className}
     onClick={onClick}
     role="button"
@@ -195,9 +199,22 @@ const FileItemComponent: FC<{
     file: FileNode,
     ctx?: { anchorEl?: HTMLElement; origin: 'list' | 'preview' },
   ) => void;
+  onLocate?: (file: FileNode) => void;
   prefixCls?: string;
   hashId?: string;
-}> = ({ file, onClick, onDownload, onPreview, onShare, prefixCls, hashId }) => {
+  /** 是否在元素上绑定 id（默认 false） */
+  bindDomId?: boolean;
+}> = ({
+  file,
+  onClick,
+  onDownload,
+  onPreview,
+  onShare,
+  onLocate,
+  prefixCls,
+  hashId,
+  bindDomId = false,
+}) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const { locale } = useContext(I18nContext);
   const finalPrefixCls = prefixCls || getPrefixCls('workspace-file');
@@ -279,8 +296,14 @@ const FileItemComponent: FC<{
     );
   })();
 
-  // 分享按钮仅在文件 canShare 为 true 时显示
   const showShareButton = fileWithId.canShare === true;
+
+  const showLocationButton = fileWithId.canLocate === true;
+
+  const handleLocate = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onLocate?.(fileWithId);
+  };
 
   return (
     <AccessibleButton
@@ -368,6 +391,19 @@ const FileItemComponent: FC<{
                 <EyeIcon />
               </ActionIconBox>
             )}
+            {showLocationButton && (
+              <ActionIconBox
+                title={locale?.['workspace.file.location'] || '定位'}
+                onClick={handleLocate}
+                tooltipProps={{ mouseEnterDelay: 0.3 }}
+                className={classNames(
+                  `${finalPrefixCls}-item-action-btn`,
+                  hashId,
+                )}
+              >
+                <Locate />
+              </ActionIconBox>
+            )}
             {showShareButton && (
               <ActionIconBox
                 title={locale?.['workspace.file.share'] || '分享'}
@@ -400,6 +436,7 @@ const FileItemComponent: FC<{
       onClick={handleClick}
       className={classNames(`${finalPrefixCls}-item`, hashId)}
       ariaLabel={`${locale?.['workspace.file'] || '文件'}：${fileWithId.name}`}
+      id={bindDomId ? fileWithId.id : undefined}
     />
   );
 };
@@ -519,8 +556,10 @@ const FileGroupComponent: FC<{
     file: FileNode,
     ctx?: { anchorEl?: HTMLElement; origin: 'list' | 'preview' },
   ) => void;
+  onLocate?: (file: FileNode) => void;
   prefixCls?: string;
   hashId?: string;
+  bindDomId?: boolean;
 }> = ({
   group,
   onToggle,
@@ -529,8 +568,10 @@ const FileGroupComponent: FC<{
   onFileClick,
   onPreview,
   onShare,
+  onLocate,
   prefixCls,
   hashId,
+  bindDomId,
 }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const finalPrefixCls = prefixCls || getPrefixCls('workspace-file');
@@ -553,8 +594,10 @@ const FileGroupComponent: FC<{
               onDownload={onDownload}
               onPreview={onPreview}
               onShare={onShare}
+              onLocate={onLocate}
               prefixCls={finalPrefixCls}
               hashId={hashId}
+              bindDomId={!!bindDomId}
             />
           ))}
         </div>
@@ -563,62 +606,13 @@ const FileGroupComponent: FC<{
   );
 };
 
-/**
- * FileComponent 组件 - 文件管理组件
- *
- * 该组件提供一个完整的文件管理界面，支持文件列表显示、分组管理、
- * 文件预览、下载等功能。支持多种文件类型的预览和自定义预览内容。
- *
- * @component
- * @description 文件管理组件，支持文件列表、预览、下载等功能
- * @param {Object} props - 组件属性
- * @param {FileNode[]} props.nodes - 文件节点列表
- * @param {(files: FileNode[], groupType: FileType) => void} [props.onGroupDownload] - 分组下载回调
- * @param {(file: FileNode) => void} [props.onDownload] - 单个文件下载回调
- * @param {(file: FileNode) => void} [props.onFileClick] - 文件点击回调
- * @param {(type: FileType, collapsed: boolean) => void} [props.onToggleGroup] - 分组折叠/展开回调
- * @param {(file: FileNode) => Promise<React.ReactNode | FileNode>} [props.onPreview] - 文件预览回调
- * @param {Partial<MarkdownEditorProps>} [props.markdownEditorProps] - Markdown编辑器配置
- * @param {React.ReactNode | (() => React.ReactNode)} [props.emptyRender] - 自定义空状态渲染
- * @param {string} [props.keyword] - 搜索关键字（受控）
- * @param {(keyword: string) => void} [props.onChange] - 搜索关键字变化回调
- * @param {boolean} [props.showSearch] - 是否显示搜索框，默认显示
- * @param {string} [props.searchPlaceholder] - 搜索框占位符
- *
- * @example
- * ```tsx
- * <FileComponent
- *   nodes={fileNodes}
- *   onDownload={(file) => console.log('下载文件:', file.name)}
- *   onPreview={async (file) => {
- *     // 自定义预览逻辑
- *     return <div>预览内容</div>;
- *   }}
- *   markdownEditorProps={{
- *     theme: 'dark'
- *   }}
- *   emptyRender={<MyEmpty />}
- *   keyword={keyword}
- *   onChange={setKeyword}
- * />
- * ```
- *
- * @returns {React.ReactElement|null} 渲染的文件管理组件，无文件时返回null
- *
- * @remarks
- * - 支持文件分组显示和折叠/展开
- * - 支持多种文件类型的预览（图片、文档、代码等）
- * - 支持自定义预览内容和头部
- * - 提供文件下载和分组下载功能
- * - 支持Markdown文件的编辑器预览
- * - 处理异步预览的竞态条件
- */
 export const FileComponent: FC<{
   nodes: FileProps['nodes'];
   onGroupDownload?: FileProps['onGroupDownload'];
   onDownload?: FileProps['onDownload'];
   onShare?: FileProps['onShare'];
   onFileClick?: FileProps['onFileClick'];
+  onLocate?: FileProps['onLocate'];
   onToggleGroup?: FileProps['onToggleGroup'];
   onPreview?: FileProps['onPreview'];
   onBack?: FileProps['onBack'];
@@ -648,12 +642,15 @@ export const FileComponent: FC<{
   showSearch?: boolean;
   /** 搜索框占位符 */
   searchPlaceholder?: string;
+  /** 是否在元素上绑定 DOM id（默认 false） */
+  bindDomId?: FileProps['bindDomId'];
 }> = ({
   nodes,
   onGroupDownload,
   onDownload,
   onShare,
   onFileClick,
+  onLocate,
   onToggleGroup,
   onPreview,
   onBack,
@@ -668,6 +665,7 @@ export const FileComponent: FC<{
   onChange,
   showSearch = false,
   searchPlaceholder,
+  bindDomId = false,
 }) => {
   const [previewFile, setPreviewFile] = useState<FileNode | null>(null);
   const [customPreviewContent, setCustomPreviewContent] =
@@ -987,6 +985,7 @@ export const FileComponent: FC<{
               handleDefaultShare(file, locale);
             }
           }}
+          onLocate={onLocate}
           customContent={customPreviewContent || undefined}
           customHeader={customPreviewHeader || undefined}
           customActions={
@@ -1041,8 +1040,10 @@ export const FileComponent: FC<{
             onFileClick={onFileClick}
             onPreview={handlePreview}
             onShare={onShare}
+            onLocate={onLocate}
             prefixCls={prefixCls}
             hashId={hashId}
+            bindDomId={bindDomId}
           />
         );
       }
@@ -1056,8 +1057,10 @@ export const FileComponent: FC<{
           onDownload={onDownload}
           onShare={onShare}
           onPreview={handlePreview}
+          onLocate={onLocate}
           prefixCls={prefixCls}
           hashId={hashId}
+          bindDomId={bindDomId}
         />
       );
     });

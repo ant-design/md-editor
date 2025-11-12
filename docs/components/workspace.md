@@ -159,6 +159,7 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 | onChange            | 搜索关键字变化回调（外部自行过滤）                            | `(keyword: string) => void`                                                                                     | -       |
 | showSearch          | 是否显示搜索框（默认不显示）                                  | `boolean`                                                                                                       | `false` |
 | searchPlaceholder   | 搜索框占位符                                                  | `string`                                                                                                        | -       |
+| bindDomId           | 是否在每个文件项的根元素上绑定 `id` 属性                      | `boolean`                                                                                                       | `false` |
 | tab                 | 标签页配置                                                    | `TabConfiguration`                                                                                              | -       |
 
 #### FileActionRef
@@ -207,6 +208,13 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 文件类型键值，内置常见文本/图片/视频/音频/办公文档/压缩包/代码等类型（如 `plainText`、`markdown`、`image`、`video`、`audio`、`pdf`、`word`、`excel`、`csv`、`archive`、`javascript`、`typescript`、`react`、`python`、`java`、`cpp`、`c`、`csharp`、`go`、`rust`、`php`、`ruby`、`shell`、`powershell`、`sql`、`lua`、`perl`、`scala`、`config`)。
 
 #### FileCategory
+#### DOM id 绑定策略
+
+- 当 `bindDomId` 为 `false`（默认）：不会在文件项根元素写入 `id` 属性，更推荐通过选择器如 `[data-testid]` 或 className 进行自动化选择。
+- 当 `bindDomId` 为 `true`：组件会在文件项根元素绑定 `id`。来源遵循：
+  - 若传入的 `FileNode.id` 存在，则使用该值；
+  - 否则使用组件内部生成的稳定 id（基于节点内容生成并缓存）。
+
 
 文件分类枚举，用于对文件类型进行分组：
 

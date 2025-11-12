@@ -321,6 +321,8 @@ export interface FileNode extends BaseNode {
   canDownload?: boolean; // 用户自定义是否可以下载（默认显示，设置为 false 隐藏）
   /** 用户自定义是否可以分享（默认隐藏，设置为 true 显示） */
   canShare?: boolean;
+  /** 用户自定义是否可以定位（默认隐藏，设置为 true 显示） */
+  canLocate?: boolean;
   loading?: boolean; // 文件是否处于加载中
 }
 
@@ -349,6 +351,7 @@ export interface FileProps extends BaseChildProps {
   onGroupDownload?: (files: FileNode[], groupType: FileType) => void;
   onDownload?: (file: FileNode) => void;
   onFileClick?: (file: FileNode) => void;
+  onLocate?: (file: FileNode) => void;
   onToggleGroup?: (groupType: FileType, collapsed: boolean) => void;
   /** 重置标识，用于重置预览状态（内部使用） */
   resetKey?: number;
@@ -418,6 +421,12 @@ export interface FileProps extends BaseChildProps {
   showSearch?: boolean;
   /** 搜索框占位符 */
   searchPlaceholder?: string;
+  /**
+   * 是否在文件项根元素上绑定 DOM id
+   * @default false
+   * @description 置为 false 时，不会向元素写入 id 属性（不影响 React key）
+   */
+  bindDomId?: boolean;
 }
 
 export interface CustomProps extends BaseChildProps {
