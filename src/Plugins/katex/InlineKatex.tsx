@@ -80,7 +80,7 @@ export const InlineKatex = ({
           position: 'relative',
         }}
       >
-        <span contentEditable={false} ref={renderEl} style={{ fontSize: 0 }} />
+        <span contentEditable={false} ref={renderEl} />
         <span
           style={{
             display: 'none',
