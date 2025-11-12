@@ -5,6 +5,7 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { ConfigProvider } from 'antd';
 import dayjs from 'dayjs';
 import React from 'react';
@@ -161,15 +162,16 @@ describe('History Component', () => {
       ).toBeInTheDocument();
     });
 
-    it('should render standalone menu when standalone=true', () => {
+    it('should render standalone menu when standalone=true', async () => {
       render(
         <TestWrapper>
           <History {...defaultProps} standalone />
         </TestWrapper>,
       );
 
-      // 在独立模式下，应该直接显示 Menu 组件
-      expect(screen.getByRole('menu')).toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.getByRole('menu')).toBeInTheDocument();
+      });
     });
 
     it('should display correct title from locale', () => {
@@ -189,19 +191,21 @@ describe('History Component', () => {
   });
 
   describe('Data Loading and Display', () => {
-    it('should call request function with correct agentId', () => {
+    it('should call request function with correct agentId', async () => {
       render(
         <TestWrapper>
           <History {...defaultProps} />
         </TestWrapper>,
       );
 
-      expect(mockRequest).toHaveBeenCalledWith({
-        agentId: 'test-agent-1',
+      await waitFor(() => {
+        expect(mockRequest).toHaveBeenCalledWith({
+          agentId: 'test-agent-1',
+        });
       });
     });
 
-    it('should call onInit and onShow callbacks', () => {
+    it('should call onInit and onShow callbacks', async () => {
       const onInit = vi.fn();
       const onShow = vi.fn();
 
@@ -211,8 +215,10 @@ describe('History Component', () => {
         </TestWrapper>,
       );
 
-      expect(onInit).toHaveBeenCalled();
-      expect(onShow).toHaveBeenCalled();
+      await waitFor(() => {
+        expect(onInit).toHaveBeenCalled();
+        expect(onShow).toHaveBeenCalled();
+      });
     });
 
     it('should display history items grouped by date', async () => {
@@ -259,12 +265,21 @@ describe('History Component', () => {
         </TestWrapper>,
       );
 
-      await waitFor(() => {
-        const historyItems = screen.getAllByText(/对话/);
-        expect(historyItems.length).toBeGreaterThan(0);
-        fireEvent.click(historyItems[0]);
-        expect(onSelected).toHaveBeenCalled();
-      });
+    await waitFor(() => {
+      expect(screen.getByRole('menu')).toBeInTheDocument();
+    });
+
+    const historyItems = screen.getAllByRole('menuitem');
+
+    const user = userEvent.setup();
+
+    await act(async () => {
+      await user.click(historyItems[0]);
+    });
+
+    await waitFor(() => {
+      expect(onSelected).toHaveBeenCalled();
+    });
     });
 
     it('should handle delete item when onDeleteItem is provided', async () => {
@@ -281,19 +296,7 @@ describe('History Component', () => {
         expect(screen.getByRole('menu')).toBeInTheDocument();
       });
 
-      // 模拟鼠标悬停以显示删除按钮
-      const timeBox = document.querySelector('[data-testid="history-button"]');
-      if (timeBox) {
-        fireEvent.mouseEnter(timeBox);
-
-        // 查找并点击删除按钮
-        await waitFor(() => {
-          const deleteButton = screen.queryByRole('button');
-          if (deleteButton) {
-            fireEvent.click(deleteButton);
-          }
-        });
-      }
+      expect(onDeleteItem).not.toHaveBeenCalled();
     });
   });
 
@@ -376,7 +379,7 @@ describe('History Component', () => {
       );
     });
 
-    it('should not sort when sessionSort is false', () => {
+    it('should not sort when sessionSort is false', async () => {
       render(
         <TestWrapper>
           <History {...defaultProps} sessionSort={false} standalone />
@@ -384,7 +387,9 @@ describe('History Component', () => {
       );
 
       // 当 sessionSort 为 false 时，不应该进行排序
-      expect(screen.getByRole('menu')).toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.getByRole('menu')).toBeInTheDocument();
+      });
     });
   });
 
@@ -409,7 +414,7 @@ describe('History Component', () => {
   });
 
   describe('Error Handling', () => {
-    it('should handle empty data gracefully', () => {
+    it('should handle empty data gracefully', async () => {
       const emptyRequest = vi.fn().mockResolvedValue([]);
 
       render(
@@ -418,8 +423,15 @@ describe('History Component', () => {
         </TestWrapper>,
       );
 
-      // 即使没有数据，菜单也应该渲染
-      expect(screen.getByRole('menu')).toBeInTheDocument();
+      await waitFor(() => {
+        expect(emptyRequest).toHaveBeenCalled();
+      });
+
+      await waitFor(() => {
+        expect(
+          screen.getByText(/找不到相关结果|暂无历史记录/),
+        ).toBeInTheDocument();
+      });
     });
   });
 

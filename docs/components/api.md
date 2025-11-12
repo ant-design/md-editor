@@ -398,81 +398,6 @@ export default () => {
 };
 ```
 
-### 代码编辑器主题配置
-
-```tsx
-import { MarkdownEditor } from '@ant-design/agentic-ui';
-import { Select } from 'antd';
-import { useState } from 'react';
-
-export default () => {
-  const [theme, setTheme] = useState('chrome');
-
-  const themes = [
-    { label: 'Chrome (浅色)', value: 'chrome' },
-    { label: 'Monokai (深色)', value: 'monokai' },
-    { label: 'GitHub', value: 'github' },
-    { label: 'Twilight', value: 'twilight' },
-    { label: 'Dracula', value: 'dracula' },
-    { label: 'Tomorrow Night', value: 'tomorrow_night' },
-    { label: 'Solarized Dark', value: 'solarized_dark' },
-    { label: 'Solarized Light', value: 'solarized_light' },
-    { label: 'Nord Dark', value: 'nord_dark' },
-  ];
-
-  return (
-    <>
-      <div style={{ marginBottom: 16 }}>
-        <span style={{ marginRight: 8 }}>选择主题：</span>
-        <Select
-          value={theme}
-          onChange={setTheme}
-          options={themes}
-          style={{ width: 200 }}
-        />
-      </div>
-      <MarkdownEditor
-        initValue={`# 代码编辑器主题示例
-
-\`\`\`javascript
-// 这是一个示例代码块
-function fibonacci(n) {
-  if (n <= 1) return n;
-  return fibonacci(n - 1) + fibonacci(n - 2);
-}
-
-const result = fibonacci(10);
-console.log('斐波那契数列第10项:', result);
-\`\`\`
-
-\`\`\`python
-# Python 示例
-def quick_sort(arr):
-    if len(arr) <= 1:
-        return arr
-    pivot = arr[len(arr) // 2]
-    left = [x for x in arr if x < pivot]
-    middle = [x for x in arr if x == pivot]
-    right = [x for x in arr if x > pivot]
-    return quick_sort(left) + middle + quick_sort(right)
-
-print(quick_sort([3, 6, 8, 10, 1, 2, 1]))
-\`\`\`
-`}
-        codeProps={{
-          theme: theme,
-          fontSize: 14,
-          showLineNumbers: true,
-          showGutter: true,
-          wrap: true,
-        }}
-        height="500px"
-      />
-    </>
-  );
-};
-```
-
 ### 图片上传功能
 
 ```tsx
@@ -504,6 +429,18 @@ export default () => {
 
   return (
     <MarkdownEditor
+      toolBar={{
+        enable: true,
+        extra: [
+          <button
+            type="button"
+            key="save"
+            onClick={() => console.log(editorRef.current?.getValue())}
+          >
+            保存
+          </button>,
+        ],
+      }}
       initValue="拖拽图片到编辑器或使用工具栏上传按钮"
       image={{
         upload: handleImageUpload,
