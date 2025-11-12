@@ -68,7 +68,7 @@ History 组件用于显示和管理聊天历史记录，支持两种显示模式
 | standalone          | 是否以独立模式显示                   | `boolean`                                                                          | `false` |
 | onInit              | 组件初始化时的回调函数               | `() => void`                                                                       | -       |
 | onShow              | 组件显示时的回调函数                 | `() => void`                                                                       | -       |
-| onSelected          | 选择历史记录项时的回调函数           | `(sessionId: string) => void`                                                      | -       |
+| onSelected *(deprecated)* | 选择历史记录项时的回调函数，返回完整的历史记录数据 | `(item: HistoryDataType) => void`                                                      | -       |
 | onDeleteItem        | 删除历史记录项时的回调函数           | `(sessionId: string) => void`                                                      | -       |
 | customDateFormatter | 自定义日期格式化函数                 | `(date: number \| string \| Date) => string`                                       | -       |
 | groupBy             | 自定义分组函数                       | `(item: HistoryDataType) => string`                                                | -       |

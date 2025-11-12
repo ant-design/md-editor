@@ -118,6 +118,12 @@ export const generateHistoryItems = ({
           return {
             key: item.sessionId || `item-${item.id}`,
             type: 'item' as const,
+            onClick: () => {
+              if (!item.sessionId) {
+                return;
+              }
+              onClick(item.sessionId, item);
+            },
             label: (
               <HistoryItem
                 item={item}

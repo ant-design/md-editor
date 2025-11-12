@@ -84,7 +84,7 @@ export const History: React.FC<HistoryProps> = (props) => {
     onSelectionChange: handleSelectionChange,
     onClick: (sessionId, item) => {
       props.onClick?.(sessionId, item);
-      props.onSelected?.(sessionId);
+      props.onSelected?.(item);
       setOpen(false);
     },
     groupLabelRender: props.groupLabelRender,
