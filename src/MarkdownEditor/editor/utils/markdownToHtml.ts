@@ -37,7 +37,7 @@ export const markdownToHtml = async (markdown: string): Promise<string> => {
       .use(remarkGfm)
       .use(fixStrongWithSpecialChars)
       .use(remarkMath as any, {
-        singleDollarTextMath: false, // 禁用单美元符号数学公式
+        singleDollarTextMath: true, // 允许单美元符号渲染内联数学公式
       })
       .use(remarkFrontmatter, ['yaml'])
       .use(remarkRehype, { allowDangerousHtml: true })
@@ -81,7 +81,7 @@ export const markdownToHtmlSync = (markdown: string): string => {
       .use(remarkGfm)
       .use(fixStrongWithSpecialChars)
       .use(remarkMath as any, {
-        singleDollarTextMath: false, // 禁用单美元符号数学公式
+        singleDollarTextMath: true, // 允许单美元符号渲染内联数学公式
       })
       .use(remarkFrontmatter, ['yaml'])
       .use(remarkRehype, { allowDangerousHtml: true })

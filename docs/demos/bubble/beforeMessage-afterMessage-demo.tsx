@@ -88,6 +88,7 @@ console.log('Hello, World!');
       <div style={{ padding: 24 }}>
         <Bubble
           originData={mockMessageData}
+          pure
           bubbleRenderConfig={{
             beforeMessageRender: customBeforeMessageRender,
             afterMessageRender: customAfterMessageRender,

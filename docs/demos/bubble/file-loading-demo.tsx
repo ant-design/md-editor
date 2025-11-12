@@ -148,6 +148,7 @@ export default () => {
           avatar={mockFileMessage.meta!}
           placement="left"
           bubbleRef={bubbleRef}
+          pure
           markdownRenderConfig={{
             tableConfig: {
               pure: true,
@@ -181,6 +182,7 @@ export default () => {
           }}
           placement="right"
           bubbleRef={bubbleRef}
+          pure
           originData={{
             id: '3',
             role: 'user',

@@ -310,6 +310,7 @@ export default () => {
             key={msg.id}
             bubbleRef={bubbleRef}
             avatar={msg.meta!}
+            pure
             originData={msg}
             placement={msg.role === 'user' ? 'right' : 'left'}
             bubbleRenderConfig={{ afterMessageRender }}

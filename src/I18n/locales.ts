@@ -181,6 +181,8 @@ export const cnLabels = {
   'chat.history.historyTasks': '历史任务',
   'chat.history.historyChats': '历史对话',
   'chat.task.search.placeholder': '搜索任务',
+  'chat.history.empty.chat.title': '找不到相关结果',
+  'chat.history.empty.chat.description': '换个关键词试试吧',
   // TaskList 组件相关
   'taskList.expand': '展开',
   'taskList.collapse': '收起',
@@ -540,6 +542,8 @@ export const enLabels: typeof cnLabels = {
   'chat.history.historyTasks': 'History Tasks',
   'chat.history.historyChats': 'History Chats',
   'chat.task.search.placeholder': 'Search Task',
+  'chat.history.empty.chat.title': 'No related results found',
+  'chat.history.empty.chat.description': 'Try a different keyword',
   // TaskList component related
   'taskList.expand': 'Expand',
   'taskList.collapse': 'Collapse',

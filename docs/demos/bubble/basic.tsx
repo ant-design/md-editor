@@ -238,6 +238,7 @@ export default () => {
           }}
           placement="left"
           bubbleRef={bubbleRef}
+          pure
           originData={mockMessage}
           onLike={handleLike}
           onCancelLike={handleCancelLike}
@@ -256,6 +257,7 @@ export default () => {
           avatar={mockUserMessage.meta!}
           placement="right"
           bubbleRef={bubbleRef}
+          pure
           originData={mockUserMessage}
           onReply={handleReply}
           onAvatarClick={handleAvatarClick}
@@ -271,6 +273,7 @@ export default () => {
           avatar={mockFileMessage.meta!}
           placement="left"
           bubbleRef={bubbleRef}
+          pure
           originData={mockFileMessage}
           fileViewConfig={{
             maxDisplayCount: 2,

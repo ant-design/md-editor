@@ -69,6 +69,7 @@ const PreMessageSameRoleDemo: React.FC = () => {
             originData={messages[0]}
             avatar={{ name: '用户', avatar: '👤' }}
             placement="right"
+          pure
           />
 
           {/* 第二条用户消息 - 隐藏头像和标题（preMessageSameRole 生效） */}
@@ -77,6 +78,7 @@ const PreMessageSameRoleDemo: React.FC = () => {
             avatar={{ name: '用户', avatar: '👤' }}
             placement="right"
             preMessage={messages[0]}
+          pure
           />
 
           {/* 第一条助手消息 - 显示头像和标题 */}
@@ -84,6 +86,7 @@ const PreMessageSameRoleDemo: React.FC = () => {
             originData={messages[2]}
             avatar={{ name: 'AI助手', avatar: '🤖' }}
             placement="left"
+          pure
           />
 
           {/* 第二条助手消息 - 隐藏头像和标题（preMessageSameRole 生效） */}
@@ -92,6 +95,7 @@ const PreMessageSameRoleDemo: React.FC = () => {
             avatar={{ name: 'AI助手', avatar: '🤖' }}
             placement="left"
             preMessage={messages[2]}
+          pure
           />
 
           {/* 第三条用户消息 - 显示头像和标题（角色切换） */}
@@ -100,6 +104,7 @@ const PreMessageSameRoleDemo: React.FC = () => {
             avatar={{ name: '用户', avatar: '👤' }}
             placement="right"
             preMessage={messages[3]}
+          pure
           />
 
           {/* 第四条用户消息 - 隐藏头像和标题（preMessageSameRole 生效） */}
@@ -108,6 +113,7 @@ const PreMessageSameRoleDemo: React.FC = () => {
             avatar={{ name: '用户', avatar: '👤' }}
             placement="right"
             preMessage={messages[4]}
+          pure
           />
         </div>
       </Card>

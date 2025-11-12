@@ -575,37 +575,40 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     onChange: props.attachment?.onFileMapChange,
   });
 
+  const hasEnlargeAction = !!props?.enlargeable?.enable;
+  const hasRefineAction = !!props?.refinePrompt?.enable;
+  const hasCustomQuickAction = !!props?.quickActionRender;
+  const hasActionsRender = !!props?.actionsRender;
+  const hasToolsRender = !!props?.toolsRender;
+
+  const quickActionCount =
+    Number(hasEnlargeAction) +
+    Number(hasRefineAction) +
+    Number(hasCustomQuickAction);
+  const auxiliaryActionCount =
+    Number(hasActionsRender) + Number(hasToolsRender);
+  const totalActionCount = quickActionCount + auxiliaryActionCount;
+
   // 是否需要多行布局
-  const isMultiRowLayout = useMemo(() => {
-    return !!(
-      props?.quickActionRender ||
-      props?.refinePrompt?.enable ||
-      props?.actionsRender ||
-      props?.toolsRender
-    );
-  }, [
-    props?.quickActionRender,
-    props?.refinePrompt?.enable,
-    props?.actionsRender,
-    props?.toolsRender,
-  ]);
+  const isMultiRowLayout = totalActionCount > 0;
 
   // 计算最小高度
   const computedMinHeight = useMemo(() => {
     if (isEnlarged) return 'auto';
+    if (props.style?.minHeight !== undefined) return props.style.minHeight;
     // 如果同时有放大按钮和提示词优化按钮，最小高度为 140px
-    if (props?.enlargeable?.enable && props?.refinePrompt?.enable) {
-      return 140;
-    }
+    if (hasEnlargeAction && hasRefineAction) return 140;
+    if (totalActionCount === 1) return 90;
     // 其他多行布局情况，最小高度为 106px
     if (isMultiRowLayout) return 106;
     // 默认使用传入的 minHeight 或 0
     return props.style?.minHeight || 0;
   }, [
     isEnlarged,
-    props?.enlargeable?.enable,
-    props?.refinePrompt?.enable,
+    hasEnlargeAction,
+    hasRefineAction,
     isMultiRowLayout,
+    totalActionCount,
     props.style?.minHeight,
   ]);
 
@@ -1033,7 +1036,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           ) : (
             sendActionsNode
           )}
-          {props?.quickActionRender || props.refinePrompt?.enable ? (
+          {props?.quickActionRender ||
+          props.refinePrompt?.enable ||
+          props.enlargeable?.enable ? (
             <QuickActions
               ref={quickActionsRef}
               value={value}

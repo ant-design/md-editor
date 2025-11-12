@@ -287,6 +287,7 @@ export default function ClassNamesExtendedDemo() {
           bubbleList={sampleMessages}
           classNames={customClassNames}
           styles={customStyles}
+          pure
           markdownRenderConfig={{
             tableConfig: {
               pure: true,
@@ -353,6 +354,7 @@ const customStyles = {
   bubbleList={messages}
   classNames={customClassNames}
   styles={customStyles}
+  pure
 />`}
         </pre>
       </div>

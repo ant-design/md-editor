@@ -14,6 +14,48 @@ describe('parserMarkdownToSlateNode', () => {
       });
     });
 
+    it('should parse single dollar inline math into inline-katex node', () => {
+      const markdown = 'Inline math $a^2 + b^2 = c^2$ stays inline.';
+      const { schema } = parserMarkdownToSlateNode(markdown);
+
+      expect(schema).toHaveLength(1);
+      const paragraph = schema[0] as any;
+      expect(paragraph.type).toBe('paragraph');
+
+      const inlineKatexNode = paragraph.children.find(
+        (child: any) => child?.type === 'inline-katex',
+      );
+      expect(inlineKatexNode).toMatchObject({
+        type: 'inline-katex',
+        children: [{ text: 'a^2 + b^2 = c^2' }],
+      });
+
+      const numericTextNode = paragraph.children.find(
+        (child: any) => child?.text === '$a^2 + b^2 = c^2$',
+      );
+      expect(numericTextNode).toBeUndefined();
+    });
+
+    it('should keep numeric content wrapped in dollars as plain text', () => {
+      const markdown = 'Price is $100$ only.';
+      const { schema } = parserMarkdownToSlateNode(markdown);
+
+      expect(schema).toHaveLength(1);
+      const paragraph = schema[0] as any;
+      expect(paragraph.type).toBe('paragraph');
+
+      const inlineKatexNode = paragraph.children.find(
+        (child: any) => child?.type === 'inline-katex',
+      );
+      expect(inlineKatexNode).toBeUndefined();
+
+      const numericParagraphNode = paragraph.children.find(
+        (child: any) => child?.type === 'paragraph',
+      );
+      expect(numericParagraphNode).toBeDefined();
+      expect(numericParagraphNode.children).toEqual([{ text: '$100$' }]);
+    });
+
     it('should handle paragraph with bold text', () => {
       const markdown = 'Normal text **bold text** and more';
       const result = parserMarkdownToSlateNode(markdown);

@@ -95,6 +95,7 @@ export default () => {
           avatar={mockMessage.meta!}
           placement="left"
           bubbleRef={bubbleRef}
+          pure
           originData={{
             ...mockMessage,
             typing: isLoading,
@@ -116,6 +117,7 @@ export default () => {
           }}
           placement="right"
           bubbleRef={bubbleRef}
+          pure
           originData={{
             id: '3',
             role: 'user',

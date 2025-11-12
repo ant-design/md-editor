@@ -65,6 +65,7 @@ export default () => {
         bubbleRef={bubbleRef}
         assistantMeta={assistantMeta}
         userMeta={userMeta}
+        pure
         markdownRenderConfig={{
           tableConfig: {
             pure: true,
