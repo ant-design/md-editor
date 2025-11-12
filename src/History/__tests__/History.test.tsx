@@ -277,8 +277,15 @@ describe('History Component', () => {
       await user.click(historyItems[0]);
     });
 
+    // Wait for the onSelected to be called with the correct arguments
     await waitFor(() => {
-      expect(onSelected).toHaveBeenCalled();
+      expect(onSelected).toHaveBeenCalledWith(
+        expect.objectContaining({
+          id: '1',
+          sessionId: 'session-1',
+          sessionTitle: '今日对话1',
+        }),
+      );
     });
     });
 

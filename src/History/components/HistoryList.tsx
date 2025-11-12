@@ -118,8 +118,12 @@ export const generateHistoryItems = ({
           return {
             key: item.sessionId || `item-${item.id}`,
             type: 'item' as const,
-            // 允许 GroupMenu 的外层菜单项点击也能触发选择逻辑（配合 MenuItem 的 item.onClick）
-            onClick: () => item.sessionId && onClick?.(item.sessionId!, item),
+            onClick: () => {
+              if (!item.sessionId) {
+                return;
+              }
+              onClick(item.sessionId, item);
+            },
             label: (
               <HistoryItem
                 item={item}
