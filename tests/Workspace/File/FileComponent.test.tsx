@@ -1188,12 +1188,17 @@ describe('FileComponent', () => {
         return (
           <div>
             <button
+              type="button"
               aria-label="update-header"
               onClick={() => setPreviewHeader('override.txt')}
             />
-            <button aria-label="share" onClick={() => share()} />
-            <button aria-label="download" onClick={() => download()} />
-            <button aria-label="back" onClick={() => back()} />
+            <button type="button" aria-label="share" onClick={() => share()} />
+            <button
+              type="button"
+              aria-label="download"
+              onClick={() => download()}
+            />
+            <button type="button" aria-label="back" onClick={() => back()} />
             <div data-testid="custom-preview-content">CP</div>
           </div>
         );
