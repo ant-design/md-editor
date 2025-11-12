@@ -106,6 +106,15 @@ export const History: React.FC<HistoryProps> = (props) => {
     runningId: props.agent?.runningId,
   });
 
+  const EmptyComponent = () =>
+    searchKeyword ? (
+      <HistoryEmpty />
+    ) : props.emptyRender ? (
+      props.emptyRender()
+    ) : (
+      <></>
+    );
+
   if (props.standalone) {
     return wrapSSR(
       <div
@@ -146,13 +155,7 @@ export const History: React.FC<HistoryProps> = (props) => {
           {props.slots?.beforeHistoryList?.(filteredList)}
 
           {items?.length === 0 && !props.loading ? (
-            searchKeyword ? (
-              <HistoryEmpty />
-            ) : props.emptyRender ? (
-              props.emptyRender()
-            ) : (
-              <></>
-            )
+            <EmptyComponent />
           ) : (
             <>
               <GroupMenu
@@ -196,13 +199,7 @@ export const History: React.FC<HistoryProps> = (props) => {
         <>
           {items?.length === 0 && !props?.loading ? (
             <div data-testid="empty-state-popover">
-              {searchKeyword ? (
-                <HistoryEmpty />
-              ) : props.emptyRender ? (
-                props.emptyRender()
-              ) : (
-                <HistoryEmpty />
-              )}
+              <EmptyComponent />
             </div>
           ) : (
             <GroupMenu

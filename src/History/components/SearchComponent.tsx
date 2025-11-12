@@ -179,6 +179,10 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
             height: 32,
             background: 'var(--color-gray-bg-card-light)',
           }}
+          onClear={() => {
+            setInputValue('');
+            handleSearchWithLoading('');
+          }}
           allowClear
           variant="filled"
           autoFocus

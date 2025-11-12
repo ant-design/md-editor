@@ -27,19 +27,20 @@ const HistoryEmptyRenderDemo = () => {
     return [];
   };
 
+  const items = [
+    { key: '1', text: '💸 关税对消费类基金的影响' },
+    {
+      key: '2',
+      text: '📝 恒生科技指数基金相关新闻',
+    },
+    {
+      key: '3',
+      text: '📊 数据分析与可视化',
+    },
+  ];
+
   // 自定义空状态渲染
   const renderEmpty = () => {
-    const items = [
-      { key: '1', text: '💸 关税对消费类基金的影响' },
-      {
-        key: '2',
-        text: '📝 恒生科技指数基金相关新闻',
-      },
-      {
-        key: '3',
-        text: '📊 数据分析与可视化',
-      },
-    ];
     return (
       <div style={{ padding: '16px 0px', textAlign: 'center' }}>
         <Flex
@@ -51,6 +52,7 @@ const HistoryEmptyRenderDemo = () => {
         >
           <img
             style={{ width: 64, height: 64, marginBottom: 8 }}
+            alt="empty"
             src="https://mdn.alipayobjects.com/huamei_rdqlck/afts/img/RknpTYULGZUAAAAAQVAAAAgADjlgAQFr/original"
           ></img>
           <div
