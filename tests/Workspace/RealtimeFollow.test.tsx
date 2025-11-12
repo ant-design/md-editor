@@ -154,7 +154,9 @@ describe('RealtimeFollow Component', () => {
       );
 
       await waitFor(() => {
-        expect(document.querySelector('.ant-agentic-md-editor')).toBeInTheDocument();
+        expect(
+          document.querySelector('.ant-agentic-md-editor'),
+        ).toBeInTheDocument();
       });
     });
 
@@ -243,6 +245,45 @@ describe('RealtimeFollow Component', () => {
 
       expect(screen.getByText('默认内容')).toBeInTheDocument();
     });
+
+    it('应该优先渲染 customContent（节点与函数）', () => {
+      const NodeContent = <div data-testid="custom-node">自定义内容</div>;
+
+      const { rerender, container } = render(
+        <TestWrapper>
+          <RealtimeFollow
+            data={{
+              type: 'default',
+              content: 'will be ignored',
+              status: 'done',
+              customContent: NodeContent,
+            }}
+          />
+        </TestWrapper>,
+      );
+      expect(screen.getByTestId('custom-node')).toBeInTheDocument();
+      // 再次以函数形式提供
+      rerender(
+        <TestWrapper>
+          <RealtimeFollow
+            data={{
+              type: 'default',
+              content: 'ignored again',
+              status: 'done',
+              customContent: () => (
+                <div data-testid="custom-node-fn">函数内容</div>
+              ),
+            }}
+          />
+        </TestWrapper>,
+      );
+      expect(screen.getByTestId('custom-node-fn')).toBeInTheDocument();
+      // 不应渲染编辑器或 iframe（优先 customContent）
+      expect(
+        container.querySelector('.ant-agentic-md-editor') ||
+          container.querySelector('iframe'),
+      ).toBeNull();
+    });
   });
 
   describe('RealtimeFollow - Empty State', () => {
@@ -260,7 +301,9 @@ describe('RealtimeFollow Component', () => {
       );
 
       // 在测试环境中，空状态不会特殊处理，直接显示编辑器
-      expect(container.querySelector('.ant-agentic-md-editor')).toBeInTheDocument();
+      expect(
+        container.querySelector('.ant-agentic-md-editor'),
+      ).toBeInTheDocument();
     });
 
     it('应该在测试环境中正常渲染编辑器（自定义渲染不生效）', () => {
@@ -280,7 +323,9 @@ describe('RealtimeFollow Component', () => {
       );
 
       // 测试环境中自定义渲染不生效
-      expect(container.querySelector('.ant-agentic-md-editor')).toBeInTheDocument();
+      expect(
+        container.querySelector('.ant-agentic-md-editor'),
+      ).toBeInTheDocument();
     });
 
     it('应该在测试环境中跳过加载状态', () => {
@@ -429,7 +474,54 @@ describe('RealtimeFollow Component', () => {
         </TestWrapper>,
       );
 
-      expect(document.querySelector('.ant-agentic-md-editor')).toBeInTheDocument();
+      expect(
+        document.querySelector('.ant-agentic-md-editor'),
+      ).toBeInTheDocument();
+    });
+
+    it('受控模式下点击分段仅触发回调，不自动切换视图', async () => {
+      const onViewModeChange = vi.fn();
+      const { rerender } = render(
+        <TestWrapper>
+          <RealtimeFollowList
+            data={{
+              type: 'html',
+              content: '<h1>测试</h1>',
+              viewMode: 'code',
+              onViewModeChange,
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+      // 当前为代码视图
+      expect(
+        document.querySelector('.ant-agentic-md-editor'),
+      ).toBeInTheDocument();
+      // 点击“预览”
+      fireEvent.click(screen.getByText('预览'));
+      expect(onViewModeChange).toHaveBeenCalledWith('preview');
+      // 仍应保持代码视图（未受控更新）
+      expect(
+        document.querySelector('.ant-agentic-md-editor'),
+      ).toBeInTheDocument();
+      // 外部受控切换后应变更为 iframe
+      rerender(
+        <TestWrapper>
+          <RealtimeFollowList
+            data={{
+              type: 'html',
+              content: '<h1>测试</h1>',
+              viewMode: 'preview',
+              onViewModeChange,
+              status: 'done',
+            }}
+          />
+        </TestWrapper>,
+      );
+      await waitFor(() => {
+        expect(document.querySelector('iframe')).toBeInTheDocument();
+      });
     });
 
     it('应该支持非受控的视图模式', async () => {
@@ -452,7 +544,9 @@ describe('RealtimeFollow Component', () => {
       fireEvent.click(codeButton);
 
       await waitFor(() => {
-        expect(document.querySelector('.ant-agentic-md-editor')).toBeInTheDocument();
+        expect(
+          document.querySelector('.ant-agentic-md-editor'),
+        ).toBeInTheDocument();
       });
     });
 
@@ -595,7 +689,9 @@ describe('RealtimeFollow Component', () => {
       );
 
       // 测试环境中直接显示编辑器
-      expect(container.querySelector('.ant-agentic-md-editor')).toBeInTheDocument();
+      expect(
+        container.querySelector('.ant-agentic-md-editor'),
+      ).toBeInTheDocument();
     });
 
     it('应该支持函数形式的自定义渲染（测试环境跳过）', () => {
@@ -649,7 +745,9 @@ describe('RealtimeFollow Component', () => {
       );
 
       // 测试环境中不显示自定义空状态渲染
-      expect(container.querySelector('.ant-agentic-md-editor')).toBeInTheDocument();
+      expect(
+        container.querySelector('.ant-agentic-md-editor'),
+      ).toBeInTheDocument();
     });
 
     it('应该处理视图模式变化回调', () => {
@@ -1074,7 +1172,9 @@ describe('RealtimeFollow Component', () => {
         </TestWrapper>,
       );
 
-      expect(document.querySelector('.ant-agentic-md-editor')).toBeInTheDocument();
+      expect(
+        document.querySelector('.ant-agentic-md-editor'),
+      ).toBeInTheDocument();
     });
 
     it('应该使用 locale 中的默认标签文本', () => {

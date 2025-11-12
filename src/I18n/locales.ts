@@ -211,6 +211,7 @@ export const cnLabels = {
   'workspace.file.download': '下载',
   'workspace.file.share': '分享',
   'workspace.file.preview': '预览',
+  'workspace.file.location': '定位',
   'workspace.file.linkCopied': '已复制链接',
   'workspace.file.copyFailed': '复制失败',
   // MarkdownInputField 组件相关
@@ -571,6 +572,7 @@ export const enLabels: typeof cnLabels = {
   'workspace.file.download': 'Download',
   'workspace.file.share': 'Share',
   'workspace.file.preview': 'Preview',
+  'workspace.file.location': 'Location',
   'workspace.file.linkCopied': 'Link copied',
   'workspace.file.copyFailed': 'Copy failed',
   // MarkdownInputField component related

@@ -86,7 +86,6 @@ const resolveTabConfig = (
   count: tab?.count,
 });
 
-// 子组件
 const RealtimeComponent: FC<RealtimeProps> = ({ data }) =>
   data ? <RealtimeFollowList data={data} /> : null;
 const BrowserComponent: FC<BrowserProps> = ({ data }) =>
@@ -96,7 +95,6 @@ const TaskComponent: FC<TaskProps> = ({ data }) =>
 const FileComponent: FC<FileProps> = (props) => <File {...props} />;
 const CustomComponent: FC<CustomProps> = ({ children }) => children || null;
 
-// 组件类型限制
 type WorkspaceChildComponent =
   | typeof RealtimeComponent
   | typeof BrowserComponent
@@ -113,48 +111,8 @@ const COMPONENT_MAP = new Map<WorkspaceChildComponent, ComponentType>([
 ]);
 
 /**
- * Workspace 组件 - 工作空间组件
- *
- * 该组件提供一个多标签页的工作空间界面，支持实时跟随、浏览器、任务、文件等多种功能模块。
- * 每个标签页可以独立配置，支持自定义图标、标题、计数等功能。
- *
- * @component
- * @description 工作空间组件，提供多标签页功能模块管理
- * @param {WorkspaceProps} props - 组件属性
- * @param {string} [props.activeTabKey] - 当前激活的标签页key
- * @param {(key: string) => void} [props.onTabChange] - 标签页切换回调
- * @param {React.CSSProperties} [props.style] - 自定义样式
- * @param {string} [props.className] - 自定义CSS类名
- * @param {string} [props.title] - 工作空间标题
- * @param {() => void} [props.onClose] - 关闭回调
- * @param {boolean} [props.pure] - 纯净模式，关闭阴影和边框
- * @param {React.ReactNode} [props.children] - 子组件，支持Workspace.Realtime、Workspace.Browser等
- *
- * @example
- * ```tsx
- * <Workspace
- *   title="我的工作空间"
- *   activeTabKey="realtime"
- *   onTabChange={(key) => console.log('切换到:', key)}
- *   onClose={() => console.log('关闭工作空间')}
- * >
- *   <Workspace.Realtime data={realtimeData} />
- *   <Workspace.Browser data={browserData} />
- *   <Workspace.Task data={taskData} />
- *   <Workspace.File {...fileProps} />
- * </Workspace>
- * ```
- *
- * @returns {React.ReactElement} 渲染的工作空间组件
- *
- * @remarks
- * - 支持多种功能模块标签页
- * - 自动根据子组件生成标签页
- * - 支持标签页的展开/折叠状态管理
- * - 提供响应式布局适配
- * - 支持自定义标签页配置
- * - 集成国际化支持
- * - 提供关闭功能
+ * 工作空间组件
+ * 提供多标签页界面，支持实时跟随、浏览器、任务、文件等功能模块
  */
 const Workspace: FC<WorkspaceProps> & {
   Realtime: typeof RealtimeComponent;
@@ -178,14 +136,12 @@ const Workspace: FC<WorkspaceProps> & {
   const { wrapSSR, hashId } = useWorkspaceStyle(prefixCls);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const [segmentedKey, setSegmentedKey] = useState(0); // ⭐ 用于强制刷新 Segmented
-  const [resetKey, setResetKey] = useState(0); // 用于重置 FileComponent 状态
+  const [segmentedKey, setSegmentedKey] = useState(0);
+  const [resetKey, setResetKey] = useState(0);
 
   const displayTitle = title ?? (locale?.['workspace.title'] || 'Workspace');
   const defaultConfig = DEFAULT_CONFIG(locale);
   const [internalActiveTab, setInternalActiveTab] = useState('');
-
-  // 构造 tabs
   const availableTabs = useMemo((): TabItem[] => {
     const tabs: TabItem[] = [];
     React.Children.forEach(children, (child, index) => {
@@ -203,7 +159,7 @@ const Workspace: FC<WorkspaceProps> & {
       tabs.push({
         key: tabConfig.key,
         icon: tabConfig.icon,
-        componentType, // 保存组件类型
+        componentType,
         label: (
           <div className={classNames(`${prefixCls}-tab-item`, hashId)}>
             <span className={classNames(`${prefixCls}-tab-title`, hashId)}>
@@ -218,17 +174,13 @@ const Workspace: FC<WorkspaceProps> & {
         ),
         content: React.createElement(child.type, {
           ...child.props,
-          // 为 FileComponent 传递重置标识，用于重置预览状态
-          ...(componentType === ComponentType.FILE && {
-            resetKey,
-          }),
+          ...(componentType === ComponentType.FILE && { resetKey }),
         }),
       });
     });
     return tabs;
   }, [children, defaultConfig, hashId, prefixCls]);
 
-  // 同步 activeTab 状态
   useEffect(() => {
     if (!availableTabs.length) return;
     const isControlled = activeTabKey !== undefined;
@@ -243,7 +195,7 @@ const Workspace: FC<WorkspaceProps> & {
     }
   }, [availableTabs, activeTabKey, internalActiveTab, onTabChange]);
 
-  // 🚀 关键修复：监听容器宽度变化，强制 Segmented 重新渲染
+  // 监听容器宽度变化，强制 Segmented 重新渲染
   useEffect(() => {
     if (!containerRef.current) return;
     const el = containerRef.current;
@@ -253,7 +205,6 @@ const Workspace: FC<WorkspaceProps> & {
       for (const entry of entries) {
         const width = entry.contentRect.width;
         if (width > 0 && lastWidth === 0) {
-          // 从隐藏状态切换到显示状态，强制刷新 Segmented
           setSegmentedKey((k) => k + 1);
         }
         lastWidth = width;
@@ -273,7 +224,6 @@ const Workspace: FC<WorkspaceProps> & {
   const handleTabChange = (key: string | number) => {
     const tabKey = String(key);
     if (activeTabKey === undefined) setInternalActiveTab(tabKey);
-    // 标签页切换时，增加重置标识以重置所有 FileComponent 的预览状态
     setResetKey((prev) => prev + 1);
     onTabChange?.(tabKey);
   };
@@ -294,7 +244,6 @@ const Workspace: FC<WorkspaceProps> & {
       style={style}
       data-testid="workspace"
     >
-      {/* header */}
       <div
         className={classNames(`${prefixCls}-header`, hashId)}
         data-testid="workspace-header"
@@ -315,14 +264,13 @@ const Workspace: FC<WorkspaceProps> & {
         )}
       </div>
 
-      {/* tabs */}
       {availableTabs.length > 1 && (
         <div
           className={classNames(`${prefixCls}-tabs`, hashId)}
           data-testid="workspace-tabs"
         >
           <Segmented
-            key={segmentedKey} // ⭐ 每次宽度从 0 变为 >0，重新挂载
+            key={segmentedKey}
             className={classNames(`${prefixCls}-segmented`, hashId)}
             options={availableTabs.reduce(
               (acc, { label, key, icon, componentType }, index) => {
@@ -352,7 +300,6 @@ const Workspace: FC<WorkspaceProps> & {
         </div>
       )}
 
-      {/* content */}
       <div
         className={classNames(`${prefixCls}-content`, hashId)}
         data-testid="workspace-content"
