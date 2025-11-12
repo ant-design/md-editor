@@ -147,6 +147,69 @@ describe('BubbleList', () => {
     });
   });
 
+  describe('loading state', () => {
+    it('should render SkeletonList when loading is true', () => {
+      const bubbleList: MessageBubbleData[] = [
+        createMockBubbleData('1', 'user', 'Test message'),
+      ];
+
+      const { container } = render(
+        <BubbleConfigProvide>
+          <BubbleList bubbleList={bubbleList} loading={true} />
+        </BubbleConfigProvide>,
+      );
+
+      // 验证渲染了加载状态的容器
+      const loadingContainer = container.firstChild as HTMLElement;
+      expect(loadingContainer).toBeInTheDocument();
+      expect(loadingContainer).toHaveStyle({ padding: '24px' });
+
+      // 验证渲染了 SkeletonList 组件
+      const skeletonList = container.querySelector('.ant-skeleton');
+      expect(skeletonList).toBeInTheDocument();
+    });
+
+    it('should not render SkeletonList when loading is false', () => {
+      const bubbleList: MessageBubbleData[] = [
+        createMockBubbleData('1', 'user', 'Test message'),
+      ];
+
+      const { container } = render(
+        <BubbleConfigProvide>
+          <BubbleList bubbleList={bubbleList} loading={false} />
+        </BubbleConfigProvide>,
+      );
+
+      // 验证没有渲染加载状态的容器
+      const loadingContainers = container.querySelectorAll('.ant-chat-list-loading');
+      expect(loadingContainers.length).toBe(0);
+
+      // 验证正常渲染了消息列表
+      const chatList = container.querySelector('[data-chat-list]');
+      expect(chatList).toBeInTheDocument();
+    });
+
+    it('should not render SkeletonList when loading is undefined', () => {
+      const bubbleList: MessageBubbleData[] = [
+        createMockBubbleData('1', 'user', 'Test message'),
+      ];
+
+      const { container } = render(
+        <BubbleConfigProvide>
+          <BubbleList bubbleList={bubbleList} />
+        </BubbleConfigProvide>,
+      );
+
+      // 验证没有渲染加载状态的容器
+      const loadingContainers = container.querySelectorAll('.ant-chat-list-loading');
+      expect(loadingContainers.length).toBe(0);
+
+      // 验证正常渲染了消息列表
+      const chatList = container.querySelector('[data-chat-list]');
+      expect(chatList).toBeInTheDocument();
+    });
+  });
+
   describe('onCancelLike callback', () => {
     it('should call onCancelLike when provided', () => {
       const bubbleList: MessageBubbleData[] = [

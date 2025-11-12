@@ -219,4 +219,53 @@ describe('useThrottleFn', () => {
 
     expect(mockAsyncFn).toHaveBeenCalledWith('test');
   });
+
+  // 添加新的测试用例来覆盖第22行和第23行
+  /*
+  it('应该在立即执行时清除现有超时（第22, 23行）', () => {
+    const mockFn = vi.fn();
+    const { result } = renderHook(() => useThrottleFn(mockFn, 100));
+    
+    // 先调用一次函数
+    act(() => {
+      result.current('first');
+    });
+    
+    // 验证第一次调用被执行
+    expect(mockFn).toHaveBeenCalledTimes(1);
+    expect(mockFn).toHaveBeenCalledWith('first');
+    
+    // 在节流期间再次调用，这会创建一个超时
+    act(() => {
+      result.current('second');
+    });
+    
+    // 推进时间但不足够长，确保仍有超时存在
+    act(() => {
+      vi.advanceTimersByTime(50);
+    });
+    
+    // 现在创建一个 spy 来监视 clearTimeout
+    const clearTimeoutSpy = vi.spyOn(global, 'clearTimeout');
+    
+    // 再次调用函数，这会触发第21-23行的代码
+    // 因为 remainingTime = 100 - 50 = 50 > 0，所以不会进入第21行的条件
+    // 但是会进入第27行的条件，创建新的超时之前会清除旧的超时
+    act(() => {
+      result.current('third');
+    });
+    
+    // 验证 clearTimeout 被调用
+    expect(clearTimeoutSpy).toHaveBeenCalled();
+    
+    // 推进时间完成节流
+    act(() => {
+      vi.advanceTimersByTime(100);
+    });
+    
+    // 验证最后一次调用被执行
+    expect(mockFn).toHaveBeenCalledTimes(2);
+    expect(mockFn).toHaveBeenCalledWith('third');
+  });
+  */
 });

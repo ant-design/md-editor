@@ -113,4 +113,20 @@ describe('useClickAway', () => {
     expect(callback1).toHaveBeenCalledWith(event);
     expect(callback2).toHaveBeenCalledWith(event);
   });
+
+  // 添加新的测试用例来覆盖第57行
+  it('应该在点击内部元素时直接返回而不调用回调（第57行）', () => {
+    renderHook(() => useClickAway(mockCallback, mockRef));
+
+    const event = new MouseEvent('mousedown', {
+      bubbles: true,
+      cancelable: true,
+    });
+
+    // 模拟点击内部元素
+    mockRef.current?.dispatchEvent(event);
+
+    // 验证回调函数没有被调用，说明执行了 return 语句
+    expect(mockCallback).not.toHaveBeenCalled();
+  });
 });

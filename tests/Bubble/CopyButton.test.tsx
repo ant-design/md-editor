@@ -5,11 +5,13 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { CopyButton } from '../../src/Bubble/MessagesContent/CopyButton';
 
 // Mock useCopied hook
+const mockUseCopied = vi.fn(() => ({
+  copied: false,
+  setCopied: vi.fn(),
+}));
+
 vi.mock('../../src/Hooks/useCopied', () => ({
-  useCopied: vi.fn(() => ({
-    copied: false,
-    setCopied: vi.fn(),
-  })),
+  useCopied: () => mockUseCopied(),
 }));
 
 // Mock ActionIconBox
@@ -45,6 +47,11 @@ describe('CopyButton', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    // Reset to default mock implementation
+    mockUseCopied.mockImplementation(() => ({
+      copied: false,
+      setCopied: vi.fn(),
+    }));
   });
 
   describe('基本渲染测试', () => {
@@ -73,6 +80,27 @@ describe('CopyButton', () => {
       fireEvent.click(button);
 
       expect(button).toBeInTheDocument();
+    });
+  });
+
+  describe('复制成功状态测试', () => {
+    it('应该在复制成功时显示CheckCircleFilled图标和成功文本', async () => {
+      // Mock useCopied hook to return copied = true
+      const mockSetCopied = vi.fn();
+      mockUseCopied.mockImplementation(() => ({
+        copied: true,
+        setCopied: mockSetCopied,
+      }));
+
+      render(<CopyButton {...defaultProps} />);
+
+      const button = screen.getByTestId('test-copy-button');
+      fireEvent.click(button);
+
+      // Wait for state update
+      await waitFor(() => {
+        expect(mockSetCopied).toHaveBeenCalled();
+      });
     });
   });
 

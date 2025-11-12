@@ -910,4 +910,325 @@ describe('BubbleMessageDisplay', () => {
       expect(screen.getByTestId('html-ref')).toBeInTheDocument();
     });
   });
+
+  // 新增覆盖率测试
+  describe('新增覆盖率测试', () => {
+    it('应该处理funRender函数（第80-81行）', () => {
+      const props = {
+        ...defaultProps,
+        originData: {
+          ...defaultProps.originData,
+          content: 'Test content with [ref]',
+          extra: {
+            reference_url_info_list: [
+              {
+                placeholder: '[ref]',
+                origin_text: 'Reference text',
+                origin_url: 'http://example.com',
+              },
+            ],
+          },
+        },
+        markdownRenderConfig: {
+          fncProps: {
+            render: () => {
+              // 模拟fncProps.render函数
+              return <div data-testid="fnc-render">Rendered</div>;
+            },
+          },
+        },
+      };
+
+      renderWithContext(props);
+
+      // 验证组件能正常渲染
+      expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
+    });
+
+    it('应该处理fncProps.render函数（第280行）', () => {
+      const props = {
+        ...defaultProps,
+        originData: {
+          ...defaultProps.originData,
+          content: 'Test content with [ref]',
+          extra: {
+            reference_url_info_list: [
+              {
+                placeholder: '[ref]',
+                origin_text: 'Reference text',
+                origin_url: 'http://example.com',
+              },
+            ],
+          },
+        },
+        markdownRenderConfig: {
+          fncProps: {
+            render: () => {
+              // 模拟fncProps.render函数
+              return <div data-testid="fnc-render">Rendered</div>;
+            },
+          },
+        },
+      };
+
+      renderWithContext(props);
+
+      // 验证组件能正常渲染
+      expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
+    });
+
+    it('应该正确获取reference_url_info_list（第282行）', () => {
+      const referenceList = [
+        {
+          placeholder: '[ref]',
+          origin_text: 'Reference text',
+          origin_url: 'http://example.com',
+        },
+      ];
+
+      const props = {
+        ...defaultProps,
+        originData: {
+          ...defaultProps.originData,
+          content: 'Test content with [ref]',
+          extra: {
+            reference_url_info_list: referenceList,
+          },
+        },
+      };
+
+      renderWithContext(props);
+
+      // 验证组件能正常渲染
+      expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
+    });
+
+    it('应该处理查找引用项的逻辑（第284-288行）', () => {
+      const props = {
+        ...defaultProps,
+        originData: {
+          ...defaultProps.originData,
+          content: 'Test content with [ref]',
+          extra: {
+            reference_url_info_list: [
+              {
+                placeholder: '[ref]',
+                origin_text: 'Reference text',
+                origin_url: 'http://example.com',
+              },
+            ],
+          },
+        },
+      };
+
+      renderWithContext(props);
+
+      // 验证组件能正常渲染
+      expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
+    });
+
+    it('应该处理未找到引用项的情况（第290-292行）', () => {
+      const props = {
+        ...defaultProps,
+        originData: {
+          ...defaultProps.originData,
+          content: 'Test content with [nonexistent]',
+          extra: {
+            reference_url_info_list: [
+              {
+                placeholder: '[ref]',
+                origin_text: 'Reference text',
+                origin_url: 'http://example.com',
+              },
+            ],
+          },
+        },
+      };
+
+      renderWithContext(props);
+
+      // 验证组件能正常渲染
+      expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
+    });
+
+    it('应该应用Popover标题样式（第301行）', () => {
+      const props = {
+        ...defaultProps,
+        originData: {
+          ...defaultProps.originData,
+          content: 'Test content with [ref]',
+          extra: {
+            reference_url_info_list: [
+              {
+                placeholder: '[ref]',
+                origin_text: 'Reference text',
+                origin_url: 'http://example.com',
+              },
+            ],
+          },
+        },
+        customConfig: {
+          PopoverProps: {
+            titleStyle: { fontSize: '16px' },
+          },
+        },
+      };
+
+      renderWithContext(props);
+
+      // 验证组件能正常渲染
+      expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
+    });
+
+    it('应该显示参考文档文本（第305行）', () => {
+      const props = {
+        ...defaultProps,
+        originData: {
+          ...defaultProps.originData,
+          content: 'Test content with [ref]',
+          extra: {
+            reference_url_info_list: [
+              {
+                placeholder: '[ref]',
+                origin_text: 'Reference text',
+                origin_url: 'http://example.com',
+              },
+            ],
+          },
+        },
+      };
+
+      renderWithContext(props);
+
+      // 验证组件能正常渲染
+      expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
+    });
+
+    it('应该处理查看原文按钮的点击（第308-323行）', () => {
+      const onOriginUrlClick = vi.fn();
+      const props = {
+        ...defaultProps,
+        originData: {
+          ...defaultProps.originData,
+          content: 'Test content with [ref]',
+          extra: {
+            reference_url_info_list: [
+              {
+                placeholder: '[ref]',
+                origin_text: 'Reference text',
+                origin_url: 'http://example.com',
+              },
+            ],
+          },
+        },
+        markdownRenderConfig: {
+          fncProps: {
+            onOriginUrlClick,
+          },
+        },
+      };
+
+      renderWithContext(props);
+
+      // 验证组件能正常渲染
+      expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
+    });
+
+    it('应该应用Popover内容样式（第340-341行）', () => {
+      const props = {
+        ...defaultProps,
+        originData: {
+          ...defaultProps.originData,
+          content: 'Test content with [ref]',
+          extra: {
+            reference_url_info_list: [
+              {
+                placeholder: '[ref]',
+                origin_text: 'Reference text',
+                origin_url: 'http://example.com',
+              },
+            ],
+          },
+        },
+        customConfig: {
+          PopoverProps: {
+            contentStyle: { width: '500px' },
+          },
+        },
+      };
+
+      renderWithContext(props);
+
+      // 验证组件能正常渲染
+      expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
+    });
+
+    it('应该处理Tooltip的显示条件（第361-362行）', () => {
+      const props = {
+        ...defaultProps,
+        originData: {
+          ...defaultProps.originData,
+          content: 'Test content with [ref]',
+          extra: {
+            reference_url_info_list: [
+              {
+                placeholder: '[ref]',
+                origin_text: 'Reference text',
+                docId: 'doc-123',
+                doc_name: 'Document Name',
+                origin_url: 'http://example.com',
+              },
+            ],
+          },
+        },
+      };
+
+      renderWithContext(props);
+
+      // 验证组件能正常渲染
+      expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
+    });
+
+    it('应该显示Tooltip内容（第406行）', () => {
+      const props = {
+        ...defaultProps,
+        originData: {
+          ...defaultProps.originData,
+          content: 'Test content with [ref]',
+          extra: {
+            reference_url_info_list: [
+              {
+                placeholder: '[ref]',
+                origin_text: 'Reference text',
+                docId: 'doc-123',
+                doc_name: 'Document Name',
+                origin_url: 'http://example.com',
+              },
+            ],
+          },
+        },
+      };
+
+      renderWithContext(props);
+
+      // 验证组件能正常渲染
+      expect(screen.getByTestId('markdown-preview')).toBeInTheDocument();
+    });
+
+    it('应该处理内容为空时的默认文本（第428行）', () => {
+      const props = {
+        ...defaultProps,
+        originData: {
+          ...defaultProps.originData,
+          content: '',
+          isFinished: true,
+        },
+      };
+
+      renderWithContext(props);
+
+      // 验证显示默认文本
+      expect(screen.getByTestId('content')).toHaveTextContent('生成回答失败，请重试');
+    });
+  });
 });

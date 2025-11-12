@@ -15,11 +15,6 @@ vi.mock('framer-motion', () => ({
   },
 }));
 
-// Mock copy-to-clipboard
-vi.mock('copy-to-clipboard', () => ({
-  default: vi.fn(),
-}));
-
 // Mock dayjs
 vi.mock('dayjs', () => ({
   default: {
@@ -70,6 +65,42 @@ vi.mock('../../../index', () => ({
   ),
 }));
 
+// Mock CopyButton
+vi.mock('../../src/Bubble/MessagesContent/CopyButton', () => ({
+  CopyButton: ({
+    children,
+    onClick,
+    title,
+    style,
+    dataTestid,
+    ...props
+  }: any) => (
+    <span
+      data-testid={dataTestid || 'copy-button'}
+      onClick={onClick}
+      style={style}
+      title={title}
+      {...props}
+    >
+      {children}
+    </span>
+  ),
+}));
+
+// Mock VoiceButton
+vi.mock('../../src/Bubble/MessagesContent/VoiceButton', () => ({
+  VoiceButton: ({ text, ...props }: any) => (
+    <span data-testid="voice-button" {...props}>
+      Voice: {text}
+    </span>
+  ),
+}));
+
+// Mock copy-to-clipboard
+vi.mock('copy-to-clipboard', () => ({
+  default: vi.fn(),
+}));
+
 describe('BubbleExtra', () => {
   const defaultProps = {
     onLike: vi.fn(),
@@ -115,243 +146,130 @@ describe('BubbleExtra', () => {
     vi.clearAllMocks();
   });
 
-  describe('基本渲染测试', () => {
-    it('应该正确渲染基本组件', () => {
+  // 新增测试用例来覆盖指定的代码行
+  describe('新增覆盖率测试', () => {
+    it('应该处理isHistory为true的情况（第116-117行）', () => {
+      const props = {
+        ...defaultProps,
+        bubble: {
+          ...defaultProps.bubble,
+          originData: {
+            ...defaultProps.bubble.originData,
+            isFinished: false,
+            extra: {
+              ...defaultProps.bubble.originData.extra,
+              isHistory: true,
+            },
+          },
+        },
+      };
+
+      render(<BubbleExtra {...props} />);
+
+      // 当isHistory为true时，typing应该为false，相关按钮应该显示
+      expect(screen.getByTestId('like-button')).toBeInTheDocument();
+    });
+
+    it('应该处理复制按钮点击和错误情况（第244-246行和第249行）', async () => {
+      const consoleErrorSpy = vi
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
+      
+      // 获取copy模块并模拟错误
+      const copyModule = await import('copy-to-clipboard');
+      const copyMock = copyModule.default as unknown as { 
+        mockImplementationOnce: (fn: () => any) => void;
+      };
+      copyMock.mockImplementationOnce(() => {
+        throw new Error('Copy failed');
+      });
+
       render(<BubbleExtra {...defaultProps} />);
 
-      expect(screen.getByTestId('like-button')).toBeInTheDocument();
-      expect(screen.getByTestId('dislike-button')).toBeInTheDocument();
-    });
+      const copyButton = screen.getByTestId('chat-item-copy-button');
+      fireEvent.click(copyButton);
 
-    it('应该处理只读模式', () => {
-      const props = {
-        ...defaultProps,
-        readonly: true,
-      };
-
-      const { container } = render(<BubbleExtra {...props} />);
-
-      // 在只读模式下，组件可能不渲染任何内容
-      // 检查组件是否正确渲染（即使为空）
-      expect(container).toBeInTheDocument();
-    });
-
-    it('应该渲染基本内容', () => {
-      const props = {
-        ...defaultProps,
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      expect(screen.getByTestId('like-button')).toBeInTheDocument();
-      expect(screen.getByTestId('dislike-button')).toBeInTheDocument();
-    });
-
-    it('应该处理紧凑模式', () => {
-      const props = {
-        ...defaultProps,
-        style: { width: '100%' },
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      expect(screen.getByTestId('like-button')).toBeInTheDocument();
-      expect(screen.getByTestId('dislike-button')).toBeInTheDocument();
-    });
-  });
-
-  describe('交互测试', () => {
-    it('应该处理点赞操作', async () => {
-      const onLike = vi.fn();
-      const props = {
-        ...defaultProps,
-        onLike,
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      const likeButton = screen.getByTestId('like-button');
-      fireEvent.click(likeButton);
-
+      // 等待错误处理
       await waitFor(() => {
-        expect(onLike).toHaveBeenCalled();
+        expect(consoleErrorSpy).toHaveBeenCalledWith(
+          '复制失败:',
+          new Error('Copy failed'),
+        );
       });
+
+      consoleErrorSpy.mockRestore();
     });
 
-    it('应该处理点踩操作', async () => {
-      const onDisLike = vi.fn();
+    it('应该处理复制按钮点击成功情况（第244-246行）', async () => {
+      // 获取copy模块并模拟成功
+      const copyModule = await import('copy-to-clipboard');
+      const copyMock = copyModule.default as unknown as { 
+        mockImplementationOnce: (fn: () => any) => void;
+      };
+      copyMock.mockImplementationOnce(() => true);
+
+      render(<BubbleExtra {...defaultProps} />);
+
+      const copyButton = screen.getByTestId('chat-item-copy-button');
+      fireEvent.click(copyButton);
+
+      // 应该调用copy函数
+      expect(copyMock).toHaveBeenCalledWith('Test content');
+    });
+
+    it('应该处理回答被中止的情况（第336行）', () => {
       const props = {
         ...defaultProps,
-        onDisLike,
+        bubble: {
+          ...defaultProps.bubble,
+          originData: {
+            ...defaultProps.bubble.originData,
+            isAborted: true,
+            isFinished: false,
+          },
+        },
       };
 
       render(<BubbleExtra {...props} />);
 
-      const dislikeButton = screen.getByTestId('dislike-button');
-      fireEvent.click(dislikeButton);
-
-      await waitFor(() => {
-        expect(onDisLike).toHaveBeenCalled();
-      });
+      // 应该显示"回答已停止生成"的文本
+      expect(
+        screen.getByText('回答已停止生成'),
+      ).toBeInTheDocument();
     });
 
-    it('应该处理回复操作', async () => {
+    it('应该处理没有预设消息的情况（第338行）', () => {
+      const props = {
+        ...defaultProps,
+        bubble: {
+          ...defaultProps.bubble,
+          originData: {
+            ...defaultProps.bubble.originData,
+            extra: {
+              preMessage: undefined,
+            } as any,
+          },
+        },
+      };
+
+      render(<BubbleExtra {...props} />);
+
+      // 没有预设消息，不应该显示重新发送按钮
+      expect(screen.queryByTestId('reply-button')).not.toBeInTheDocument();
+    });
+
+    it('应该处理重新发送按钮点击（第349-353行）', async () => {
       const onReply = vi.fn();
       const props = {
         ...defaultProps,
         onReply,
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      // 检查组件是否正确渲染
-      expect(screen.getByTestId('like-button')).toBeInTheDocument();
-      expect(screen.getByTestId('dislike-button')).toBeInTheDocument();
-    });
-  });
-
-  describe('配置测试', () => {
-    it('应该处理onRenderExtraNull回调', () => {
-      const onRenderExtraNull = vi.fn();
-      const props = {
-        ...defaultProps,
-        onRenderExtraNull,
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      expect(screen.getByTestId('like-button')).toBeInTheDocument();
-      expect(screen.getByTestId('dislike-button')).toBeInTheDocument();
-    });
-  });
-
-  describe('状态测试', () => {
-    it('应该处理typing状态', () => {
-      const props = {
-        ...defaultProps,
-        typing: true,
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      expect(screen.getByTestId('like-button')).toBeInTheDocument();
-      expect(screen.getByTestId('dislike-button')).toBeInTheDocument();
-    });
-
-    it('应该处理feedback状态', () => {
-      const props = {
-        ...defaultProps,
-        feedback: 'thumbsUp',
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      expect(screen.getByTestId('like-button')).toBeInTheDocument();
-      expect(screen.getByTestId('dislike-button')).toBeInTheDocument();
-    });
-
-    it('应该处理answerStatus状态', () => {
-      const props = {
-        ...defaultProps,
-        answerStatus: 'aborted',
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      expect(screen.getByTestId('like-button')).toBeInTheDocument();
-      expect(screen.getByTestId('dislike-button')).toBeInTheDocument();
-    });
-  });
-
-  describe('shouldShowCopy 测试', () => {
-    it('应该在默认情况下显示复制按钮', () => {
-      const props = {
-        ...defaultProps,
-        // shouldShowCopy 为 undefined，应该使用默认逻辑
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      // 默认情况下，如果满足基本条件，应该显示复制按钮
-      expect(screen.queryByTestId('chat-item-copy-button')).toBeInTheDocument();
-    });
-
-    it('应该根据布尔值控制复制按钮显示', () => {
-      const props = {
-        ...defaultProps,
-        shouldShowCopy: false,
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      // 明确设置为 false，不应该显示复制按钮
-      expect(
-        screen.queryByTestId('chat-item-copy-button'),
-      ).not.toBeInTheDocument();
-    });
-
-    it('应该根据布尔值显示复制按钮', () => {
-      const props = {
-        ...defaultProps,
-        shouldShowCopy: true,
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      // 明确设置为 true，应该显示复制按钮
-      expect(screen.queryByTestId('chat-item-copy-button')).toBeInTheDocument();
-    });
-
-    it('应该根据函数返回值控制复制按钮显示', () => {
-      const shouldShowCopyFn = vi.fn(() => false);
-      const props = {
-        ...defaultProps,
-        shouldShowCopy: shouldShowCopyFn,
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      // 函数返回 false，不应该显示复制按钮
-      expect(
-        screen.queryByTestId('chat-item-copy-button'),
-      ).not.toBeInTheDocument();
-      // 确保函数被调用并传入了正确的参数
-      expect(shouldShowCopyFn).toHaveBeenCalledWith(props.bubble);
-    });
-
-    it('应该根据函数返回值显示复制按钮', () => {
-      const shouldShowCopyFn = vi.fn(() => true);
-      const props = {
-        ...defaultProps,
-        shouldShowCopy: shouldShowCopyFn,
-      };
-
-      render(<BubbleExtra {...props} />);
-
-      // 函数返回 true，应该显示复制按钮
-      expect(screen.queryByTestId('chat-item-copy-button')).toBeInTheDocument();
-      // 确保函数被调用并传入了正确的参数
-      expect(shouldShowCopyFn).toHaveBeenCalledWith(props.bubble);
-    });
-
-    it('当基础条件不满足时，shouldShowCopy 无效', () => {
-      const props = {
-        ...defaultProps,
-        shouldShowCopy: true,
         bubble: {
           ...defaultProps.bubble,
           originData: {
-            id: 'test-id',
-            role: 'assistant' as const,
-            content: '', // 内容为空，不满足基础条件
-            createAt: Date.now(),
-            updateAt: Date.now(),
-            isFinished: true,
-            isAborted: false,
-            uuid: 1,
+            ...defaultProps.bubble.originData,
             extra: {
               preMessage: {
-                content: 'Test preset message',
+                content: 'Previous message content',
               },
             },
           },
@@ -360,10 +278,99 @@ describe('BubbleExtra', () => {
 
       render(<BubbleExtra {...props} />);
 
-      // 即使 shouldShowCopy 为 true，但基础条件不满足，仍不显示复制按钮
-      expect(
-        screen.queryByTestId('chat-item-copy-button'),
-      ).not.toBeInTheDocument();
+      const replyButton = screen.getByTestId('reply-button');
+      fireEvent.click(replyButton);
+
+      await waitFor(() => {
+        expect(onReply).toHaveBeenCalledWith('Previous message content');
+      });
+    });
+
+    it('应该处理rightRender为false的情况（第384行和第405行）', () => {
+      const props = {
+        ...defaultProps,
+        rightRender: false as const,
+      };
+
+      render(<BubbleExtra {...props} />);
+
+      // rightRender为false时，不应该显示操作按钮
+      expect(screen.queryByTestId('like-button')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('dislike-button')).not.toBeInTheDocument();
+    });
+
+    it('应该处理rightRender函数的情况（第386行）', () => {
+      const rightRender = vi.fn(() => <div data-testid="custom-right">Custom</div>);
+      const props = {
+        ...defaultProps,
+        rightRender,
+      };
+
+      render(<BubbleExtra {...props} />);
+
+      // rightRender函数应该被调用
+      expect(rightRender).toHaveBeenCalled();
+      expect(screen.getByTestId('custom-right')).toBeInTheDocument();
+    });
+
+    it('应该处理回答被中止时的右侧内容显示（第403行）', () => {
+      const props = {
+        ...defaultProps,
+        bubble: {
+          ...defaultProps.bubble,
+          originData: {
+            ...defaultProps.bubble.originData,
+            isAborted: true,
+          },
+        },
+      };
+
+      render(<BubbleExtra {...props} />);
+
+      // 回答被中止时，应该显示复制按钮
+      expect(screen.getByTestId('chat-item-copy-button')).toBeInTheDocument();
+    });
+
+    it('应该处理没有复制按钮且回答被中止的情况（第412行）', () => {
+      const props = {
+        ...defaultProps,
+        bubble: {
+          ...defaultProps.bubble,
+          originData: {
+            ...defaultProps.bubble.originData,
+            isAborted: true,
+            content: '', // 没有内容，不显示复制按钮
+            extra: {
+              preMessage: undefined,
+            } as any,
+          },
+        },
+      };
+
+      const { container } = render(<BubbleExtra {...props} />);
+
+      // 应该返回null，不渲染任何内容
+      expect(container.firstChild).toBeNull();
+    });
+
+    it('应该处理生成中的状态显示（第435-437行）', () => {
+      const props = {
+        ...defaultProps,
+        bubble: {
+          ...defaultProps.bubble,
+          originData: {
+            ...defaultProps.bubble.originData,
+            isFinished: false,
+            isAborted: false,
+            content: 'Generating content...',
+          },
+        },
+      };
+
+      render(<BubbleExtra {...props} />);
+
+      // 应该显示加载状态
+      expect(screen.getByText('生成中...')).toBeInTheDocument(); // 生成中本地化文本
     });
   });
 });

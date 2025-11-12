@@ -319,4 +319,58 @@ describe('HistoryList - generateHistoryItems', () => {
     expect(items[0].label).toBeNull();
     expect(mockGroupLabelRender).toHaveBeenCalled();
   });
+
+  // 添加新的测试用例来覆盖第109行
+  it('should return 0 when sessionSort is false (第109行)', () => {
+    const items = generateHistoryItems({
+      ...defaultConfig,
+      sessionSort: false, // 设置为 false
+    });
+
+    // 验证分组和子项正确生成
+    expect(items).toHaveLength(3);
+    expect(items[0].children).toHaveLength(2);
+    
+    // 由于 sessionSort 为 false，所有项应该保持原始顺序
+    const firstGroupChildren = items[0].children;
+    expect(firstGroupChildren[0].key).toBe('session1');
+    expect(firstGroupChildren[1].key).toBe('session2');
+  });
+
+  // 添加新的测试用例来覆盖第112行和第113行
+  it('should handle custom sessionSort function with boolean return (第112, 113行)', () => {
+    const mockSessionSort = vi.fn().mockReturnValue(true); // 返回布尔值
+    
+    const items = generateHistoryItems({
+      ...defaultConfig,
+      sessionSort: mockSessionSort,
+    });
+
+    // 验证自定义排序函数被调用
+    expect(mockSessionSort).toHaveBeenCalled();
+    
+    // 验证分组和子项正确生成
+    expect(items).toHaveLength(3);
+    expect(items[0].children).toBeDefined();
+  });
+
+  // 添加新的测试用例来覆盖第112行和第113行（数值返回）
+  it('should handle custom sessionSort function with numeric return (第112, 113行)', () => {
+    const mockSessionSort = vi.fn()
+      .mockImplementationOnce(() => -1)  // 第一次调用返回-1
+      .mockImplementationOnce(() => 1)   // 第二次调用返回1
+      .mockImplementation(() => 0);      // 后续调用返回0
+    
+    const items = generateHistoryItems({
+      ...defaultConfig,
+      sessionSort: mockSessionSort,
+    });
+
+    // 验证自定义排序函数被调用
+    expect(mockSessionSort).toHaveBeenCalled();
+    
+    // 验证分组和子项正确生成
+    expect(items).toHaveLength(3);
+    expect(items[0].children).toBeDefined();
+  });
 });

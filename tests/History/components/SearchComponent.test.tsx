@@ -421,5 +421,42 @@ describe('HistorySearch', () => {
         expect(onSearch).toHaveBeenCalledWith('测试');
       });
     });
+
+    // 添加新的测试用例来覆盖第102行
+    it('应该在点击外部且输入为空时收起搜索框（第102行）', () => {
+      const onSearch = vi.fn();
+      
+      // 创建一个包装容器来放置外部元素和搜索组件
+      const TestContainer: React.FC = () => (
+        <ConfigProvider>
+          <I18nContext.Provider
+            value={{ locale: mockI18nLocale, language: 'zh-CN' } as any}
+          >
+            <div data-testid="outer-element">外部元素</div>
+            <HistorySearch onSearch={onSearch} />
+          </I18nContext.Provider>
+        </ConfigProvider>
+      );
+      
+      render(<TestContainer />);
+
+      // 点击搜索按钮展开输入框
+      const searchButton = screen.getByTestId('action-icon-box');
+      fireEvent.click(searchButton);
+
+      // 验证输入框已展开
+      expect(screen.getByPlaceholderText('搜索话题')).toBeInTheDocument();
+
+      // 模拟点击外部元素
+      const outerElement = screen.getByTestId('outer-element');
+      fireEvent.mouseDown(outerElement);
+
+      // 等待状态更新
+      waitFor(() => {
+        // 验证搜索框已收起（因为输入为空）
+        expect(screen.getByText('历史对话')).toBeInTheDocument();
+        expect(screen.queryByPlaceholderText('搜索话题')).not.toBeInTheDocument();
+      });
+    });
   });
 });

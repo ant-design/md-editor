@@ -381,4 +381,45 @@ describe('HistoryActionsBox', () => {
       transition: 'opacity 0.2s ease',
     });
   });
+
+  // 添加一个新的测试用例来覆盖第159行的默认文本
+  it('应该在没有i18n文本时使用默认删除确认文本（第159行）', async () => {
+    // 使用不包含chat.history.delete.popconfirm键的语言包
+    const incompleteLocale = {
+      'chat.history.favorite': '收藏',
+      'chat.history.favorited': '已收藏',
+      'chat.history.delete': '删除',
+      // 故意不包含 'chat.history.delete.popconfirm'
+    };
+
+    const onDeleteItem = vi.fn();
+    
+    render(
+      <ConfigProvider>
+        <I18nContext.Provider
+          value={{ locale: incompleteLocale, language: 'zh-CN' } as any}
+        >
+          <HistoryActionsBox onDeleteItem={onDeleteItem} item={mockItem}>
+            <span>测试时间</span>
+          </HistoryActionsBox>
+        </I18nContext.Provider>
+      </ConfigProvider>,
+    );
+
+    // 鼠标悬停显示删除按钮
+    const wrapper = screen.getByText('测试时间').parentElement!;
+    fireEvent.mouseEnter(wrapper);
+
+    const buttons = screen.getAllByTestId('action-icon-box');
+    const deleteButton = buttons.find(
+      (btn) => btn.getAttribute('data-title') === '删除',
+    )!;
+    expect(deleteButton).toBeInTheDocument();
+    fireEvent.click(deleteButton);
+
+    // 应该显示默认的确认对话框文本
+    await waitFor(() => {
+      expect(screen.getByText('确定删除该消息吗？')).toBeInTheDocument();
+    });
+  });
 });

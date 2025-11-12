@@ -227,5 +227,76 @@ describe('useSpeechSynthesis Hook', () => {
       result.current.resume();
     });
   });
+
+  // 添加新的测试用例来覆盖第40行和第41行
+  it('应该在开始播放时清除之前的事件处理程序（第40, 41行）', () => {
+    const { result } = renderHook(() =>
+      useSpeechSynthesis({ text: 'Hello', defaultRate: 1 }),
+    );
+
+    // 第一次开始播放
+    act(() => {
+      result.current.start();
+    });
+
+    // 获取第一次创建的 utterance
+    const firstUtterance = (SpeechSynthesisUtterance as any).mock.results[0].value;
+    
+    // 验证事件处理程序已设置
+    expect(firstUtterance.onend).toBeDefined();
+    expect(firstUtterance.onerror).toBeDefined();
+
+    // 第二次开始播放，应该清除之前的事件处理程序
+    act(() => {
+      result.current.start();
+    });
+
+    // 验证之前的事件处理程序已被清除（设置为null）
+    expect(firstUtterance.onend).toBeNull();
+    expect(firstUtterance.onerror).toBeNull();
+  });
+
+  // 添加新的测试用例来覆盖第61行
+  it('应该在播放出错时设置为未播放状态（第61行）', () => {
+    // 模拟 speak 方法抛出错误
+    mockSpeak.mockImplementationOnce(() => {
+      throw new Error('Speech synthesis error');
+    });
+
+    const { result } = renderHook(() =>
+      useSpeechSynthesis({ text: 'Hello', defaultRate: 1 }),
+    );
+
+    // 开始播放，应该触发错误
+    act(() => {
+      result.current.start();
+    });
+
+    // 验证设置为未播放状态
+    expect(result.current.isPlaying).toBe(false);
+  });
+
+  // 添加新的测试用例来覆盖第83行
+  it('应该在倍速变化时重新开始播放（第83行）', () => {
+    const { result } = renderHook(() =>
+      useSpeechSynthesis({ text: 'Hello', defaultRate: 1 }),
+    );
+
+    // 先开始播放
+    act(() => {
+      result.current.start();
+    });
+
+    expect(result.current.isPlaying).toBe(true);
+    const callCountBeforeRateChange = mockSpeak.mock.calls.length;
+
+    // 改变倍速，应该重新开始播放
+    act(() => {
+      result.current.setRate(1.5);
+    });
+
+    // 验证 speak 被再次调用
+    expect(mockSpeak.mock.calls.length).toBeGreaterThan(callCountBeforeRateChange);
+  });
 });
 

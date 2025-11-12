@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import CaseReply from '../../src/ChatBootPage/CaseReply';
 
 describe('CaseReply 组件', () => {
-  const TestButton = () => <button data-testid="test-button">测试按钮</button>;
+  const TestButton = () => <button type="button" data-testid="test-button">测试按钮</button>;
 
   it('应该渲染基本的案例回复组件', () => {
     render(
@@ -241,8 +241,8 @@ describe('CaseReply 组件', () => {
   it('应该正确处理复杂的按钮栏内容', () => {
     const complexButtonBar = (
       <div>
-        <button>按钮1</button>
-        <button>按钮2</button>
+        <button type="button">按钮1</button>
+        <button type="button">按钮2</button>
       </div>
     );
 
@@ -302,8 +302,85 @@ describe('CaseReply 组件', () => {
 
   it('应该正确处理默认值', () => {
     const { container } = render(<CaseReply />);
-
+    
     const mainElement = container.querySelector('.ant-agentic-chatboot-case-reply');
     expect(mainElement).toBeInTheDocument();
+  });
+
+  // 新增覆盖率测试
+  describe('新增覆盖率测试', () => {
+    it('应该处理按钮点击事件并阻止冒泡（第170-172行）', () => {
+      const handleClick = vi.fn();
+      const handleButtonClick = vi.fn();
+
+      render(
+        <CaseReply
+          quote="按钮点击测试"
+          title="标题"
+          description="描述"
+          onClick={handleClick}
+          onButtonClick={handleButtonClick}
+          buttonText="测试按钮"
+        />,
+      );
+
+      // 获取按钮元素
+      const button = screen.getByText('测试按钮');
+      
+      // 点击按钮
+      fireEvent.click(button);
+
+      // 验证按钮点击事件被调用
+      expect(handleButtonClick).toHaveBeenCalledTimes(1);
+      
+      // 验证主容器点击事件未被调用（因为阻止了冒泡）
+      expect(handleClick).toHaveBeenCalledTimes(0);
+    });
+
+    it('应该处理按钮点击事件且不传递事件参数（第170-172行）', () => {
+      const handleButtonClick = vi.fn();
+
+      render(
+        <CaseReply
+          quote="按钮点击测试"
+          title="标题"
+          description="描述"
+          onButtonClick={handleButtonClick}
+          buttonText="测试按钮"
+        />,
+      );
+
+      // 获取按钮元素
+      const button = screen.getByText('测试按钮');
+      
+      // 点击按钮
+      fireEvent.click(button);
+
+      // 验证按钮点击事件被调用
+      expect(handleButtonClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('应该处理按钮点击事件且onButtonClick为undefined（第170-172行）', () => {
+      const handleClick = vi.fn();
+
+      render(
+        <CaseReply
+          quote="按钮点击测试"
+          title="标题"
+          description="描述"
+          onClick={handleClick}
+          buttonText="测试按钮"
+        />,
+      );
+
+      // 获取按钮元素
+      const button = screen.getByText('测试按钮');
+      
+      // 点击按钮
+      fireEvent.click(button);
+
+      // 验证主容器点击事件未被调用（因为阻止了冒泡）
+      expect(handleClick).toHaveBeenCalledTimes(0);
+    });
   });
 });

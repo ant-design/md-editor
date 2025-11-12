@@ -443,4 +443,38 @@ describe('TaskRunning Component', () => {
     expect(screen.getByLabelText('继续')).toBeInTheDocument();
     expect(screen.getByLabelText('停止')).toBeInTheDocument();
   });
+
+  it('should render create new task button in default state when onCreateNewTask is provided', () => {
+    // 创建一个既不是运行中也不是暂停状态的场景
+    // 使用一个不匹配任何特定条件的状态组合
+    const { rerender } = render(
+      <TaskRunning
+        {...baseProps}
+        taskStatus={TASK_STATUS.SUCCESS as any}
+        taskRunningStatus={'unknown' as any}
+        onCreateNewTask={undefined}
+      />,
+    );
+
+    // 在没有 onCreateNewTask 回调的情况下，不应该显示创建新任务按钮
+    expect(screen.queryByText('创建新任务')).not.toBeInTheDocument();
+
+    // 重新渲染，提供 onCreateNewTask 回调
+    const onCreateNewTask = vi.fn();
+    rerender(
+      <TaskRunning
+        {...baseProps}
+        taskStatus={TASK_STATUS.SUCCESS as any}
+        taskRunningStatus={'unknown' as any}
+        onCreateNewTask={onCreateNewTask}
+      />,
+    );
+
+    // 在提供 onCreateNewTask 回调的情况下，应该显示创建新任务按钮
+    expect(screen.getByText('创建新任务')).toBeInTheDocument();
+
+    // 点击按钮应该调用回调函数
+    fireEvent.click(screen.getByText('创建新任务'));
+    expect(onCreateNewTask).toHaveBeenCalledTimes(1);
+  });
 });

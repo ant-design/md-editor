@@ -83,6 +83,22 @@ describe('HistoryRunningIcon', () => {
     const style = container.querySelector('style');
     expect(style).not.toBeInTheDocument();
   });
+
+  // 添加新的测试用例来覆盖第101行
+  it('应该在非测试环境中注入style标签（第101行）', () => {
+    // 模拟非测试环境
+    const originalEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV = 'development';
+    
+    const { container } = render(<HistoryRunningIcon animated={true} />);
+    const style = container.querySelector('style');
+    
+    // 在非测试环境中应该注入style标签
+    expect(style).toBeInTheDocument();
+    
+    // 恢复原始环境变量
+    process.env.NODE_ENV = originalEnv;
+  });
 });
 
 describe('HistoryRunningIconContainer', () => {
