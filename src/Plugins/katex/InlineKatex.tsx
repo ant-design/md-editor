@@ -67,7 +67,7 @@ export const InlineKatex = ({
     }
   }, [selected]);
   if (process.env.NODE_ENV === 'test') {
-    return <span contentEditable={false} style={{ fontSize: 0 }} />;
+    return <span contentEditable={false} />;
   }
 
   if (readonly) {
