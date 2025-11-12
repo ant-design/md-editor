@@ -1074,4 +1074,302 @@ describe('FileComponent', () => {
       expect(screen.getByLabelText('分享')).toBeInTheDocument();
     });
   });
+
+  describe('文件定位', () => {
+    it('列表：当 canLocate 为 true 时显示定位按钮并触发 onLocate', () => {
+      const handleLocate = vi.fn();
+      const nodes: FileNode[] = [
+        {
+          id: 'f1',
+          name: 'locate.txt',
+          url: 'https://example.com/locate.txt',
+          canLocate: true,
+        },
+      ];
+
+      render(
+        <TestWrapper>
+          <FileComponent nodes={nodes} onLocate={handleLocate} />
+        </TestWrapper>,
+      );
+
+      const locateBtn = screen.getByLabelText('定位');
+      expect(locateBtn).toBeInTheDocument();
+      fireEvent.click(locateBtn);
+      expect(handleLocate).toHaveBeenCalledWith(
+        expect.objectContaining({ name: 'locate.txt' }),
+      );
+    });
+
+    it('列表：默认不显示定位按钮', () => {
+      const nodes: FileNode[] = [
+        { id: 'f1', name: 'nolocate.txt', url: 'https://example.com/a.txt' },
+      ];
+      render(
+        <TestWrapper>
+          <FileComponent nodes={nodes} onLocate={vi.fn()} />
+        </TestWrapper>,
+      );
+      expect(screen.queryByLabelText('定位')).not.toBeInTheDocument();
+    });
+
+    it('预览页：当 canLocate 为 true 时显示定位按钮并触发 onLocate', async () => {
+      const handleLocate = vi.fn();
+      const nodes: FileNode[] = [
+        {
+          id: 'f1',
+          name: 'preview-locate.txt',
+          content: 'Hello',
+          canLocate: true,
+        },
+      ];
+      render(
+        <TestWrapper>
+          <FileComponent
+            nodes={nodes}
+            onPreview={vi.fn()}
+            onLocate={handleLocate}
+          />
+        </TestWrapper>,
+      );
+
+      // 打开预览
+      fireEvent.click(screen.getByLabelText('预览'));
+      await waitFor(() => {
+        expect(screen.getByLabelText('返回文件列表')).toBeInTheDocument();
+      });
+
+      const locateBtn = screen.getByLabelText('定位');
+      expect(locateBtn).toBeInTheDocument();
+
+      fireEvent.click(locateBtn);
+      expect(handleLocate).toHaveBeenCalledWith(
+        expect.objectContaining({ name: 'preview-locate.txt' }),
+      );
+    });
+  });
+
+  describe('自定义渲染与行为', () => {
+    it('预览页：customActions 支持函数与节点渲染', async () => {
+      const nodes: FileNode[] = [
+        { id: 'f1', name: 'actions.txt', content: 'Hello' },
+      ];
+      const customActions = (file: FileNode) => (
+        <div data-testid="custom-actions">act-{file.name}</div>
+      );
+      render(
+        <TestWrapper>
+          <FileComponent
+            nodes={nodes}
+            onPreview={vi.fn()}
+            customActions={customActions}
+          />
+        </TestWrapper>,
+      );
+      // 打开预览
+      fireEvent.click(screen.getByLabelText('预览'));
+      await waitFor(() => {
+        expect(screen.getByTestId('custom-actions')).toHaveTextContent(
+          'act-actions.txt',
+        );
+      });
+    });
+
+    it('onPreview 返回自定义元素时，支持 setPreviewHeader / share / download / back', async () => {
+      const onShare = vi.fn();
+      const onDownload = vi.fn();
+
+      const CustomPreview: React.FC<any> = ({
+        setPreviewHeader,
+        back,
+        download,
+        share,
+      }) => {
+        return (
+          <div>
+            <button
+              aria-label="update-header"
+              onClick={() => setPreviewHeader('override.txt')}
+            />
+            <button aria-label="share" onClick={() => share()} />
+            <button aria-label="download" onClick={() => download()} />
+            <button aria-label="back" onClick={() => back()} />
+            <div data-testid="custom-preview-content">CP</div>
+          </div>
+        );
+      };
+
+      const handlePreview = vi
+        .fn()
+        .mockResolvedValue((<CustomPreview />) as any);
+      const nodes: FileNode[] = [
+        { id: 'f1', name: 'preview.txt', content: 'Hello' },
+      ];
+
+      render(
+        <TestWrapper>
+          <FileComponent
+            nodes={nodes}
+            onPreview={handlePreview}
+            onShare={onShare}
+            onDownload={onDownload}
+          />
+        </TestWrapper>,
+      );
+
+      // 列表点击预览
+      fireEvent.click(screen.getByLabelText('预览'));
+      // 自定义内容渲染
+      await waitFor(() => {
+        expect(
+          screen.getByTestId('custom-preview-content'),
+        ).toBeInTheDocument();
+      });
+
+      // 更新标题
+      fireEvent.click(screen.getByLabelText('update-header'));
+      await waitFor(() => {
+        expect(screen.getByText('override.txt')).toBeInTheDocument();
+      });
+
+      // 触发 share / download
+      fireEvent.click(screen.getByLabelText('share'));
+      expect(onShare).toHaveBeenCalledWith(
+        expect.objectContaining({ name: 'preview.txt' }),
+        undefined,
+      );
+
+      fireEvent.click(screen.getByLabelText('download'));
+      expect(onDownload).toHaveBeenCalledWith(
+        expect.objectContaining({ name: 'preview.txt' }),
+      );
+
+      // 返回列表
+      fireEvent.click(screen.getByLabelText('back'));
+      await waitFor(() => {
+        expect(screen.queryByLabelText('返回文件列表')).not.toBeInTheDocument();
+      });
+    });
+  });
+
+  describe('更多分组行为', () => {
+    it('点击分组下载按钮应触发 onGroupDownload', () => {
+      const onGroupDownload = vi.fn();
+      const nodes: GroupNode[] = [
+        {
+          id: 'g1',
+          name: '分组',
+          type: 'plainText',
+          children: [
+            { id: 'f1', name: 'a.txt', url: 'https://a' },
+            { id: 'f2', name: 'b.txt', url: 'https://b' },
+          ],
+        },
+      ];
+      render(
+        <TestWrapper>
+          <FileComponent nodes={nodes} onGroupDownload={onGroupDownload} />
+        </TestWrapper>,
+      );
+      // 分组行上的下载按钮
+      const groupDownload = screen
+        .getAllByLabelText('下载')
+        .find((el) => el.closest('[class*="group-header"]'));
+      expect(groupDownload).toBeTruthy();
+      fireEvent.click(groupDownload!);
+      expect(onGroupDownload).toHaveBeenCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({ name: 'a.txt' }),
+          expect.objectContaining({ name: 'b.txt' }),
+        ]),
+        'plainText',
+      );
+    });
+  });
+
+  describe('显示控制', () => {
+    it('默认不显示搜索框（showSearch=false）', () => {
+      render(
+        <TestWrapper>
+          <FileComponent nodes={[]} />
+        </TestWrapper>,
+      );
+      expect(
+        screen.queryByPlaceholderText('搜索文件名'),
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  describe('bindDomId 行为', () => {
+    it('默认不绑定 DOM id（bindDomId 未传或为 false）', () => {
+      const nodes: FileNode[] = [
+        { id: 'file-1', name: 'doc.txt', url: 'https://a/b.doc' },
+      ];
+      render(
+        <TestWrapper>
+          <FileComponent nodes={nodes} />
+        </TestWrapper>,
+      );
+      const fileButton = screen.getByRole('button', { name: /文件.*doc\.txt/ });
+      expect(fileButton.getAttribute('id')).toBeNull();
+    });
+
+    it('bindDomId 为 true 时绑定用户提供的 id', () => {
+      const nodes: FileNode[] = [
+        { id: 'user-id-001', name: 'doc.txt', url: 'https://a/b.doc' },
+      ];
+      render(
+        <TestWrapper>
+          <FileComponent nodes={nodes} bindDomId />
+        </TestWrapper>,
+      );
+      const fileButton = screen.getByRole('button', { name: /文件.*doc\.txt/ });
+      expect(fileButton).toHaveAttribute('id', 'user-id-001');
+    });
+
+    it('bindDomId 为 true 且未提供 id 时，组件生成稳定 id（同对象两次渲染保持一致）', () => {
+      const node: FileNode = {
+        // 不设置 id，触发组件内部生成
+        name: 'no-id.txt',
+        url: 'https://a/no-id.txt',
+      } as FileNode;
+
+      const { rerender } = render(
+        <TestWrapper>
+          <FileComponent nodes={[node]} bindDomId />
+        </TestWrapper>,
+      );
+      const first = screen.getByRole('button', { name: /文件.*no-id\.txt/ });
+      const firstId = first.getAttribute('id');
+      expect(firstId).toBeTruthy();
+
+      // 复用同一个对象实例再次渲染，应保持相同 id
+      rerender(
+        <TestWrapper>
+          <FileComponent nodes={[node]} bindDomId />
+        </TestWrapper>,
+      );
+      const second = screen.getByRole('button', { name: /文件.*no-id\.txt/ });
+      const secondId = second.getAttribute('id');
+      expect(secondId).toBe(firstId);
+    });
+
+    it('分组子项在 bindDomId 为 true 时也会绑定 id', () => {
+      const group: GroupNode = {
+        id: 'group-1',
+        name: '分组',
+        type: 'plainText',
+        children: [{ id: 'child-1', name: 'child.txt', url: 'https://x/y' }],
+      };
+      render(
+        <TestWrapper>
+          <FileComponent nodes={[group]} bindDomId />
+        </TestWrapper>,
+      );
+      const childButton = screen.getByRole('button', {
+        name: /文件.*child\.txt/,
+      });
+      expect(childButton).toHaveAttribute('id', 'child-1');
+    });
+  });
 });

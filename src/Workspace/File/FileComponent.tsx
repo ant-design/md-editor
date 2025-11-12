@@ -844,7 +844,8 @@ export const FileComponent: FC<{
                   download: () => handleDownloadInPreview(file),
                   share: () => {
                     if (onShare) {
-                      onShare(file);
+                      // 为保持回调参数签名一致，显式传入第二个参数为 undefined
+                      onShare(file, undefined);
                     } else {
                       handleDefaultShare(file, locale);
                     }
