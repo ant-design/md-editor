@@ -41,9 +41,9 @@ export const HistoryEmpty: React.FC = () => {
       <HistoryEmptyIcon />
       <div
         style={{
-          font: 'var(--font-text-h5-base)',
-          color: 'var(--color-gray-text-default)',
-          letterSpacing: 'var(--letter-spacing-h5-base, normal)',
+          font: 'var(--font-text-h6-base)',
+          color: 'var(--color-gray-text-secondary)',
+          letterSpacing: 'var(--letter-spacing-h6-base, normal)',
           marginBottom: 2,
         }}
       >

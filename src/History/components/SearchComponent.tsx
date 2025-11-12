@@ -204,15 +204,10 @@ export const HistorySearch: React.FC<HistorySearchProps> = ({
             style={{
               width: 28,
               height: 28,
+              color: 'var(--color-gray-text-secondary)',
             }}
           >
-            <SearchIcon
-              style={{
-                width: 14,
-                height: 14,
-                color: 'var(--color-gray-text-secondary)',
-              }}
-            />
+            <SearchIcon />
           </ActionIconBox>
         </>
       )}

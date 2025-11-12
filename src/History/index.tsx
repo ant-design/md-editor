@@ -146,10 +146,12 @@ export const History: React.FC<HistoryProps> = (props) => {
           {props.slots?.beforeHistoryList?.(filteredList)}
 
           {items?.length === 0 && !props.loading ? (
-            props.emptyRender ? (
+            searchKeyword ? (
+              <HistoryEmpty />
+            ) : props.emptyRender ? (
               props.emptyRender()
             ) : (
-              <HistoryEmpty />
+              <></>
             )
           ) : (
             <>
@@ -194,7 +196,13 @@ export const History: React.FC<HistoryProps> = (props) => {
         <>
           {items?.length === 0 && !props?.loading ? (
             <div data-testid="empty-state-popover">
-              {props.emptyRender ? props.emptyRender() : <HistoryEmpty />}
+              {searchKeyword ? (
+                <HistoryEmpty />
+              ) : props.emptyRender ? (
+                props.emptyRender()
+              ) : (
+                <HistoryEmpty />
+              )}
             </div>
           ) : (
             <GroupMenu
