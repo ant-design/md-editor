@@ -67,7 +67,7 @@ export const InlineKatex = ({
     }
   }, [selected]);
   if (process.env.NODE_ENV === 'test') {
-    return <span contentEditable={false} style={{ fontSize: 0 }} />;
+    return <span contentEditable={false} />;
   }
 
   if (readonly) {
@@ -80,7 +80,7 @@ export const InlineKatex = ({
           position: 'relative',
         }}
       >
-        <span contentEditable={false} ref={renderEl} style={{ fontSize: 0 }} />
+        <span contentEditable={false} ref={renderEl} />
         <span
           style={{
             display: 'none',

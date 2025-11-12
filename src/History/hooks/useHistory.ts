@@ -38,11 +38,12 @@ export const useHistory = (props: HistoryProps) => {
     props.onShow?.();
   }, []);
 
+  // 当 sessionId 或 request 改变时重新加载数据
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     props.sessionId && setSelectedIds([props.sessionId]);
     loadHistory();
-  }, [props.sessionId]);
+  }, [props.sessionId, props.request, loadHistory]);
 
   // 搜索过滤逻辑
   useEffect(() => {

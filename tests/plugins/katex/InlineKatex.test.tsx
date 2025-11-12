@@ -55,16 +55,6 @@ describe('InlineKatex', () => {
     expect(contentEditableSpan).toBeInTheDocument();
   });
 
-  it('should render with correct style attributes', () => {
-    render(<InlineKatex {...defaultProps} style={{ fontSize: '0px' }} />);
-
-    const spans = screen.getAllByRole('generic');
-    const contentEditableSpan = spans.find(
-      (span) => span.getAttribute('contenteditable') === 'false',
-    );
-    expect(contentEditableSpan).toHaveStyle({ fontSize: '0px' });
-  });
-
   it('should render the component structure correctly', () => {
     const { container } = render(<InlineKatex {...defaultProps} />);
 
