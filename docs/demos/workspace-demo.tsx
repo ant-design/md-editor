@@ -144,7 +144,7 @@ const Demo = () => {
         <Workspace.Realtime
           tab={{
             key: 'realtime',
-            title: '实时跟额随',
+            title: '实时跟随',
           }}
           data={{
             type: 'md',
