@@ -80,7 +80,19 @@ export const generateHistoryItems = ({
     },
   );
 
-  const items = Object.keys(groupList).map((key) => {
+  const groupMaxTimes = Object.fromEntries(
+    Object.entries(groupList).map(([key, list]) => [
+      key,
+      Math.max(...list.map((item) => dayjs(item.gmtCreate).valueOf())),
+    ]),
+  );
+
+  // 按照时间顺序对分组进行排序：今日 > 昨日 > 一周内 > 其他
+  const sortedGroupKeys = Object.keys(groupList).sort(
+    (keyA, keyB) => (groupMaxTimes[keyB] || 0) - (groupMaxTimes[keyA] || 0),
+  );
+
+  const items = sortedGroupKeys.map((key) => {
     const list = groupList[key];
     const firstItem = list?.at(0);
     const label =
@@ -106,6 +118,12 @@ export const generateHistoryItems = ({
           return {
             key: item.sessionId || `item-${item.id}`,
             type: 'item' as const,
+            onClick: () => {
+              if (!item.sessionId) {
+                return;
+              }
+              onClick(item.sessionId, item);
+            },
             label: (
               <HistoryItem
                 item={item}

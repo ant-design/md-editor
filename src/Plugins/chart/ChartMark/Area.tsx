@@ -14,19 +14,32 @@ import { Line } from 'react-chartjs-2';
 import { Container } from './Container';
 import { ChartProps } from './useChart';
 
-// 注册 Chart.js 组件
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Title,
-  Tooltip,
-  Legend,
-);
+let chartMarkAreaRegistered = false;
 
 export const Area: React.FC<ChartProps> = (props) => {
+  React.useMemo(() => {
+    if (chartMarkAreaRegistered) {
+      return undefined;
+    }
+
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    ChartJS.register(
+      CategoryScale,
+      LinearScale,
+      PointElement,
+      LineElement,
+      Filler,
+      Title,
+      Tooltip,
+      Legend,
+    );
+    chartMarkAreaRegistered = true;
+    return undefined;
+  }, []);
+
   const chartRef = React.useRef<ChartJS>(undefined);
   const htmlRef = useRef<HTMLDivElement>(null);
   const lineChartRef = useRef<any>(null);

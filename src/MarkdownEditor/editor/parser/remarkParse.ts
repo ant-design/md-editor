@@ -164,7 +164,7 @@ const markdownParser = unified()
   .use(remarkGfm) // GFM 插件
   .use(fixStrongWithSpecialChars) // 修复包含特殊字符的加粗文本
   .use(remarkMath as any, {
-    singleDollarTextMath: false, // 暂时禁用单美元符号，只使用双美元符号 $$...$$
+    singleDollarTextMath: true, // 允许单美元符号渲染内联数学公式
   })
   .use(remarkRehype as any, { allowDangerousHtml: true })
   .use(rehypeRaw)

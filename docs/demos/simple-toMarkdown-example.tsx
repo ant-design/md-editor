@@ -118,7 +118,6 @@ export default function SimpleToMarkdownExample() {
       <div style={{ marginBottom: '20px' }}>
         <button
           type="button"
-          type="button"
           onClick={handleExportMarkdown}
           style={{
             padding: '8px 16px',

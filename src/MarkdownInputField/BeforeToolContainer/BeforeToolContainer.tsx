@@ -32,6 +32,7 @@ const SCROLL_STYLE: React.CSSProperties = {
   WebkitOverflowScrolling: 'touch',
   overscrollBehavior: 'contain',
   touchAction: 'pan-x',
+  paddingRight: 54,
 };
 
 const POPOVER_OVERLAY_STYLE: React.CSSProperties = { padding: 0 };

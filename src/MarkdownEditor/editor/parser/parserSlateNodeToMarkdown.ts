@@ -11,6 +11,134 @@ import { getMediaType } from '../utils/dom';
 const inlineNode = new Set(['break']);
 
 /**
+ * 尝试使用插件转换节点
+ */
+const tryPluginConversion = (
+  node: any,
+  preString: string,
+  parent: any[],
+  plugins?: MarkdownEditorPlugin[],
+): string | null => {
+  if (!plugins?.length) return null;
+
+  for (const plugin of plugins) {
+    const rule = plugin.toMarkdown?.find((r) => r.match(node));
+    if (!rule) continue;
+
+    const converted = rule.convert(node);
+    return convertPluginNode(converted, preString, parent, plugins);
+  }
+
+  return null;
+};
+
+/**
+ * 转换插件节点为 Markdown 字符串
+ */
+const convertPluginNode = (
+  converted: any,
+  preString: string,
+  parent: any[],
+  plugins?: MarkdownEditorPlugin[],
+): string => {
+  switch (converted.type) {
+    case 'code':
+      return convertCodeNode(converted, preString);
+    case 'blockquote':
+      return convertBlockquoteNode(converted, preString, parent, plugins);
+    case 'paragraph':
+      return convertParagraphNode(converted, preString, parent, plugins);
+    case 'heading':
+      return convertHeadingNode(converted, preString, parent, plugins);
+    case 'text':
+      return (converted as any).value || '';
+    default:
+      return '';
+  }
+};
+
+/**
+ * 转换代码节点
+ */
+const convertCodeNode = (codeNode: any, preString: string): string => {
+  const language = codeNode.lang || '';
+  const value = codeNode.value || '';
+
+  if (!value?.trim()) {
+    return `${preString}\`\`\`${language}\n${preString}\`\`\``;
+  }
+
+  const codeLines = value.split('\n');
+  const indentedCode = codeLines
+    .map((line: string, index: number) => {
+      const isFirstOrLast = index === 0 || index === codeLines.length - 1;
+      return isFirstOrLast ? line : preString + line;
+    })
+    .join('\n');
+
+  return `${preString}\`\`\`${language}\n${indentedCode}\n${preString}\`\`\``;
+};
+
+/**
+ * 转换引用节点
+ */
+const convertBlockquoteNode = (
+  blockquoteNode: any,
+  preString: string,
+  parent: any[],
+  plugins?: MarkdownEditorPlugin[],
+): string => {
+  return (
+    '> ' +
+    parserSlateNodeToMarkdown(
+      blockquoteNode.children || [],
+      preString,
+      [...parent, { ...blockquoteNode, converted: true }],
+      plugins,
+    )
+  );
+};
+
+/**
+ * 转换段落节点
+ */
+const convertParagraphNode = (
+  paragraphNode: any,
+  preString: string,
+  parent: any[],
+  plugins?: MarkdownEditorPlugin[],
+): string => {
+  return (
+    preString +
+    parserSlateNodeToMarkdown(
+      paragraphNode.children || [],
+      preString,
+      [...parent, { ...paragraphNode, converted: true }],
+      plugins,
+    )
+  );
+};
+
+/**
+ * 转换标题节点
+ */
+const convertHeadingNode = (
+  headingNode: any,
+  preString: string,
+  parent: any[],
+  plugins?: MarkdownEditorPlugin[],
+): string => {
+  const level = headingNode.depth || 1;
+  const content = parserSlateNodeToMarkdown(
+    headingNode.children || [],
+    preString,
+    [...parent, { ...headingNode, converted: true }],
+    plugins,
+  );
+  return '#'.repeat(level) + ' ' + content.replace(/\n+$/, '');
+};
+
+/**
  * 解析单个 Slate 节点并转换为对应的 Markdown 字符串
  *
  * @param node - 要解析的 Slate 节点，包含 type、children、value 等属性
@@ -88,69 +216,9 @@ const parserNode = (
   if (!node) return str;
 
   // 首先尝试使用插件处理
-  if (plugins?.length) {
-    for (const plugin of plugins) {
-      const rule = plugin.toMarkdown?.find((r) => r.match(node));
-      if (rule) {
-        const converted = rule.convert(node);
-        // 将转换后的 Markdown AST 节点转换为字符串
-        if (converted.type === 'code') {
-          const codeNode = converted as any;
-          const language = codeNode.lang || '';
-          const value = codeNode.value || '';
-          if (!value?.trim()) {
-            return `${preString}\`\`\`${language}\n${preString}\`\`\``;
-          }
-          const codeLines = value.split('\n');
-          const indentedCode = codeLines
-            .map((line: string, index: number) => {
-              if (index === 0 || index === codeLines.length - 1) {
-                return line;
-              }
-              return preString + line;
-            })
-            .join('\n');
-          return `${preString}\`\`\`${language}\n${indentedCode}\n${preString}\`\`\``;
-        } else if (converted.type === 'blockquote') {
-          const blockquoteNode = converted as any;
-          // 递归处理 blockquote 的子节点
-          return (
-            '> ' +
-            parserSlateNodeToMarkdown(
-              blockquoteNode.children || [],
-              preString,
-              [...parent, { ...blockquoteNode, converted: true }],
-              plugins,
-            )
-          );
-        } else if (converted.type === 'paragraph') {
-          const paragraphNode = converted as any;
-          return (
-            preString +
-            parserSlateNodeToMarkdown(
-              paragraphNode.children || [],
-              preString,
-              [...parent, { ...paragraphNode, converted: true }],
-              plugins,
-            )
-          );
-        } else if (converted.type === 'heading') {
-          const headingNode = converted as any;
-          const level = headingNode.depth || 1;
-          const content = parserSlateNodeToMarkdown(
-            headingNode.children || [],
-            preString,
-            [...parent, { ...headingNode, converted: true }],
-            plugins,
-          );
-          return '#'.repeat(level) + ' ' + content.replace(/\n+$/, '');
-        } else if (converted.type === 'text') {
-          return (converted as any).value || '';
-        }
-        // 对于其他类型，返回空字符串或基本处理
-        return '';
-      }
-    }
+  const pluginResult = tryPluginConversion(node, preString, parent, plugins);
+  if (pluginResult !== null) {
+    return pluginResult;
   }
 
   switch (node.type) {
@@ -270,7 +338,10 @@ export const parserSlateNodeToMarkdown = (
 
       // 只有当 configProps 不为空对象时才生成注释
       if (Object.keys(configProps).length > 0) {
-        const propsToSerialize = (node.type === 'chart' && configProps.config) ? configProps.config : configProps;
+        const propsToSerialize =
+          node.type === 'chart' && configProps.config
+            ? configProps.config
+            : configProps;
         str += `<!--${JSON.stringify(propsToSerialize)}-->\n`;
       }
     }

@@ -1,1 +1,1 @@
-export * from './ShinyText';
+export * from './TextLoading';

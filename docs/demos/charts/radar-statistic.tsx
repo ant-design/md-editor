@@ -35,4 +35,3 @@ const RadarChartStatisticExample: React.FC = () => {
 };
 
 export default RadarChartStatisticExample;
-

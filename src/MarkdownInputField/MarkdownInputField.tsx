@@ -534,6 +534,7 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const markdownEditorRef = React.useRef<MarkdownEditorInstance>();
   const quickActionsRef = React.useRef<HTMLDivElement>(null);
   const actionsRef = React.useRef<HTMLDivElement>(null);
+  const isSendingRef = React.useRef(false); // 防重复触发标记
   const [collapseSendActions, setCollapseSendActions] = useState(() => {
     if (typeof window === 'undefined') return false;
     if (window.innerWidth < 460) return true;
@@ -574,37 +575,40 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
     onChange: props.attachment?.onFileMapChange,
   });
 
+  const hasEnlargeAction = !!props?.enlargeable?.enable;
+  const hasRefineAction = !!props?.refinePrompt?.enable;
+  const hasCustomQuickAction = !!props?.quickActionRender;
+  const hasActionsRender = !!props?.actionsRender;
+  const hasToolsRender = !!props?.toolsRender;
+
+  const quickActionCount =
+    Number(hasEnlargeAction) +
+    Number(hasRefineAction) +
+    Number(hasCustomQuickAction);
+  const auxiliaryActionCount =
+    Number(hasActionsRender) + Number(hasToolsRender);
+  const totalActionCount = quickActionCount + auxiliaryActionCount;
+
   // 是否需要多行布局
-  const isMultiRowLayout = useMemo(() => {
-    return !!(
-      props?.quickActionRender ||
-      props?.refinePrompt?.enable ||
-      props?.actionsRender ||
-      props?.toolsRender
-    );
-  }, [
-    props?.quickActionRender,
-    props?.refinePrompt?.enable,
-    props?.actionsRender,
-    props?.toolsRender,
-  ]);
+  const isMultiRowLayout = totalActionCount > 0;
 
   // 计算最小高度
   const computedMinHeight = useMemo(() => {
     if (isEnlarged) return 'auto';
+    if (props.style?.minHeight !== undefined) return props.style.minHeight;
     // 如果同时有放大按钮和提示词优化按钮，最小高度为 140px
-    if (props?.enlargeable?.enable && props?.refinePrompt?.enable) {
-      return 160;
-    }
+    if (hasEnlargeAction && hasRefineAction) return 140;
+    if (totalActionCount === 1) return 90;
     // 其他多行布局情况，最小高度为 106px
     if (isMultiRowLayout) return 106;
     // 默认使用传入的 minHeight 或 0
     return props.style?.minHeight || 0;
   }, [
     isEnlarged,
-    props?.enlargeable?.enable,
-    props?.refinePrompt?.enable,
+    hasEnlargeAction,
+    hasRefineAction,
     isMultiRowLayout,
+    totalActionCount,
     props.style?.minHeight,
   ]);
 
@@ -662,6 +666,11 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
   const sendMessage = useRefFunction(async () => {
     if (props.disabled) return;
     if (props.typing) return;
+    // 防止重复触发：如果正在加载中，直接返回
+    if (isLoading) return;
+    // 使用 ref 防止快速连续触发
+    if (isSendingRef.current) return;
+
     // 如果处于录音中：优先停止录音或输入
     if (recording) await stopRecording();
     const mdValue = markdownEditorRef?.current?.store?.getMDContent();
@@ -673,6 +682,8 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
 
     // allowEmptySubmit 开启时，即使内容为空也允许触发发送
     if (props.onSend && (props.allowEmptySubmit || mdValue)) {
+      // 设置发送标记
+      isSendingRef.current = true;
       setIsLoading(true);
       try {
         await props.onSend(mdValue || '');
@@ -680,8 +691,13 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
         props.onChange?.('');
         setValue('');
         setFileMap?.(new Map());
+      } catch (error) {
+        console.error('Send message failed:', error);
+        throw error;
       } finally {
         setIsLoading(false);
+        // 重置发送标记
+        isSendingRef.current = false;
       }
     }
   });
@@ -799,7 +815,10 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
         if (!(isEnter && isMod)) return;
         e.stopPropagation();
         e.preventDefault();
-        if (props.onSend) sendMessage();
+        // 防止重复触发：检查是否已经在加载中
+        if (props.onSend && !isLoading && !props.disabled && !props.typing) {
+          sendMessage();
+        }
       }
     },
   );
@@ -1017,7 +1036,9 @@ export const MarkdownInputField: React.FC<MarkdownInputFieldProps> = ({
           ) : (
             sendActionsNode
           )}
-          {props?.quickActionRender || props.refinePrompt?.enable ? (
+          {props?.quickActionRender ||
+          props.refinePrompt?.enable ||
+          props.enlargeable?.enable ? (
             <QuickActions
               ref={quickActionsRef}
               value={value}

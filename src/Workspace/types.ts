@@ -321,6 +321,8 @@ export interface FileNode extends BaseNode {
   canDownload?: boolean; // 用户自定义是否可以下载（默认显示，设置为 false 隐藏）
   /** 用户自定义是否可以分享（默认隐藏，设置为 true 显示） */
   canShare?: boolean;
+  /** 用户自定义是否可以定位（默认隐藏，设置为 true 显示） */
+  canLocate?: boolean;
   loading?: boolean; // 文件是否处于加载中
 }
 
@@ -349,6 +351,7 @@ export interface FileProps extends BaseChildProps {
   onGroupDownload?: (files: FileNode[], groupType: FileType) => void;
   onDownload?: (file: FileNode) => void;
   onFileClick?: (file: FileNode) => void;
+  onLocate?: (file: FileNode) => void;
   onToggleGroup?: (groupType: FileType, collapsed: boolean) => void;
   /** 重置标识，用于重置预览状态（内部使用） */
   resetKey?: number;
@@ -391,13 +394,18 @@ export interface FileProps extends BaseChildProps {
    */
   actionRef?: React.MutableRefObject<FileActionRef | null>;
   /**
-   * 是否显示加载状态
-   * @description 当为true时，显示加载动画，通常在文件列表数据加载过程中使用
+   * @deprecated 请使用 isLoading 代替
+   * @description 已废弃，将在未来版本移除
    */
   loading?: boolean;
   /**
+   * 是否显示加载状态
+   * @description 当为true时，显示加载动画，通常在文件列表数据加载过程中使用
+   */
+  isLoading?: boolean;
+  /**
    * 自定义加载渲染函数
-   * @description 当loading为true时，如果提供了此函数则使用自定义渲染，否则使用默认的Spin组件
+   * @description 当isLoading为true时，如果提供了此函数则使用自定义渲染，否则使用默认的Spin组件
    */
   loadingRender?: () => React.ReactNode;
   /**
@@ -413,6 +421,12 @@ export interface FileProps extends BaseChildProps {
   showSearch?: boolean;
   /** 搜索框占位符 */
   searchPlaceholder?: string;
+  /**
+   * 是否在文件项根元素上绑定 DOM id
+   * @default false
+   * @description 置为 false 时，不会向元素写入 id 属性（不影响 React key）
+   */
+  bindDomId?: boolean;
 }
 
 export interface CustomProps extends BaseChildProps {

@@ -25,23 +25,19 @@ import { defaultColorList } from '../const';
 import { StatisticConfigType } from '../hooks/useChartStatistic';
 import { useStyle } from './style';
 
-// 注册 Chart.js 组件
-ChartJS.register(
-  RadialLinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Tooltip,
-  Legend,
-);
+let radarChartComponentsRegistered = false;
 
 // 雷达图数据项接口 - 扁平化数据格式
 export interface RadarChartDataItem {
   category?: string;
-  label: string;
+  label?: string;
   type?: string;
-  score: number | string;
+  score?: number | string;
   filterLabel?: string;
+  // 兼容不同的数据格式
+  x?: string;
+  y?: number;
+  [key: string]: any;
 }
 
 interface RadarChartProps extends ChartContainerProps {
@@ -53,6 +49,12 @@ interface RadarChartProps extends ChartContainerProps {
   width?: number | string;
   /** 图表高度，默认400px */
   height?: number | string;
+  /** 自定义边框颜色 */
+  borderColor?: string;
+  /** 自定义背景颜色 */
+  backgroundColor?: string;
+  /** 自定义点背景颜色 */
+  pointBackgroundColor?: string;
   /** 自定义CSS类名 */
   className?: string;
   /** 数据时间 */
@@ -83,6 +85,27 @@ const RadarChart: React.FC<RadarChartProps> = ({
   textMaxWidth = 80,
   ...props
 }) => {
+  useMemo(() => {
+    if (radarChartComponentsRegistered) {
+      return undefined;
+    }
+
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    ChartJS.register(
+      RadialLinearScale,
+      PointElement,
+      LineElement,
+      Filler,
+      Tooltip,
+      Legend,
+    );
+    radarChartComponentsRegistered = true;
+    return undefined;
+  }, []);
+
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('radar-chart');
   const { wrapSSR, hashId } = useStyle(prefixCls);

@@ -91,6 +91,7 @@ export const cnLabels = {
   'think.deepThinking': '深度思考',
   'think.deepThinkingInProgress': '深度思考...',
   switchLanguage: '切换语言',
+  welcome: '欢迎使用多语言支持',
   insertLink: '插入链接',
   clearFormatting: '清除格式',
   undo: '撤销',
@@ -180,6 +181,8 @@ export const cnLabels = {
   'chat.history.historyTasks': '历史任务',
   'chat.history.historyChats': '历史对话',
   'chat.task.search.placeholder': '搜索任务',
+  'chat.history.empty.chat.title': '找不到相关结果',
+  'chat.history.empty.chat.description': '换个关键词试试吧',
   // TaskList 组件相关
   'taskList.expand': '展开',
   'taskList.collapse': '收起',
@@ -208,6 +211,7 @@ export const cnLabels = {
   'workspace.file.download': '下载',
   'workspace.file.share': '分享',
   'workspace.file.preview': '预览',
+  'workspace.file.location': '定位',
   'workspace.file.linkCopied': '已复制链接',
   'workspace.file.copyFailed': '复制失败',
   // MarkdownInputField 组件相关
@@ -368,6 +372,7 @@ export const enLabels: typeof cnLabels = {
   undo: 'Undo',
   redo: 'Redo',
   switchLanguage: 'Switch Language',
+  welcome: 'Welcome to Multilingual Support',
   insertLink: 'Insert Link',
   attachmentSupportedFormats: 'Supported file types and formats:',
   clearFormatting: 'Clear Formatting',
@@ -537,6 +542,8 @@ export const enLabels: typeof cnLabels = {
   'chat.history.historyTasks': 'History Tasks',
   'chat.history.historyChats': 'History Chats',
   'chat.task.search.placeholder': 'Search Task',
+  'chat.history.empty.chat.title': 'No related results found',
+  'chat.history.empty.chat.description': 'Try a different keyword',
   // TaskList component related
   'taskList.expand': 'Expand',
   'taskList.collapse': 'Collapse',
@@ -565,6 +572,7 @@ export const enLabels: typeof cnLabels = {
   'workspace.file.download': 'Download',
   'workspace.file.share': 'Share',
   'workspace.file.preview': 'Preview',
+  'workspace.file.location': 'Location',
   'workspace.file.linkCopied': 'Link copied',
   'workspace.file.copyFailed': 'Copy failed',
   // MarkdownInputField component related

@@ -131,6 +131,7 @@ const customAfterContentRender = (props) => {
       <div style={{ padding: 24 }}>
         <Bubble
           originData={mockMessageData}
+          pure
           bubbleRenderConfig={{
             beforeMessageRender: customBeforeContentRender,
             afterMessageRender: customAfterContentRender,

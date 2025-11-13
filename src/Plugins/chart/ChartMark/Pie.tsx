@@ -5,10 +5,23 @@ import { defaultColorList } from '../const';
 import { Container } from './Container';
 import { ChartProps } from './useChart';
 
-// 注册 Chart.js 组件
-ChartJS.register(ArcElement, Tooltip, Legend);
+let chartMarkPieRegistered = false;
 
 export const Pie: React.FC<ChartProps> = (props) => {
+  React.useMemo(() => {
+    if (chartMarkPieRegistered) {
+      return undefined;
+    }
+
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    ChartJS.register(ArcElement, Tooltip, Legend);
+    chartMarkPieRegistered = true;
+    return undefined;
+  }, []);
+
   const chartRef = React.useRef<ChartJS>(undefined);
   const htmlRef = useRef<HTMLDivElement>(null);
   const pieChartRef = useRef<any>(null);

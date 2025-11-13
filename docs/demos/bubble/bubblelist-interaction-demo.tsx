@@ -105,6 +105,7 @@ export default () => {
             pure: true,
           },
         }}
+        pure
         bubbleList={bubbleList}
         bubbleListRef={bubbleListRef}
         bubbleRef={bubbleRef}

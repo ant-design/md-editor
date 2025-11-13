@@ -26,7 +26,7 @@ import { StatisticConfigType } from '../hooks/useChartStatistic';
 import { findDataPointByXValue, isXValueEqual, toNumber } from '../utils';
 import { useStyle } from './style';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
+let funnelChartComponentsRegistered = false;
 
 export interface FunnelChartDataItem {
   /** 数据类别 */
@@ -72,6 +72,8 @@ export interface FunnelChartProps extends ChartContainerProps {
   toolbarExtra?: React.ReactNode;
   /** 是否将过滤器渲染到工具栏 */
   renderFilterInToolbar?: boolean;
+  /** 最底层的最小宽度占比（0-1），相对于最顶层的宽度，0-不限制 */
+  bottomLayerMinWidth?: number;
   /** ChartStatistic组件配置：object表示单个配置，array表示多个配置 */
   statistic?: StatisticConfigType;
 
@@ -97,10 +99,25 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
   showPercent = true,
   toolbarExtra,
   renderFilterInToolbar = false,
+  bottomLayerMinWidth = 0,
   typeNames,
   statistic: statisticConfig,
   ...props
 }) => {
+  useMemo(() => {
+    if (funnelChartComponentsRegistered) {
+      return undefined;
+    }
+
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
+    funnelChartComponentsRegistered = true;
+    return undefined;
+  }, []);
+
   const safeData = Array.isArray(data) ? data : [];
 
   // 处理 ChartStatistic 组件配置
@@ -114,7 +131,6 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     typeof window !== 'undefined' ? window.innerWidth : 768,
   );
   const isMobile = windowWidth <= 768;
-  const responsiveWidth = isMobile ? '100%' : width;
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -221,6 +237,14 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     return chartHeight;
   }, [height, chartHeight]);
 
+  // 原始值
+  const originalValues = useMemo(() => {
+    return stages.map((x) => {
+      const dp = findDataPointByXValue(filteredData, x);
+      return toNumber(dp?.y, 0);
+    });
+  }, [filteredData, stages]);
+
   // 计算数据：使用浮动条 [-w/2, w/2] 居中呈现，形成对称“漏斗条”
   const processedData: ChartData<
     'bar',
@@ -239,8 +263,38 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
     // 取当前数据的类型名作为数据集 label
     const typeName = typeNames?.name || '转化';
 
+    // 应用最小宽度约束
+    const adjustedValues = (() => {
+      // 非法值（≤0 或 >1）都视为不限制
+      if (
+        bottomLayerMinWidth <= 0 ||
+        bottomLayerMinWidth > 1 ||
+        values.length === 0
+      ) {
+        return values;
+      }
+
+      const maxValue = Math.max(...values);
+      const minValue = Math.min(...values);
+      
+      // 如果最小值已经满足最小宽度要求，无需调整
+      if (minValue >= maxValue * bottomLayerMinWidth) {
+        return values;
+      }
+
+      // 线性映射到 [minWidth, maxValue] 区间
+      const minWidth = bottomLayerMinWidth * maxValue;
+      const range = maxValue - minValue;
+      
+      return values.map((v) => {
+        if (range === 0) return maxValue;
+        const normalized = (v - minValue) / range;
+        return minWidth + normalized * (maxValue - minWidth);
+      });
+    })();
+
     // 中心对称的浮动条：[-v/2, v/2]
-    const datasetData: [number, number][] = values.map(
+    const datasetData: [number, number][] = adjustedValues.map(
       (v) => [-v / 2, v / 2] as [number, number],
     );
 
@@ -292,7 +346,7 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
         },
       ],
     };
-  }, [filteredData, stages]);
+  }, [filteredData, stages, bottomLayerMinWidth, color, typeNames]);
 
   const ratioDisplay = useMemo(() => {
     const formatRaw = (v: any): string | undefined => {
@@ -455,20 +509,15 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
             return it?.label ? String(it.label) : '';
           },
           label: (ctx) => {
-            const raw = ctx.raw as [number, number] | number | null | undefined;
-            const width = Array.isArray(raw)
-              ? Math.abs((raw[1] ?? 0) - (raw[0] ?? 0))
-              : typeof raw === 'number'
-                ? Math.abs(raw)
-                : 0;
-            // 不计算基于第一层的比例，保持仅在提供 ratio 时展示百分比
+            // 使用原始值而非调整后的视觉宽度
             const idx = ctx.dataIndex ?? 0;
+            const originalValue = originalValues?.[idx] ?? 0;
             const percentStr: string | undefined = ratioDisplay?.[idx];
             // 仅当传入了 ratio 时展示百分比，否则只展示数值
             if (showPercent === false || !percentStr) {
-              return `${width}`;
+              return `${originalValue}`;
             }
-            return `${width}（${percentStr}）`;
+            return `${originalValue}（${percentStr}）`;
           },
         },
       },
@@ -634,35 +683,47 @@ const FunnelChart: React.FC<FunnelChartProps> = ({
           const label = labels?.[i] ?? '';
           ctx.fillText(label, maxEnd + padding, y);
 
-          // 在柱体中心绘制数值文本（白色）
+          // 在柱体中心绘制数值文本（白色）- 使用原始值
           const start = Number(raw[0] ?? 0);
           const end = Number(raw[1] ?? 0);
           const mid = (start + end) / 2;
-          const value = Math.abs(end - start);
+          const originalValue = originalValues?.[i] ?? 0;
           const cx = xScale?.getPixelForValue
             ? xScale.getPixelForValue(mid)
             : el.x;
           ctx.save();
           ctx.fillStyle = '#fff';
           ctx.textAlign = 'center';
-          ctx.fillText(String(Math.round(value)), cx, y);
+          ctx.fillText(String(Math.round(originalValue)), cx, y);
           ctx.restore();
         });
         ctx.restore();
       },
     };
-  }, [isMobile, axisTextColor]);
+  }, [isMobile, axisTextColor, originalValues]);
+
+  const containerClassName = useMemo(() => {
+    if (isMobile) return 'w-full';
+    if (typeof width === 'number') return '';
+    if (typeof width === 'string' && width === '100%') return 'w-full';
+    return '';
+  }, [isMobile, width]);
+
+  const containerStyle = useMemo(() => {
+    if (isMobile) return undefined;
+    if (typeof width === 'number') return { width };
+    if (typeof width === 'string' && width !== '100%') return { width };
+    return undefined;
+  }, [isMobile, width]);
 
   return wrapSSR(
     <ChartContainer
       baseClassName={baseClassName}
-      className={className}
+      className={`${className || ''} ${containerClassName}`.trim()}
       theme={theme}
       isMobile={isMobile}
       variant={props.variant}
-      style={{
-        width: responsiveWidth,
-      }}
+      style={containerStyle}
     >
       <ChartToolBar
         title={title}

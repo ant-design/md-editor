@@ -2,6 +2,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import {
   Download as DownloadIcon,
   ArrowLeft as LeftIcon,
+  Locate,
   SquareArrowOutUpRight as ShareIcon,
 } from '@sofa-design/icons';
 import {
@@ -92,6 +93,8 @@ export interface PreviewComponentProps {
     file: FileNode,
     options?: { anchorEl?: HTMLElement; origin?: string },
   ) => void;
+  /** 定位回调 */
+  onLocate?: (file: FileNode) => void;
   /** Markdown 编辑器配置 */
   markdownEditorProps?: Partial<
     Omit<MarkdownEditorProps, 'editorRef' | 'initValue' | 'readonly'>
@@ -161,15 +164,6 @@ const PlaceholderContent: FC<{
 
 /**
  * 文件预览组件
- *
- * @example
- * ```tsx
- * <PreviewComponent
- *   file={fileNode}
- *   onBack={() => setPreviewFile(null)}
- *   customActions={<Button icon={<EditIcon />}>编辑</Button>}
- * />
- * ```
  */
 export const PreviewComponent: FC<PreviewComponentProps> = ({
   file,
@@ -179,6 +173,7 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   onBack,
   onDownload,
   onShare,
+  onLocate,
   markdownEditorProps,
   headerFileOverride,
 }) => {
@@ -218,6 +213,10 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       anchorEl: e.currentTarget as HTMLElement,
       origin: 'preview',
     });
+  };
+
+  const handleLocate = () => {
+    onLocate?.(file);
   };
 
   useEffect(() => {
@@ -698,6 +697,16 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
               >
                 {customActions}
               </div>
+            )}
+            {onLocate && file.canLocate === true && (
+              <ActionIconBox
+                title={locale?.['workspace.file.location'] || '定位'}
+                onClick={handleLocate}
+                tooltipProps={{ mouseEnterDelay: 0.3 }}
+                className={classNames(`${prefixCls}-item-action-btn`, hashId)}
+              >
+                <Locate />
+              </ActionIconBox>
             )}
             {onShare && file.canShare === true && (
               <ActionIconBox

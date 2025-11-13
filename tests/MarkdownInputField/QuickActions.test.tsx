@@ -14,6 +14,7 @@ vi.mock('../../src/MarkdownInputField/RefinePromptButton', () => ({
     ...props
   }: any) => (
     <button
+      type="button"
       data-testid="refine-prompt-button"
       onClick={onRefine}
       disabled={disabled}
@@ -22,6 +23,28 @@ vi.mock('../../src/MarkdownInputField/RefinePromptButton', () => ({
       {...props}
     >
       Refine
+    </button>
+  ),
+}));
+
+vi.mock('../../src/MarkdownInputField/Enlargement', () => ({
+  __esModule: true,
+  default: ({
+    isEnlarged,
+    onEnlargeClick,
+    ...rest
+  }: {
+    isEnlarged?: boolean;
+    onEnlargeClick?: () => void;
+  }) => (
+    <button
+      type="button"
+      data-testid="enlargement-toggle"
+      data-enlarged={isEnlarged}
+      onClick={onEnlargeClick}
+      {...rest}
+    >
+      {isEnlarged ? 'Shrink' : 'Enlarge'}
     </button>
   ),
 }));
@@ -95,6 +118,56 @@ describe('QuickActions', () => {
 
       expect(
         screen.queryByTestId('refine-prompt-button'),
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  describe('放大功能', () => {
+    it('应该在启用放大功能时渲染放大按钮', () => {
+      const { container } = render(
+        <QuickActions {...defaultProps} enlargeable={true} />,
+      );
+
+      expect(screen.getByTestId('enlargement-toggle')).toBeInTheDocument();
+      expect(
+        container.querySelector('.test-prefix-quick-actions-vertical'),
+      ).toBeInTheDocument();
+    });
+
+    it('应该将放大状态传递给放大按钮', () => {
+      render(
+        <QuickActions {...defaultProps} enlargeable={true} isEnlarged={true} />,
+      );
+
+      expect(screen.getByTestId('enlargement-toggle')).toHaveAttribute(
+        'data-enlarged',
+        'true',
+      );
+    });
+
+    it('应该在点击放大按钮时触发回调', () => {
+      const handleEnlargeClick = vi.fn();
+
+      render(
+        <QuickActions
+          {...defaultProps}
+          enlargeable={true}
+          onEnlargeClick={handleEnlargeClick}
+        />,
+      );
+
+      fireEvent.click(screen.getByTestId('enlargement-toggle'));
+      expect(handleEnlargeClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('应该在未启用放大功能时不渲染放大按钮', () => {
+      const { container } = render(<QuickActions {...defaultProps} />);
+
+      expect(
+        screen.queryByTestId('enlargement-toggle'),
+      ).not.toBeInTheDocument();
+      expect(
+        container.querySelector('.test-prefix-quick-actions-vertical'),
       ).not.toBeInTheDocument();
     });
   });
@@ -445,4 +518,3 @@ describe('QuickActions', () => {
     });
   });
 });
-

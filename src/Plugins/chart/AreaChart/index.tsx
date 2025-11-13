@@ -12,6 +12,7 @@ import {
   ScriptableContext,
   Tooltip,
 } from 'chart.js';
+import classNames from 'classnames';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import {
@@ -29,6 +30,7 @@ import {
   extractAndSortXValues,
   findDataPointByXValue,
 } from '../utils';
+import { useStyle } from './style';
 
 /**
  * @fileoverview 面积图组件文件
@@ -41,16 +43,7 @@ import {
  * @since 2024
  */
 
-// 注册 Chart.js 组件
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Filler,
-  Tooltip,
-  Legend,
-);
+let areaChartComponentsRegistered = false;
 
 /**
  * 面积图数据项类型
@@ -265,6 +258,28 @@ const AreaChart: React.FC<AreaChartProps> = ({
   statistic: statisticConfig,
   variant,
 }) => {
+  useMemo(() => {
+    if (areaChartComponentsRegistered) {
+      return undefined;
+    }
+
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    ChartJS.register(
+      CategoryScale,
+      LinearScale,
+      PointElement,
+      LineElement,
+      Filler,
+      Tooltip,
+      Legend,
+    );
+    areaChartComponentsRegistered = true;
+    return undefined;
+  }, []);
+
   const safeData = Array.isArray(data) ? data : [];
   // 响应式尺寸计算
   const [windowWidth, setWindowWidth] = useState(
@@ -289,6 +304,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
   // 样式注册
   const context = useContext(ConfigProvider.ConfigContext);
   const baseClassName = context?.getPrefixCls('area-chart-container');
+  const { wrapSSR, hashId } = useStyle(baseClassName);
 
   const chartRef = useRef<ChartJS<'line'>>(null);
 
@@ -554,7 +570,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
     downloadChart(chartRef.current, 'area-chart');
   };
 
-  return (
+  return wrapSSR(
     <ChartContainer
       baseClassName={baseClassName}
       className={className}
@@ -591,7 +607,9 @@ const AreaChart: React.FC<AreaChartProps> = ({
       />
 
       {statistics && (
-        <div className={`${baseClassName}-statistic-container`}>
+        <div
+          className={classNames(`${baseClassName}-statistic-container`, hashId)}
+        >
           {statistics.map((config, index) => (
             <ChartStatistic key={index} {...config} theme={theme} />
           ))}
@@ -618,7 +636,7 @@ const AreaChart: React.FC<AreaChartProps> = ({
       >
         <Line ref={chartRef} data={processedData} options={options} />
       </div>
-    </ChartContainer>
+    </ChartContainer>,
   );
 };
 

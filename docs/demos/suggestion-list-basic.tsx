@@ -76,6 +76,7 @@ export default function SuggestionListBasicDemo() {
               bubbleRef={bubbleRef}
               avatar={m.meta!}
               originData={m}
+              pure
               markdownRenderConfig={{
                 tableConfig: {
                   pure: true,

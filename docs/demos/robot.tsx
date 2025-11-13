@@ -52,7 +52,6 @@ export default () => {
           <div style={{ display: 'flex', gap: 8 }}>
             {statusOptions.map((option) => (
               <button
-                type="button"
                 key={option.value}
                 type="button"
                 onClick={() => setRobotStatus(option.value)}

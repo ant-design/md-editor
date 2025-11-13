@@ -272,6 +272,21 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           transform: 'translateX(0)',
           animation: 'none',
         },
+
+      '&-scroll-container': {
+        '&::-webkit-scrollbar': {
+          width: '4px',
+        },
+
+        '&::-webkit-scrollbar-track': {
+          backgroundColor: 'transparent',
+        },
+
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: 'var(--color-gray-border-light)',
+          borderRadius: '4px',
+        },
+      },
     },
   };
 };

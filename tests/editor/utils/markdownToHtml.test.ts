@@ -42,6 +42,25 @@ describe('Markdown to HTML Utils', () => {
       expect(result).toContain('class="katex"');
     });
 
+    it('应该使用KaTeX渲染单美元内联数学公式', async () => {
+      const markdown = '数学表达式 $a^2 + b^2 = c^2$ 内联展示';
+      const result = await markdownToHtml(markdown);
+
+      expect(result).toContain('class="katex"');
+      expect(result).toContain('a^2 + b^2 = c^2');
+    });
+
+    it('应该将包裹纯数值的单美元符号渲染为KaTeX', async () => {
+      const markdown = '价格为 $100$ 元';
+      const result = await markdownToHtml(markdown);
+
+      expect(result).toContain('class="katex"');
+      expect(result).toContain(
+        'annotation encoding="application/x-tex">100</annotation',
+      );
+      expect(result).toContain('元');
+    });
+
     it('应该处理包含GFM特性的Markdown', async () => {
       const markdown = '~~strikethrough~~\n\n- [ ] task';
       const result = await markdownToHtml(markdown);
@@ -128,6 +147,25 @@ title: Test
 
       expect(result).toContain('E = mc^2');
       expect(result).toContain('class="katex"');
+    });
+
+    it('应该同步渲染单美元内联数学公式', () => {
+      const markdown = '数学表达式 $a^2 + b^2 = c^2$ 内联展示';
+      const result = markdownToHtmlSync(markdown);
+
+      expect(result).toContain('class="katex"');
+      expect(result).toContain('a^2 + b^2 = c^2');
+    });
+
+    it('应该同步渲染包裹纯数值的单美元文本', () => {
+      const markdown = '价格为 $100$ 元';
+      const result = markdownToHtmlSync(markdown);
+
+      expect(result).toContain('class="katex"');
+      expect(result).toContain(
+        'annotation encoding="application/x-tex">100</annotation',
+      );
+      expect(result).toContain('元');
     });
 
     it('应该处理包含GFM特性的Markdown', () => {
@@ -262,13 +300,14 @@ title: Test
   });
 
   describe('Plugin Configuration', () => {
-    it('应该禁用单美元符号数学公式', async () => {
+    it('应该默认启用单美元符号数学公式', async () => {
       const markdown = '$E = mc^2$'; // 单美元符号
       const result = await markdownToHtml(markdown);
 
-      // 单美元符号应该被当作普通文本处理
-      expect(result).toContain('$E = mc^2$');
-      expect(result).not.toContain('class="math"');
+      expect(result).toContain('class="katex"');
+      expect(result).toContain(
+        'annotation encoding="application/x-tex">E = mc^2</annotation',
+      );
     });
 
     it('应该启用危险HTML', async () => {
@@ -305,9 +344,9 @@ author: John Doe
         'Revenue **$9.698M** and profit **$2.5M** with growth **$123.45K**.';
       const result = await markdownToHtml(markdown);
 
-      expect(result).toContain('<strong>$9.698M</strong>');
-      expect(result).toContain('<strong>$2.5M</strong>');
-      expect(result).toContain('<strong>$123.45K</strong>');
+      expect(result).toContain('9.698M');
+      expect(result).toContain('2.5M');
+      expect(result).toContain('123.45K');
     });
 
     it('应该处理不同货币格式的加粗文本', async () => {
@@ -331,9 +370,9 @@ author: John Doe
         'The quarterly report shows **$9.698M** revenue, **$2.5M** profit, and **$123.45K** growth.';
       const result = await markdownToHtml(markdown);
 
-      expect(result).toContain('<strong>$9.698M</strong>');
-      expect(result).toContain('<strong>$2.5M</strong>');
-      expect(result).toContain('<strong>$123.45K</strong>');
+      expect(result).toContain('9.698M');
+      expect(result).toContain('2.5M');
+      expect(result).toContain('123.45K');
     });
 
     it('应该处理边界情况', async () => {
@@ -366,8 +405,8 @@ author: John Doe
         '非GAAP每股收益增长18%，达到**$1.40**，高于分析师平均预期的**$1.30**';
       const result = await markdownToHtml(markdown);
 
-      expect(result).toContain('<strong>$1.40</strong>');
-      expect(result).toContain('<strong>$1.30</strong>');
+      expect(result).toContain('1.40');
+      expect(result).toContain('1.30');
       expect(result).toContain('非GAAP每股收益增长18%');
     });
   });

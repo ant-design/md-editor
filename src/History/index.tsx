@@ -1,10 +1,11 @@
-import { History as HistoryIcon } from '@sofa-design/icons';
+﻿import { HistoryOutlined } from '@ant-design/icons';
 import { ConfigProvider, Popover } from 'antd';
 import classNames from 'classnames';
 import React, { useContext, useRef } from 'react';
 import useClickAway from '../Hooks/useClickAway';
 import { ActionIconBox, BubbleConfigContext } from '../index';
 import {
+  HistoryEmpty,
   HistoryLoadMore,
   HistoryNewChat,
   HistorySearch,
@@ -31,7 +32,8 @@ export * from './utils';
  * @param {Function} props.request - 请求函数，用于获取历史数据
  * @param {Function} [props.onInit] - 组件初始化时的回调函数
  * @param {Function} [props.onShow] - 组件显示时的回调函数
- * @param {Function} [props.onSelected] - 选择历史记录项时的回调函数 (已弃用，请使用 onClick)
+ * @param {Function} [props.onSelected] - (已废弃，请使用 onClick) 选择历史记录项时的回调函数
+ * @param {Function} [props.onClick] - 点击历史记录项时的回调函数
  * @param {Function} [props.onDeleteItem] - 删除历史记录项时的回调函数
  * @param {Function} [props.customDateFormatter] - 日期格式化函数
  * @param {boolean} [props.standalone] - 是否以独立模式显示，为true时直接显示菜单，否则显示为下拉菜单
@@ -82,7 +84,7 @@ export const History: React.FC<HistoryProps> = (props) => {
     onSelectionChange: handleSelectionChange,
     onClick: (sessionId, item) => {
       props.onClick?.(sessionId, item);
-      props.onSelected?.(sessionId);
+      props.onSelected?.(item);
       setOpen(false);
     },
     groupLabelRender: props.groupLabelRender,
@@ -104,52 +106,77 @@ export const History: React.FC<HistoryProps> = (props) => {
     runningId: props.agent?.runningId,
   });
 
+  const EmptyComponent = () =>
+    searchKeyword ? (
+      <HistoryEmpty />
+    ) : props.emptyRender ? (
+      props.emptyRender()
+    ) : (
+      <></>
+    );
+
   if (props.standalone) {
     return wrapSSR(
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 12,
+          height: '100%',
         }}
       >
+        {/* 新对话按钮 - 固定位置 */}
         {props.agent?.enabled && !!props.agent?.onNewChat && (
-          <HistoryNewChat onNewChat={handleNewChat} />
+          <div style={{ flexShrink: 0, marginBottom: 12 }}>
+            <HistoryNewChat onNewChat={handleNewChat} />
+          </div>
         )}
 
+        {/* 搜索框 - 固定位置 */}
         {props.agent?.enabled && !!props.agent?.onSearch && (
-          <HistorySearch
-            searchKeyword={searchKeyword}
-            onSearch={handleSearch}
-            type={props.type}
-            searchOptions={props.agent?.searchOptions}
-          />
-        )}
-
-        {props.slots?.beforeHistoryList?.(filteredList)}
-
-        {items?.length === 0 && !props.loading && props?.emptyRender ? (
-          props.emptyRender()
-        ) : (
-          <>
-            <GroupMenu
-              selectedKeys={[props.sessionId]}
-              inlineIndent={20}
-              items={items}
-              className={menuPrefixCls}
-              loading={props.loading}
+          <div style={{ flexShrink: 0 }}>
+            <HistorySearch
+              searchKeyword={searchKeyword}
+              onSearch={handleSearch}
+              type={props.type}
+              searchOptions={props.agent?.searchOptions}
             />
-            {props.agent?.enabled && !!props.agent?.onLoadMore && (
-              <HistoryLoadMore
-                onLoadMore={handleLoadMore}
-                type={props.type}
-                className={classNames(`${menuPrefixCls}-load-more`, hashId, {
-                  chat: props.type !== 'task',
-                })}
-              />
-            )}
-          </>
+          </div>
         )}
+
+        {/* 列表内容 - 可滚动区域 */}
+        <div
+          className={classNames(`${menuPrefixCls}-scroll-container`, hashId)}
+          style={{
+            flex: 1,
+            overflow: 'auto',
+            minHeight: 0,
+          }}
+        >
+          {props.slots?.beforeHistoryList?.(filteredList)}
+
+          {items?.length === 0 && !props.loading ? (
+            <EmptyComponent />
+          ) : (
+            <>
+              <GroupMenu
+                selectedKeys={[props.sessionId]}
+                inlineIndent={20}
+                items={items}
+                className={menuPrefixCls}
+                loading={props.loading}
+              />
+              {props.agent?.enabled && !!props.agent?.onLoadMore && (
+                <HistoryLoadMore
+                  onLoadMore={handleLoadMore}
+                  type={props.type}
+                  className={classNames(`${menuPrefixCls}-load-more`, hashId, {
+                    chat: props.type !== 'task',
+                  })}
+                />
+              )}
+            </>
+          )}
+        </div>
       </div>,
     );
   }
@@ -170,8 +197,10 @@ export const History: React.FC<HistoryProps> = (props) => {
       getPopupContainer={(p) => p.parentElement || document.body}
       content={
         <>
-          {items?.length === 0 && !props?.loading && props?.emptyRender ? (
-            <div data-testid="empty-state-popover">{props.emptyRender()}</div>
+          {items?.length === 0 && !props?.loading ? (
+            <div data-testid="empty-state-popover">
+              <EmptyComponent />
+            </div>
           ) : (
             <GroupMenu
               selectedKeys={[props.sessionId]}
@@ -209,7 +238,7 @@ export const History: React.FC<HistoryProps> = (props) => {
           key="history"
           title={locale?.['chat.history'] || '历史记录'}
         >
-          <HistoryIcon />
+          <HistoryOutlined />
         </ActionIconBox>
       </div>
     </Popover>

@@ -1,4 +1,5 @@
 export type { RenderElementProps } from 'slate-react';
+// 统一类型导出 - 最优先导出，避免循环依赖
 export * from './AgenticLayout';
 export * from './AgentRunBar';
 export * from './Bubble';
@@ -30,6 +31,7 @@ export * from './MarkdownEditor/editor/store';
 export * from './MarkdownEditor/editor/utils';
 export * from './MarkdownEditor/editor/utils/docx/index';
 export * from './MarkdownEditor/editor/utils/markdownToHtml';
+export * from './Types';
 export { default as Workspace } from './Workspace';
 // HTML to Markdown conversion utilities
 export * from './AnswerAlert';
@@ -66,9 +68,11 @@ export * from './MarkdownEditor/types';
 
 // Bubble 相关类型
 export type {
+  BubbleClassNames,
   BubbleItemStyleProps,
   BubbleRenderConfig,
   BubbleStyleProps,
+  BubbleStyles,
   CustomConfig,
   WithFalse,
 } from './Bubble/type';

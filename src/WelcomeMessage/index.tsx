@@ -9,17 +9,6 @@ import {
 import { useStyle } from './style';
 
 export type WelcomeMessageTitleAnimateProps = Pick<
-  TextAnimateProps,
-  | 'delay'
-  | 'duration'
-  | 'variants'
-  | 'by'
-  | 'startOnView'
-  | 'once'
-  | 'animation'
->;
-
-export type WelcomeMessageDescriptionAnimateProps = Pick<
   TypingAnimationProps,
   | 'duration'
   | 'typeSpeed'
@@ -33,6 +22,17 @@ export type WelcomeMessageDescriptionAnimateProps = Pick<
   | 'cursorStyle'
 >;
 
+export type WelcomeMessageDescriptionAnimateProps = Pick<
+  TextAnimateProps,
+  | 'delay'
+  | 'duration'
+  | 'variants'
+  | 'by'
+  | 'startOnView'
+  | 'once'
+  | 'animation'
+>;
+
 /**
  * WelcomeMessage 组件的属性接口
  * @interface WelcomeMessageProps
@@ -41,7 +41,7 @@ export interface WelcomeMessageProps {
   /** 标题 */
   title?: React.ReactNode;
   /** 描述 */
-  description?: string;
+  description?: React.ReactNode;
   /** 自定义样式类名，用于各个提示项的不同部分 */
   classNames?: {
     title?: string;
@@ -114,28 +114,30 @@ export const WelcomeMessage: React.FC<WelcomeMessageProps> = ({
     <div className={classnames(prefixCls, hashId, rootClassName)} style={style}>
       {/* Title */}
       {title && (
-        <TextAnimate
-          once
-          {...titleAnimateProps}
+        <TypingAnimation
           as="div"
+          {...titleAnimateProps}
           className={classnames(`${prefixCls}-title`, classNames?.title)}
         >
           {title}
-        </TextAnimate>
+        </TypingAnimation>
       )}
 
       {/* Description */}
       {description && (
-        <TypingAnimation
-          {...descriptionAnimateProps}
+        <TextAnimate
           as="div"
+          animation="blurInUp"
+          by="character"
+          once
+          {...descriptionAnimateProps}
           className={classnames(
             `${prefixCls}-description`,
             classNames?.description,
           )}
         >
           {description}
-        </TypingAnimation>
+        </TextAnimate>
       )}
     </div>,
   );

@@ -45,6 +45,7 @@ const WorkspaceFileDemo: React.FC = () => {
           size: '1.8MB',
           lastModified: '2025-08-01 09:15:00',
           content: '# 项目需求文档',
+          canLocate: true,
         },
         {
           name: '技术规范.docx',
@@ -66,6 +67,8 @@ const WorkspaceFileDemo: React.FC = () => {
           url: '/downloads/config.json',
           type: 'code',
           canShare: true,
+          canPreview: true,
+          canLocate: true,
         },
         {
           name: '数据统计表.xlsx',
@@ -405,6 +408,7 @@ graph TD
               onDownload={handleDownload}
               onGroupDownload={handleGroupDownload}
               onToggleGroup={handleToggleGroup}
+              onLocate={(file) => console.log('定位文件:', file)}
               markdownEditorProps={customMarkdownEditorProps}
             />
             <Workspace.Custom

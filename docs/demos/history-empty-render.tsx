@@ -1,5 +1,5 @@
-import { History } from '@ant-design/agentic-ui';
-import { Button, Empty } from 'antd';
+import { History, SuggestionList } from '@ant-design/agentic-ui';
+import { Button, Flex } from 'antd';
 import React, { useState } from 'react';
 
 /**
@@ -27,39 +27,57 @@ const HistoryEmptyRenderDemo = () => {
     return [];
   };
 
+  const items = [
+    { key: '1', text: '💸 关税对消费类基金的影响' },
+    {
+      key: '2',
+      text: '📝 恒生科技指数基金相关新闻',
+    },
+    {
+      key: '3',
+      text: '📊 数据分析与可视化',
+    },
+  ];
+
   // 自定义空状态渲染
-  const renderEmpty = () => (
-    <div
-      style={{
-        padding: '40px 20px',
-        textAlign: 'center',
-      }}
-    >
-      <Empty
-        description={
-          <div>
-            <p style={{ color: 'var(--color-gray-text-secondary)' }}>
-              暂无历史记录
-            </p>
-            <p
-              style={{ color: 'var(--color-gray-text-tertiary)', fontSize: 12 }}
-            >
-              开始一段新的对话吧
-            </p>
-          </div>
-        }
-      >
-        <Button
-          type="primary"
-          onClick={() => {
-            console.log('创建新对话');
+  const renderEmpty = () => {
+    return (
+      <div style={{ padding: '16px 0px', textAlign: 'center' }}>
+        <Flex
+          vertical
+          align="center"
+          style={{
+            marginBottom: 12,
           }}
         >
-          创建新对话
-        </Button>
-      </Empty>
-    </div>
-  );
+          <img
+            style={{ width: 64, height: 64, marginBottom: 8 }}
+            alt="empty"
+            src="https://mdn.alipayobjects.com/huamei_rdqlck/afts/img/RknpTYULGZUAAAAAQVAAAAgADjlgAQFr/original"
+          ></img>
+          <div
+            style={{
+              font: 'var(--font-text-h6-base)',
+              letterSpacing: 'var(--letter-spacing-h6-base, normal)',
+              color: 'var(--color-gray-text-secondary)',
+            }}
+          >
+            暂无历史对话
+          </div>
+          <div
+            style={{
+              font: 'var(--font-text-body-base)',
+              letterSpacing: 'var(--letter-spacing-body-base, normal)',
+              color: 'var(--color-gray-text-light)',
+            }}
+          >
+            你可以试试问我
+          </div>
+        </Flex>
+        <SuggestionList layout="horizontal" maxItems={4} items={items} />
+      </div>
+    );
+  };
 
   return (
     <div style={{ padding: 20 }}>
@@ -78,7 +96,7 @@ const HistoryEmptyRenderDemo = () => {
 
       <div
         style={{
-          maxWidth: 320,
+          maxWidth: 248,
           padding: 16,
           borderRadius: '16px',
           border: '1px solid var(--color-gray-border-light)',

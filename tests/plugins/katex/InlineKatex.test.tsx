@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ElementProps, InlineKatexNode } from '../../../src/MarkdownEditor/el';
 import { InlineKatex } from '../../../src/Plugins/katex/InlineKatex';
 
@@ -23,14 +23,6 @@ vi.mock('../../../src/MarkdownEditor/editor/store', () => ({
 vi.mock('../../../src/MarkdownEditor/hooks/editor', () => ({
   useSelStatus: () => [false, [0, 0]],
 }));
-beforeEach(() => {
-  process.env.NODE_ENV = 'test-inline-katex';
-});
-
-afterEach(() => {
-  process.env.NODE_ENV = 'test';
-});
-
 describe('InlineKatex', () => {
   const mockElement: InlineKatexNode = {
     type: 'inline-katex',
@@ -49,6 +41,7 @@ describe('InlineKatex', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    process.env.NODE_ENV = 'test';
   });
 
   it('should render correctly in test environment', () => {
@@ -60,16 +53,6 @@ describe('InlineKatex', () => {
       (span) => span.getAttribute('contenteditable') === 'false',
     );
     expect(contentEditableSpan).toBeInTheDocument();
-  });
-
-  it('should render with correct style attributes', () => {
-    render(<InlineKatex {...defaultProps} style={{ fontSize: '0px' }} />);
-
-    const spans = screen.getAllByRole('generic');
-    const contentEditableSpan = spans.find(
-      (span) => span.getAttribute('contenteditable') === 'false',
-    );
-    expect(contentEditableSpan).toHaveStyle({ fontSize: '0px' });
   });
 
   it('should render the component structure correctly', () => {
@@ -102,12 +85,17 @@ describe('InlineKatex', () => {
   });
 
   it('should render with custom attributes', () => {
+    const previousEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV = 'development';
+
     const propsWithAttributes = {
       ...defaultProps,
       attributes: { 'data-testid': 'custom-katex' },
     } as any;
 
     render(<InlineKatex {...propsWithAttributes} />);
+
+    process.env.NODE_ENV = previousEnv;
 
     const spanElement = screen.getByTestId('custom-katex');
     expect(spanElement).toBeInTheDocument();

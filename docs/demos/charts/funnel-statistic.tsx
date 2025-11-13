@@ -30,4 +30,3 @@ const FunnelChartStatisticExample: React.FC = () => {
 };
 
 export default FunnelChartStatisticExample;
-

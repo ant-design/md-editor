@@ -485,6 +485,7 @@ const handleClick = useCallback(() => {
             avatar={message.meta!}
             placement={message.role === 'user' ? 'right' : 'left'}
             bubbleRef={bubbleRef}
+            pure
             originData={message}
             bubbleRenderConfig={{
               avatarRender: getAvatarRender(),

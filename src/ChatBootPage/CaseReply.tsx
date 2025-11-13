@@ -29,9 +29,7 @@ export interface CaseReplyProps {
    * 按钮文本（悬停时显示的按钮文字）
    */
   buttonText?: string;
-  /**
-   * 自定义按钮栏内容（优先于 buttonText）
-   */
+
   buttonBar?: React.ReactNode;
   /**
    * 按钮点击事件

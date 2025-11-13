@@ -7,13 +7,10 @@ import {
 
 const animateGradientText = new Keyframes('animateGradientText', {
   '0%': {
-    backgroundPosition: '0% 50%',
-  },
-  '50%': {
-    backgroundPosition: '100% 50%',
+    backgroundPosition: '100%',
   },
   '100%': {
-    backgroundPosition: '0% 50%',
+    backgroundPosition: '-100%',
   },
 });
 
@@ -28,15 +25,13 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       alignItems: 'center',
       justifyContent: 'center',
       fontWeight: 500,
-      backdropFilter: 'blur(10px)',
-      transition: 'box-shadow 0.5s ease-out',
       overflow: 'hidden',
 
       ['&-text-content']: {
         display: 'inline-block',
         position: 'relative',
         zIndex: 2,
-        backgroundSize: '300% 100%',
+        backgroundSize: '200% 100%',
         backgroundClip: 'text',
         WebkitBackgroundClip: 'text',
         color: 'transparent',

@@ -16,6 +16,10 @@ vi.mock('../../src/Plugins/katex', () => ({
   InlineKatex: vi.fn(() => <span>Inline Katex</span>),
 }));
 
+vi.mock('../../src/Plugins/mermaid/Mermaid', () => ({
+  Mermaid: vi.fn(() => <div>Mermaid Element</div>),
+}));
+
 describe('defaultPlugins', () => {
   it('should export standardPlugins array', () => {
     expect(Array.isArray(standardPlugins)).toBe(true);
@@ -35,6 +39,7 @@ describe('defaultPlugins', () => {
     expect(elements).toHaveProperty('chart');
     expect(elements).toHaveProperty('katex');
     expect(elements).toHaveProperty('inline-katex');
+    expect(elements).toHaveProperty('mermaid');
   });
 
   it('should have function components as elements', () => {
@@ -44,6 +49,7 @@ describe('defaultPlugins', () => {
     expect(typeof elements.chart).toBe('function');
     expect(typeof elements.katex).toBe('function');
     expect(typeof elements['inline-katex']).toBe('function');
+    expect(typeof elements.mermaid).toBe('function');
   });
 
   it('should maintain plugin structure consistency', () => {
@@ -55,6 +61,7 @@ describe('defaultPlugins', () => {
         code: expect.any(Function),
         chart: expect.any(Function),
         katex: expect.any(Function),
+        mermaid: expect.any(Function),
         'inline-katex': expect.any(Function),
       },
     });

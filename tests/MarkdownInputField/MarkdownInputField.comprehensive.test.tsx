@@ -104,6 +104,28 @@ vi.mock('../../src/MarkdownInputField/SkillModeBar', () => ({
   },
 }));
 
+vi.mock('../../src/MarkdownInputField/Enlargement', () => ({
+  __esModule: true,
+  default: ({
+    isEnlarged,
+    onEnlargeClick,
+    ...props
+  }: {
+    isEnlarged?: boolean;
+    onEnlargeClick?: () => void;
+  }) => (
+    <button
+      type="button"
+      data-testid='enlargement-toggle'
+      data-enlarged={isEnlarged}
+      onClick={onEnlargeClick}
+      {...props}
+    >
+      {isEnlarged ? '缩小' : '放大'}
+    </button>
+  ),
+}));
+
 describe('MarkdownInputField Comprehensive Tests', () => {
   const defaultProps = {
     value: '# Hello World',
@@ -243,6 +265,61 @@ describe('MarkdownInputField Comprehensive Tests', () => {
         />,
       );
       expect(screen.getByTestId('attachment-button')).toBeInTheDocument();
+    });
+  });
+
+  describe('放大功能', () => {
+    it('在仅启用放大功能时应渲染放大按钮并进入多行布局', () => {
+      const { container } = render(
+        <MarkdownInputField
+          {...defaultProps}
+          refinePrompt={undefined}
+          quickActionRender={undefined}
+          enlargeable={{ enable: true, height: 600 }}
+        />,
+      );
+
+      const root = container.querySelector('.ant-agentic-md-input-field');
+      expect(root).toBeTruthy();
+      expect(
+        root?.classList.contains('ant-agentic-md-input-field-is-multi-row'),
+      ).toBe(true);
+
+      expect(root?.style.minHeight).toBe('90px');
+
+      const quickActions = container.querySelector(
+        '.ant-agentic-md-input-field-quick-actions-vertical',
+      );
+      expect(quickActions).toBeTruthy();
+
+      const enlargeButton = screen.getByTestId('enlargement-toggle');
+      expect(enlargeButton).toHaveAttribute('data-enlarged', 'false');
+
+      fireEvent.click(enlargeButton);
+      expect(enlargeButton).toHaveAttribute('data-enlarged', 'true');
+      expect(
+        root?.classList.contains('ant-agentic-md-input-field-enlarged'),
+      ).toBe(true);
+    });
+
+    it('在只启用提示词优化时应使用单操作最小高度', () => {
+      const { container } = render(
+        <MarkdownInputField
+          {...defaultProps}
+          refinePrompt={{
+            enable: true,
+            onRefine: vi.fn(),
+          }}
+          quickActionRender={undefined}
+          enlargeable={undefined}
+        />,
+      );
+
+      const root = container.querySelector('.ant-agentic-md-input-field');
+      expect(root).toBeTruthy();
+      expect(root?.classList.contains('ant-agentic-md-input-field-is-multi-row'))
+        .toBe(true);
+      expect(root?.style.minHeight).toBe('90px');
     });
   });
 

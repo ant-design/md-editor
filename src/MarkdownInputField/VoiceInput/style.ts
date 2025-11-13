@@ -21,7 +21,7 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
       gap: '4px',
       color: 'var(--color-gray-text-secondary)',
       '&:hover': {
-        background: 'rgba(0, 28, 57, 0.0353)',
+        background: 'var(--color-gray-control-fill-hover)',
       },
       '&&-disabled': {
         cursor: 'not-allowed',

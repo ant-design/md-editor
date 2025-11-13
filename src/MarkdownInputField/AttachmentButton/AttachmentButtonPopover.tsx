@@ -97,7 +97,7 @@ export const AttachmentButtonPopover: React.FC<
   return (
     <Tooltip
       arrow={false}
-      mouseEnterDelay={2}
+      mouseEnterDelay={1}
       trigger={['hover', 'click']}
       title={
         <AttachmentSupportedFormatsContent supportedFormat={supportedFormat} />

@@ -106,6 +106,7 @@ export default () => {
               title="提示词库"
               key="edit"
               style={{
+                padding: 8,
                 fontSize: 16,
               }}
             >
@@ -392,6 +393,7 @@ export default () => {
               title="提示词库"
               key="edit"
               style={{
+                padding: 8,
                 fontSize: 16,
               }}
             >

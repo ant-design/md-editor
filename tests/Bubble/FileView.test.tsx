@@ -51,7 +51,10 @@ vi.mock('../../src/MarkdownInputField/FileMapView', () => ({
         <button
           type="button"
           data-testid="view-all-button"
-          onClick={props.onViewAll}
+          onClick={async () => {
+            const files = Array.from(props.fileMap?.values() || []);
+            await props.onViewAll?.(files);
+          }}
         >
           View All
         </button>

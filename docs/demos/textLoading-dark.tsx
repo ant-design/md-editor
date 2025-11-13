@@ -1,4 +1,4 @@
-import { ShinyText } from '@ant-design/agentic-ui';
+import { TextLoading } from '@ant-design/agentic-ui';
 import React from 'react';
 
 export default () => {
@@ -10,8 +10,7 @@ export default () => {
         borderRadius: 8,
       }}
     >
-      <ShinyText text="Loading..." theme="dark" fontSize="24px" />
+      <TextLoading text="Loading..." theme="dark" fontSize="24px" />
     </div>
   );
 };
-

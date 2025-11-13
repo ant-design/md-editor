@@ -9,14 +9,152 @@ import React, {
   useState,
 } from 'react';
 import partialParse from '../../MarkdownEditor/editor/parser/json-parse';
-import { LowCodeSchema } from '../types';
-import { mdDataSchemaValidator } from '../validator';
 import {
   createSandbox,
   DEFAULT_SANDBOX_CONFIG,
+  ProxySandbox,
 } from '../../Utils/proxySandbox';
+import { LowCodeSchema } from '../types';
+import { mdDataSchemaValidator } from '../validator';
 import { TemplateEngine } from './templateEngine';
 export * from './templateEngine';
+
+/**
+ * 创建沙箱实例
+ */
+const createSandboxInstance = (sandboxConfig: any): ProxySandbox => {
+  return createSandbox({
+    ...DEFAULT_SANDBOX_CONFIG,
+    allowDOM: sandboxConfig.allowDOM ?? true,
+    allowedGlobals:
+      sandboxConfig.allowedGlobals || DEFAULT_SANDBOX_CONFIG.allowedGlobals,
+    forbiddenGlobals:
+      sandboxConfig.forbiddenGlobals || DEFAULT_SANDBOX_CONFIG.forbiddenGlobals,
+    strictMode: sandboxConfig.strictMode ?? true,
+    timeout: sandboxConfig.timeout || 3000,
+  });
+};
+
+/**
+ * 创建沙箱上下文
+ */
+const createSandboxContext = (
+  shadowRoot: ShadowRoot | null,
+): Record<string, any> => {
+  return {
+    shadowRoot: shadowRoot,
+    safeWindow: {
+      devicePixelRatio:
+        typeof window !== 'undefined' ? window.devicePixelRatio : 1,
+      innerWidth: typeof window !== 'undefined' ? window.innerWidth : 1024,
+      innerHeight: typeof window !== 'undefined' ? window.innerHeight : 768,
+    },
+  };
+};
+
+/**
+ * 执行不安全的脚本（沙箱禁用时）
+ */
+const executeUnsafeScript = (
+  script: HTMLScriptElement,
+  shadowRoot: ShadowRoot | null,
+): void => {
+  console.warn('沙箱已禁用，使用不安全的脚本执行方式');
+
+  const scriptFn = new Function(
+    'shadowRoot',
+    'window',
+    script.textContent || '',
+  );
+
+  try {
+    scriptFn(shadowRoot, {
+      devicePixelRatio: window.devicePixelRatio,
+    });
+  } catch (evalError) {
+    console.error('执行脚本错误:', evalError);
+  }
+};
+
+/**
+ * 执行外部脚本
+ */
+const executeExternalScript = (
+  script: HTMLScriptElement,
+  shadowRoot: ShadowRoot | null,
+): void => {
+  console.warn('外部脚本暂时不通过沙箱执行:', script.src);
+
+  try {
+    shadowRoot?.appendChild(script);
+  } catch (appendError) {
+    console.error('Error appending external script:', appendError);
+  }
+};
+
+/**
+ * 在沙箱中执行脚本
+ */
+const executeSandboxedScript = async (
+  script: HTMLScriptElement,
+  shadowRoot: ShadowRoot | null,
+  sandboxConfig: any,
+): Promise<void> => {
+  const sandbox = createSandboxInstance(sandboxConfig);
+
+  try {
+    const result = await sandbox.execute(
+      script.textContent || '',
+      createSandboxContext(shadowRoot),
+    );
+
+    if (!result.success && result.error) {
+      console.error('沙箱脚本执行错误:', result.error);
+    }
+  } catch (evalError) {
+    console.error('沙箱执行失败:', evalError);
+  } finally {
+    sandbox.destroy();
+  }
+};
+
+/**
+ * 执行内联脚本
+ */
+const executeInlineScript = async (
+  script: HTMLScriptElement,
+  shadowRoot: ShadowRoot | null,
+  sandboxConfig: any,
+): Promise<void> => {
+  if (!sandboxConfig.enabled) {
+    executeUnsafeScript(script, shadowRoot);
+    return;
+  }
+
+  await executeSandboxedScript(script, shadowRoot, sandboxConfig);
+};
+
+/**
+ * 执行脚本（内联或外部）
+ */
+const executeScript = async (
+  script: HTMLScriptElement,
+  shadowRoot: ShadowRoot | null,
+  sandboxConfig: any,
+): Promise<void> => {
+  try {
+    if (!script.src && script.textContent) {
+      await executeInlineScript(script, shadowRoot, sandboxConfig);
+      return;
+    }
+
+    if (script.src) {
+      executeExternalScript(script, shadowRoot);
+    }
+  } catch (scriptError) {
+    console.error('Script execution error:', scriptError);
+  }
+};
 
 /**
  * ErrorBoundary 组件 - 错误边界组件
@@ -462,83 +600,7 @@ a:active {
 
         // 添加并执行脚本
         scripts.forEach(async (script) => {
-          try {
-            // 通过沙箱执行内联脚本
-            if (!script.src && script.textContent) {
-              // 检查是否启用沙箱
-              if (sandboxConfig.enabled) {
-                // 创建安全的沙箱实例
-                const sandbox = createSandbox({
-                  ...DEFAULT_SANDBOX_CONFIG,
-                  allowDOM: sandboxConfig.allowDOM ?? true,
-                  allowedGlobals:
-                    sandboxConfig.allowedGlobals ||
-                    DEFAULT_SANDBOX_CONFIG.allowedGlobals,
-                  forbiddenGlobals:
-                    sandboxConfig.forbiddenGlobals ||
-                    DEFAULT_SANDBOX_CONFIG.forbiddenGlobals,
-                  strictMode: sandboxConfig.strictMode ?? true,
-                  timeout: sandboxConfig.timeout || 3000,
-                });
-
-                try {
-                  // 在沙箱中执行脚本，注入 shadowRoot 和其他上下文
-                  const result = await sandbox.execute(script.textContent, {
-                    shadowRoot: shadowRoot,
-                    // 提供一个安全的 window 上下文
-                    safeWindow: {
-                      devicePixelRatio:
-                        typeof window !== 'undefined'
-                          ? window.devicePixelRatio
-                          : 1,
-                      innerWidth:
-                        typeof window !== 'undefined'
-                          ? window.innerWidth
-                          : 1024,
-                      innerHeight:
-                        typeof window !== 'undefined'
-                          ? window.innerHeight
-                          : 768,
-                    },
-                  });
-                  if (!result.success && result.error) {
-                    console.error('沙箱脚本执行错误:', result.error);
-                  }
-                } catch (evalError) {
-                  console.error('沙箱执行失败:', evalError);
-                } finally {
-                  // 清理沙箱资源
-                  sandbox.destroy();
-                }
-              } else {
-                // 如果禁用沙箱，回退到原来的方式（不推荐）
-                console.warn('沙箱已禁用，使用不安全的脚本执行方式');
-                const scriptFn = new Function(
-                  'shadowRoot',
-                  'window',
-                  script.textContent,
-                );
-                try {
-                  scriptFn(shadowRoot, {
-                    devicePixelRatio: window.devicePixelRatio,
-                  });
-                } catch (evalError) {
-                  console.error('执行脚本错误:', evalError);
-                }
-              }
-            } else if (script.src) {
-              // 对于外部脚本，仍然需要特殊处理
-              // 但我们可以通过沙箱加载和执行
-              console.warn('外部脚本暂时不通过沙箱执行:', script.src);
-              try {
-                shadowRoot?.appendChild(script);
-              } catch (appendError) {
-                console.error('Error appending external script:', appendError);
-              }
-            }
-          } catch (scriptError) {
-            console.error('Script execution error:', scriptError);
-          }
+          await executeScript(script, shadowRoot, sandboxConfig);
         });
       } catch (contentError) {
         console.error('Error processing content:', contentError);
