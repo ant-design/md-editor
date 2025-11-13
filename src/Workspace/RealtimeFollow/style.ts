@@ -68,6 +68,9 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
+          flex: 1,
+          minWidth: 0,
+          overflow: 'hidden',
         },
 
         [`&-icon`]: {
@@ -103,12 +106,15 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           display: 'flex',
           alignItems: 'center',
           gap: '12px',
+          minWidth: 0,
         },
 
         [`&-title-wrapper`]: {
           display: 'flex',
           flexDirection: 'column',
           gap: '-4px',
+          flex: 1,
+          minWidth: 0,
         },
 
         [`&-title`]: {
@@ -130,6 +136,11 @@ const genStyle: GenerateStyle<ChatTokenType> = (token) => {
           font: 'var(--font-text-body-sm)',
           letterSpacing: 'var(--letter-spacing-body-sm, normal)',
           gridColumn: '1 / span 2', // 下一行并与图标左对齐，横跨两列
+          display: 'block',
+          maxWidth: '100%',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
         },
 
         [`&-right`]: {

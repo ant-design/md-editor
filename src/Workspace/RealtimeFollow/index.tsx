@@ -193,6 +193,7 @@ const RealtimeHeader: React.FC<{
                   `${finalPrefixCls}-header-subtitle`,
                   hashId,
                 )}
+                title={headerSubTitle}
               >
                 {headerSubTitle}
               </div>
