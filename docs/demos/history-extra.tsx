@@ -1,4 +1,6 @@
 import { History, HistoryDataType } from '@ant-design/agentic-ui';
+import { Loading3QuartersOutlined } from '@ant-design/icons';
+import { Button, message } from 'antd';
 import React, { useState } from 'react';
 
 const ExtraHistoryDemo = () => {
@@ -89,6 +91,16 @@ const ExtraHistoryDemo = () => {
     );
   };
 
+  // 处理加载更多
+  const handleLoadMore = async () => {
+    message.loading('正在加载更多数据...');
+    // 模拟加载更多
+    await new Promise((resolve) => {
+      setTimeout(resolve, 2000);
+    });
+    message.success('加载完成');
+  };
+
   return (
     <div style={{ padding: 20 }}>
       <h3>History 额外内容</h3>
@@ -111,6 +123,16 @@ const ExtraHistoryDemo = () => {
           onDeleteItem={handleDeleteItem}
           extra={extraContent}
           standalone
+          agent={{
+            enabled: true,
+            onLoadMore: handleLoadMore,
+          }}
+          loadMoreRender={() => (
+            <Button color="default" variant="filled" style={{ width: '100%' }}>
+              <Loading3QuartersOutlined />
+              自定义加载更多
+            </Button>
+          )}
         />
       </div>
 
@@ -138,6 +160,10 @@ const ExtraHistoryDemo = () => {
           </li>
           <li>
             <strong>standalone</strong>: 设置为 true 时，直接显示菜单列表
+          </li>
+          <li>
+            <strong>loadMoreRender</strong>: 加载更多渲染函数,
+            用于自定义加载更多按钮的显示内容
           </li>
         </ul>
       </div>
