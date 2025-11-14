@@ -116,6 +116,29 @@ export const History: React.FC<HistoryProps> = (props) => {
       <></>
     );
 
+  const LoadMoreComponent: React.FC = () => {
+    if (props.loadMoreRender) {
+      return props.loadMoreRender();
+    }
+
+    const shouldRender =
+      props.agent?.enabled && !!props.agent?.onLoadMore && !props.loading;
+
+    if (!shouldRender) {
+      return null;
+    }
+
+    return (
+      <HistoryLoadMore
+        onLoadMore={handleLoadMore}
+        type={props.type}
+        className={classNames(`${menuPrefixCls}-load-more`, hashId, {
+          chat: props.type !== 'task',
+        })}
+      />
+    );
+  };
+
   if (props.standalone) {
     return wrapSSR(
       <div
@@ -166,16 +189,7 @@ export const History: React.FC<HistoryProps> = (props) => {
                 className={menuPrefixCls}
                 loading={props.loading}
               />
-              {props.agent?.enabled && !!props.agent?.onLoadMore && (
-                <HistoryLoadMore
-                  onLoadMore={handleLoadMore}
-                  loadMoreRender={props.loadMoreRender}
-                  type={props.type}
-                  className={classNames(`${menuPrefixCls}-load-more`, hashId, {
-                    chat: props.type !== 'task',
-                  })}
-                />
-              )}
+              <LoadMoreComponent />
             </>
           )}
         </div>
@@ -212,18 +226,7 @@ export const History: React.FC<HistoryProps> = (props) => {
               loading={props.loading}
             />
           )}
-          {props.agent?.enabled &&
-            !!props.agent?.onLoadMore &&
-            !props.loading && (
-              <HistoryLoadMore
-                onLoadMore={handleLoadMore}
-                loadMoreRender={props.loadMoreRender}
-                type={props.type}
-                className={classNames(`${menuPrefixCls}-load-more`, hashId, {
-                  chat: props.type !== 'task',
-                })}
-              />
-            )}
+          <LoadMoreComponent />
         </>
       }
     >

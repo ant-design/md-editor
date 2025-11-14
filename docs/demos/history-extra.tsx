@@ -1,10 +1,10 @@
 import { History, HistoryDataType } from '@ant-design/agentic-ui';
-import { Loading3QuartersOutlined } from '@ant-design/icons';
 import { Button, message } from 'antd';
 import React, { useState } from 'react';
 
 const ExtraHistoryDemo = () => {
   const [currentSessionId, setCurrentSessionId] = useState('session-1');
+  const [loading, setLoading] = useState(false);
 
   // 模拟请求函数
   const mockRequest = async ({ agentId }: { agentId: string }) => {
@@ -93,12 +93,14 @@ const ExtraHistoryDemo = () => {
 
   // 处理加载更多
   const handleLoadMore = async () => {
+    setLoading(true);
     message.loading('正在加载更多数据...');
     // 模拟加载更多
     await new Promise((resolve) => {
       setTimeout(resolve, 2000);
     });
     message.success('加载完成');
+    setLoading(false);
   };
 
   return (
@@ -125,11 +127,14 @@ const ExtraHistoryDemo = () => {
           standalone
           agent={{
             enabled: true,
-            onLoadMore: handleLoadMore,
           }}
           loadMoreRender={() => (
-            <Button color="default" variant="filled" style={{ width: '100%' }}>
-              <Loading3QuartersOutlined />
+            <Button
+              onClick={handleLoadMore}
+              loading={loading}
+              type="text"
+              style={{ width: '100%', marginTop: 8 }}
+            >
               自定义加载更多
             </Button>
           )}

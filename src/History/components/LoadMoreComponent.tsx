@@ -13,8 +13,6 @@ interface HistoryLoadMoreProps {
   /** 历史记录类型 */
   type?: 'chat' | 'task';
   className?: string;
-  /** 加载更多渲染函数 */
-  loadMoreRender?: () => React.ReactNode;
 }
 
 /**
@@ -79,7 +77,6 @@ export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = ({
   onLoadMore,
   type,
   className,
-  loadMoreRender,
 }) => {
   const { locale } = useContext(I18nContext);
   const [loading, setLoading] = useState(false);
@@ -119,9 +116,7 @@ export const HistoryLoadMore: React.FC<HistoryLoadMoreProps> = ({
           onClick={onClickFn}
           onKeyDown={handleKeyDown}
         >
-          {loadMoreRender ? (
-            loadMoreRender()
-          ) : type === 'task' ? (
+          {type === 'task' ? (
             <>
               <div>{loading ? <LoadingOutlined /> : <EllipsisOutlined />}</div>
               {locale?.['task.history.loadMore'] || '查看更多历史'}
