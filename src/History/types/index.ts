@@ -11,7 +11,7 @@ export interface HistoryProps {
   onShow?: () => void;
   request: (params: { agentId: string }) => Promise<HistoryDataType[]>;
   /** @deprecated 请使用 onClick 替代 */
-  onSelected?: (sessionId: string) => void;
+  onSelected?: (item: HistoryDataType) => void;
   onClick?: (sessionId: string, item: HistoryDataType) => void;
   onDeleteItem?: (sessionId: string) => void;
   customDateFormatter?: (date: number | string | Date) => string;
@@ -104,5 +104,5 @@ export interface HistoryActionsBoxProps {
  */
 export interface ActionsBoxProps extends HistoryActionsBoxProps {
   /** @deprecated 请使用 onClick 替代 */
-  onSelected?: (sessionId: string) => void;
+  onSelected?: (item: HistoryDataType) => void;
 }
