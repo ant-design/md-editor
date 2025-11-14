@@ -46,8 +46,6 @@ export const PureBubble: React.FC<
   const defaultMarkdown =
     typeof originData?.content === 'string' ? originData.content : '';
   const {
-    plugins: _ignoredPlugins,
-    toc: _ignoredToc,
     initValue: configInitValue,
     readonly: configReadonly,
     ...markdownConfig
