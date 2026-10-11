@@ -116,3 +116,10 @@ body {
 .agentic-home-fullscreen ~ .rp-title {
   display: none;
 }
+
+.agentic-home-footer {
+  padding: 24px;
+  color: var(--rp-c-text-2);
+  text-align: center;
+  border-block-start: 1px solid var(--rp-c-divider-light);
+}
