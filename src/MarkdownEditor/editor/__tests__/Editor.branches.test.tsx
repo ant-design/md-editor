@@ -67,6 +67,7 @@ vi.mock('slate-react', () => ({
     return React.createElement('div', { 'data-testid': 'mock-editable' });
   },
   ReactEditor: {
+    toSlateRange: vi.fn(() => null),
     toDOMRange: vi.fn(() => {
       const frag = document.createDocumentFragment();
       return {
@@ -165,6 +166,10 @@ vi.mock('../utils/editorUtils', () => ({
   isPath: vi.fn(() => true),
 }));
 
+vi.mock('../utils/getEditorDOMSelection', () => ({
+  getEditorDOMSelection: vi.fn(() => window.getSelection()),
+}));
+
 vi.mock('../../BaseMarkdownEditor', () => ({
   parserMdToSchema: vi.fn((text: string) => ({
     schema: text ? [{ type: 'paragraph', children: [{ text }] }] : [],
@@ -220,7 +225,6 @@ import {
   EditorUtils,
   findByPathAndText,
   findLeafPath,
-  getSelectionFromDomSelection,
   hasEditableTarget,
   isEventHandled,
   isPath,
@@ -255,7 +259,11 @@ function setupStore(overrides: any = {}) {
   const container = overrides.container ?? createMockContainer();
 
   mockStoreConfig = {
-    store: { inputComposition: false, editor: { children: [] } },
+    store: {
+      inputComposition: false,
+      editor: { children: [] },
+      getMDContent: vi.fn(() => 'focus-md'),
+    },
     markdownEditorRef: { current: editor },
     markdownContainerRef: { current: container },
     readonly: overrides.readonly ?? false,
@@ -434,7 +442,7 @@ describe('Editor branches - handleSelectionChange', () => {
       anchor: { path: [0, 0], offset: 0 },
       focus: { path: [0, 0], offset: 5 },
     };
-    vi.mocked(getSelectionFromDomSelection).mockReturnValue(
+    vi.mocked(ReactEditor.toSlateRange).mockReturnValue(
       mockSelection as any,
     );
     vi.mocked(Range.isCollapsed).mockReturnValue(false);
@@ -468,7 +476,7 @@ describe('Editor branches - handleSelectionChange', () => {
       anchor: { path: [0, 0], offset: 0 },
       focus: { path: [0, 0], offset: 5 },
     };
-    vi.mocked(getSelectionFromDomSelection).mockReturnValue(
+    vi.mocked(ReactEditor.toSlateRange).mockReturnValue(
       mockSelection as any,
     );
     vi.mocked(Range.isCollapsed).mockReturnValue(false);
@@ -505,7 +513,7 @@ describe('Editor branches - handleSelectionChange', () => {
       anchor: { path: [99, 0], offset: 0 },
       focus: { path: [99, 0], offset: 1 },
     };
-    vi.mocked(getSelectionFromDomSelection).mockReturnValue(
+    vi.mocked(ReactEditor.toSlateRange).mockReturnValue(
       staleSelection as any,
     );
     vi.mocked(Range.isCollapsed).mockReturnValue(false);
@@ -537,7 +545,7 @@ describe('Editor branches - handleSelectionChange', () => {
       anchor: { path: [0, 0], offset: 0 },
       focus: { path: [0, 0], offset: 0 },
     };
-    vi.mocked(getSelectionFromDomSelection).mockReturnValue(
+    vi.mocked(ReactEditor.toSlateRange).mockReturnValue(
       mockSelection as any,
     );
     vi.mocked(Range.isCollapsed).mockReturnValue(true);
@@ -562,7 +570,7 @@ describe('Editor branches - handleSelectionChange', () => {
       anchor: { path: [0, 0], offset: 0 },
       focus: { path: [0, 0], offset: 5 },
     };
-    vi.mocked(getSelectionFromDomSelection).mockReturnValue(
+    vi.mocked(ReactEditor.toSlateRange).mockReturnValue(
       mockSelection as any,
     );
     vi.mocked(Range.isCollapsed).mockReturnValue(false);
@@ -588,7 +596,7 @@ describe('Editor branches - handleSelectionChange', () => {
     const onSelectionChange = vi.fn();
     setupStore({ readonly: true, setDomRect });
 
-    vi.mocked(getSelectionFromDomSelection).mockReturnValue(null);
+    vi.mocked(ReactEditor.toSlateRange).mockReturnValue(null);
 
     const origGetSelection = window.getSelection;
     window.getSelection = vi.fn(
@@ -607,7 +615,7 @@ describe('Editor branches - handleSelectionChange', () => {
     const setDomRect = vi.fn();
     setupStore({ readonly: true, setDomRect });
 
-    vi.mocked(getSelectionFromDomSelection).mockImplementation(() => {
+    vi.mocked(ReactEditor.toDOMRange).mockImplementation(() => {
       throw new Error('selection error');
     });
 
@@ -621,10 +629,7 @@ describe('Editor branches - handleSelectionChange', () => {
     renderEditor({ reportMode: true });
     await editableProps.onSelect({});
 
-    expect(consoleSpy).toHaveBeenCalledWith(
-      'Selection change error:',
-      expect.any(Error),
-    );
+    expect(setDomRect).toHaveBeenCalledWith(null);
     consoleSpy.mockRestore();
     window.getSelection = origGetSelection;
   });
@@ -719,7 +724,7 @@ describe('Editor branches - handleClipboardCopy', () => {
       anchor: { path: [0, 0], offset: 0 },
       focus: { path: [0, 0], offset: 3 },
     };
-    vi.mocked(getSelectionFromDomSelection).mockReturnValue(
+    vi.mocked(ReactEditor.toSlateRange).mockReturnValue(
       mockSlateSelection as any,
     );
 
@@ -736,7 +741,7 @@ describe('Editor branches - handleClipboardCopy', () => {
 
     editableProps.onCopy(event);
 
-    expect(getSelectionFromDomSelection).toHaveBeenCalled();
+    expect(ReactEditor.toSlateRange).toHaveBeenCalled();
     expect(event.clipboardData.clearData).toHaveBeenCalled();
     window.getSelection = origGetSelection;
   });
@@ -779,7 +784,7 @@ describe('Editor branches - handleClipboardCopy', () => {
       anchor: { path: [0, 0], offset: 0 },
       focus: { path: [0, 0], offset: 5 },
     };
-    vi.mocked(getSelectionFromDomSelection).mockReturnValue(
+    vi.mocked(ReactEditor.toSlateRange).mockReturnValue(
       mockSlateSelection as any,
     );
 
@@ -801,7 +806,7 @@ describe('Editor branches - handleClipboardCopy', () => {
 
     editableProps.onCut(event);
 
-    expect(getSelectionFromDomSelection).toHaveBeenCalled();
+    expect(ReactEditor.toSlateRange).toHaveBeenCalled();
     expect(Transforms.delete).toHaveBeenCalled();
     expect(event.clipboardData.clearData).toHaveBeenCalled();
     window.getSelection = origGetSelection;
@@ -2687,7 +2692,7 @@ describe('Editor branches - readonly early return', () => {
     await editableProps.onSelect({});
 
     expect(setDomRect).toHaveBeenCalledWith(null);
-    expect(getSelectionFromDomSelection).not.toHaveBeenCalled();
+    expect(ReactEditor.toSlateRange).not.toHaveBeenCalled();
     expect(onSelectionChange).not.toHaveBeenCalled();
   });
 
@@ -2828,7 +2833,7 @@ describe('Editor branches - readonly floatBar selection', () => {
     editableProps = {};
     vi.mocked(Editor.hasPath).mockReturnValue(true);
     vi.mocked(Range.isCollapsed).mockReturnValue(true);
-    vi.mocked(getSelectionFromDomSelection).mockReturnValue(null);
+    vi.mocked(ReactEditor.toSlateRange).mockReturnValue(null);
     vi.mocked(ReactEditor.toDOMRange).mockReturnValue({
       cloneContents: () => document.createDocumentFragment(),
       getBoundingClientRect: () => ({
@@ -2853,7 +2858,7 @@ describe('Editor branches - readonly floatBar selection', () => {
       anchor: { path: [0, 0], offset: 0 },
       focus: { path: [0, 0], offset: 4 },
     };
-    vi.mocked(getSelectionFromDomSelection).mockReturnValue(
+    vi.mocked(ReactEditor.toSlateRange).mockReturnValue(
       mockSelection as any,
     );
     vi.mocked(Range.isCollapsed).mockReturnValue(false);
@@ -2872,7 +2877,7 @@ describe('Editor branches - readonly floatBar selection', () => {
     await editableProps.onSelect({});
     await flushPromises();
 
-    expect(getSelectionFromDomSelection).toHaveBeenCalled();
+    expect(ReactEditor.toSlateRange).toHaveBeenCalled();
     expect(setDomRect).toHaveBeenCalledWith(
       expect.objectContaining({ top: 10, left: 10 }),
     );
@@ -3121,7 +3126,7 @@ describe('Editor branches - comment map merge', () => {
       anchor: { path: [0, 0], offset: 0 },
       focus: { path: [0, 0], offset: 4 },
     };
-    vi.mocked(getSelectionFromDomSelection).mockReturnValue(
+    vi.mocked(ReactEditor.toSlateRange).mockReturnValue(
       mockSelection as any,
     );
     vi.mocked(Range.isCollapsed).mockReturnValue(false);
@@ -3157,7 +3162,7 @@ describe('Editor branches - comment map merge', () => {
     await editableProps.onSelect({});
 
     expect(onSelectionChange).toHaveBeenCalled();
-    expect(getSelectionFromDomSelection).toHaveBeenCalled();
+    expect(ReactEditor.toSlateRange).toHaveBeenCalled();
     window.getSelection = origGetSelection;
   });
 });

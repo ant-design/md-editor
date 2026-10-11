@@ -17,7 +17,8 @@ vi.mock('../../../Hooks/useRefFunction', () => ({
   useRefFunction: (fn: (...args: any[]) => any) => fn,
 }));
 
-vi.mock('slate', () => ({
+vi.mock('slate', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('slate')>()),
   Editor: {
     fragment: vi.fn(() => []),
     hasPath: vi.fn(() => true),
@@ -26,6 +27,7 @@ vi.mock('slate', () => ({
     nodes: vi.fn(function* () {}),
     start: vi.fn(() => ({ path: [0, 0], offset: 0 })),
     end: vi.fn(() => ({ path: [0, 0], offset: 0 })),
+    normalize: vi.fn(),
     leaf: vi.fn((_ed: any, path: number[]) => [{ text: 'x' }, path]),
     isVoid: vi.fn(() => false),
   },
@@ -138,6 +140,10 @@ vi.mock('../utils/editorUtils', () => ({
   isPath: vi.fn(() => true),
 }));
 
+vi.mock('../utils/getEditorDOMSelection', () => ({
+  getEditorDOMSelection: vi.fn(() => window.getSelection()),
+}));
+
 vi.mock('../../BaseMarkdownEditor', () => ({
   parserMdToSchema: vi.fn(() => ({
     schema: [{ type: 'paragraph', children: [{ text: 'from-md' }] }],
@@ -173,7 +179,6 @@ import { isWeChat } from '../../../Utils/env';
 import { SlateMarkdownEditor } from '../Editor';
 import {
   EditorUtils,
-  getSelectionFromDomSelection,
   hasEditableTarget,
 } from '../utils/editorUtils';
 
@@ -192,7 +197,10 @@ function setupStore(overrides: any = {}) {
   };
   const container = document.createElement('div');
   mockStoreConfig = {
-    store: { inputComposition: false },
+    store: {
+      inputComposition: false,
+      getMDContent: vi.fn(() => 'md-out'),
+    },
     markdownEditorRef: { current: editor },
     markdownContainerRef: { current: container },
     readonly: overrides.readonly ?? false,
@@ -224,7 +232,7 @@ describe('Editor deepen2 residual branches', () => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
     vi.mocked(isWeChat).mockReturnValue(false);
     vi.mocked(hasEditableTarget).mockReturnValue(true);
-    vi.mocked(getSelectionFromDomSelection).mockReturnValue(null);
+    vi.mocked(ReactEditor.toSlateRange).mockReturnValue(null);
     vi.mocked(Range.isCollapsed).mockReturnValue(true);
     vi.mocked(Editor.hasPath).mockReturnValue(true);
     Object.values(pasteHandlers).forEach((fn) => fn.mockClear?.());
@@ -251,7 +259,7 @@ describe('Editor deepen2 residual branches', () => {
   it('readonly：selection null 时 onSelectionChange(null)', async () => {
     const onSelectionChange = vi.fn();
     setupStore({ readonly: true });
-    vi.mocked(getSelectionFromDomSelection).mockReturnValue(null);
+    vi.mocked(ReactEditor.toSlateRange).mockReturnValue(null);
     renderEditor({ reportMode: true, onSelectionChange });
     await act(async () => {
       editableProps.onSelect({});
@@ -378,7 +386,7 @@ describe('Editor deepen2 residual branches', () => {
   it('copy 无 editable target 走 domSelection；cut 删除', () => {
     vi.mocked(hasEditableTarget).mockReturnValue(false);
     setupStore({ readonly: false });
-    vi.mocked(getSelectionFromDomSelection).mockReturnValue({
+    vi.mocked(ReactEditor.toSlateRange).mockReturnValue({
       anchor: { path: [0, 0], offset: 0 },
       focus: { path: [0, 0], offset: 1 },
     } as any);
@@ -396,7 +404,7 @@ describe('Editor deepen2 residual branches', () => {
     });
   });
 
-  it('instance 缺失与 tableConfig initSchema；slateRemountKey', () => {
+  it('instance 初始化与 tableConfig initSchema；slateRemountKey', () => {
     setupStore({ readonly: false });
     const { rerender } = renderEditor({
       instance: { id: 'a' },
@@ -418,7 +426,7 @@ describe('Editor deepen2 residual branches', () => {
         },
       ],
     });
-    expect(EditorUtils.reset).toHaveBeenCalled();
+    expect(Editor.normalize).toHaveBeenCalled();
 
     rerender(
       <SlateMarkdownEditor
