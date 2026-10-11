@@ -1,7 +1,14 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/no-children-prop */
 import classNames from 'clsx';
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import {
   BaseRange,
@@ -11,6 +18,7 @@ import {
   Range,
   Transforms,
 } from 'slate';
+import { HistoryEditor } from 'slate-history';
 import {
   ReactEditor,
   RenderElementProps,
@@ -32,6 +40,10 @@ import { EditorEditable } from './components/EditorEditable';
 import { LazyElement } from './components/LazyElement';
 import { MElement, MLeaf } from './elements';
 import {
+  deleteMediaAtPath,
+  getSelectedMediaPath,
+} from './plugins/cardPluginBehavior';
+import {
   handleFilesPaste,
   handleHtmlPaste,
   handleHttpLinkPaste,
@@ -42,7 +54,8 @@ import {
   shouldInsertTextDirectly,
 } from './plugins/handlePaste';
 import { parseMarkdownToNodesAndInsert } from './plugins/parseMarkdownToNodesAndInsert';
-import { useHighlight } from './plugins/useHighlight';
+import { prepareMediaPaste } from './plugins/prepareMediaPaste';
+import { useHighlight as createHighlight } from './plugins/useHighlight';
 import { useKeyboard } from './plugins/useKeyboard';
 import { useOnchange } from './plugins/useOnchange';
 import { useEditorStore } from './store';
@@ -56,13 +69,13 @@ import {
   EditorUtils,
   findByPathAndText,
   findLeafPath,
-  getSelectionFromDomSelection,
   hasEditableTarget,
   isEventHandled,
   isPath,
 } from './utils/editorUtils';
 import { buildFootnoteDefinitionChangePayload } from './utils/footnoteDisplay';
 import { applyTableMinSizeToSchema } from './utils/genTableMinSize';
+import { getEditorDOMSelection } from './utils/getEditorDOMSelection';
 import {
   cleanWordHtml,
   htmlToMarkdown,
@@ -200,6 +213,26 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
   const sawCompositionUpdateRef = useRef(false);
 
   const plugins = useContext(PluginContext);
+  const selectionRectInvalidatedRef = useRef(false);
+  const previousSelectionNotificationRef = useRef<{
+    editor: ReactEditor;
+    children: Editor['children'];
+    selection: BaseSelection;
+    readonly: boolean;
+    callback: MEditorProps['onSelectionChange'];
+    plugins: typeof plugins | undefined;
+  } | null>(null);
+
+  const readDOMSelection = useRefFunction(() => {
+    const editor = markdownEditorRef.current;
+    const domSelection = getEditorDOMSelection(editor);
+    return domSelection
+      ? ReactEditor.toSlateRange(editor, domSelection, {
+          exactMatch: false,
+          suppressThrow: true,
+        })
+      : null;
+  });
 
   const onKeyDown = useKeyboard(store, markdownEditorRef, props);
   // 选区跟踪开关：FloatBar 启用 或 提供了 onSelectionChange 才需要每次都跑 Editor.nodes/DOMRect
@@ -212,7 +245,10 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
     wait: props.onChangeDebounceWait,
     selectionTrackingEnabled,
   });
-  const high = useHighlight(store, jinjaEnabled);
+  const high = useMemo(
+    () => createHighlight(store, jinjaEnabled),
+    [store, jinjaEnabled],
+  );
 
   const readonlyCls = useMemo(() => {
     if (readonly) return 'readonly';
@@ -246,125 +282,97 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
     return map;
   }, [props.comment?.commentList]);
 
-  const handleSelectionChange = useDebounceFn(
-    async (e?: React.SyntheticEvent<HTMLDivElement>) => {
-      // 只读且不需要选区（无 onSelectionChange、无 FloatBar）时，跳过选区同步与 DOM 测量，提升性能
-      if (
-        readonly &&
-        !props.onSelectionChange &&
-        (!props.reportMode || props.floatBar?.enable === false)
-      ) {
-        setDomRect?.(null);
-        return;
-      }
-      const currentSelection = markdownEditorRef.current.selection;
+  const handleSelectionChange = useDebounceFn(() => {
+    // 只读且不需要选区（无 onSelectionChange、无 FloatBar）时，跳过选区同步与 DOM 测量，提升性能
+    if (
+      readonly &&
+      !props.onSelectionChange &&
+      (!props.reportMode || props.floatBar?.enable === false)
+    ) {
+      setDomRect?.(null);
+      return;
+    }
+    const editor = markdownEditorRef.current;
+    const currentSelection = readonly ? readDOMSelection() : editor.selection;
+    if (readonly) {
+      // Never retain another editor's native selection as this editor's range.
+      editor.selection = currentSelection;
+    }
+    const activePlugins = store ? store.plugins : plugins;
+    const previous = previousSelectionNotificationRef.current;
+    const selectionUnchanged =
+      previous?.editor === editor &&
+      previous.children === editor.children &&
+      previous.readonly === readonly &&
+      previous.callback === props.onSelectionChange &&
+      previous.plugins === activePlugins &&
+      (previous.selection === currentSelection ||
+        (previous.selection &&
+          currentSelection &&
+          Range.equals(previous.selection, currentSelection)));
 
-      // 获取选中内容的 markdown 和节点
-      const getSelectionContent = (selection: BaseSelection | null) => {
-        if (!selection || Range.isCollapsed(selection)) {
-          return { markdown: '', nodes: [] };
-        }
-
-        try {
-          const fragment = Editor.fragment(
-            markdownEditorRef.current,
-            selection,
-          );
-          const markdown = parserSlateNodeToMarkdown(fragment);
-          return { markdown, nodes: fragment };
-        } catch (error) {
-          console.error('Failed to get selection content:', error);
-          return { markdown: '', nodes: [] };
-        }
-      };
-
-      if (!readonly) {
-        // 非只读模式下的选区处理
-        const event = new CustomEvent<BaseSelection>(
-          MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
-          {
-            ...e,
-            detail: currentSelection,
-          },
-        );
-        markdownContainerRef?.current?.dispatchEvent(event);
-
-        // 调用 props.onSelectionChange 回调
-        if (props.onSelectionChange) {
-          const { markdown, nodes } = getSelectionContent(currentSelection);
-          props.onSelectionChange(currentSelection, markdown, nodes);
-        }
-
-        return;
-      }
-      if (typeof window === 'undefined') return;
-      // 只读模式下的选区处理
-      const domSelection = window.getSelection();
-      if (!domSelection) {
-        setDomRect?.(null);
-        // 调用 props.onSelectionChange 回调（无选中）
-        if (props.onSelectionChange) {
-          props.onSelectionChange(null, '', []);
-        }
-        return;
+    // 获取选中内容的 markdown 和节点
+    const getSelectionContent = (selection: BaseSelection | null) => {
+      if (!selection || Range.isCollapsed(selection)) {
+        return { markdown: '', nodes: [] };
       }
 
       try {
-        const selection = getSelectionFromDomSelection(
-          markdownEditorRef.current,
-          domSelection,
+        const fragment = Editor.fragment(editor, selection);
+        const markdown = parserSlateNodeToMarkdown(
+          fragment,
+          '',
+          undefined,
+          activePlugins,
         );
-
-        if (selection) {
-          // 更新编辑器的选区
-          markdownEditorRef.current.selection = selection;
-
-          // 触发选区变化事件
-          const event = new CustomEvent<BaseSelection>(
-            MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
-            {
-              detail: selection,
-            },
-          );
-          markdownContainerRef?.current?.dispatchEvent(event);
-
-          // 调用 props.onSelectionChange 回调
-          if (props.onSelectionChange) {
-            const { markdown, nodes } = getSelectionContent(selection);
-            props.onSelectionChange(selection, markdown, nodes);
-          }
-
-          if (
-            !Range.isCollapsed(selection) &&
-            Editor.hasPath(markdownEditorRef.current, selection.anchor.path) &&
-            Editor.hasPath(markdownEditorRef.current, selection.focus.path)
-          ) {
-            try {
-              const range = ReactEditor.toDOMRange(
-                markdownEditorRef.current,
-                selection,
-              );
-              const rect = range?.getBoundingClientRect();
-              setDomRect?.(rect ?? null);
-            } catch {
-              setDomRect?.(null);
-            }
-          } else {
-            setDomRect?.(null);
-          }
-        } else {
-          setDomRect?.(null);
-          // 调用 props.onSelectionChange 回调（无选中）
-          if (props.onSelectionChange) {
-            props.onSelectionChange(null, '', []);
-          }
-        }
+        return { markdown, nodes: fragment };
       } catch (error) {
-        console.error('Selection change error:', error);
+        console.error('Failed to get selection content:', error);
+        return { markdown: '', nodes: [] };
       }
-    },
-    16,
-  );
+    };
+
+    if (!selectionUnchanged) {
+      previousSelectionNotificationRef.current = {
+        editor,
+        children: editor.children,
+        selection: currentSelection,
+        readonly,
+        callback: props.onSelectionChange,
+        plugins: activePlugins,
+      };
+      const event = new CustomEvent<BaseSelection>(
+        MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
+        { detail: currentSelection },
+      );
+      markdownContainerRef?.current?.dispatchEvent(event);
+      if (props.onSelectionChange) {
+        const { markdown, nodes } = getSelectionContent(currentSelection);
+        props.onSelectionChange(currentSelection, markdown, nodes);
+      }
+    }
+
+    if (!readonly) return;
+    if (selectionUnchanged && !selectionRectInvalidatedRef.current) return;
+    selectionRectInvalidatedRef.current = false;
+    if (
+      props.reportMode &&
+      props.floatBar?.enable !== false &&
+      currentSelection &&
+      !Range.isCollapsed(currentSelection) &&
+      Editor.hasPath(editor, currentSelection.anchor.path) &&
+      Editor.hasPath(editor, currentSelection.focus.path)
+    ) {
+      try {
+        const range = ReactEditor.toDOMRange(editor, currentSelection);
+        setDomRect?.(range?.getBoundingClientRect() ?? null);
+      } catch {
+        setDomRect?.(null);
+      }
+    } else {
+      setDomRect?.(null);
+    }
+  }, 16);
 
   // 添加选区变化的监听
   useEffect(() => {
@@ -392,20 +400,32 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
     };
     container.addEventListener('mouseup', handlePointerUp);
     container.addEventListener('touchend', handlePointerUp, { passive: true });
+    // React onSelect does not cover keyboard/native selections in readOnly DOM.
+    const document = container.ownerDocument;
+    const handleNativeSelectionChange = () => {
+      const editor = markdownEditorRef.current;
+      if (
+        getEditorDOMSelection(editor) ||
+        editor.selection ||
+        previousSelectionNotificationRef.current?.selection
+      ) {
+        handleSelectionChange.run();
+      }
+    };
+    if (readonly && selectionTrackingEnabled) {
+      document.addEventListener('selectionchange', handleNativeSelectionChange);
+    }
 
     return () => {
       container.removeEventListener('mouseup', handlePointerUp);
       container.removeEventListener('touchend', handlePointerUp);
+      document.removeEventListener(
+        'selectionchange',
+        handleNativeSelectionChange,
+      );
       handleSelectionChange.cancel();
     };
-  }, [readonly, markdownContainerRef?.current]);
-
-  useEffect(() => {
-    if (nodeRef.current !== props.instance) {
-      initialNote();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- markdownEditorRef.current 是可变 ref，此处需在编辑器实例变化时重新执行
-  }, [props.instance]);
+  }, [readonly, selectionTrackingEnabled, markdownContainerRef?.current]);
 
   const emitFootnoteDefinitionChange = useRefFunction((schema: Elements[]) => {
     const onFootnoteDefinitionChange =
@@ -441,12 +461,14 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
 
     // 更新当前值引用
     value.current = v;
-    setHasEmptyRootParagraph(
-      v.some(
-        (node) =>
-          node.type === 'paragraph' && node.children?.at?.(0)?.text === '',
-      ),
-    );
+    if (hasContentChanges) {
+      setHasEmptyRootParagraph(
+        v.some(
+          (node) =>
+            node.type === 'paragraph' && node.children?.at?.(0)?.text === '',
+        ),
+      );
+    }
     // 触发onChange回调
     onChange(v, operations);
     // 检查是否存在非选区变化操作，如有则标记内容已变更
@@ -463,6 +485,7 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
     if (props?.typewriter) return;
     if (readonly) {
       // 点击时清除工具栏
+      selectionRectInvalidatedRef.current = true;
       setDomRect?.(null);
       return;
     }
@@ -512,8 +535,76 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
         }
 
         // 1. 如果事件已被处理，则直接返回
-        if (isEventHandled(event)) {
+        if (
+          event.defaultPrevented ||
+          event.isDefaultPrevented?.() ||
+          event.isPropagationStopped?.() ||
+          isEventHandled(event)
+        ) {
           return false;
+        }
+        if (operationType === 'cut' && readonly) {
+          event.preventDefault();
+          return true;
+        }
+
+        const editor = markdownEditorRef.current;
+        const mediaPath = getSelectedMediaPath(editor);
+        const domSelection = window.getSelection();
+        if (
+          mediaPath &&
+          (!domSelection?.rangeCount || domSelection.isCollapsed)
+        ) {
+          // Media use a hidden, collapsed text leaf as their selection anchor.
+          // Copy the complete node without replacing that selection from the DOM.
+          const media = Node.get(editor, mediaPath);
+          const pathRef = Editor.pathRef(editor, mediaPath);
+          try {
+            const fragment = [media];
+            const serialized = JSON.stringify(fragment);
+            const markdown = parserSlateNodeToMarkdown(
+              fragment,
+              '',
+              undefined,
+              store ? store.plugins : plugins,
+            );
+            const encoded = window.btoa(encodeURIComponent(serialized));
+            const html = document.createElement('span');
+            html.setAttribute('data-slate-fragment', encoded);
+            html.textContent = markdown;
+            event.clipboardData.clearData();
+            event.clipboardData.setData(
+              'application/x-slate-fragment',
+              encoded,
+            );
+            event.clipboardData.setData(
+              'application/x-slate-md-fragment',
+              serialized,
+            );
+            event.clipboardData.setData('text/markdown', markdown);
+            event.clipboardData.setData('text/plain', markdown);
+            event.clipboardData.setData('text/html', html.outerHTML);
+            // Only delete after all clipboard writes succeed; a late callback
+            // must not delete a different node that reused this path.
+            const currentPath = pathRef.current;
+            if (
+              operationType === 'cut' &&
+              currentPath &&
+              Editor.hasPath(editor, currentPath) &&
+              Node.get(editor, currentPath) === media
+            ) {
+              deleteMediaAtPath(editor, currentPath);
+            }
+            event.preventDefault();
+            return true;
+          } catch (error) {
+            // The native cut fallback cannot safely resolve a hidden media leaf.
+            if (operationType === 'cut') event.preventDefault();
+            console.error('Error during clipboard operation:', error);
+            return false;
+          } finally {
+            pathRef.unref();
+          }
         }
 
         // 2. 检查目标元素是否可编辑，如果不可编辑，则从DOM选区中获取编辑器选区
@@ -521,21 +612,9 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
           operationType === 'copy' &&
           !hasEditableTarget(markdownEditorRef.current, event.target)
         ) {
-          const domSelection = window.getSelection();
-          if (domSelection) {
-            markdownEditorRef.current.selection = getSelectionFromDomSelection(
-              markdownEditorRef.current,
-              domSelection,
-            );
-          }
+          editor.selection = readDOMSelection();
         } else if (operationType === 'cut') {
-          const domSelection = window.getSelection();
-          if (domSelection) {
-            markdownEditorRef.current.selection = getSelectionFromDomSelection(
-              markdownEditorRef.current,
-              domSelection,
-            );
-          }
+          editor.selection = readDOMSelection();
         }
 
         // 如果无法获取选区，则直接返回
@@ -545,7 +624,6 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
 
         // 3. 处理复制/剪切选中内容
         event.clipboardData?.clearData();
-        const editor = markdownEditorRef.current;
         const sel = editor.selection as Range;
 
         if (
@@ -566,7 +644,12 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
           );
 
           const fragment = editor.getFragment();
-          const markdown = parserSlateNodeToMarkdown(fragment);
+          const markdown = parserSlateNodeToMarkdown(
+            fragment,
+            '',
+            undefined,
+            store ? store.plugins : plugins,
+          );
 
           // 自定义 key 不会被 Slate 默认实现覆盖
           event.clipboardData.setData(
@@ -624,24 +707,26 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
   /**
    * 初始化编辑器
    */
-  const initialNote = async () => {
+  const initialNote = () => {
     if (props.instance) {
       nodeRef.current = props.instance;
       first.current = true;
-      const tableConfig = props.tableConfig;
-      const schemaForReset = props.initSchemaValue?.length
-        ? copy(props.initSchemaValue)
-        : undefined;
-      if (schemaForReset && tableConfig) {
-        applyTableMinSizeToSchema(schemaForReset, {
-          minColumn: tableConfig.minColumn,
-          minRows: tableConfig.minRows,
-        });
-      }
-      try {
-        EditorUtils.reset(markdownEditorRef.current, schemaForReset);
-      } catch (e) {
-        EditorUtils.deleteAll(markdownEditorRef.current);
+      const editor = markdownEditorRef.current;
+      const initializeDocument = () => {
+        try {
+          // Slate has already installed initialValue. Normalize it in place so
+          // valid media keeps its DOM and does not request the same URL twice.
+          Editor.normalize(editor, { force: true });
+        } catch (e) {
+          EditorUtils.deleteAll(editor);
+        }
+      };
+      // Imported document repairs are initialization, just like the previous
+      // reset path. The first user undo must only revert their own edit.
+      if (HistoryEditor.isHistoryEditor(editor)) {
+        HistoryEditor.withoutSaving(editor, initializeDocument);
+      } else {
+        initializeDocument();
       }
     } else {
       nodeRef.current = null;
@@ -695,23 +780,23 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
       ? Array.from(clipboardData.files)
       : [];
 
+    // 拦截器必须先于任何文档修改。具体的插入操作负责替换选区，
+    // 未找到可用且允许的剪贴板内容时保留原文。
+    if (props.onPaste?.(event) === false) return;
+
+    const allowedTypes = pasteConfig?.allowedTypes || defaultAllowedTypes;
     const currentTextSelection = markdownEditorRef.current.selection;
+
     if (
       currentTextSelection &&
+      cachedPlain &&
+      allowedTypes.includes('text/plain') &&
       Editor.hasPath(
         markdownEditorRef.current,
         currentTextSelection.anchor.path,
-      )
+      ) &&
+      Editor.hasPath(markdownEditorRef.current, currentTextSelection.focus.path)
     ) {
-      if (!Range.isCollapsed(currentTextSelection)) {
-        Transforms.delete(markdownEditorRef.current, {
-          at: currentTextSelection!,
-          reverse: true,
-        });
-      }
-    }
-
-    if (currentTextSelection) {
       const nodeList = Editor.node(
         markdownEditorRef.current,
         currentTextSelection.focus.path!,
@@ -721,20 +806,16 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
         handleTagNodePaste(
           markdownEditorRef.current,
           currentTextSelection,
-          clipboardData,
+          {
+            getData: (type: string) =>
+              type === 'text/plain' ? cachedPlain : '',
+          } as DataTransfer,
           curNode,
         )
       ) {
         return;
       }
     }
-
-    const result = props.onPaste?.(event);
-    if (result === false) {
-      return;
-    }
-
-    const allowedTypes = pasteConfig?.allowedTypes || defaultAllowedTypes;
 
     // 1. slate-md-fragment（同源复制粘贴）
     if (
@@ -826,10 +907,10 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
         if (shouldInsertTextDirectly(markdownEditorRef.current, selection)) {
           Transforms.insertText(markdownEditorRef.current, text);
         } else {
-          Transforms.insertFragment(
-            markdownEditorRef.current,
-            parserMdToSchema(text, plugins).schema,
-          );
+          const schema = parserMdToSchema(text, plugins).schema;
+          if (!schema.length) return;
+          prepareMediaPaste(markdownEditorRef.current);
+          Transforms.insertFragment(markdownEditorRef.current, schema);
         }
       }
       return;
@@ -842,9 +923,12 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
       const selection = markdownEditorRef.current.selection;
 
       if (pasteConfig?.plainTextOnly) {
-        if (selection) {
+        const targetSelection = prepareMediaPaste(markdownEditorRef.current)
+          ? markdownEditorRef.current.selection
+          : selection;
+        if (targetSelection) {
           Transforms.insertText(markdownEditorRef.current, text, {
-            at: selection,
+            at: targetSelection,
           });
         } else {
           Transforms.insertNodes(markdownEditorRef.current, [
@@ -889,10 +973,8 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
       }
     }
 
-    // 6. 全部失败 → 走 Slate 默认插入逻辑
-    if (hasEditableTarget(markdownEditorRef.current, event.target)) {
-      ReactEditor.insertData(markdownEditorRef.current, clipboardData);
-    }
+    // 未处理的内容保持原文。默认 insertData 可能重新读取被禁用的格式，
+    // 绕过 allowedTypes，或在异步处理后读取已经失效的 clipboardData。
   };
 
   /**
@@ -962,16 +1044,9 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
     // internal composition range to drift: it still points at the previous
     // candidate span, so insertCompositionText appends instead of replacing.
     try {
-      const domSel = window.getSelection();
-      if (domSel && domSel.rangeCount > 0) {
-        const slateRange = ReactEditor.toSlateRange(
-          markdownEditorRef.current,
-          domSel,
-          { exactMatch: false, suppressThrow: true },
-        );
-        if (slateRange) {
-          Transforms.select(markdownEditorRef.current, slateRange);
-        }
+      const slateRange = readDOMSelection();
+      if (slateRange) {
+        Transforms.select(markdownEditorRef.current, slateRange);
       }
     } catch {
       // DOM/Slate range conversion can fail in edge cases; ignore
@@ -1188,166 +1263,178 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
     },
   );
 
-  const decorateFn = (e: any) => {
-    // 始终运行 useHighlight，以支持 fnc（脚注）、链接等基础展示
-    const decorateList: any[] = high(e) || [];
-    if (!props.comment) return decorateList;
-    if (props.comment.enable === false) return decorateList;
-    if (commentMap.size === 0) return decorateList;
+  const commentEnabled = !!props.comment && props.comment.enable !== false;
+  const decorateFn = useCallback(
+    (e: any) => {
+      // 始终运行 useHighlight，以支持 fnc（脚注）、链接等基础展示
+      const decorateList: any[] = high(e) || [];
+      if (!commentEnabled) return decorateList;
+      if (commentMap.size === 0) return decorateList;
 
-    try {
-      const ranges: BaseRange[] = [];
-      const [, path] = e;
-      const itemMap = commentMap.get(path.join(','));
-      if (!itemMap) return decorateList;
-      itemMap.forEach((itemList) => {
-        itemList.forEach((item) => {
-          const { anchor, focus } = item.selection || {};
+      try {
+        const ranges: BaseRange[] = [];
+        const [, path] = e;
+        const itemMap = commentMap.get(path.join(','));
+        if (!itemMap) return decorateList;
+        itemMap.forEach((itemList) => {
+          itemList.forEach((item) => {
+            const { anchor, focus } = item.selection || {};
 
-          let newSelection: BaseSelection | undefined = undefined;
-          let fragment = undefined;
-          if (
-            anchor &&
-            focus &&
-            isPath(anchor.path) &&
-            focus.path &&
-            isPath(focus.path) &&
-            Editor.hasPath(markdownEditorRef.current, anchor.path) &&
-            Editor.hasPath(markdownEditorRef.current, focus.path)
-          ) {
-            newSelection = {
-              anchor: {
-                path: findLeafPath(markdownEditorRef.current, anchor.path),
-                offset: anchor.offset,
-              },
-              focus: {
-                path: findLeafPath(markdownEditorRef.current, focus.path),
-                offset: focus.offset,
-              },
-            } as BaseSelection;
-            fragment = Editor.fragment(
-              markdownEditorRef.current,
-              newSelection!,
-            );
-          } else if (item.refContent) {
-            const findDom = findByPathAndText(
-              markdownEditorRef.current,
-              item.path,
-              item.refContent,
-            ).at(0);
-
-            if (findDom) {
+            let newSelection: BaseSelection | undefined = undefined;
+            let fragment = undefined;
+            if (
+              anchor &&
+              focus &&
+              isPath(anchor.path) &&
+              focus.path &&
+              isPath(focus.path) &&
+              Editor.hasPath(markdownEditorRef.current, anchor.path) &&
+              Editor.hasPath(markdownEditorRef.current, focus.path)
+            ) {
               newSelection = {
                 anchor: {
-                  ...anchor,
-                  path: findLeafPath(markdownEditorRef.current, findDom.path),
-                  offset: findDom.offset.start,
+                  path: findLeafPath(markdownEditorRef.current, anchor.path),
+                  offset: anchor.offset,
                 },
                 focus: {
-                  ...focus,
-                  path: findLeafPath(markdownEditorRef.current, findDom.path),
-                  offset: findDom.offset.end,
+                  path: findLeafPath(markdownEditorRef.current, focus.path),
+                  offset: focus.offset,
                 },
-              };
+              } as BaseSelection;
               fragment = Editor.fragment(
                 markdownEditorRef.current,
-                newSelection,
+                newSelection!,
               );
-            } else {
-              // 检查 focus.path 是否存在且有效
-              if (
-                focus &&
-                focus.path &&
-                isPath(focus.path) &&
-                Editor.hasPath(markdownEditorRef.current, focus.path)
-              ) {
-                try {
-                  // 获取 focus.path 对应的节点
-                  const [node] = Editor.node(
-                    markdownEditorRef.current,
-                    item.path,
-                  );
+            } else if (item.refContent) {
+              const findDom = findByPathAndText(
+                markdownEditorRef.current,
+                item.path,
+                item.refContent,
+              ).at(0);
 
-                  // 检查该节点是否是 table 类型
-                  if (
-                    (node as any)?.type === 'table' ||
-                    (node as any)?.type === 'card'
-                  ) {
-                    // 获取 table 节点的开始和结尾位置
-                    const startPoint = Editor.start(
+              if (findDom) {
+                newSelection = {
+                  anchor: {
+                    ...anchor,
+                    path: findLeafPath(markdownEditorRef.current, findDom.path),
+                    offset: findDom.offset.start,
+                  },
+                  focus: {
+                    ...focus,
+                    path: findLeafPath(markdownEditorRef.current, findDom.path),
+                    offset: findDom.offset.end,
+                  },
+                };
+                fragment = Editor.fragment(
+                  markdownEditorRef.current,
+                  newSelection,
+                );
+              } else {
+                // 检查 focus.path 是否存在且有效
+                if (
+                  focus &&
+                  focus.path &&
+                  isPath(focus.path) &&
+                  Editor.hasPath(markdownEditorRef.current, focus.path)
+                ) {
+                  try {
+                    // 获取 focus.path 对应的节点
+                    const [node] = Editor.node(
                       markdownEditorRef.current,
                       item.path,
                     );
-                    const endPoint = Editor.end(
-                      markdownEditorRef.current,
-                      item.path,
-                    );
 
-                    newSelection = {
-                      anchor: startPoint,
-                      focus: endPoint,
-                    } as BaseSelection;
+                    // 检查该节点是否是 table 类型
+                    if (
+                      (node as any)?.type === 'table' ||
+                      (node as any)?.type === 'card'
+                    ) {
+                      // 获取 table 节点的开始和结尾位置
+                      const startPoint = Editor.start(
+                        markdownEditorRef.current,
+                        item.path,
+                      );
+                      const endPoint = Editor.end(
+                        markdownEditorRef.current,
+                        item.path,
+                      );
 
-                    fragment = Editor.fragment(
-                      markdownEditorRef.current,
-                      newSelection!,
-                    );
+                      newSelection = {
+                        anchor: startPoint,
+                        focus: endPoint,
+                      } as BaseSelection;
+
+                      fragment = Editor.fragment(
+                        markdownEditorRef.current,
+                        newSelection!,
+                      );
+                    }
+                  } catch (error) {
+                    console.error('Error selecting table node:', error);
                   }
-                } catch (error) {
-                  console.error('Error selecting table node:', error);
                 }
               }
             }
-          }
 
-          // 尝试调整路径，处理可能的节点变化
+            // 尝试调整路径，处理可能的节点变化
 
-          if (fragment && newSelection) {
-            const newAnchorPath = newSelection.anchor.path;
-            const newFocusPath = newSelection.focus.path;
-            if (
-              isPath(newFocusPath) &&
-              isPath(newAnchorPath) &&
-              Editor.hasPath(markdownEditorRef.current, newAnchorPath) &&
-              Editor.hasPath(markdownEditorRef.current, newFocusPath)
-            ) {
-              ranges.push({
-                anchor: {
-                  path: newAnchorPath,
-                  offset: newSelection.anchor.offset,
-                },
-                focus: {
-                  path: newFocusPath,
-                  offset: newSelection.focus.offset,
-                },
-                data: itemList,
-                comment: true,
-                id: item.id,
-                selection: newSelection,
-                updateTime: itemList
-                  .map((i) => i.updateTime)
-                  .sort()
-                  .join(','),
-              } as Range);
+            if (fragment && newSelection) {
+              const newAnchorPath = newSelection.anchor.path;
+              const newFocusPath = newSelection.focus.path;
+              if (
+                isPath(newFocusPath) &&
+                isPath(newAnchorPath) &&
+                Editor.hasPath(markdownEditorRef.current, newAnchorPath) &&
+                Editor.hasPath(markdownEditorRef.current, newFocusPath)
+              ) {
+                ranges.push({
+                  anchor: {
+                    path: newAnchorPath,
+                    offset: newSelection.anchor.offset,
+                  },
+                  focus: {
+                    path: newFocusPath,
+                    offset: newSelection.focus.offset,
+                  },
+                  data: itemList,
+                  comment: true,
+                  id: item.id,
+                  selection: newSelection,
+                  updateTime: itemList
+                    .map((i) => i.updateTime)
+                    .sort()
+                    .join(','),
+                } as Range);
+              }
             }
-          }
+          });
         });
-      });
-      return decorateList.concat(ranges as any[]);
-    } catch (error) {
-      console.error('[highlight] 高亮计算失败:', error);
-      return decorateList;
-    }
-  };
+        return decorateList.concat(ranges as any[]);
+      } catch (error) {
+        console.error('[highlight] 高亮计算失败:', error);
+        return decorateList;
+      }
+    },
+    [high, commentEnabled, commentMap, markdownEditorRef],
+  );
 
-  // 在 SSR 环境下，如果有 initSchemaValue，直接使用它作为初始值
-  // 因为 useEffect 在 SSR 环境下不会执行，initialNote 不会被调用
+  // Prepare the initial document before its first render, including SSR.
   const initialValue = useMemo(() => {
-    if (props.initSchemaValue?.length) {
-      return copy(props.initSchemaValue);
+    const schema = copy(
+      props.initSchemaValue?.length ? props.initSchemaValue : [EditorUtils.p],
+    );
+    if (props.tableConfig) {
+      applyTableMinSizeToSchema(schema, {
+        minColumn: props.tableConfig.minColumn,
+        minRows: props.tableConfig.minRows,
+      });
     }
-    return copy([EditorUtils.p]);
-  }, [props.initSchemaValue]);
+    return schema;
+  }, [
+    props.initSchemaValue,
+    props.tableConfig?.minColumn,
+    props.tableConfig?.minRows,
+  ]);
 
   return (
     <>
@@ -1379,8 +1466,8 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
             hashId,
           )}
           style={props.style}
-          onSelect={(e) => {
-            handleSelectionChange.run(e);
+          onSelect={() => {
+            handleSelectionChange.run();
           }}
           onCut={(event: React.ClipboardEvent<HTMLDivElement>) => {
             // 内部成功时已 preventDefault；失败时让浏览器原生 cut 兜底，
@@ -1389,13 +1476,14 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
           }}
           onFocus={(e) => {
             props.onFocus?.(
-              parserSlateNodeToMarkdown(markdownEditorRef.current.children),
+              store.getMDContent(),
               markdownEditorRef.current.children,
               e,
             );
           }}
           onBlur={() => {
             // 失去焦点时清除工具栏
+            selectionRectInvalidatedRef.current = true;
             setDomRect?.(null);
           }}
           onMouseDown={checkEnd}

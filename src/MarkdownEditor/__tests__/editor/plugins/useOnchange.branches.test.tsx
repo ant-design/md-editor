@@ -25,6 +25,7 @@ const mockSetRefreshFloatBar = vi.fn(
 const selChange$ = new Subject<any>();
 
 const storeState: {
+  store: { getMDContent: typeof mockParser };
   readonly: boolean;
   refreshFloatBar: number;
   floatBarRevision: number;
@@ -34,6 +35,7 @@ const storeState: {
   markdownEditorRef: { current: ReturnType<typeof createEditor> | null };
   selChange$: Subject<any>;
 } = {
+  store: { getMDContent: mockParser },
   readonly: false,
   refreshFloatBar: 0,
   floatBarRevision: 0,
@@ -58,8 +60,13 @@ vi.mock('../../../editor/store', () => ({
   useEditorStore: () => storeState,
 }));
 
-vi.mock('../../../editor/utils', () => ({
-  parserSlateNodeToMarkdown: (...args: any[]) => mockParser(...args),
+// These branch fixtures have no mounted Editable; DOM ownership is covered by
+// useOnchange.selectionBridge.regression.test.tsx with real Slate DOM nodes.
+vi.mock('../../../editor/utils/getEditorDOMSelection', () => ({
+  getEditorDOMSelection: () => {
+    const selection = window.getSelection();
+    return selection ? { rangeCount: 1, ...selection } : null;
+  },
 }));
 
 describe('useOnchange targeted coverage', () => {
