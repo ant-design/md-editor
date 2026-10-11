@@ -46,7 +46,7 @@ group:
   - 🛠 移除 `useGenStyle` 返回的废弃 `wrapSSR` 包装函数，`useStyle` 不再返回 `wrapSSR`。
   - 🛠 全量移除 70+ 组件中的 `wrapSSR(...)` 包裹调用，组件直接返回 JSX。
 
-## 未发布 {#unreleased}
+## 未发布
 
 - Bubble
   - ⚡️ 引用列表仅在展开时挂载条目，折叠或关闭预览时释放隐藏内容；Slate 正文更新复用编辑器同步入口，避免重复解析并保留插件配置。
