@@ -1,9 +1,11 @@
 import { ToolUseBar } from '@ant-design/agentic-ui';
+import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 const ToolUseBarAdvancedDemo = () => {
   const [isRunning, setIsRunning] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(100);
+  const [hasRun, setHasRun] = useState(false);
 
   const tools = [
     {
@@ -30,15 +32,14 @@ const ToolUseBarAdvancedDemo = () => {
   useEffect(() => {
     if (!isRunning) return;
 
+    let nextProgress = 0;
     const interval = setInterval(() => {
-      setProgress((prev) => {
-        const newProgress = prev + 2;
-        if (newProgress >= 100) {
-          setIsRunning(false);
-          return 100;
-        }
-        return newProgress;
-      });
+      nextProgress = Math.min(nextProgress + 2, 100);
+      setProgress(nextProgress);
+      if (nextProgress >= 100) {
+        clearInterval(interval);
+        setIsRunning(false);
+      }
     }, 100);
 
     return () => clearInterval(interval);
@@ -46,6 +47,17 @@ const ToolUseBarAdvancedDemo = () => {
 
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto' }}>
+      <Button
+        onClick={() => {
+          setHasRun(true);
+          setProgress(0);
+          setIsRunning(true);
+        }}
+        disabled={isRunning}
+        style={{ marginBottom: 16 }}
+      >
+        {isRunning ? '执行中' : hasRun ? '重新播放' : '开始执行'}
+      </Button>
       <ToolUseBar
         tools={tools}
         onToolClick={(id: string) => console.log('Tool clicked:', id)}

@@ -95,4 +95,24 @@ export const RETRY_CONFIG = {
   INTERVAL: 2000,
 };
 
+// 首屏展示完整结果，流式追加仅在用户主动重播时运行。
+export const createCompletedMessages = (): MessageBubbleData[] => [
+  createMockMessage(
+    'initial-assistant',
+    'assistant',
+    INITIAL_MESSAGES.assistant,
+  ),
+  createMockMessage('initial-user', 'user', INITIAL_MESSAGES.user),
+  ...Array.from({ length: RETRY_CONFIG.MAX_RETRY }, (_, index) =>
+    createMockMessage(
+      `initial-result-${index}`,
+      index % 2 === 0 ? 'user' : 'assistant',
+      index === RETRY_CONFIG.MAX_RETRY - 1
+        ? INITIAL_MESSAGES.bubbleDoc
+        : `这是第 ${index + RETRY_CONFIG.MESSAGE_COUNT + 1} 条消息`,
+      index === RETRY_CONFIG.MAX_RETRY - 1 ? mockInlineFileMap : undefined,
+    ),
+  ),
+];
+
 export default () => null;

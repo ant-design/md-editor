@@ -1,5 +1,4 @@
 import {
-  MARKDOWN_EDITOR_EVENTS,
   MarkdownEditor,
   MarkdownEditorInstance,
   useRefFunction,
@@ -9,7 +8,7 @@ import { CodeElement } from '@ant-design/agentic-ui/Plugins/code';
 import { MermaidElement } from '@ant-design/agentic-ui/Plugins/mermaid';
 import { ExportOutlined } from '@ant-design/icons';
 import { Popover } from 'antd';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 
 const defaultValue = `根据提供的上下文数据，微软最近的股票并没有大涨，反而表现不佳。以下是相关信息的总结：
 
@@ -43,17 +42,6 @@ export default () => {
       origin_url: any;
     }[]
   >([]);
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    // @ts-ignore
-    window.editorRef = editorRef;
-    editorRef.current?.markdownContainerRef?.current?.addEventListener(
-      MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
-      (e) => {
-        console.log('selectionchange', e);
-      },
-    );
-  }, []);
 
   const funRender = useRefFunction(
     (props: { identifier?: any }, _: React.ReactNode) => {
@@ -95,7 +83,7 @@ export default () => {
     <>
       <MarkdownEditor
         editorRef={editorRef}
-        width={'100vw'}
+        width={'100%'}
         height={'100vh'}
         reportMode
         plugins={[
@@ -172,7 +160,7 @@ $x^3+x^9+x^y$
             <code>editorRef</code> - 编辑器引用，用于访问编辑器实例
           </li>
           <li>
-            <code>width</code> - 编辑器宽度，设置为 100vw 占满视口宽度
+            <code>width</code> - 编辑器宽度，设置为 100% 跟随容器宽度
           </li>
           <li>
             <code>height</code> - 编辑器高度，设置为 100vh 占满视口高度

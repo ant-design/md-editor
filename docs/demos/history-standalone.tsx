@@ -61,7 +61,9 @@ const StandaloneHistoryDemo = () => {
       <div
         style={{
           padding: '20px',
-          width: 348,
+          width: '100%',
+          maxWidth: 348,
+          boxSizing: 'border-box',
           margin: '0 auto',
           height: 400,
         }}

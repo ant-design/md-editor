@@ -1,6 +1,7 @@
 import type { TaskItem, TaskStatus } from '@ant-design/agentic-ui';
 import { TaskList, ToolUseBar } from '@ant-design/agentic-ui';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Button } from 'antd';
+import React, { useEffect, useMemo, useState } from 'react';
 
 const allTasks: Array<{ key: string; title: string; contentItems: string[] }> =
   [
@@ -35,98 +36,79 @@ const allTasks: Array<{ key: string; title: string; contentItems: string[] }> =
 
 /** 每步推进间隔(ms) */
 const STEP_INTERVAL = 3000;
-/** 完成后停留时间(ms)，之后重新开始 */
-const RESTART_DELAY = 4000;
+const TOTAL_STEPS = allTasks.length + 1;
 
 export default () => {
   const [activeKeys, setActiveKeys] = useState<string[]>([]);
-  const [open, setOpen] = useState(false);
-  const [items, setItems] = useState<TaskItem[]>([]);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const stepRef = useRef(0);
+  const [open, setOpen] = useState(true);
+  const [step, setStep] = useState(TOTAL_STEPS);
+  const isRunning = step < TOTAL_STEPS;
 
-  const buildItems = useCallback(
-    (step: number): TaskItem[] => {
-      const totalSteps = allTasks.length + 1;
-      const currentLoading = step - 1;
+  const items = useMemo((): TaskItem[] => {
+    const totalSteps = TOTAL_STEPS;
+    const currentLoading = step - 1;
 
-      return allTasks
-        .filter((_, idx) => idx <= currentLoading)
-        .map((task, idx) => {
-          let status: TaskStatus = 'pending';
-          if (idx < currentLoading) {
-            status = 'success';
-          } else if (idx === currentLoading && step < totalSteps) {
-            status = 'loading';
-          } else {
-            status = 'success';
-          }
-
-          const content =
-            task.key === '2'
-              ? [
-                  <ToolUseBar
-                    key="tooluse"
-                    activeKeys={activeKeys}
-                    onActiveKeysChange={(keys) => setActiveKeys(keys)}
-                    tools={task.contentItems.map((name, i) => ({
-                      id: String(i + 1),
-                      toolName: name.includes('雷达')
-                        ? 'chart_generator'
-                        : 'data_visualizer',
-                      toolTarget: name,
-                      time: String(i + 2),
-                    }))}
-                  />,
-                ]
-              : task.contentItems.map((text, i) => <div key={i}>{text}</div>);
-
-          return {
-            key: task.key,
-            title: task.title,
-            content,
-            status,
-          };
-        });
-    },
-    [activeKeys],
-  );
-
-  const startCycle = useCallback(() => {
-    stepRef.current = 0;
-    setItems([]);
-    setOpen(false);
-
-    timerRef.current = setTimeout(() => {
-      setOpen(true);
-      const advance = () => {
-        const totalSteps = allTasks.length + 1;
-        stepRef.current += 1;
-        const step = stepRef.current;
-        setItems(buildItems(step));
-
-        if (step >= totalSteps) {
-          // 全部完成，等待一段时间后重新循环
-          timerRef.current = setTimeout(startCycle, RESTART_DELAY);
-          return;
+    return allTasks
+      .filter((_, idx) => idx <= currentLoading)
+      .map((task, idx) => {
+        let status: TaskStatus = 'pending';
+        if (idx < currentLoading) {
+          status = 'success';
+        } else if (idx === currentLoading && step < totalSteps) {
+          status = 'loading';
+        } else {
+          status = 'success';
         }
 
-        timerRef.current = setTimeout(advance, STEP_INTERVAL);
-      };
-      timerRef.current = setTimeout(advance, 800);
-    }, 500);
-  }, [buildItems]);
+        const content =
+          task.key === '2'
+            ? [
+                <ToolUseBar
+                  key="tooluse"
+                  activeKeys={activeKeys}
+                  onActiveKeysChange={setActiveKeys}
+                  tools={task.contentItems.map((name, i) => ({
+                    id: String(i + 1),
+                    toolName: name.includes('雷达')
+                      ? 'chart_generator'
+                      : 'data_visualizer',
+                    toolTarget: name,
+                    time: String(i + 2),
+                  }))}
+                />,
+              ]
+            : task.contentItems.map((text, i) => <div key={i}>{text}</div>);
 
-  // 组件挂载后自动开始循环
+        return {
+          key: task.key,
+          title: task.title,
+          content,
+          status,
+        };
+      });
+  }, [activeKeys, step]);
+
   useEffect(() => {
-    startCycle();
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    if (!isRunning) return;
+    const timer = setTimeout(
+      () => setStep((current) => current + 1),
+      STEP_INTERVAL,
+    );
+    return () => clearTimeout(timer);
+  }, [isRunning, step]);
 
   return (
     <div style={{ padding: 24, maxWidth: 480 }}>
+      <Button
+        onClick={() => {
+          setStep(1);
+          setOpen(true);
+        }}
+        disabled={isRunning}
+        style={{ marginBottom: 16 }}
+      >
+        {isRunning ? '执行中' : '重新播放'}
+      </Button>
       {items.length > 0 && (
         <TaskList
           items={items}

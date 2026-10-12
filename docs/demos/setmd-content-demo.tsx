@@ -5,75 +5,78 @@
 import {
   BaseMarkdownEditor,
   MarkdownEditorInstance,
-  useRefFunction,
 } from '@ant-design/agentic-ui';
 import { Button, Progress, Space } from 'antd';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-/**
- * 生成超长文档内容（异步分批生成）
- * 使用 requestAnimationFrame 避免阻塞主线程
- * @param onProgress - 进度回调函数
- * @returns Promise<string> - 生成的文档内容
- */
-const generateVeryLongContent = async (
+const TOTAL_CHAPTERS = 200;
+const GENERATION_BATCH_SIZE = 25;
+
+/** 按帧生成演示文档；取消时释放累积内容，阻止后续帧继续工作。 */
+export const generateVeryLongContent = (
+  signal: AbortSignal,
   onProgress?: (progress: number) => void,
-): Promise<string> => {
-  const sections: string[] = [];
-  const totalChapters = 1000000;
-  const batchSize = 100000; // 每批生成 10000 章
-  const totalBatches = Math.ceil(totalChapters / batchSize);
+): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const sections: string[] = [];
+    let frame: number | undefined;
+    let chapter = 1;
 
-  return new Promise((resolve) => {
-    let currentBatch = 0;
+    const handleAbort = () => {
+      if (frame !== undefined) cancelAnimationFrame(frame);
+      signal.removeEventListener('abort', handleAbort);
+      sections.length = 0;
+      reject(new DOMException('Operation was cancelled', 'AbortError'));
+    };
 
     const generateBatch = () => {
-      const start = currentBatch * batchSize + 1;
-      const end = Math.min((currentBatch + 1) * batchSize, totalChapters);
-
-      // 生成当前批次的内容
-      for (let i = start; i <= end; i++) {
-        sections.push(`# 第 ${i} 章\n\n`);
+      frame = undefined;
+      if (signal.aborted) return;
+      const end = Math.min(chapter + GENERATION_BATCH_SIZE, TOTAL_CHAPTERS + 1);
+      for (; chapter < end; chapter++) {
+        sections.push(`# 第 ${chapter} 章\n\n`);
         sections.push(
-          `这是第 ${i} 章的内容。包含大量的文本内容用于测试性能优化。\n\n`,
+          `这是第 ${chapter} 章的内容。包含大量的文本内容用于测试性能优化。\n\n`,
         );
-        sections.push(`## ${i}.1 第一节\n\n`);
+        sections.push(`## ${chapter}.1 第一节\n\n`);
         sections.push(`这是第一节的内容。**加粗文本**和*斜体文本*的示例。\n\n`);
         sections.push(`> 这是一个引用块，包含重要的提示信息。\n\n`);
         sections.push(
-          `\`\`\`javascript\n// 代码块示例\nconst chapter = ${i};\nconsole.log('Chapter:', chapter);\nfor (let j = 0; j < 100; j++) {\n  console.log('Line:', j);\n}\n\`\`\`\n\n`,
+          `\`\`\`javascript\n// 代码块示例\nconst chapter = ${chapter};\nconsole.log('Chapter:', chapter);\nfor (let j = 0; j < 100; j++) {\n  console.log('Line:', j);\n}\n\`\`\`\n\n`,
         );
-        sections.push(`## ${i}.2 第二节\n\n`);
+        sections.push(`## ${chapter}.2 第二节\n\n`);
         sections.push(
           `- 列表项 1 - 重要内容\n- 列表项 2 - 关键信息\n- 列表项 3 - 核心概念\n\n`,
         );
         sections.push(`1. 有序列表 1\n2. 有序列表 2\n3. 有序列表 3\n\n`);
         sections.push(`-----------------------------------\n\n`);
       }
-
-      currentBatch++;
-
-      // 更新进度
-      if (onProgress) {
-        onProgress(currentBatch / totalBatches);
-      }
-
-      // 如果还有批次，继续下一批
-      if (currentBatch < totalBatches) {
-        requestAnimationFrame(generateBatch);
+      onProgress?.((chapter - 1) / TOTAL_CHAPTERS);
+      if (signal.aborted) return;
+      if (chapter <= TOTAL_CHAPTERS) {
+        frame = requestAnimationFrame(generateBatch);
       } else {
-        // 所有批次完成，返回结果
-        resolve(sections?.join(''));
+        signal.removeEventListener('abort', handleAbort);
+        resolve(sections.join(''));
       }
     };
 
-    // 开始生成第一批
-    requestAnimationFrame(generateBatch);
+    if (signal.aborted) {
+      handleAbort();
+      return;
+    }
+    signal.addEventListener('abort', handleAbort, { once: true });
+    frame = requestAnimationFrame(generateBatch);
   });
-};
+
+interface LoadOperation {
+  controller: AbortController;
+  store: MarkdownEditorInstance['store'];
+}
 
 export default () => {
   const editorRef = useRef<MarkdownEditorInstance>(null);
+  const operationRef = useRef<LoadOperation | null>(null);
   const [loading, setLoading] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -81,115 +84,91 @@ export default () => {
   const [loadTime, setLoadTime] = useState(0);
   const [generateTime, setGenerateTime] = useState(0);
   const [firstDisplayTime, setFirstDisplayTime] = useState(0);
-  const [hasFirstDisplayed, setHasFirstDisplayed] = useState(false);
-  const [loadStartTime, setLoadStartTime] = useState(0);
 
-  const onProgress = useRefFunction((p: number) => {
-    const currentProgress = Math.round(p * 10000) / 100;
-    setProgress(currentProgress);
+  const cancelCurrentOperation = () => {
+    const operation = operationRef.current;
+    operationRef.current = null;
+    operation?.controller.abort();
+    operation?.store.cancelSetMDContent();
+  };
 
-    // 当进度大于0且还没有记录首次显示时间时，记录首次显示时间
-    if (currentProgress > 0 && !hasFirstDisplayed && loadStartTime > 0) {
-      const currentTime = performance.now();
-      setFirstDisplayTime(Math.round(currentTime - loadStartTime));
-      setHasFirstDisplayed(true);
-    }
-  });
+  useEffect(() => () => cancelCurrentOperation(), []);
 
   const handleCancel = () => {
-    editorRef.current?.store.cancelSetMDContent();
+    cancelCurrentOperation();
     setLoading(false);
     setGenerating(false);
     setProgress(0);
     setGenerateProgress(0);
+    setLoadTime(0);
   };
 
-  const handleLoadWithOptimization = async () => {
+  const handleLoad = async (optimized: boolean) => {
+    const store = editorRef.current?.store;
+    if (!store) return;
+    cancelCurrentOperation();
+    const operation = { controller: new AbortController(), store };
+    operationRef.current = operation;
+    const isCurrent = () =>
+      operationRef.current === operation &&
+      !operation.controller.signal.aborted;
     setLoading(true);
     setGenerating(true);
     setProgress(0);
     setGenerateProgress(0);
+    setLoadTime(0);
     setGenerateTime(0);
     setFirstDisplayTime(0);
-    setHasFirstDisplayed(false);
     const startGenerateTime = performance.now();
 
     try {
-      // 异步生成内容
-      const longContent = await generateVeryLongContent((p) => {
-        setGenerateProgress(Math.round(p * 100));
-      });
-
-      const endGenerateTime = performance.now();
-      setGenerateTime(Math.round(endGenerateTime - startGenerateTime));
+      const longContent = await generateVeryLongContent(
+        operation.controller.signal,
+        (p) => {
+          if (isCurrent()) setGenerateProgress(Math.round(p * 100));
+        },
+      );
+      if (!isCurrent()) return;
+      setGenerateTime(Math.round(performance.now() - startGenerateTime));
       setGenerating(false);
 
-      // 加载到编辑器
       const startLoadTime = performance.now();
-      setLoadStartTime(startLoadTime);
-      await editorRef.current?.store.setMDContent(longContent, undefined, {
-        chunkSize: 50000,
-        separator: '\n\n',
-        useRAF: true,
-        batchSize: 5000,
-        onProgress: onProgress,
-      });
-
-      const endLoadTime = performance.now();
-      setLoadTime(Math.round(endLoadTime - startLoadTime));
+      let firstDisplayed = false;
+      await store.setMDContent(
+        longContent,
+        undefined,
+        optimized
+          ? {
+              chunkSize: 5000,
+              separator: '\n\n',
+              useRAF: true,
+              batchSize: 20,
+              onProgress: (p) => {
+                if (!isCurrent()) return;
+                setProgress(Math.round(p * 10000) / 100);
+                if (p > 0 && !firstDisplayed) {
+                  firstDisplayed = true;
+                  setFirstDisplayTime(
+                    Math.round(performance.now() - startLoadTime),
+                  );
+                }
+              },
+            }
+          : undefined,
+      );
+      if (!isCurrent()) return;
+      const elapsed = Math.round(performance.now() - startLoadTime);
+      setLoadTime(elapsed);
       setProgress(100);
+      if (!optimized) setFirstDisplayTime(elapsed);
     } catch (error) {
-      console.error('加载失败:', error);
-      if (
-        error instanceof Error &&
-        error.message === 'Operation was cancelled'
-      ) {
-        console.log('加载已取消');
+      if (isCurrent()) console.error('加载失败:', error);
+    } finally {
+      if (isCurrent()) {
+        operationRef.current = null;
+        setLoading(false);
+        setGenerating(false);
       }
-    } finally {
-      setLoading(false);
-      setGenerating(false);
-      // 移除强制设置进度，让进度回调自然完成
-    }
-  };
-
-  const handleLoadWithoutOptimization = async () => {
-    setLoading(true);
-    setGenerating(true);
-    setProgress(0);
-    setGenerateProgress(0);
-    setGenerateTime(0);
-    setFirstDisplayTime(0);
-    setHasFirstDisplayed(false);
-    const startGenerateTime = performance.now();
-
-    try {
-      // 异步生成内容
-      const longContent = await generateVeryLongContent((p) => {
-        setGenerateProgress(Math.round(p * 100));
-      });
-
-      const endGenerateTime = performance.now();
-      setGenerateTime(Math.round(endGenerateTime - startGenerateTime));
-      setGenerating(false);
-
-      // 不使用 options，直接同步加载
-      const startLoadTime = performance.now();
-      setLoadStartTime(startLoadTime);
-      editorRef.current?.store.setMDContent(longContent);
-
-      const endLoadTime = performance.now();
-      setLoadTime(Math.round(endLoadTime - startLoadTime));
-
-      // 同步加载完成后设置进度为 100%
-      setProgress(100);
-      // 对于同步加载，首次显示时间就是加载完成时间
-      setFirstDisplayTime(Math.round(endLoadTime - startLoadTime));
-    } catch (error) {
-      console.error('加载失败:', error);
-    } finally {
-      setLoading(false);
-      setGenerating(false);
     }
   };
 
@@ -205,20 +184,20 @@ export default () => {
       >
         <Space direction="vertical" style={{ width: '100%' }}>
           <div>
-            <strong>加载超长文档（约 100000 章节，50000000+ 字符）</strong>
+            <strong>加载长文档（{TOTAL_CHAPTERS} 个章节）</strong>
           </div>
 
-          <Space>
+          <Space wrap>
             <Button
               type="primary"
-              onClick={handleLoadWithOptimization}
+              onClick={() => handleLoad(true)}
               disabled={loading}
               loading={loading}
             >
               使用优化加载
             </Button>
             <Button
-              onClick={handleLoadWithoutOptimization}
+              onClick={() => handleLoad(false)}
               loading={loading}
               disabled={loading}
             >
@@ -302,8 +281,8 @@ export default () => {
             <strong>💡 优化说明：</strong>
             <ul style={{ margin: '8px 0 0', paddingLeft: 20 }}>
               <li>
-                <strong>内容生成阶段</strong>：使用 RAF 分批生成（每批 100
-                章节）
+                <strong>内容生成阶段</strong>：使用 RAF 分批生成（每批{' '}
+                {GENERATION_BATCH_SIZE} 个章节）
               </li>
               <li>
                 <strong>编辑器加载阶段</strong>（使用优化）：

@@ -19,6 +19,8 @@ const PREVIEW_STYLE: React.CSSProperties = {
   padding: 16,
   background: '#fafafa',
   minHeight: 280,
+  minWidth: 0,
+  overflowX: 'auto',
 };
 
 const FULL_CONTENT = `# 流式 Markdown 演示
@@ -57,8 +59,9 @@ const TICK_MS = 80;
 const CHARS_PER_SLICE = 6;
 
 export default () => {
-  const [content, setContent] = useState('');
-  const [running, setRunning] = useState(true);
+  const [content, setContent] = useState(FULL_CONTENT);
+  const [running, setRunning] = useState(false);
+  const [replayKey, setReplayKey] = useState(0);
   const [fade, setFade] = useState(true);
   const [throttleEnabled, setThrottleEnabled] = useState(true);
   const [charsPerFrame, setCharsPerFrame] = useState(DEFAULT_CHARS_PER_FRAME);
@@ -78,7 +81,7 @@ export default () => {
       }
     }, TICK_MS);
     return () => clearInterval(timer);
-  }, [running]);
+  }, [running, replayKey]);
 
   const throttleOptions = useMemo<ContentThrottleOptions>(() => {
     if (!throttleEnabled) {
@@ -116,6 +119,7 @@ export default () => {
     indexRef.current = 0;
     setContent('');
     setRunning(true);
+    setReplayKey((key) => key + 1);
   };
 
   const progressTag = (
@@ -130,7 +134,8 @@ export default () => {
   return (
     <div
       style={{
-        padding: 24,
+        padding: 'clamp(0px, 2vw, 24px)',
+        minWidth: 0,
         display: 'flex',
         flexDirection: 'column',
         gap: 16,
@@ -155,8 +160,18 @@ export default () => {
       >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <Space wrap size="large">
-            <Button type="primary" onClick={handleReplay} disabled={running}>
+            <Button type="primary" onClick={handleReplay}>
               重新播放
+            </Button>
+            <Button
+              disabled={!running}
+              onClick={() => {
+                indexRef.current = FULL_CONTENT.length;
+                setContent(FULL_CONTENT);
+                setRunning(false);
+              }}
+            >
+              显示完整结果
             </Button>
             {progressTag}
             {statusTag}
@@ -165,11 +180,11 @@ export default () => {
           <Divider style={{ margin: 0 }} />
 
           <Space wrap size="large">
-            <Space>
+            <Space wrap>
               <span>逐词淡入 fade</span>
               <Switch checked={fade} onChange={setFade} size="small" />
             </Space>
-            <Space>
+            <Space wrap>
               <span>内容限流 enabled</span>
               <Switch
                 checked={throttleEnabled}
@@ -177,7 +192,7 @@ export default () => {
                 size="small"
               />
             </Space>
-            <Space>
+            <Space wrap>
               <span>对比模式</span>
               <Switch
                 checked={compareMode}
@@ -188,7 +203,7 @@ export default () => {
           </Space>
 
           <Space wrap size="large">
-            <Space>
+            <Space wrap>
               <span>charsPerFrame</span>
               <InputNumber
                 min={1}
@@ -198,7 +213,7 @@ export default () => {
                 onChange={(v) => setCharsPerFrame(v ?? DEFAULT_CHARS_PER_FRAME)}
               />
             </Space>
-            <Space>
+            <Space wrap>
               <span>speed</span>
               <InputNumber
                 min={0.25}
@@ -223,7 +238,8 @@ export default () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gridTemplateColumns:
+                'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
               gap: 16,
             }}
           >

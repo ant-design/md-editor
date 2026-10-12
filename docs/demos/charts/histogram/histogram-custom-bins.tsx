@@ -3,15 +3,18 @@
  * description: 手动指定分箱数量，而非使用自动计算
  */
 import { HistogramChart } from '@ant-design/agentic-ui';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 export default () => {
-  // 生成模拟数据
-  const data = [];
-  for (let i = 0; i < 500; i++) {
-    const value = 20 + Math.random() * 80;
-    data.push({ value: Math.round(value * 10) / 10 });
-  }
+  const data = useMemo(() => {
+    // 生成模拟数据
+    const data = [];
+    for (let i = 0; i < 500; i++) {
+      const value = 20 + Math.random() * 80;
+      data.push({ value: Math.round(value * 10) / 10 });
+    }
+    return data;
+  }, []);
 
   return (
     <HistogramChart

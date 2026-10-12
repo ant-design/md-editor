@@ -3,35 +3,38 @@
  * description: 支持按分类筛选数据
  */
 import { HistogramChart } from '@ant-design/agentic-ui';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 export default () => {
-  // 生成模拟数据
-  const generateData = (
-    count: number,
-    mean: number,
-    std: number,
-    category: string,
-  ) => {
-    const data = [];
-    for (let i = 0; i < count; i++) {
-      const u1 = Math.random();
-      const u2 = Math.random();
-      const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
-      const value = mean + std * z;
-      data.push({
-        value: Math.round(value * 10) / 10,
-        category,
-      });
-    }
-    return data;
-  };
+  const data = useMemo(() => {
+    // 生成模拟数据
+    const generateData = (
+      count: number,
+      mean: number,
+      std: number,
+      category: string,
+    ) => {
+      const data = [];
+      for (let i = 0; i < count; i++) {
+        const u1 = Math.max(Number.EPSILON, Math.random());
+        const u2 = Math.random();
+        const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+        const value = mean + std * z;
+        data.push({
+          value: Math.round(value * 10) / 10,
+          category,
+        });
+      }
+      return data;
+    };
 
-  const data = [
-    ...generateData(200, 50, 10, '第一季度'),
-    ...generateData(200, 55, 12, '第二季度'),
-    ...generateData(200, 60, 8, '第三季度'),
-  ];
+    const data = [
+      ...generateData(200, 50, 10, '第一季度'),
+      ...generateData(200, 55, 12, '第二季度'),
+      ...generateData(200, 60, 8, '第三季度'),
+    ];
+    return data;
+  }, []);
 
   return (
     <HistogramChart

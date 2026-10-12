@@ -83,7 +83,7 @@ const ChartWithStaticDemo: React.FC = () => {
       <h3>单个统计数据组件</h3>
       <AreaChart
         data={data}
-        width={700}
+        width="100%"
         height={500}
         statistic={{
           title: '总营收',
@@ -96,7 +96,7 @@ const ChartWithStaticDemo: React.FC = () => {
         <h3>多个统计数据组件</h3>
         <AreaChart
           data={data}
-          width={700}
+          width="100%"
           height={500}
           statistic={[
             {
@@ -120,7 +120,7 @@ const ChartWithStaticDemo: React.FC = () => {
         <h3>Block 模式</h3>
         <AreaChart
           data={data}
-          width={700}
+          width="100%"
           height={500}
           statistic={[
             {

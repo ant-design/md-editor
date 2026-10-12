@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 const HorizontalBarChartExample: React.FC = () => {
   // 扁平化数据结构 - 条形图（水平柱状图）
-  const [data, setData] = useState<BarChartDataItem[]>([
+  const [data, setData] = useState<BarChartDataItem[]>(() => [
     // 产品销量数据 - 全球
     {
       category: '产品销量',
@@ -235,7 +235,7 @@ const HorizontalBarChartExample: React.FC = () => {
       <BarChart
         title="条形图（横向柱状图）"
         data={data}
-        width={700}
+        width="100%"
         height={500}
         indexAxis="y"
         dataLabelFormatter={(params) => {

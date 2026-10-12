@@ -4,7 +4,7 @@
  */
 import { BaseMarkdownEditor } from '@ant-design/agentic-ui';
 import { Switch } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // 生成长文档内容
 const generateLongContent = () => {
@@ -29,15 +29,28 @@ const generateLongContent = () => {
 export default () => {
   const [lazyEnabled, setLazyEnabled] = useState(true);
   const [renderTime, setRenderTime] = useState(0);
-  const longContent = generateLongContent();
+  const [longContent] = useState(generateLongContent);
+  const measurementFrameRef = useRef<number | null>(null);
+
+  useEffect(
+    () => () => {
+      if (measurementFrameRef.current !== null) {
+        cancelAnimationFrame(measurementFrameRef.current);
+      }
+    },
+    [],
+  );
 
   const handleSwitchChange = (checked: boolean) => {
+    if (measurementFrameRef.current !== null) {
+      cancelAnimationFrame(measurementFrameRef.current);
+    }
     const startTime = performance.now();
     setLazyEnabled(checked);
-    // 在下一帧测量渲染时间
-    requestAnimationFrame(() => {
-      const endTime = performance.now();
-      setRenderTime(Math.round(endTime - startTime));
+    setRenderTime(0);
+    measurementFrameRef.current = requestAnimationFrame(() => {
+      measurementFrameRef.current = null;
+      setRenderTime(Math.round(performance.now() - startTime));
     });
   };
 

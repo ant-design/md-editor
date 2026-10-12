@@ -19,6 +19,8 @@ group:
   - 💄 Correct panel sizing and scroll areas, improve narrow tabs and long filenames, simplify transitions and count animations, and support touch actions, keyboard focus, and reduced motion.
 
 - Docs
+  - ⚡️ Bound and batch long-document generation with cancellation, replay streamed code, charts, and tasks on demand, stop completed updates, retain histogram samples, and cancel asynchronous work on unmount.
+  - 🐞 Fix duplicate chat sends and stale replies, conflicting demo styles, lost task expansion state, and clipped or compressed editors, charts, and configuration panels in narrow containers.
   - 💄 Restore the default outer border and description separator for all documentation demos, adapting to light and dark themes while preserving their full preview height.
   - 🐞 Include homepage styles in the initial HTML and provide matching static entries for extensionless document and demo URLs, preventing an unstyled homepage from flashing on first load.
   - 💄 Remove decorative borders and shadows from editor, chat, chart, and utility demo wrappers to avoid nested frames; preserve control, table, and style customization borders.

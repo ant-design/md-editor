@@ -19,7 +19,7 @@ const FunnelChartToolbarFilterExample: React.FC = () => {
         <FunnelChart
           title="漏斗图工具栏过滤器"
           data={data}
-          width={600}
+          width="100%"
           height={400}
           renderFilterInToolbar
           dataTime="转化漏斗数据"

@@ -213,7 +213,7 @@ const AreaChartStatisticExample: React.FC = () => {
         <AreaChart
           title="面积图统计指标"
           data={data}
-          width={700}
+          width="100%"
           height={400}
           dataTime="2024年数据"
           statistic={[

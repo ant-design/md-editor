@@ -145,7 +145,7 @@ export default () => {
     <>
       <MarkdownEditor
         editorRef={editorRef}
-        width={'100vw'}
+        width={'100%'}
         height={'100vh'}
         reportMode
         fncProps={{
@@ -185,7 +185,7 @@ export default () => {
             <code>editorRef</code> - 编辑器引用，用于访问编辑器实例
           </li>
           <li>
-            <code>width</code> - 编辑器宽度，设置为 100vw 占满视口宽度
+            <code>width</code> - 编辑器宽度，设置为 100% 跟随容器宽度
           </li>
           <li>
             <code>height</code> - 编辑器高度，设置为 100vh 占满视口高度

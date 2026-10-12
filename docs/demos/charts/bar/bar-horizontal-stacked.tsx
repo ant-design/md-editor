@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 const HorizontalStackedBarChartExample: React.FC = () => {
   // 扁平化数据结构 - 条形堆叠图（横向堆叠柱状图）
-  const [data, setData] = useState<BarChartDataItem[]>([
+  const [data, setData] = useState<BarChartDataItem[]>(() => [
     // 部门人员构成 - 全球
     {
       category: '部门人员构成',
@@ -547,7 +547,7 @@ const HorizontalStackedBarChartExample: React.FC = () => {
       <BarChart
         title="条形堆叠图（横向堆叠柱状图）"
         data={data}
-        width={700}
+        width="100%"
         height={500}
         indexAxis="y"
         stacked={true}

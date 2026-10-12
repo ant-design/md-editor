@@ -33,6 +33,70 @@ const MULTI_LINE = `第一行：用户提出问题。
 第二行：智能体开始思考。
 第三行：智能体给出答案。`;
 
+const AnimationExamples = React.memo(({ replayKey }: { replayKey: number }) => (
+  <>
+    <Card
+      variant="borderless"
+      style={{ boxShadow: 'none' }}
+      title="3. 全部 animation 预设"
+      size="small"
+    >
+      <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        {ANIMATIONS.map((a) => (
+          <div
+            key={`${a}-${replayKey}`}
+            style={{
+              borderBottom: '1px solid #f0f0f0',
+              paddingBottom: 8,
+            }}
+          >
+            <Tag color="blue" style={{ marginBottom: 4 }}>
+              {a}
+            </Tag>
+            <TextAnimate
+              as="p"
+              by="word"
+              animation={a}
+              style={{ fontSize: 16, margin: 0 }}
+            >
+              {SAMPLE}
+            </TextAnimate>
+          </div>
+        ))}
+      </Space>
+    </Card>
+
+    <Card
+      variant="borderless"
+      style={{ boxShadow: 'none' }}
+      title="4. 不同 by 拆分模式"
+      size="small"
+    >
+      <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        {BY_OPTIONS.map((b) => (
+          <div key={`${b}-${replayKey}`}>
+            <Tag color="green" style={{ marginBottom: 4 }}>
+              {b}
+            </Tag>
+            <TextAnimate
+              as="p"
+              by={b}
+              animation="fadeIn"
+              style={{
+                fontSize: 16,
+                margin: 0,
+                whiteSpace: b === 'line' ? 'pre-line' : undefined,
+              }}
+            >
+              {b === 'line' ? MULTI_LINE : SAMPLE}
+            </TextAnimate>
+          </div>
+        ))}
+      </Space>
+    </Card>
+  </>
+));
+
 export default () => {
   const [by, setBy] = useState<(typeof BY_OPTIONS)[number]>('word');
   const [animation, setAnimation] =
@@ -48,7 +112,8 @@ export default () => {
   return (
     <div
       style={{
-        padding: 24,
+        padding: 'clamp(0px, 2vw, 24px)',
+        minWidth: 0,
         display: 'flex',
         flexDirection: 'column',
         gap: 16,
@@ -62,7 +127,7 @@ export default () => {
       >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <Space wrap size="large">
-            <Space>
+            <Space wrap>
               <span>by</span>
               <Select
                 value={by}
@@ -71,7 +136,7 @@ export default () => {
                 options={BY_OPTIONS.map((v) => ({ label: v, value: v }))}
               />
             </Space>
-            <Space>
+            <Space wrap>
               <span>animation</span>
               <Select
                 value={animation}
@@ -80,7 +145,7 @@ export default () => {
                 options={ANIMATIONS.map((v) => ({ label: v, value: v }))}
               />
             </Space>
-            <Space>
+            <Space wrap>
               <span>as</span>
               <Select
                 value={as}
@@ -92,7 +157,7 @@ export default () => {
           </Space>
 
           <Space wrap size="large">
-            <Space>
+            <Space wrap>
               <span>duration (s)</span>
               <InputNumber
                 min={0.1}
@@ -102,7 +167,7 @@ export default () => {
                 onChange={(v) => setDuration(v ?? 0.3)}
               />
             </Space>
-            <Space>
+            <Space wrap>
               <span>delay (s)</span>
               <InputNumber
                 min={0}
@@ -112,21 +177,21 @@ export default () => {
                 onChange={(v) => setDelay(v ?? 0)}
               />
             </Space>
-            <Space>
+            <Space wrap>
               <span>startOnView</span>
               <Switch checked={startOnView} onChange={setStartOnView} />
             </Space>
-            <Space>
+            <Space wrap>
               <span>once</span>
               <Switch checked={once} onChange={setOnce} />
             </Space>
-            <Space>
+            <Space wrap>
               <span>accessible</span>
               <Switch checked={accessible} onChange={setAccessible} />
             </Space>
           </Space>
 
-          <Space>
+          <Space wrap>
             <Button type="primary" onClick={() => setReplayKey((k) => k + 1)}>
               重新播放动画
             </Button>
@@ -144,7 +209,8 @@ export default () => {
           key={replayKey}
           style={{
             borderRadius: 8,
-            padding: 24,
+            padding: 'clamp(12px, 2vw, 24px)',
+            overflowWrap: 'anywhere',
             background: '#fafafa',
             minHeight: 120,
           }}
@@ -165,65 +231,7 @@ export default () => {
         </div>
       </Card>
 
-      <Card
-        variant="borderless"
-        style={{ boxShadow: 'none' }}
-        title="3. 全部 animation 预设"
-        size="small"
-      >
-        <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-          {ANIMATIONS.map((a) => (
-            <div
-              key={`${a}-${replayKey}`}
-              style={{
-                borderBottom: '1px solid #f0f0f0',
-                paddingBottom: 8,
-              }}
-            >
-              <Tag color="blue" style={{ marginBottom: 4 }}>
-                {a}
-              </Tag>
-              <TextAnimate
-                as="p"
-                by="word"
-                animation={a}
-                style={{ fontSize: 16, margin: 0 }}
-              >
-                {SAMPLE}
-              </TextAnimate>
-            </div>
-          ))}
-        </Space>
-      </Card>
-
-      <Card
-        variant="borderless"
-        style={{ boxShadow: 'none' }}
-        title="4. 不同 by 拆分模式"
-        size="small"
-      >
-        <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-          {BY_OPTIONS.map((b) => (
-            <div key={`${b}-${replayKey}`}>
-              <Tag color="green" style={{ marginBottom: 4 }}>
-                {b}
-              </Tag>
-              <TextAnimate
-                as="p"
-                by={b}
-                animation="fadeIn"
-                style={{
-                  fontSize: 16,
-                  margin: 0,
-                  whiteSpace: b === 'line' ? 'pre-line' : undefined,
-                }}
-              >
-                {b === 'line' ? MULTI_LINE : SAMPLE}
-              </TextAnimate>
-            </div>
-          ))}
-        </Space>
-      </Card>
+      <AnimationExamples replayKey={replayKey} />
 
       <Divider style={{ margin: 0 }} />
       <div style={{ color: '#8c8c8c', fontSize: 12 }}>

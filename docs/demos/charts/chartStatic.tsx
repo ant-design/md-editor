@@ -76,6 +76,7 @@ const ChartStatisticDemo: React.FC = () => {
           style={{
             display: 'flex',
             gap: '16px',
+            flexWrap: 'wrap',
             padding: '16px',
             borderRadius: '8px',
             background:
@@ -91,14 +92,22 @@ const ChartStatisticDemo: React.FC = () => {
             prefix="¥"
             precision={2}
             block
+            style={{ flex: '1 1 160px' }}
           />
-          <ChartStatistic title="总订单" value={8520} suffix="单" block />
+          <ChartStatistic
+            title="总订单"
+            value={8520}
+            suffix="单"
+            block
+            style={{ flex: '1 1 160px' }}
+          />
           <ChartStatistic
             title="完成率"
             value={92.5}
             suffix="%"
             precision={1}
             block
+            style={{ flex: '1 1 160px' }}
           />
         </div>
 
@@ -132,6 +141,7 @@ const ChartStatisticDemo: React.FC = () => {
           style={{
             display: 'flex',
             gap: '24px',
+            flexWrap: 'wrap',
             justifyContent: 'space-between',
             padding: '16px',
             borderRadius: '8px',
@@ -146,6 +156,7 @@ const ChartStatisticDemo: React.FC = () => {
             title="总应用数"
             value={380}
             block
+            style={{ flex: '1 1 160px' }}
             tooltip="总应用数tips"
             extra={
               <div
@@ -171,6 +182,7 @@ const ChartStatisticDemo: React.FC = () => {
             value={726}
             suffix="个"
             block
+            style={{ flex: '1 1 160px' }}
             tooltip="已发布应用数tips"
             extra={
               <div

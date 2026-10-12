@@ -4,36 +4,36 @@ import BarChart, {
 import { Slider } from 'antd';
 import React, { useState } from 'react';
 
+// 少量数据示例 - 用于展示柱子宽度控制
+const data: BarChartDataItem[] = [
+  {
+    category: '销售数据',
+    type: '本季度销售额',
+    x: 'Q1',
+    y: 85000,
+    xtitle: '季度',
+    ytitle: '销售额（元）',
+  },
+  {
+    category: '销售数据',
+    type: '本季度销售额',
+    x: 'Q2',
+    y: 92000,
+    xtitle: '季度',
+    ytitle: '销售额（元）',
+  },
+  {
+    category: '销售数据',
+    type: '本季度销售额',
+    x: 'Q3',
+    y: 78000,
+    xtitle: '季度',
+    ytitle: '销售额（元）',
+  },
+];
+
 const BarMaxThicknessExample: React.FC = () => {
   const [maxBarThickness, setMaxBarThickness] = useState<number>(50);
-
-  // 少量数据示例 - 用于展示柱子宽度控制
-  const data: BarChartDataItem[] = [
-    {
-      category: '销售数据',
-      type: '本季度销售额',
-      x: 'Q1',
-      y: 85000,
-      xtitle: '季度',
-      ytitle: '销售额（元）',
-    },
-    {
-      category: '销售数据',
-      type: '本季度销售额',
-      x: 'Q2',
-      y: 92000,
-      xtitle: '季度',
-      ytitle: '销售额（元）',
-    },
-    {
-      category: '销售数据',
-      type: '本季度销售额',
-      x: 'Q3',
-      y: 78000,
-      xtitle: '季度',
-      ytitle: '销售额（元）',
-    },
-  ];
 
   return (
     <div style={{ padding: '12px' }}>
@@ -85,7 +85,7 @@ const BarMaxThicknessExample: React.FC = () => {
         <BarChart
           title="季度销售数据"
           data={data}
-          width={700}
+          width="100%"
           height={400}
           maxBarThickness={maxBarThickness}
           showDataLabels={true}

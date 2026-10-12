@@ -58,15 +58,18 @@ public class HelloWorld {
   return (
     <div
       style={{
-        display: 'flex',
-        alignItems: 'center',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+        gap: 16,
+        alignItems: 'start',
         justifyContent: 'space-between',
         backgroundColor: '#f0f2f5',
       }}
     >
       <div
         style={{
-          width: '40vw',
+          width: '100%',
+          minWidth: 0,
           margin: '20px auto',
         }}
       >
@@ -206,7 +209,7 @@ SELECT employees.name, departments.department_name FROM employees INNER JOIN dep
             },
           }}
           onChange={(e, c) => console.log(e, c)}
-          width={'60vw'}
+          width={'100%'}
           height={'500px'}
         />
         <div>

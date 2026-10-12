@@ -410,7 +410,12 @@ export default () => {
           ✨ 支持的文件类型
         </h4>
         <div
-          style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}
+          style={{
+            display: 'grid',
+            gridTemplateColumns:
+              'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+            gap: 16,
+          }}
         >
           <div>
             <strong>图片格式:</strong>

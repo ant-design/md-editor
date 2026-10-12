@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 const NegativeBarChartExample: React.FC = () => {
   // 扁平化数据结构 - 正负柱状图
-  const [data, setData] = useState<BarChartDataItem[]>([
+  const [data, setData] = useState<BarChartDataItem[]>(() => [
     // 财务数据 - 全球
     {
       category: '财务数据',
@@ -356,7 +356,7 @@ const NegativeBarChartExample: React.FC = () => {
         </div>
       </div>
 
-      <BarChart title="正负柱状图" data={data} width={700} height={500} />
+      <BarChart title="正负柱状图" data={data} width="100%" height={500} />
 
       {/* 数据格式说明 */}
       <div

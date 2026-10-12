@@ -172,7 +172,7 @@ export default () => {
       <MarkdownEditor
         readonly
         toc={false}
-        width={'calc(99vw - 16px)'}
+        width="100%"
         initValue={defaultValue}
       />
       <div>
@@ -185,7 +185,7 @@ export default () => {
             <code>toc</code> - 是否显示目录，设置为 false 隐藏目录
           </li>
           <li>
-            <code>width</code> - 编辑器宽度，设置为 calc(99vw - 16px) 占满视口
+            <code>width</code> - 编辑器宽度，设置为 100% 跟随演示容器
           </li>
           <li>
             <code>initValue</code> - 初始化的 Markdown 内容，包含多种图表配置

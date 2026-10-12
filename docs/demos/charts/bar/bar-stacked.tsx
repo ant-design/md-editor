@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 const StackedBarChartExample: React.FC = () => {
   // 扁平化数据结构 - 堆叠柱状图
-  const [data, setData] = useState<BarChartDataItem[]>([
+  const [data, setData] = useState<BarChartDataItem[]>(() => [
     // 流量来源数据 - 全球
     {
       category: '流量来源',
@@ -837,7 +837,7 @@ const StackedBarChartExample: React.FC = () => {
       <BarChart
         title="堆叠柱状图"
         data={data}
-        width={700}
+        width="100%"
         height={500}
         stacked={true}
       />

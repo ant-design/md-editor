@@ -4,7 +4,9 @@ import {
   MarkdownEditorInstance,
   parserMarkdownToSlateNode,
 } from '@ant-design/agentic-ui';
-import React from 'react';
+import { Button, Space } from 'antd';
+import React, { useRef } from 'react';
+import { useDemoReplay } from './shared/useDemoReplay';
 
 const defaultValue = `
 <!--{"MarkdownType":"section","id":"51212","order":"3","report_id":"126","section_id":"51212"}-->
@@ -43,8 +45,6 @@ const defaultValue = `
 
 因此，今日（20212年12月3日）上证指数收盘报3333.35点，微跌0.01%。
 `;
-
-import { useEffect, useRef } from 'react';
 
 const mdList = [
   { data: { content: '', type: 'TEXT' }, type: 'data' },
@@ -942,24 +942,11 @@ const mdList = [
 
 const Rerender = () => {
   const instance = useRef<MarkdownEditorInstance | null>(null);
-  useEffect(() => {
-    const run = async () => {
-      if (process.env.NODE_ENV === 'test') {
-        instance.current?.store.updateNodeList(
-          parserMarkdownToSlateNode(mdList.at(-1)?.data?.content || '').schema,
-        );
-        return;
-      }
-      mdList?.forEach((item, index) => {
-        setTimeout(() => {
-          instance.current?.store.updateNodeList(
-            parserMarkdownToSlateNode(item.data.content).schema,
-          );
-        }, 160 * index);
-      });
-    };
-    run();
-  }, []);
+  const { running, start, stop } = useDemoReplay((markdown) => {
+    instance.current?.store.updateNodeList(
+      parserMarkdownToSlateNode(markdown).schema,
+    );
+  }, 160);
 
   return (
     <div
@@ -975,7 +962,16 @@ const Rerender = () => {
         maxHeight: 'calc(100vh - 250px)',
       }}
     >
+      <Space wrap>
+        <Button onClick={() => start(mdList.map((item) => item.data.content))}>
+          重新演示动态渲染
+        </Button>
+        <Button onClick={stop} disabled={!running}>
+          停止演示
+        </Button>
+      </Space>
       <MarkdownEditor
+        initValue={mdList[mdList.length - 1].data.content}
         editorRef={instance}
         toc={false}
         width={'100%'}

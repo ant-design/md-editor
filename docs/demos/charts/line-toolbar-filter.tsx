@@ -75,7 +75,7 @@ const LineChartToolbarFilterExample: React.FC = () => {
         <LineChart
           title="折线图工具栏过滤器"
           data={data}
-          width={700}
+          width="100%"
           height={400}
           renderFilterInToolbar
           dataTime="2024年数据"

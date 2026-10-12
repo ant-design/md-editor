@@ -70,7 +70,7 @@ export default () => {
       <ConfigProvider locale={zhCN}>
         <MarkdownEditor
           editorRef={markdownEditor2Ref}
-          width={'100vw'}
+          width={'100%'}
           height={'calc(50vh - 16px)'}
           reportMode
           style={{ padding: 0 }}
@@ -92,7 +92,7 @@ export default () => {
         />
         <MarkdownEditor
           editorRef={markdownEditorRef}
-          width={'100vw'}
+          width={'100%'}
           height={'calc(50vh - 16px)'}
           reportMode
           readonly

@@ -119,7 +119,7 @@ const BarChartDarkDemo: React.FC = () => (
       theme="dark"
       title="柱状图（暗黑主题）"
       data={data}
-      width={640}
+      width="100%"
       height={400}
       renderFilterInToolbar
       dataTime="示例数据"

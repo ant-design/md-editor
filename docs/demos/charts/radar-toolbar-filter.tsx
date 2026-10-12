@@ -21,7 +21,7 @@ const RadarChartToolbarFilterExample: React.FC = () => {
         <RadarChart
           title="雷达图工具栏过滤器"
           data={data}
-          width={600}
+          width="100%"
           height={400}
           renderFilterInToolbar
           dataTime="团队评估数据"

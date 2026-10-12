@@ -8,7 +8,7 @@ const BarChartWithLabelsExample: React.FC = () => {
   const [showLabels, setShowLabels] = useState(true);
 
   // 扁平化数据结构 - 带数据标签的柱状图
-  const [data] = useState<BarChartDataItem[]>([
+  const [data] = useState<BarChartDataItem[]>(() => [
     // 产品销量数据 - 全球
     {
       category: '产品销量',
@@ -272,7 +272,7 @@ const BarChartWithLabelsExample: React.FC = () => {
       <BarChart
         title="季度产品销量"
         data={data}
-        width={700}
+        width="100%"
         height={500}
         showDataLabels={showLabels}
       />

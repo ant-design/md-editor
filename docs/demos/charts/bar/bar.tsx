@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 const DynamicBarChartExample: React.FC = () => {
   // 扁平化数据结构
-  const [data, setData] = useState<BarChartDataItem[]>([
+  const [data, setData] = useState<BarChartDataItem[]>(() => [
     // 全球数据（带filterLabel）
     {
       category: '访客数据',
@@ -462,7 +462,7 @@ const DynamicBarChartExample: React.FC = () => {
         <BarChart
           title="动态柱状图使用示例"
           data={data}
-          width={700}
+          width="100%"
           height={500}
         />
       </div>

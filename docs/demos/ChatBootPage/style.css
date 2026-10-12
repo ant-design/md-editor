@@ -1,48 +1,66 @@
-* {
+/* 演示样式限制在当前画布中，避免同页多个 demo 相互覆盖。 */
+.chat-boot-demo,
+.chat-boot-demo * {
   box-sizing: border-box;
 }
-/* ChatFlowContainer Demo 样式定义 */
 
-.custom-chat-container-demo {
-  min-height: 600px;
-  /* 圆角-弹窗-base */
-  border-radius: var(--radius-modal-base);
-  /* gray/gray-背景-页面-浅 */
-  /* 样式描述：1 */
+.chat-boot-demo {
+  min-height: 520px;
+  height: 640px;
+  max-width: 100%;
+  min-width: 0;
   background: var(--color-gray-bg-page-light);
-  /* 投影-卡片-base */
-  box-shadow: var(--shadow-card-base);
-  height: calc(100vh - 16px);
   display: flex;
-  box-sizing: border-box;
   overflow: hidden;
-  border: none;
 }
 
-/* 左侧边栏样式 */
-.sidebar-left {
+.chat-boot-demo__sidebar {
+  flex: 0 0 256px;
   width: 256px;
-  min-width: 256px;
+  min-width: 0;
   max-width: 256px;
-  padding: 0 16px 16px 16px;
-  transition: opacity 500ms ease-in-out;
-  overflow: hidden;
-  box-sizing: border-box;
   padding: 12px;
-  /* gray/gray-边线-浅 */
-  /* 样式描述：--gray-a3 */
-  border-right: 1px solid var(--color-gray-border-light);
+  overflow: hidden;
+  border-inline-end: 1px solid var(--color-gray-border-light);
 }
 
-.sidebar-left.collapsed {
+.chat-boot-demo__sidebar.collapsed {
+  flex-basis: 0;
   width: 0;
   padding: 0;
-  opacity: 0;
-  min-width: 0;
-  max-width: 0;
-  overflow: hidden;
+  border-inline-end: 0;
 }
 
-.sidebar-left.collapsed .sidebar-left-content {
+.chat-boot-demo__sidebar.collapsed .chat-boot-demo__sidebar-content {
   display: none;
+}
+
+@media (max-width: 640px) {
+  .chat-boot-demo__sidebar {
+    flex-basis: 45%;
+    max-width: 45%;
+  }
+}
+
+.chat-boot-demo__tabs {
+  width: 100%;
+  max-width: 800px;
+  min-width: 0;
+  margin-top: 32px;
+  overflow-x: auto;
+}
+
+.chat-boot-demo__welcome > div > * {
+  flex-shrink: 0;
+}
+
+.chat-boot-demo__suggestions {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 832px;
+  padding-inline: 16px;
 }

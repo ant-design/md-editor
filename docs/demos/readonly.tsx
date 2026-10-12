@@ -1,13 +1,9 @@
-import {
-  MARKDOWN_EDITOR_EVENTS,
-  MarkdownEditor,
-  MarkdownEditorInstance,
-} from '@ant-design/agentic-ui';
+import { MarkdownEditor, MarkdownEditorInstance } from '@ant-design/agentic-ui';
 import { ChartElement } from '@ant-design/agentic-ui/Plugins/chart';
 import { CodeElement } from '@ant-design/agentic-ui/Plugins/code';
 import { MermaidElement } from '@ant-design/agentic-ui/Plugins/mermaid';
 import { Tooltip } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   energyFundDemoCommentList,
   energyFundDemoMentionUsers,
@@ -17,24 +13,15 @@ import { newEnergyFundContent } from './shared/newEnergyFundContent';
 export default () => {
   const editorRef = useRef<MarkdownEditorInstance | null>(null);
   const [list, setList] = useState(energyFundDemoCommentList);
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    // @ts-ignore
-    window.editorRef = editorRef;
-    editorRef.current?.markdownContainerRef?.current?.addEventListener(
-      MARKDOWN_EDITOR_EVENTS.SELECTIONCHANGE,
-      (e) => {
-        console.log('selectionchange', e);
-      },
-    );
-  }, []);
   return (
     <>
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
-          padding: '16px 40px',
+          padding: '16px clamp(12px, 4vw, 40px)',
+          boxSizing: 'border-box',
+          minWidth: 0,
           gap: '24px',
           alignSelf: 'stretch',
           zIndex: 1,
@@ -44,7 +31,7 @@ export default () => {
       >
         <MarkdownEditor
           editorRef={editorRef}
-          width={'100vw'}
+          width={'100%'}
           height={'100vh'}
           reportMode
           readonly

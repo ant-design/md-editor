@@ -3,7 +3,7 @@
  * description: 设置 theme="dark"，与 ChartContainer 暗色算法一致
  */
 import { HistogramChart } from '@ant-design/agentic-ui';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 /** 可复现的伪随机，保证文档预览每次一致 */
 const mulberry32 = (seed: number) => {
@@ -18,15 +18,18 @@ const mulberry32 = (seed: number) => {
 };
 
 export default () => {
-  const rand = mulberry32(20250323);
-  const data: { value: number }[] = [];
-  for (let i = 0; i < 200; i++) {
-    const u1 = Math.max(Number.EPSILON, rand());
-    const u2 = rand();
-    const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
-    const value = 50 + 15 * z;
-    data.push({ value: Math.round(value * 10) / 10 });
-  }
+  const data = useMemo(() => {
+    const rand = mulberry32(20250323);
+    const data: { value: number }[] = [];
+    for (let i = 0; i < 200; i++) {
+      const u1 = Math.max(Number.EPSILON, rand());
+      const u2 = rand();
+      const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+      const value = 50 + 15 * z;
+      data.push({ value: Math.round(value * 10) / 10 });
+    }
+    return data;
+  }, []);
 
   return (
     <HistogramChart

@@ -66,7 +66,7 @@ const BarWithStatisticDemo: React.FC = () => {
     <BarChart
       title="季度营收对比"
       data={data}
-      width={700}
+      width="100%"
       height={420}
       statistic={statistic}
     />

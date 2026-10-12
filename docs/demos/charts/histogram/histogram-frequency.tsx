@@ -3,28 +3,31 @@
  * description: 显示频率而非计数，便于比较不同样本量的分布
  */
 import { HistogramChart } from '@ant-design/agentic-ui';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 export default () => {
-  // 生成模拟数据
-  const generateData = (
-    count: number,
-    min: number,
-    max: number,
-    type: string,
-  ) => {
-    const data = [];
-    for (let i = 0; i < count; i++) {
-      const value = min + Math.random() * (max - min);
-      data.push({ value: Math.round(value * 100) / 100, type });
-    }
-    return data;
-  };
+  const data = useMemo(() => {
+    // 生成模拟数据
+    const generateData = (
+      count: number,
+      min: number,
+      max: number,
+      type: string,
+    ) => {
+      const data = [];
+      for (let i = 0; i < count; i++) {
+        const value = min + Math.random() * (max - min);
+        data.push({ value: Math.round(value * 100) / 100, type });
+      }
+      return data;
+    };
 
-  const data = [
-    ...generateData(300, 0, 100, '样本A'),
-    ...generateData(200, 0, 100, '样本B'),
-  ];
+    const data = [
+      ...generateData(300, 0, 100, '样本A'),
+      ...generateData(200, 0, 100, '样本B'),
+    ];
+    return data;
+  }, []);
 
   return (
     <HistogramChart

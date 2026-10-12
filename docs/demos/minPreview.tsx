@@ -10,11 +10,11 @@ export default () => {
   return (
     <div
       style={{
-        display: 'flex',
-        flexDirection: 'row',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+        gap: 16,
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100vh',
         backgroundColor: '#fff',
       }}
     >
@@ -55,9 +55,10 @@ export default () => {
           },
         }}
         style={{
-          width: '50vw',
+          width: '100%',
+          minWidth: 0,
           margin: '0 auto',
-          height: '100vh',
+          height: 480,
         }}
         initValue={value}
       />
@@ -103,9 +104,10 @@ export default () => {
           },
         }}
         style={{
-          width: '50vw',
+          width: '100%',
+          minWidth: 0,
           margin: '0 auto',
-          height: '100vh',
+          height: 480,
         }}
         onChange={(value, _) => {
           console.log(value, _);
@@ -114,7 +116,7 @@ export default () => {
         initValue={newEnergyFundContent}
       />
 
-      <div style={{ marginTop: '20px', padding: '20px' }}>
+      <div style={{ gridColumn: '1 / -1', padding: 20 }}>
         <h4>Props 说明：</h4>
         <ul>
           <li>

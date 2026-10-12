@@ -1,0 +1,29 @@
+@media (max-width: 480px) {
+  .task-running-demo .ant-agent-run-bar {
+    min-width: 0;
+    width: 100%;
+    height: auto;
+    min-height: 58px;
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .task-running-demo .ant-agent-run-bar-simple {
+    min-height: 39px;
+  }
+
+  .task-running-demo .ant-agent-run-bar-left {
+    flex: 1 1 160px;
+  }
+
+  .task-running-demo .ant-agent-run-bar-left-content {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .task-running-demo .ant-agent-run-bar-button-wrapper {
+    max-width: 100%;
+    flex-wrap: wrap;
+    margin-inline-start: auto;
+  }
+}

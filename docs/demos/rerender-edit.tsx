@@ -4,8 +4,10 @@ import {
   MarkdownEditorInstance,
   parserMarkdownToSlateNode,
 } from '@ant-design/agentic-ui';
-import React, { useEffect, useRef } from 'react';
+import { Button, Space } from 'antd';
+import React, { useRef } from 'react';
 import { newEnergyFundContent } from './shared/newEnergyFundContent';
+import { markdownChunks, useDemoReplay } from './shared/useDemoReplay';
 
 const Mdlist = [
   { data: { content: '', type: 'TEXT' }, type: 'data' },
@@ -902,47 +904,22 @@ const Mdlist = [
 ];
 export default () => {
   const instance = useRef<MarkdownEditorInstance | null>(null);
-  useEffect(() => {
-    let md = '';
-    const list = newEnergyFundContent.split('');
-    const run = async () => {
-      if (process.env.NODE_ENV === 'test') {
-        instance.current?.store.updateNodeList(
-          parserMarkdownToSlateNode(newEnergyFundContent).schema,
-        );
-        return;
-      }
-      for await (const item of list) {
-        md += item;
-        await new Promise((resolve) => {
-          setTimeout(() => {
-            instance.current?.store.updateNodeList(
-              parserMarkdownToSlateNode(md).schema,
-            );
-            resolve(true);
-          }, 1);
-        });
-      }
-      Mdlist?.forEach((item, index) => {
-        if (index === 0) {
-          instance.current?.store?.setMDContent?.('');
-          return;
-        }
-        setTimeout(() => {
-          instance.current?.store.updateNodeList(
-            parserMarkdownToSlateNode(item.data.content).schema,
-          );
-        }, 160 * index);
-      });
-    };
-    run();
-  }, []);
+  const { running, start, stop } = useDemoReplay((markdown) => {
+    instance.current?.store.updateNodeList(
+      parserMarkdownToSlateNode(markdown).schema,
+    );
+  });
+
+  function* replayFrames() {
+    yield* markdownChunks(newEnergyFundContent, 256);
+    for (const item of Mdlist) yield item.data.content;
+  }
 
   return (
     <div
       id="container"
       style={{
-        padding: 64,
+        padding: 'clamp(12px, 4vw, 32px)',
         paddingBottom: '20%',
         display: 'flex',
         flexDirection: 'column',
@@ -952,7 +929,14 @@ export default () => {
         maxHeight: 'calc(100vh - 280px)',
       }}
     >
+      <Space wrap>
+        <Button onClick={() => start(replayFrames())}>重新演示动态渲染</Button>
+        <Button onClick={stop} disabled={!running}>
+          停止演示
+        </Button>
+      </Space>
       <MarkdownEditor
+        initValue={Mdlist[Mdlist.length - 1].data.content}
         editorRef={instance}
         toc={false}
         width={'100%'}

@@ -7,7 +7,7 @@ export default () => {
   return (
     <div>
       <MarkdownEditor
-        width={'100vw'}
+        width={'100%'}
         height={'100vh'}
         initValue={newEnergyFundContent}
         eleItemRender={(props, defaultDom) => {

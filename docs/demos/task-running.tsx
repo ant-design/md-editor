@@ -4,6 +4,7 @@ import {
   TASK_STATUS,
 } from '@ant-design/agentic-ui';
 import React, { useState } from 'react';
+import './task-running.css';
 
 export default () => {
   const [taskStatus, setTaskStatus] = useState<TASK_STATUS>(
@@ -55,28 +56,6 @@ export default () => {
       description: '数据分析报告已生成，请查看结果',
     },
   ];
-
-  // 倒计时逻辑
-  const [, setCountdown] = useState(5);
-  React.useEffect(() => {
-    if (
-      taskStatus === TASK_STATUS.RUNNING &&
-      taskRunningStatus === TASK_RUNNING_STATUS.RUNNING
-    ) {
-      const timer = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev <= 1) {
-            return 5;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-
-      return () => clearInterval(timer);
-    } else {
-      setCountdown(5);
-    }
-  }, [taskStatus, taskRunningStatus]);
 
   // 自动状态变化逻辑
   React.useEffect(() => {
@@ -149,7 +128,7 @@ export default () => {
   const currentStatusInfo = statusSequence[statusIndex];
 
   return (
-    <div style={{ padding: 24, maxWidth: 1200 }}>
+    <div className="task-running-demo" style={{ padding: 24, maxWidth: 1200 }}>
       <h2>AgentRunBar 任务运行状态组件</h2>
       <p style={{ color: '#666', marginBottom: 24 }}>
         展示 AI
@@ -182,7 +161,8 @@ export default () => {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
+          gridTemplateColumns:
+            'repeat(auto-fit, minmax(min(100%, 380px), 1fr))',
           gap: 16,
         }}
       >

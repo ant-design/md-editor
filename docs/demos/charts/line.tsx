@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 const DynamicLineChartExample: React.FC = () => {
   // 扁平化数据结构
-  const [data, setData] = useState<LineChartDataItem[]>([
+  const [data, setData] = useState<LineChartDataItem[]>(() => [
     // 访客数据类别 - 全球
     {
       category: '访客数据',
@@ -532,7 +532,7 @@ const DynamicLineChartExample: React.FC = () => {
         <LineChart
           title="动态折线图使用示例"
           data={data}
-          width={700}
+          width="100%"
           height={500}
         />
       </div>

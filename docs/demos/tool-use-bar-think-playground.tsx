@@ -1,4 +1,7 @@
-import { ToolUseBarThink } from '@ant-design/agentic-ui';
+import {
+  ToolUseBarThink,
+  type ToolUseBarThinkProps,
+} from '@ant-design/agentic-ui';
 import { Brain, Sparkles, Terminal } from '@sofa-design/icons';
 import { Button, Card, Divider, Input, Select, Space, Switch, Tag } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -31,6 +34,15 @@ Bundle 总体积 2.4MB，其中 moment.js 占 680KB（28%），建议替换为 d
 
 const STATUS_OPTIONS = ['loading', 'success', 'error'] as const;
 const ICON_OPTIONS = ['default', 'sparkles', 'terminal'] as const;
+const CUSTOM_CLASS_NAMES = { root: 'my-think-root' };
+const CUSTOM_STYLES: ToolUseBarThinkProps['styles'] = {
+  root: {
+    boxShadow: '0 4px 16px rgba(22, 119, 255, 0.16)',
+    borderRadius: 12,
+  },
+  name: { color: '#1677ff' },
+  content: { fontStyle: 'italic' },
+};
 
 const renderIcon = (key: (typeof ICON_OPTIONS)[number]) => {
   switch (key) {
@@ -48,7 +60,8 @@ export default () => {
     useState<(typeof STATUS_OPTIONS)[number]>('loading');
   const [light, setLight] = useState(false);
   const [longContent, setLongContent] = useState(true);
-  const [streaming, setStreaming] = useState(true);
+  const [streaming, setStreaming] = useState(false);
+  const [replayKey, setReplayKey] = useState(0);
   const [iconKey, setIconKey] =
     useState<(typeof ICON_OPTIONS)[number]>('default');
 
@@ -63,34 +76,25 @@ export default () => {
 
   const baseContent = longContent ? LONG_CONTENT : SHORT_CONTENT;
 
-  const [streamedContent, setStreamedContent] = useState(
-    baseContent.slice(0, 40),
-  );
-  const [cursor, setCursor] = useState(40);
-
-  useEffect(() => {
-    setStreamedContent(baseContent.slice(0, 40));
-    setCursor(40);
-  }, [baseContent]);
+  const [streamedContent, setStreamedContent] = useState(baseContent);
 
   useEffect(() => {
     if (!streaming) return;
-    if (cursor >= baseContent.length) return;
-    const timer = setTimeout(() => {
-      const chunkSize = Math.floor(Math.random() * 8) + 4;
-      const next = Math.min(cursor + chunkSize, baseContent.length);
-      setStreamedContent(baseContent.slice(0, next));
-      setCursor(next);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [streaming, cursor, baseContent]);
+    let cursor = 0;
+    setStreamedContent('');
+    const timer = setInterval(() => {
+      cursor = Math.min(cursor + 8, baseContent.length);
+      setStreamedContent(baseContent.slice(0, cursor));
+      if (cursor >= baseContent.length) clearInterval(timer);
+    }, 80);
+    return () => clearInterval(timer);
+  }, [streaming, baseContent, replayKey]);
 
   const thinkContent = streaming ? streamedContent : baseContent;
 
   const handleReplayStream = () => {
-    setStreamedContent(baseContent.slice(0, 40));
-    setCursor(40);
     setStreaming(true);
+    setReplayKey((key) => key + 1);
   };
 
   const playgroundProps = useMemo(
@@ -123,7 +127,8 @@ export default () => {
   return (
     <div
       style={{
-        padding: 24,
+        padding: 'clamp(0px, 2vw, 24px)',
+        minWidth: 0,
         display: 'flex',
         flexDirection: 'column',
         gap: 16,
@@ -137,7 +142,7 @@ export default () => {
       >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <Space wrap size="large">
-            <Space>
+            <Space wrap>
               <span>status</span>
               <Select
                 value={status}
@@ -146,11 +151,11 @@ export default () => {
                 options={STATUS_OPTIONS.map((v) => ({ label: v, value: v }))}
               />
             </Space>
-            <Space>
+            <Space wrap>
               <span>light</span>
               <Switch checked={light} onChange={setLight} />
             </Space>
-            <Space>
+            <Space wrap>
               <span>icon</span>
               <Select
                 value={iconKey}
@@ -159,18 +164,18 @@ export default () => {
                 options={ICON_OPTIONS.map((v) => ({ label: v, value: v }))}
               />
             </Space>
-            <Space>
+            <Space wrap>
               <span>长内容</span>
               <Switch checked={longContent} onChange={setLongContent} />
             </Space>
-            <Space>
+            <Space wrap>
               <span>流式追加</span>
               <Switch checked={streaming} onChange={setStreaming} />
             </Space>
           </Space>
 
           <Space wrap>
-            <Space>
+            <Space wrap>
               <span>toolName</span>
               <Input
                 value={toolName}
@@ -178,7 +183,7 @@ export default () => {
                 style={{ width: 180 }}
               />
             </Space>
-            <Space>
+            <Space wrap>
               <span>toolTarget</span>
               <Input
                 value={toolTarget}
@@ -186,7 +191,7 @@ export default () => {
                 style={{ width: 200 }}
               />
             </Space>
-            <Space>
+            <Space wrap>
               <span>time</span>
               <Input
                 value={time}
@@ -276,17 +281,8 @@ export default () => {
           time="3.1s"
           status="success"
           thinkContent={baseContent}
-          classNames={{
-            root: 'my-think-root',
-          }}
-          styles={{
-            root: {
-              boxShadow: '0 4px 16px rgba(22, 119, 255, 0.16)',
-              borderRadius: 12,
-            },
-            name: { color: '#1677ff' },
-            content: { fontStyle: 'italic' },
-          }}
+          classNames={CUSTOM_CLASS_NAMES}
+          styles={CUSTOM_STYLES}
         />
       </Card>
 

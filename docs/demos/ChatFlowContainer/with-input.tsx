@@ -9,22 +9,20 @@ import {
   MessageBubbleData,
 } from '@ant-design/agentic-ui';
 import { Flex } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   assistantMeta,
+  createCompletedMessages,
   createMockMessage,
-  INITIAL_MESSAGES,
-  mockInlineFileMap,
-  RETRY_CONFIG,
   userMeta,
 } from './data';
 import './style.css';
 
-const StandaloneHistoryDemo = () => {
+const StandaloneHistoryDemo = React.memo(() => {
   const [currentSessionId, setCurrentSessionId] = useState('session-2');
 
   // 模拟请求函数
-  const mockRequest = async ({ agentId }: { agentId: string }) => {
+  const mockRequest = useCallback(async ({ agentId }: { agentId: string }) => {
     // 模拟 API 请求
     return [
       {
@@ -71,19 +69,11 @@ const StandaloneHistoryDemo = () => {
         gmtLastConverse: 1702950656789,
       },
     ] as HistoryDataType[];
-  };
+  }, []);
 
   const handleSelected = (sessionId: string) => {
     setCurrentSessionId(sessionId);
     console.log('选择会话:', sessionId);
-  };
-
-  // 处理加载更多
-  const handleLoadMore = async () => {
-    // 模拟加载更多
-    await new Promise((resolve) => {
-      setTimeout(resolve, 2000);
-    });
   };
 
   return (
@@ -98,16 +88,12 @@ const StandaloneHistoryDemo = () => {
         enabled: true,
         onSearch: () => {},
         onNewChat: () => {},
-        onLoadMore: handleLoadMore,
-        onFavorite: async () => {
-          await new Promise((resolve) => {
-            setTimeout(resolve, 1000);
-          });
-        },
+        onLoadMore: async () => {},
+        onFavorite: async () => {},
       }}
     />
   );
-};
+});
 
 /**
  * ChatLayout 对话布局组件演示
@@ -120,40 +106,21 @@ const StandaloneHistoryDemo = () => {
  */
 const ChatLayoutDemo: React.FC = () => {
   const [leftCollapsed, setLeftCollapsed] = useState(false);
-  const [bubbleList, setBubbleList] = useState<MessageBubbleData[]>(() => {
-    const messages: MessageBubbleData[] = [];
-
-    for (let i = 0; i < RETRY_CONFIG.MESSAGE_COUNT; i++) {
-      const role = i % 2 === 0 ? 'assistant' : 'user';
-      const content =
-        i === 0 ? INITIAL_MESSAGES.assistant : INITIAL_MESSAGES.user;
-      messages.push(createMockMessage(`msg-${i}`, role, content, new Map()));
-    }
-
-    return messages;
-  });
+  const [bubbleList, setBubbleList] = useState<MessageBubbleData[]>(
+    createCompletedMessages,
+  );
 
   const containerRef = useRef<ChatLayoutRef>(null);
 
-  // 使用 useRef 管理重试状态，避免全局污染
-  const isRetryingRef = useRef(false);
-  const retryTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  // 组件卸载时清理定时器，防止内存泄漏
   useEffect(() => {
-    return () => {
-      if (retryTimerRef.current) {
-        clearInterval(retryTimerRef.current);
-        retryTimerRef.current = null;
-      }
-      isRetryingRef.current = false;
-    };
+    if (window.matchMedia('(max-width: 640px)').matches) {
+      setLeftCollapsed(true);
+    }
   }, []);
 
   // ***************** Header ***************** //
   const handleLeftCollapse = () => {
-    setLeftCollapsed(!leftCollapsed);
-    console.log('左侧边栏折叠状态:', !leftCollapsed);
+    setLeftCollapsed((collapsed) => !collapsed);
   };
 
   const handleShare = () => {
@@ -162,57 +129,14 @@ const ChatLayoutDemo: React.FC = () => {
   };
   // ***************** Header End ***************** //
 
-  // ***************** Footer Task Running ***************** //
-  const handleRetry = () => {
-    console.log('重试任务');
-
-    // 防止重复执行
-    if (isRetryingRef.current) return;
-    isRetryingRef.current = true;
-
-    let retryCount = 0;
-
-    retryTimerRef.current = setInterval(() => {
-      let content = `这是第 ${retryCount + RETRY_CONFIG.MESSAGE_COUNT + 1} 条消息`;
-      let fileMap = new Map();
-      if (retryCount === RETRY_CONFIG.MAX_RETRY - 1) {
-        content = INITIAL_MESSAGES.bubbleDoc;
-        fileMap = mockInlineFileMap;
-      } else {
-        content = `这是第 ${retryCount + RETRY_CONFIG.MESSAGE_COUNT + 1} 条消息`;
-      }
-      setBubbleList((prev) => {
-        const newMessage = createMockMessage(
-          `msg-${Date.now()}`,
-          prev.length % 2 === 0 ? 'user' : 'assistant',
-          content,
-          fileMap,
-        );
-        return [...prev, newMessage];
-      });
-
-      retryCount += 1;
-      if (retryCount >= RETRY_CONFIG.MAX_RETRY) {
-        if (retryTimerRef.current) {
-          clearInterval(retryTimerRef.current);
-          retryTimerRef.current = null;
-        }
-        isRetryingRef.current = false;
-      }
-    }, 100);
-  };
-
-  useEffect(() => {
-    handleRetry();
-  }, []);
-  // ***************** Footer Task Running End ***************** //
-
   return (
     <div style={{ padding: 8, backgroundColor: 'var(--color-gray-bg-page)' }}>
-      <div className="custom-chat-container-demo">
+      <div className="chat-flow-demo">
         {/* 左侧边栏 */}
-        <div className={`sidebar-left ${leftCollapsed ? 'collapsed' : ''}`}>
-          <div className="sidebar-left-content">
+        <div
+          className={`chat-flow-demo__sidebar ${leftCollapsed ? 'collapsed' : ''}`}
+        >
+          <div className="chat-flow-demo__sidebar-content">
             <StandaloneHistoryDemo />
           </div>
         </div>
@@ -270,7 +194,15 @@ const ChatLayoutDemo: React.FC = () => {
                 <MarkdownInputField
                   placeholder="输入消息..."
                   onSend={async (text) => {
-                    console.log('发送消息:', text);
+                    if (!text.trim()) return;
+                    setBubbleList((messages) => [
+                      ...messages,
+                      createMockMessage(
+                        `user-${messages.length}`,
+                        'user',
+                        text,
+                      ),
+                    ]);
                   }}
                 />
               </Flex>

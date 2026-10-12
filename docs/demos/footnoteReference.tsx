@@ -33,7 +33,7 @@ export default () => {
   return (
     <>
       <MarkdownEditor
-        width={'100vw'}
+        width={'100%'}
         height={'100vh'}
         reportMode
         fncProps={{
@@ -100,7 +100,7 @@ export default () => {
         <h4>Props 说明</h4>
         <ul>
           <li>
-            <code>width</code> - 编辑器宽度，设置为 100vw 占满视口宽度
+            <code>width</code> - 编辑器宽度，设置为 100% 跟随容器宽度
           </li>
           <li>
             <code>height</code> - 编辑器高度，设置为 100vh 占满视口高度

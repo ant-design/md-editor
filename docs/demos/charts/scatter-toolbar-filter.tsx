@@ -21,7 +21,7 @@ const ScatterChartToolbarFilterExample: React.FC = () => {
         <ScatterChart
           title="散点图工具栏过滤器"
           data={data}
-          width={600}
+          width="100%"
           height={400}
           renderFilterInToolbar
           dataTime="2024年数据"

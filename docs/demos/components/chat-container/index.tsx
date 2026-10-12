@@ -12,6 +12,10 @@ export const ChatContainer = ({
     <div
       style={{
         background: 'var(--color-gray-bg-page-light)',
+        boxSizing: 'border-box',
+        width: '100%',
+        maxWidth: '100%',
+        minWidth: 0,
         ...style,
       }}
     >
@@ -39,6 +43,8 @@ export const ChatContainer = ({
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          minWidth: 0,
+          maxWidth: '100%',
         }}
       >
         {children}

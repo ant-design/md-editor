@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 const DynamicAreaChartExample: React.FC = () => {
   // 扁平化数据结构
-  const [data, setData] = useState<AreaChartDataItem[]>([
+  const [data, setData] = useState<AreaChartDataItem[]>(() => [
     // 营收数据类别
     {
       category: '营收数据',
@@ -627,7 +627,7 @@ const DynamicAreaChartExample: React.FC = () => {
         <AreaChart
           title="动态面积图使用示例"
           data={data}
-          width={700}
+          width="100%"
           height={500}
         />
       </div>

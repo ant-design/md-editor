@@ -377,7 +377,7 @@ const DynamicRadarChartExample: React.FC = () => {
         <RadarChart
           title="2025年第一季度短视频用户分布分析"
           data={data}
-          width={700}
+          width="100%"
           height={500}
         />
       </div>

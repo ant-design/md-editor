@@ -3,31 +3,34 @@
  * description: 支持多系列堆叠显示，便于对比不同组别的数据分布
  */
 import { HistogramChart } from '@ant-design/agentic-ui';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 export default () => {
-  // 生成正态分布的模拟数据
-  const generateNormalData = (
-    count: number,
-    mean: number,
-    std: number,
-    type: string,
-  ) => {
-    const data = [];
-    for (let i = 0; i < count; i++) {
-      const u1 = Math.random();
-      const u2 = Math.random();
-      const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
-      const value = mean + std * z;
-      data.push({ value: Math.round(value * 10) / 10, type });
-    }
-    return data;
-  };
+  const data = useMemo(() => {
+    // 生成正态分布的模拟数据
+    const generateNormalData = (
+      count: number,
+      mean: number,
+      std: number,
+      type: string,
+    ) => {
+      const data = [];
+      for (let i = 0; i < count; i++) {
+        const u1 = Math.max(Number.EPSILON, Math.random());
+        const u2 = Math.random();
+        const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+        const value = mean + std * z;
+        data.push({ value: Math.round(value * 10) / 10, type });
+      }
+      return data;
+    };
 
-  const data = [
-    ...generateNormalData(150, 70, 12, '实验组'),
-    ...generateNormalData(150, 65, 15, '对照组'),
-  ];
+    const data = [
+      ...generateNormalData(150, 70, 12, '实验组'),
+      ...generateNormalData(150, 65, 15, '对照组'),
+    ];
+    return data;
+  }, []);
 
   return (
     <HistogramChart

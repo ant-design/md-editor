@@ -75,7 +75,7 @@ export default () => {
           </Space>
 
           <Space wrap size="large">
-            <Space>
+            <Space wrap>
               <span style={{ minWidth: 120 }}>animationSpeed (s)</span>
               <Slider
                 min={1}
@@ -104,14 +104,21 @@ export default () => {
             </Space>
           </Space>
 
-          <Space>
+          <div
+            style={{ display: 'flex', flexWrap: 'wrap', gap: 8, width: '100%' }}
+          >
             <span>文本内容：</span>
             <Input
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              style={{ width: 360 }}
+              style={{
+                flex: '1 1 180px',
+                width: '100%',
+                maxWidth: 360,
+                minWidth: 0,
+              }}
             />
-          </Space>
+          </div>
 
           <Space wrap>
             <span>当前 colors：</span>

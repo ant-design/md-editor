@@ -46,7 +46,7 @@ const BarChineseCurrencyDemo: React.FC = () => {
     <BarChart
       title="IPO 募资用途分配（约 42 亿募资用途分布）"
       data={data}
-      width={700}
+      width="100%"
       height={420}
       showDataLabels
       dataLabelFormatter={({ value }) => {

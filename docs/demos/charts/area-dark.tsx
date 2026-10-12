@@ -119,7 +119,7 @@ const AreaChartDarkDemo: React.FC = () => (
       theme="dark"
       title="面积图（暗黑主题）"
       data={data}
-      width={640}
+      width="100%"
       height={400}
       renderFilterInToolbar
       dataTime="示例数据"

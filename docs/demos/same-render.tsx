@@ -3,7 +3,8 @@ import {
   MarkdownEditorInstance,
   parserMdToSchema,
 } from '@ant-design/agentic-ui';
-import React, { useEffect, useRef } from 'react';
+import { Button } from 'antd';
+import React, { useRef } from 'react';
 import { newEnergyFundContent } from './shared/newEnergyFundContent';
 
 const defaultValue =
@@ -155,17 +156,20 @@ class EditorCore {
 export default () => {
   const markdownRef = useRef<MarkdownEditorInstance | null>(null);
 
-  useEffect(() => {
-    setInterval(() => {
-      markdownRef.current?.store?.updateNodeList(
-        parserMdToSchema(defaultValue).schema,
-      );
-    }, 1000);
-  }, []);
   return (
     <>
+      <Button
+        onClick={() => {
+          markdownRef.current?.store?.updateNodeList(
+            parserMdToSchema(defaultValue).schema,
+          );
+        }}
+        style={{ marginBottom: 12 }}
+      >
+        重新应用相同正文
+      </Button>
       <MarkdownEditor
-        width={'100vw'}
+        width={'100%'}
         height={'100vh'}
         initValue={defaultValue}
         editorRef={markdownRef}

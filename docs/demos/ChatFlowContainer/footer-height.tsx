@@ -5,7 +5,7 @@ import {
   MessageBubbleData,
 } from '@ant-design/agentic-ui';
 import { Button, Flex, Input } from 'antd';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   assistantMeta,
   createMockMessage,
@@ -17,6 +17,7 @@ const FOOTER_MIN_HEIGHT = 96;
 
 const FooterHeightDemo: React.FC = () => {
   const chatRef = useRef<ChatLayoutRef>(null);
+  const scrollAfterSend = useRef(false);
   const [draft, setDraft] = useState('');
   const [bubbleList, setBubbleList] = useState<MessageBubbleData[]>(() => {
     const messages: MessageBubbleData[] = [];
@@ -32,13 +33,20 @@ const FooterHeightDemo: React.FC = () => {
   const handleSend = () => {
     const text = draft.trim();
     if (!text) return;
+    scrollAfterSend.current = true;
     setBubbleList((prev) => [
       ...prev,
       createMockMessage(`msg-${Date.now()}`, 'user', text, new Map()),
     ]);
     setDraft('');
-    setTimeout(() => chatRef.current?.scrollToBottom(), 0);
   };
+
+  useEffect(() => {
+    if (scrollAfterSend.current) {
+      scrollAfterSend.current = false;
+      chatRef.current?.scrollToBottom();
+    }
+  }, [bubbleList]);
 
   return (
     <div style={{ padding: 12, background: 'var(--color-gray-bg-page)' }}>

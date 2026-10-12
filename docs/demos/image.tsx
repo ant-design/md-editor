@@ -10,7 +10,7 @@ export default () => {
   return (
     <>
       <MarkdownEditor
-        width={'100vw'}
+        width={'100%'}
         reportMode
         image={{
           upload: async (fileList) => {
@@ -37,7 +37,7 @@ export default () => {
       />
       <MarkdownEditor
         readonly
-        width={'100vw'}
+        width={'100%'}
         reportMode
         image={{
           upload: async (fileList) => {

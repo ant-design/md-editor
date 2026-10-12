@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import React, { useState } from 'react';
 
 const FunnelDemo: React.FC = () => {
-  const [data, setData] = useState<FunnelChartDataItem[]>([
+  const [data, setData] = useState<FunnelChartDataItem[]>(() => [
     {
       category: '网站转化',
       type: '转化',

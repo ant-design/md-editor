@@ -147,7 +147,7 @@ const ScatterChartDemo: React.FC = () => {
         <ScatterChart
           title="2025年第一季度短视频用户分布分析"
           data={data}
-          width={700}
+          width="100%"
           height={500}
           className="scatter-demo"
         />
@@ -164,7 +164,14 @@ const ScatterChartDemo: React.FC = () => {
         }}
       >
         <h4 style={{ margin: '0 0 12px 0', color: '#333' }}>默认颜色序列：</h4>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            gap: '16px',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <div
               style={{

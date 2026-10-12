@@ -55,7 +55,12 @@ const HtmlToMarkdownDemo: React.FC = () => {
       <h1>HTML 到 Markdown 转换工具演示</h1>
 
       <div
-        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}
+        style={{
+          display: 'grid',
+          gridTemplateColumns:
+            'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+          gap: '20px',
+        }}
       >
         <div>
           <h3>HTML 输入</h3>
@@ -64,6 +69,7 @@ const HtmlToMarkdownDemo: React.FC = () => {
             onChange={(e) => setHtmlInput(e.target.value)}
             style={{
               width: '100%',
+              boxSizing: 'border-box',
               height: '400px',
               fontFamily: 'monospace',
               fontSize: '12px',
@@ -74,7 +80,14 @@ const HtmlToMarkdownDemo: React.FC = () => {
             placeholder="输入 HTML 内容..."
           />
 
-          <div style={{ marginTop: '10px', display: 'flex', gap: '10px' }}>
+          <div
+            style={{
+              marginTop: '10px',
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '10px',
+            }}
+          >
             <button
               type="button"
               onClick={handleConvert}
@@ -142,6 +155,7 @@ const HtmlToMarkdownDemo: React.FC = () => {
             readOnly
             style={{
               width: '100%',
+              boxSizing: 'border-box',
               height: '400px',
               fontFamily: 'monospace',
               fontSize: '12px',

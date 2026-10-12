@@ -7,7 +7,14 @@ import {
   MarkdownEditorInstance,
 } from '@ant-design/agentic-ui';
 import { Button, Card, Space, Spin } from 'antd';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { scrollToAndLoadParagraph } from './lazy-render-pdf-jump-utils';
 
 // 生成段落数据
 const generateParagraphs = () => {
@@ -44,17 +51,19 @@ const CustomPlaceholder: React.FC<{
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    let loadingTimer: ReturnType<typeof setTimeout> | undefined;
     const handleForceLoad = (e: Event) => {
       const customEvent = e as CustomEvent;
       const targetId = customEvent.detail?.paragraphId;
 
       if (targetId === paragraphId) {
-        console.log(`占位符 ${paragraphId} 收到强制加载事件`);
+        if (loadingTimer !== undefined) clearTimeout(loadingTimer);
         setIsLoading(true);
         onForceLoad?.(paragraphId);
 
         // 模拟加载延迟
-        setTimeout(() => {
+        loadingTimer = setTimeout(() => {
+          loadingTimer = undefined;
           setIsLoading(false);
         }, 500);
       }
@@ -65,6 +74,7 @@ const CustomPlaceholder: React.FC<{
       element.addEventListener('forceLoad', handleForceLoad);
       return () => {
         element.removeEventListener('forceLoad', handleForceLoad);
+        if (loadingTimer !== undefined) clearTimeout(loadingTimer);
       };
     }
   }, [paragraphId, onForceLoad]);
@@ -82,7 +92,7 @@ const CustomPlaceholder: React.FC<{
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        transition: 'all 0.3s',
+        transition: 'background-color 0.2s',
       }}
       data-content-id={paragraphId}
       data-placeholder="true"
@@ -123,17 +133,22 @@ const CustomPlaceholder: React.FC<{
 };
 
 export default () => {
-  const paragraphs = generateParagraphs();
+  const [paragraphs] = useState(generateParagraphs);
   const editorRef = useRef<MarkdownEditorInstance>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [loadedParagraphs, setLoadedParagraphs] = useState<Set<string>>(
     new Set(),
   );
-  const [forceLoadKey] = useState(0);
+  const jumpControllerRef = useRef<AbortController | null>(null);
+
+  useEffect(() => () => jumpControllerRef.current?.abort(), []);
 
   // 生成 Markdown 内容，每个段落都有唯一 ID
-  const markdownContent = paragraphs.map((p) => p.content).join('\n---\n\n');
+  const markdownContent = useMemo(
+    () => paragraphs.map((p) => p.content).join('\n---\n\n'),
+    [paragraphs],
+  );
 
   // 追踪当前段落（使用 ref 在渲染过程中动态更新）
   const currentParagraphIdRef = useRef<string>('');
@@ -153,65 +168,47 @@ export default () => {
 
   // 处理强制加载回调
   const handleForceLoad = useCallback((id: string) => {
-    console.log(`标记段落 ${id} 为已加载`);
-    setLoadedParagraphs((prev) => new Set(prev).add(id));
+    setLoadedParagraphs((prev) =>
+      prev.has(id) ? prev : new Set(prev).add(id),
+    );
   }, []);
 
   /**
    * 点击左侧段落，滚动到右侧对应位置并强制加载
    */
   const handleParagraphClick = useCallback((paragraphId: string) => {
+    jumpControllerRef.current?.abort();
+    const controller = new AbortController();
+    jumpControllerRef.current = controller;
     setSelectedId(paragraphId);
-
-    // 查找目标元素（可能是占位符或实际内容）
-    const targetElement = document.querySelector(
-      `[data-content-id="${paragraphId}"]`,
-    ) as HTMLElement;
-
-    if (!targetElement) {
-      console.warn(`未找到 ID 为 "${paragraphId}" 的段落`);
-      return;
-    }
-
-    const isPlaceholder = targetElement.dataset.placeholder === 'true';
-
-    // 如果是占位符，强制触发加载
-    if (isPlaceholder) {
-      console.log(`准备强制加载占位符: ${paragraphId}`);
-
-      // 方案1: 等待滚动动画完成后触发自定义事件
-      setTimeout(() => {
-        const event = new CustomEvent('forceLoad', {
-          bubbles: true,
-          detail: { paragraphId },
-        });
-        targetElement.dispatchEvent(event);
-      }, 600);
-      targetElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-    } else {
-      targetElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-    }
-    setTimeout(() => {
-      targetElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-    }, 600);
+    scrollToAndLoadParagraph(paragraphId, {
+      containerRef,
+      signal: controller.signal,
+      forceLoadDelay: 150,
+      enableScrollJitter: false,
+    });
   }, []);
 
   return (
-    <div style={{ display: 'flex', gap: 16, height: '80vh' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'stretch',
+        gap: 16,
+      }}
+    >
       {/* 左侧：段落列表（模拟 PDF） */}
       <Card
         title="PDF 段落列表"
         variant="borderless"
-        style={{ width: 300, overflow: 'auto', boxShadow: 'none' }}
+        style={{
+          flex: '1 1 240px',
+          minWidth: 0,
+          maxHeight: '80vh',
+          overflow: 'auto',
+          boxShadow: 'none',
+        }}
         styles={{ body: { padding: 8 } }}
       >
         <Space direction="vertical" style={{ width: '100%' }}>
@@ -251,7 +248,13 @@ export default () => {
       <Card
         title="文档内容（懒加载）"
         variant="borderless"
-        style={{ flex: 1, overflow: 'hidden', boxShadow: 'none' }}
+        style={{
+          flex: '3 1 360px',
+          minWidth: 0,
+          height: '80vh',
+          overflow: 'hidden',
+          boxShadow: 'none',
+        }}
         styles={{ body: { padding: 0, height: 'calc(100% - 57px)' } }}
       >
         <div
@@ -259,7 +262,6 @@ export default () => {
           style={{ height: '100%', overflow: 'auto', padding: 16 }}
         >
           <BaseMarkdownEditor
-            key={`editor-${forceLoadKey}`}
             editorRef={editorRef}
             initValue={markdownContent}
             readonly
@@ -317,7 +319,6 @@ export default () => {
                   const newParagraphId = `para-${match[1]}`;
                   currentParagraphIdRef.current = newParagraphId;
                   currentPlaceholderParagraphIdRef.current = newParagraphId;
-                  console.log(`✅ 检测到标题，设置段落ID: ${newParagraphId}`);
                 }
               }
 
