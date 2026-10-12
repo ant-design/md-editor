@@ -9,6 +9,10 @@ group:
 
 # Changelog
 
+## v2.33.1
+
+- 🛠 Added explicit `@types/node` devDependency so `father build` declaration emit no longer fails with missing `process` / `NodeJS.Timeout` types.
+
 ## v2.33.0
 
 - MarkdownInputField
