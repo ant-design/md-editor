@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSiteI18n } from '../../i18n';
 import showroomImage1 from './assets/showroom-1.png';
 import showroomImage2 from './assets/showroom-2.png';
@@ -8,13 +8,14 @@ import showroomImage5 from './assets/showroom-5.png';
 import {
   CarouselCard,
   CarouselContainer,
+  CarouselNavigation,
+  CarouselNavigationButton,
   ComingSoonText,
   ComingSoonTitle,
   Container,
   CornerBracket,
   DiamondIcon,
   SectionWrapper,
-  ShowroomCard,
   ShowroomCardImage,
   ShowroomSubtitle,
   ShowroomTitle,
@@ -29,38 +30,31 @@ const showroomImages = [
   showroomImage5,
 ];
 
-// 根据设计稿的精确尺寸
-const CARD_WIDTH = 506; // 激活卡片宽度
-const CARD_GAP = 80; // 卡片之间的间距
-const ACTIVE_SCALE = 1; // 激活卡片缩放
-const INACTIVE_SCALE = 0.75; // 非激活卡片缩放
-const ANIMATION_DURATION = 600; // 动画持续时间（毫秒）
+const INACTIVE_SCALE = 0.75;
 
 const Showroom: React.FC = () => {
   const { messages } = useSiteI18n();
-  const [activeIndex, setActiveIndex] = useState(2); // 默认中间卡片激活
-  const [isAnimating, setIsAnimating] = useState(false);
-  const animationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [activeIndex, setActiveIndex] = useState(2);
+  const cardRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
-  useEffect(
-    () => () => {
-      if (animationTimerRef.current) clearTimeout(animationTimerRef.current);
-    },
-    [],
-  );
-
-  const handleCardClick = (index: number) => {
-    if (index === activeIndex || isAnimating) {
+  const handleCardKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    let nextIndex = activeIndex;
+    if (event.key === 'ArrowRight') {
+      nextIndex = (activeIndex + 1) % showroomImages.length;
+    } else if (event.key === 'ArrowLeft') {
+      nextIndex =
+        (activeIndex - 1 + showroomImages.length) % showroomImages.length;
+    } else if (event.key === 'Home') {
+      nextIndex = 0;
+    } else if (event.key === 'End') {
+      nextIndex = showroomImages.length - 1;
+    } else {
       return;
     }
 
-    setIsAnimating(true);
-    setActiveIndex(index);
-
-    // 动画结束后重置状态
-    animationTimerRef.current = setTimeout(() => {
-      setIsAnimating(false);
-    }, ANIMATION_DURATION);
+    event.preventDefault();
+    setActiveIndex(nextIndex);
+    cardRefs.current[nextIndex]?.focus({ preventScroll: true });
   };
 
   return (
@@ -94,7 +88,7 @@ const Showroom: React.FC = () => {
         </ShowroomTitle>
 
         {/* Carousel */}
-        <CarouselContainer>
+        <CarouselContainer role="group" aria-label={messages.nav.showroom}>
           {/* 固定的四个角标 - 始终显示在中心位置 */}
           <CornerBracket $position="top-left">
             <svg
@@ -160,46 +154,14 @@ const Showroom: React.FC = () => {
             const isActive = index === activeIndex;
             const relativeIndex = index - activeIndex;
 
-            // 计算 X 偏移：居中显示，其他卡片水平排列
-            // 考虑激活卡片和非激活卡片的宽度差异
-            // 激活卡片宽度：506px，非激活卡片宽度：506px * 0.75 = 379.5px
-            // 相邻卡片中心间距 = 前一个卡片宽度/2 + CARD_GAP + 后一个卡片宽度/2
-            const getSpacing = (fromIndex: number, toIndex: number) => {
-              const fromScale =
-                fromIndex === activeIndex ? ACTIVE_SCALE : INACTIVE_SCALE;
-              const toScale =
-                toIndex === activeIndex ? ACTIVE_SCALE : INACTIVE_SCALE;
-              const fromWidth = CARD_WIDTH * fromScale;
-              const toWidth = CARD_WIDTH * toScale;
-              return fromWidth / 2 + CARD_GAP + toWidth / 2;
-            };
-
-            // 计算到中心位置的总距离
-            let totalSpacing = 0;
-            if (relativeIndex > 0) {
-              // 向右计算
-              for (let i = 0; i < relativeIndex; i++) {
-                totalSpacing += getSpacing(
-                  activeIndex + i,
-                  activeIndex + i + 1,
-                );
-              }
-            } else if (relativeIndex < 0) {
-              // 向左计算
-              for (let i = 0; i > relativeIndex; i--) {
-                totalSpacing -= getSpacing(
-                  activeIndex + i - 1,
-                  activeIndex + i,
-                );
-              }
-            }
-
-            const left = `calc(50% + ${totalSpacing}px)`;
-            const translateX = '-50%'; // 居中定位
-
-            // 根据设计稿调整缩放和透明度
             const distance = Math.abs(relativeIndex);
-            const scale = isActive ? ACTIVE_SCALE : INACTIVE_SCALE;
+            // Keep the active card centered; CSS variables also size mobile cards.
+            const widthOffset =
+              relativeIndex === 0
+                ? 0
+                : Math.sign(relativeIndex) *
+                  (distance * INACTIVE_SCALE + (1 - INACTIVE_SCALE) / 2);
+            const scale = isActive ? 1 : INACTIVE_SCALE;
             const opacity = isActive
               ? 1
               : Math.max(0.5, 0.65 - distance * 0.08);
@@ -207,30 +169,42 @@ const Showroom: React.FC = () => {
             return (
               <CarouselCard
                 key={index}
-                $isActive={isActive}
-                $isAnimating={isAnimating}
-                onClick={() => handleCardClick(index)}
+                type="button"
+                ref={(element) => {
+                  cardRefs.current[index] = element;
+                }}
+                aria-label={`${messages.nav.showroom} ${index + 1}`}
+                aria-pressed={isActive}
+                tabIndex={isActive ? 0 : -1}
+                onKeyDown={handleCardKeyDown}
+                onClick={() => setActiveIndex(index)}
                 style={{
-                  left,
-                  transform: `translateX(${translateX}) scale(${scale})`,
+                  transform: `translate3d(calc(-50% + var(--showroom-card-width) * ${widthOffset} + var(--showroom-card-gap) * ${relativeIndex}), 0, 0) scale(${scale})`,
                   zIndex: isActive ? 10 : 5 - distance,
                   opacity,
-                  transition: isAnimating
-                    ? `left ${ANIMATION_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1), transform ${ANIMATION_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1), opacity ${ANIMATION_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1)`
-                    : 'none',
                 }}
               >
-                <ShowroomCard $isActive={isActive}>
-                  <ShowroomCardImage
-                    src={image}
-                    alt={`Showroom ${index + 1}`}
-                    decoding="async"
-                  />
-                </ShowroomCard>
+                <ShowroomCardImage
+                  src={image}
+                  alt=""
+                  draggable={false}
+                  decoding="async"
+                />
               </CarouselCard>
             );
           })}
         </CarouselContainer>
+        <CarouselNavigation role="group" aria-label={messages.nav.showroom}>
+          {showroomImages.map((image, index) => (
+            <CarouselNavigationButton
+              key={image}
+              type="button"
+              aria-label={`${messages.nav.showroom} ${index + 1}`}
+              aria-current={index === activeIndex ? 'true' : undefined}
+              onClick={() => setActiveIndex(index)}
+            />
+          ))}
+        </CarouselNavigation>
 
         {/* Coming Soon */}
         <ComingSoonTitle>{messages.showroom.comingSoonTitle}</ComingSoonTitle>

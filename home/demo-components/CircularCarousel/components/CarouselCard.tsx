@@ -1,7 +1,14 @@
-import { motion, useTransform } from 'framer-motion';
+import { type MotionValue, useTransform } from 'framer-motion';
 import React, { useEffect, useMemo, useState } from 'react';
-import { CardFlipContainer, CardMotionContainer, CardWrapper } from '../style';
+import { useSiteI18n } from '../../../i18n';
+import {
+  CardFlipContainer,
+  CardMotionContainer,
+  CardWrapper,
+  FlipButton,
+} from '../style';
 import { CardAnimationContext } from './CardAnimationContext';
+import { Rotate3DIcon } from './Rotate3DIcon';
 import { ActiveCard, BacksideCardState, InactiveCard } from './cardStates';
 import { CornerMarks } from './cardStates/CornerMarks';
 import { FeatureItem } from './cardStates/types';
@@ -11,10 +18,12 @@ const ANGLE_STEP = 15;
 interface CarouselCardProps {
   feature: FeatureItem;
   index: number;
-  smoothIndex: any;
+  smoothIndex: MotionValue<number>;
   isActive: boolean;
   onCardClick: (index: number) => void;
   themeColor: string;
+  reducedMotion?: boolean;
+  isSettled?: boolean;
 }
 
 export const CarouselCard: React.FC<CarouselCardProps> = ({
@@ -24,18 +33,29 @@ export const CarouselCard: React.FC<CarouselCardProps> = ({
   isActive,
   onCardClick,
   themeColor,
+  reducedMotion = false,
+  isSettled = true,
 }) => {
-  const [hovered, setHovered] = useState(false);
+  const { locale } = useSiteI18n();
+  const [flipped, setFlipped] = useState(false);
   const [backsideMounted, setBacksideMounted] = useState(false);
-  const backActive = isActive && hovered;
+  const backActive = isActive && flipped;
   const animationState = useMemo(
-    () => ({ frontActive: isActive && !hovered, backActive }),
-    [isActive, hovered, backActive],
+    () => ({
+      frontActive: isActive && isSettled && !backActive,
+      backActive,
+      reducedMotion,
+    }),
+    [isActive, isSettled, backActive, reducedMotion],
   );
 
   useEffect(() => {
     if (backActive) setBacksideMounted(true);
   }, [backActive]);
+
+  useEffect(() => {
+    if (!isActive) setFlipped(false);
+  }, [isActive]);
 
   // Calculate relative position based on the smooth index
   const relativeIndex = useTransform(smoothIndex, (v: number) => index - v);
@@ -47,7 +67,7 @@ export const CarouselCard: React.FC<CarouselCardProps> = ({
   const x = useTransform(relativeIndex, (v) => v * 350);
 
   // Calculate Y offset: drop down as they move away from center
-  const y = useTransform(relativeIndex, (v) => Math.abs(v) * 60 + 56);
+  const y = useTransform(relativeIndex, (v) => Math.abs(v) * 60);
 
   const scale = useTransform(relativeIndex, (v) => {
     const dist = Math.abs(v);
@@ -60,14 +80,20 @@ export const CarouselCard: React.FC<CarouselCardProps> = ({
 
   return (
     <CardMotionContainer
-      as={motion.div}
+      id={`feature-panel-${feature.id}`}
+      role={isActive ? 'tabpanel' : undefined}
+      aria-labelledby={`feature-tab-${feature.id}`}
+      aria-hidden={!isActive}
+      data-carousel-card={feature.id}
+      data-active={isActive}
+      data-flipped={backActive}
       style={{
-        rotate: rotate as any,
-        x: x as any,
-        y: y as any,
+        rotate,
+        x,
+        y,
         opacity: 1,
-        scale: scale as any,
-        zIndex: zIndex as any,
+        scale,
+        zIndex,
         transformOrigin: '50% 1500px',
       }}
       onClick={(e) => {
@@ -89,12 +115,18 @@ export const CarouselCard: React.FC<CarouselCardProps> = ({
       {/* 3D Perspective Container */}
       <CardWrapper
         $isActive={isActive}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        onKeyDown={(event) => {
+          if (event.key === 'Escape' && backActive) {
+            setFlipped(false);
+            event.currentTarget
+              .querySelector<HTMLButtonElement>('button[aria-pressed]')
+              ?.focus();
+          }
+        }}
       >
         <CardAnimationContext.Provider value={animationState}>
           {/* Flipping Container */}
-          <CardFlipContainer $isActive={isActive} style={{}}>
+          <CardFlipContainer $flipped={backActive}>
             {/* Corner Plus Marks - Now inside flip container to flip with card */}
             <CornerMarks />
 
@@ -115,6 +147,25 @@ export const CarouselCard: React.FC<CarouselCardProps> = ({
               <BacksideCardState feature={feature} themeColor={themeColor} />
             )}
           </CardFlipContainer>
+          {isActive && (
+            <FlipButton
+              type="button"
+              $flipped={backActive}
+              aria-label={
+                locale === 'en-US'
+                  ? backActive
+                    ? 'Show card summary'
+                    : 'Show card details'
+                  : backActive
+                    ? '返回卡片概览'
+                    : '查看卡片详情'
+              }
+              aria-pressed={backActive}
+              onClick={() => setFlipped((previous) => !previous)}
+            >
+              <Rotate3DIcon size={24} color="currentColor" />
+            </FlipButton>
+          )}
         </CardAnimationContext.Provider>
       </CardWrapper>
     </CardMotionContainer>

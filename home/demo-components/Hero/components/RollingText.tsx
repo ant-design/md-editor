@@ -49,6 +49,7 @@ export type RollingTextProps = Omit<
   inView?: boolean;
   inViewMargin?: UseInViewOptions['margin'];
   inViewOnce?: boolean;
+  repeat?: boolean;
   text: string;
 };
 
@@ -59,6 +60,7 @@ const RollingText = React.forwardRef<HTMLSpanElement, RollingTextProps>(
       inView = false,
       inViewMargin = '0px',
       inViewOnce = true,
+      repeat = true,
       text,
       style,
       ...props
@@ -66,6 +68,7 @@ const RollingText = React.forwardRef<HTMLSpanElement, RollingTextProps>(
     ref,
   ) => {
     const localRef = React.useRef<HTMLSpanElement>(null);
+    const playbackRef = React.useRef({ text, completed: false });
     const entryControls = useAnimationControls();
     const exitControls = useAnimationControls();
     const { isVisible, reducedMotion } = useAnimationVisibility(localRef);
@@ -84,6 +87,11 @@ const RollingText = React.forwardRef<HTMLSpanElement, RollingTextProps>(
 
     // Replay the existing nodes instead of remounting every character each cycle.
     React.useEffect(() => {
+      if (playbackRef.current.text !== text) {
+        playbackRef.current = { text, completed: false };
+      }
+      const playback = playbackRef.current;
+      if (!repeat && playback.completed) return;
       if (!shouldAnimate || !characters.length) return;
       let cancelled = false;
       let timer: ReturnType<typeof setTimeout>;
@@ -104,7 +112,9 @@ const RollingText = React.forwardRef<HTMLSpanElement, RollingTextProps>(
             transition: { ...transition, delay: index * stagger + 0.3 },
           })),
         ]);
-        if (!cancelled) timer = setTimeout(runCycle, duration * 1000 + 500);
+        if (cancelled) return;
+        if (repeat) timer = setTimeout(runCycle, duration * 1000 + 500);
+        else playback.completed = true;
       };
       void runCycle();
 
@@ -114,7 +124,15 @@ const RollingText = React.forwardRef<HTMLSpanElement, RollingTextProps>(
         entryControls.stop();
         exitControls.stop();
       };
-    }, [characters, entryControls, exitControls, shouldAnimate, transition]);
+    }, [
+      characters,
+      entryControls,
+      exitControls,
+      shouldAnimate,
+      transition,
+      repeat,
+      text,
+    ]);
 
     if (reducedMotion) {
       return (

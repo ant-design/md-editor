@@ -12,6 +12,12 @@ group:
 ## Unreleased
 
 - Docs
+  - 🐞 Include homepage styles in the initial HTML and provide matching static entries for extensionless document and demo URLs, preventing an unstyled homepage from flashing on first load.
+  - 💄 Remove preview frames and redundant shadows, rounded corners, and separators from Bubble demo containers, reducing nesting while keeping code actions.
+  - 🐞 Render standalone demo routes with a minimal layout to prevent duplicate site navigation and document sidebars inside code previews.
+  - 💄 Tighten homepage section spacing and adapt demo previews to narrow screens; size the carousel to its content instead of reserving two screens of unused scroll space.
+  - 🐞 Use explicit card flip buttons to prevent accidental hover flips; respond immediately to consecutive showroom selections, support keyboard and touch navigation, and display demo loading feedback.
+  - ⚡️ Play the homepage title animation once on entry and use transform and opacity transitions; start Canvas effects after wheel movement and retain paused progress to reduce rebuilding and blank replays while switching.
   - 🐞 Fixed Ant Design reset styles vertically misaligning the navigation links with the search box, theme switch, and GitHub icon.
   - ⚡️ Load homepage demos near the viewport and enhancement tabs on demand, reducing initial editor and chart dependencies and hidden DOM.
   - ⚡️ Pause homepage particle, carousel, and typing animations offscreen and in background tabs; cache static particles, simplify wheel nodes, and batch demo text updates to reduce ongoing rendering.

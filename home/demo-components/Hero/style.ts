@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 export const HeroWrapper = styled.section`
-  padding-top: 96px;
+  padding-top: clamp(56px, 6vw, 80px);
   padding-bottom: 0;
   padding-left: 24px;
   padding-right: 24px;
@@ -20,7 +20,7 @@ export const ContentContainer = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
   position: relative;
   z-index: 1;
 `;
@@ -47,15 +47,21 @@ export const TitleContainer = styled.div`
 export const MainTitle = styled.div`
   color: #14161c;
   font-family: 'PingFang SC';
-  font-size: 48px;
+  font-size: clamp(30px, 5vw, 48px);
   font-style: normal;
   font-weight: 600;
-  line-height: 67px; /* 139.583% */
-  height: 67px; /* 设置明确高度，匹配 line-height */
+  line-height: 1.4;
+  min-height: 1.4em;
   overflow: hidden; /* 裁剪旋转时超出容器的文字 */
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 600px) {
+    html[lang='en-US'] & {
+      font-size: clamp(22px, 5.5vw, 30px);
+    }
+  }
 
   [data-prefers-color='dark'] & {
     color: #f2f4f8;
@@ -94,7 +100,7 @@ export const ButtonGroup = styled.div`
   align-items: center;
   justify-content: center;
   gap: 16px;
-  padding-top: 16px;
+  padding-top: 8px;
 `;
 
 // HeroButtons 样式

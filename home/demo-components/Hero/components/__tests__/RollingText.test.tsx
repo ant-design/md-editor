@@ -81,6 +81,42 @@ describe('hero rolling text', () => {
     expect(container.querySelectorAll('[aria-hidden="true"]')).toHaveLength(2);
   });
 
+  it('plays once without scheduling another cycle when repeat is disabled', async () => {
+    render(<RollingText text="首页" repeat={false} />);
+    await act(async () => enterViewport(true));
+    expect(controls.start).toHaveBeenCalledTimes(2);
+    expect(vi.getTimerCount()).toBe(0);
+    await act(async () => vi.advanceTimersByTime(10000));
+    expect(controls.start).toHaveBeenCalledTimes(2);
+  });
+
+  it('keeps a completed one-time animation still when returning to the viewport', async () => {
+    render(<RollingText text="首页" repeat={false} />);
+    await act(async () => enterViewport(true));
+    act(() => enterViewport(false));
+    controls.start.mockClear();
+    controls.set.mockClear();
+    await act(async () => enterViewport(true));
+    expect(controls.start).not.toHaveBeenCalled();
+    expect(controls.set).not.toHaveBeenCalled();
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it('plays a one-time animation again when its text changes', async () => {
+    const { rerender } = render(<RollingText text="首页" repeat={false} />);
+    await act(async () => enterViewport(true));
+    expect(controls.start).toHaveBeenCalledTimes(2);
+    await act(async () => {
+      rerender(<RollingText text="新标题" repeat={false} />);
+    });
+    expect(controls.start).toHaveBeenCalledTimes(4);
+    await act(async () => {
+      rerender(<RollingText text="首页" repeat={false} />);
+    });
+    expect(controls.start).toHaveBeenCalledTimes(6);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
   it('renders plain readable text for reduced motion', () => {
     vi.spyOn(window, 'matchMedia').mockReturnValue({
       matches: true,

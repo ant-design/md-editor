@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 export const SectionWrapper = styled.section`
   width: 100%;
-  padding: 134px 0px;
+  padding: var(--home-section-space, 96px) 0;
   background: #f7f8f9;
   position: relative;
 `;
@@ -21,7 +21,7 @@ export const TopVectorIcon = styled.div`
 
 export const VerticalDivider = styled.div`
   width: 1px;
-  height: 86px;
+  height: calc(var(--home-section-space, 96px) - 36px);
   background: rgba(44, 62, 93, 0.07);
   flex-shrink: 0;
   margin-top: 12px;
@@ -45,6 +45,7 @@ export const Container = styled.div`
 export const SectionHeader = styled.div`
   text-align: center;
   margin-bottom: 32px;
+  padding-inline: 24px;
 `;
 
 export const SectionTitle = styled.div`
@@ -60,12 +61,14 @@ export const SectionTitle = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  margin-bottom: 12px;
 `;
 
 export const SectionSubtitle = styled.div`
-  font-size: 24px;
+  font-size: var(--home-section-title-size, 48px);
+  font-weight: 600;
   color: #666;
-  line-height: 36px;
+  line-height: 1.4;
   text-align: center;
 `;
 
@@ -86,6 +89,11 @@ export const ScrollableInner = styled.div`
   scrollbar-width: thin;
   width: 100%;
   max-width: 1472px; /* 1440px + 32px (16px * 2) */
+  overscroll-behavior-x: contain;
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
 
   &::-webkit-scrollbar {
     height: 4px;
@@ -141,8 +149,7 @@ export const TopLeftContainer = styled.div`
 export const DesignCard = styled.div`
   background: #fff;
   padding: 40px;
-  transition: all 0.3s;
-  cursor: pointer;
+  cursor: default;
   min-height: 200px;
   display: flex;
   flex-direction: column;
@@ -154,7 +161,7 @@ export const DesignCard = styled.div`
 
 export const SmallCard = styled(DesignCard)<{
   $hasDotPattern?: boolean;
-  hasRightBorder?: boolean;
+  $hasRightBorder?: boolean;
 }>`
   min-height: 0;
   flex: 1;
@@ -163,7 +170,7 @@ export const SmallCard = styled(DesignCard)<{
   position: relative;
   overflow: hidden;
   border-right: ${(props) =>
-    props.hasRightBorder ? '1px solid #f1f2f4' : 'none'};
+    props.$hasRightBorder ? '1px solid #f1f2f4' : 'none'};
 
   ${(props) =>
     props.$hasDotPattern &&
@@ -216,7 +223,7 @@ export const LinkButton = styled.div`
   color: #333;
   margin-top: 24px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: background-color 160ms ease;
 
   &:hover {
     background: #e0e0e0;

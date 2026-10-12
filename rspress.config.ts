@@ -1,6 +1,7 @@
 import { defineConfig } from '@rspress/core';
 import { pluginPreview } from '@rspress/plugin-preview';
 import path from 'node:path';
+import { cleanUrlsPlugin } from './scripts/rspress-plugin-clean-urls.mjs';
 import { dumiDemoPlugin } from './scripts/rspress-plugin-dumi-code-embed.mjs';
 
 // Rspress 站点根目录（相对仓库根）
@@ -88,6 +89,7 @@ export default defineConfig({
   },
   plugins: [
     dumiDemoPlugin(),
+    cleanUrlsPlugin(),
     pluginPreview({
       defaultRenderMode: 'pure',
       defaultPreviewMode: 'internal',

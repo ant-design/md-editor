@@ -1,5 +1,7 @@
 import { animate, motion, useMotionValue } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
+import { useAnimationVisibility } from '../../hooks/useAnimationVisibility';
+import { useSiteI18n } from '../../i18n';
 import { CarouselCard } from './components/CarouselCard';
 import { CarouselWheel } from './components/CarouselWheel';
 import { useFeatures } from './data';
@@ -37,7 +39,11 @@ const CircularCarousel: React.FC<{
   onTabChange?: (id: string) => void;
 }> = ({ onTabChange }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [settledIndex, setSettledIndex] = useState<number | undefined>(0);
+  const { reducedMotion } = useAnimationVisibility(containerRef);
+  const { locale } = useSiteI18n();
   const FEATURES = useFeatures();
 
   // Motion value for the current index - used for smooth transitions
@@ -45,15 +51,22 @@ const CircularCarousel: React.FC<{
 
   // Animate the smoothIndex whenever activeIndex changes
   useEffect(() => {
+    if (reducedMotion) {
+      smoothIndex.set(activeIndex);
+      setSettledIndex(activeIndex);
+      return;
+    }
     const controls = animate(smoothIndex, activeIndex, {
-      type: 'spring',
-      stiffness: 200,
-      damping: 30,
+      duration: 0.36,
+      ease: [0.2, 0.8, 0.2, 1],
+      onComplete: () => setSettledIndex(activeIndex),
     });
     return controls.stop;
-  }, [activeIndex, smoothIndex]);
+  }, [activeIndex, smoothIndex, reducedMotion]);
 
   const handleMenuClick = (index: number) => {
+    if (index === activeIndex) return;
+    setSettledIndex(undefined);
     setActiveIndex(index);
     if (onTabChange) {
       onTabChange(FEATURES[index].id);
@@ -61,21 +74,46 @@ const CircularCarousel: React.FC<{
   };
 
   return (
-    <CarouselContainer ref={containerRef}>
+    <CarouselContainer ref={containerRef} data-home-carousel>
       <StickyContainer>
         {/* Navigation Menu */}
-        <NavigationMenu>
+        <NavigationMenu
+          role="tablist"
+          aria-label={locale === 'en-US' ? 'Design principles' : '设计原则'}
+        >
           {FEATURES.map((feature, idx) => {
             const isActive = idx === activeIndex;
             return (
               <NavButton
                 key={feature.id}
+                id={`feature-tab-${feature.id}`}
+                ref={(element) => {
+                  tabRefs.current[idx] = element;
+                }}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-controls={`feature-panel-${feature.id}`}
+                tabIndex={isActive ? 0 : -1}
                 onClick={() => handleMenuClick(idx)}
+                onKeyDown={(event) => {
+                  let nextIndex: number;
+                  if (event.key === 'ArrowRight')
+                    nextIndex = (idx + 1) % FEATURES.length;
+                  else if (event.key === 'ArrowLeft')
+                    nextIndex = (idx - 1 + FEATURES.length) % FEATURES.length;
+                  else if (event.key === 'Home') nextIndex = 0;
+                  else if (event.key === 'End') nextIndex = FEATURES.length - 1;
+                  else return;
+                  event.preventDefault();
+                  handleMenuClick(nextIndex);
+                  tabRefs.current[nextIndex]?.focus();
+                }}
                 $isActive={isActive}
               >
                 {isActive && (
                   <motion.div
-                    layoutId="active-cursor"
+                    layoutId={reducedMotion ? undefined : 'active-cursor'}
                     style={{
                       position: 'absolute',
                       inset: 0,
@@ -83,9 +121,7 @@ const CircularCarousel: React.FC<{
                       borderRadius: '8px',
                     }}
                     transition={{
-                      type: 'spring',
-                      stiffness: 300,
-                      damping: 30,
+                      duration: reducedMotion ? 0 : 0.2,
                     }}
                   >
                     <ActiveIndicatorWrapper>
@@ -192,6 +228,8 @@ const CircularCarousel: React.FC<{
               isActive={index === activeIndex}
               onCardClick={handleMenuClick}
               themeColor={getFeatureColor(feature.id)}
+              reducedMotion={!!reducedMotion}
+              isSettled={settledIndex === activeIndex}
             />
           ))}
         </CarouselWheelContainer>

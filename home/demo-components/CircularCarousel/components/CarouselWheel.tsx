@@ -1,4 +1,4 @@
-import { motion, useTransform } from 'framer-motion';
+import { motion, type MotionValue, useTransform } from 'framer-motion';
 import React from 'react';
 
 const ANGLE_STEP = 15;
@@ -11,7 +11,7 @@ const TICKS_PATH = Array.from({ length: 480 }, (_, index) => {
 }).join('');
 
 interface CarouselWheelProps {
-  smoothIndex: any;
+  smoothIndex: MotionValue<number>;
 }
 
 export const CarouselWheel: React.FC<CarouselWheelProps> = ({
@@ -23,7 +23,7 @@ export const CarouselWheel: React.FC<CarouselWheelProps> = ({
     <motion.div
       style={{
         rotate,
-        y: RADIUS + 56,
+        y: RADIUS,
         position: 'absolute',
         display: 'flex',
         alignItems: 'center',

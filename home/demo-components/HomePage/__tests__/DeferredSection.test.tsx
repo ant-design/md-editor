@@ -56,7 +56,7 @@ describe('homepage deferred sections', () => {
     );
     expect(observe).toHaveBeenCalledOnce();
     expect(IntersectionObserver).toHaveBeenCalledWith(expect.any(Function), {
-      rootMargin: '400px 0px',
+      rootMargin: '160px 0px',
     });
   });
 
@@ -92,6 +92,26 @@ describe('homepage deferred sections', () => {
 
     expect(await screen.findByText('Loaded demo')).toBeInTheDocument();
     expect(load).toHaveBeenCalledTimes(2);
+  });
+
+  it('announces loading only after an offscreen section approaches the viewport', async () => {
+    let resolve!: (module: { default: React.ComponentType }) => void;
+    const load = vi.fn(
+      () =>
+        new Promise<{ default: React.ComponentType }>((done) => {
+          resolve = done;
+        }),
+    );
+    const { container } = render(
+      <DeferredSection load={load} minHeight={788} name="showroom" />,
+    );
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+    await enterViewport();
+    expect(screen.getByRole('status')).toHaveTextContent('正在加载演示');
+    expect(container.firstChild).toHaveAttribute('aria-busy', 'true');
+    await act(async () => resolve({ default: () => <div>Ready</div> }));
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+    expect(container.firstChild).toHaveAttribute('aria-busy', 'false');
   });
 
   it('loads in browsers without IntersectionObserver', async () => {

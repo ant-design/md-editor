@@ -42,8 +42,7 @@ function useNearViewport() {
 }
 
 /**
- * demo 预览卡片：iframe 加载独立 demo 路由页，与 dumi Previewer 等价。
- * 暗色模式切换时刷新 iframe，保证 demo 内 antd 主题同步。
+ * iframe 加载独立 demo 路由页，外层只提供说明与代码操作。
  */
 export function DemoCard({
   demoId,
@@ -67,30 +66,27 @@ export function DemoCard({
           />
         )}
       </div>
-      {(title || description || true) && (
-        <div className="demo-card__meta">
-          {(title || description) && (
-            <div className="demo-card__desc">
-              {title && (
-                <h5>
-                  <a href={`#/~demos/${demoId}`}>{title}</a>
-                </h5>
-              )}
-              {description && <p>{description}</p>}
-            </div>
-          )}
-          <div className="demo-card__actions">
-            <button
-              type="button"
-              className="demo-card__action"
-              onClick={() => setShowSource((v) => !v)}
-              aria-label={showSource ? 'Collapse Code' : 'Expand Code'}
-            >
-              {showSource ? '隐藏代码' : '查看代码'}
-            </button>
+      <div className="demo-card__meta">
+        {(title || description) && (
+          <div className="demo-card__desc">
+            {title && (
+              <h5>
+                <a href={`#/~demos/${demoId}`}>{title}</a>
+              </h5>
+            )}
+            {description && <p>{description}</p>}
           </div>
-        </div>
-      )}
+        )}
+        <button
+          type="button"
+          className="demo-card__action"
+          onClick={() => setShowSource((v) => !v)}
+          aria-label={showSource ? 'Collapse Code' : 'Expand Code'}
+          aria-expanded={showSource}
+        >
+          {showSource ? '隐藏代码' : '查看代码'}
+        </button>
+      </div>
       {showSource && (
         <div className="demo-card__source">
           <a href={`/~demos/${demoId}`} target="_blank" rel="noreferrer">

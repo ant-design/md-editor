@@ -38,14 +38,7 @@ export interface BubbleDemoCardProps {
 }
 
 /**
- * BubbleDemoCard - 为 Bubble 相关 demo 提供统一的卡片容器
- *
- * 该组件提供了一个带有指定样式的卡片容器，包含：
- * - 圆角设计 (20px)
- * - 浅色背景 (#FDFEFE)
- * - 双层阴影效果
- * - 固定宽度 (830px)
- * - Flex 布局
+ * 为 Bubble 相关 demo 提供响应式内容容器、说明和可选代码示例。
  *
  * @param props - 组件属性
  * @returns 渲染的卡片容器组件
@@ -59,39 +52,25 @@ export const BubbleDemoCard: React.FC<BubbleDemoCardProps> = ({
   showCodeExample = false,
   codeExample,
 }) => {
-  // 卡片容器基础样式
   const cardStyle: React.CSSProperties = {
-    /* 圆角-弹窗-base */
-    borderRadius: 'var(--radius-modal-base)',
-    /* gray/gray-背景-页面-浅 */
-    background: 'var(color-gray-bg-page-light)',
-    /* 投影-控件-base */
-    boxShadow: 'var(--shadow-control-base)',
     width: 'min(830px,100%)',
-    /* 自动布局 */
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    padding: '0px',
-    zIndex: 0,
-    margin: '24px auto',
+    margin: '0 auto',
     ...style,
   };
 
   return (
-    <div style={cardStyle}>
+    <div className={className} style={cardStyle}>
       {/* 标题和描述区域 */}
       {(title || description) && (
         <div
           style={{
-            padding: 16,
+            padding: '0 24px 16px',
             display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
+            flexDirection: 'column',
+            gap: 4,
             boxSizing: 'border-box',
-            borderWidth: '0px 0px 1px 0px',
-            borderStyle: 'solid',
-            borderColor: 'rgba(0, 16, 32, 0.0627)',
           }}
         >
           {title && (
@@ -112,8 +91,7 @@ export const BubbleDemoCard: React.FC<BubbleDemoCardProps> = ({
         </div>
       )}
 
-      {/* 卡片容器 */}
-      <div className={className}>{children}</div>
+      {children}
 
       {/* 代码示例区域 */}
       {showCodeExample && codeExample && (

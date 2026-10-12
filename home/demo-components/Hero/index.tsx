@@ -32,7 +32,7 @@ const Hero: React.FC = () => {
 
         <TitleContainer>
           <MainTitle>
-            <RollingText text={messages.hero.title}></RollingText>
+            <RollingText text={messages.hero.title} repeat={false} />
           </MainTitle>
         </TitleContainer>
 

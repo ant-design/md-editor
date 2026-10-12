@@ -2,5 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "pnpm run docs:build",
   "installCommand": "pnpm install --frozen-lockfile",
+  "cleanUrls": true,
   "outputDirectory": "doc_build"
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import { useSiteI18n } from '../../../i18n';
 import { CardCarousel } from './CardCarousel';
 import { DesignStrategyIcon } from './DecorativeIcon';
-import { Rotate3DIcon } from './Rotate3DIcon';
 
 // Top Section with Design Strategy Label
 function TopSection() {
@@ -29,8 +28,6 @@ function TopSection() {
           {messages.common.designStrategy}
         </span>
       </div>
-      {/* Rotate Icon */}
-      <Rotate3DIcon size={24} color="rgba(80, 92, 113, 0.35)" />
     </div>
   );
 }

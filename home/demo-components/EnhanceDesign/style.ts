@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 export const SectionWrapper = styled.section`
   width: 100%;
-  padding: 0 0 100px;
+  padding: var(--home-section-space, 96px) 0;
   position: relative;
 `;
 
@@ -27,7 +27,7 @@ export const TopVectorIcon = styled.div`
 `;
 
 export const Container = styled.div`
-  min-width: 1054px;
+  min-width: 0;
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
@@ -38,6 +38,12 @@ export const SectionHeader = styled.div`
   text-align: center;
   position: relative;
   z-index: 0;
+  padding-inline: 24px;
+
+  > img {
+    display: block;
+    margin: 0 auto 16px;
+  }
 `;
 
 export const SectionTitle = styled.div`
@@ -47,33 +53,41 @@ export const SectionTitle = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  margin-top: 100px;
+  margin-bottom: 12px;
 `;
 
 export const SectionSubtitle = styled.div`
-  font-size: 24px;
+  font-size: var(--home-section-title-size, 48px);
+  font-weight: 600;
   color: #666;
-  line-height: 36px;
+  line-height: 1.4;
   text-align: center;
-  margin-bottom: 44px;
+  margin-bottom: 32px;
 `;
 
 export const TabsContainer = styled.div`
-  margin-bottom: 67px;
+  margin-bottom: 32px;
   display: flex;
   width: 100%;
   border-radius: 8px;
-  overflow: visible; /* 改为 visible，让向上延伸的线可见 */
+  overflow-x: auto;
+  scrollbar-width: thin;
+  overscroll-behavior-x: contain;
   background: #fff;
   position: relative;
   z-index: 1; /* 确保 tab 内容在分隔线之上 */
 `;
 
-export const CustomTab = styled.div<{ $active?: boolean }>`
-  flex: 1;
-  padding: 20px;
+export const CustomTab = styled.button<{ $active?: boolean }>`
+  flex: 1 0 160px;
+  padding: 16px 12px;
+  min-height: 88px;
+  font: inherit;
+  color: inherit;
+  border: 0;
   cursor: pointer;
-  transition: all 0.3s;
+  touch-action: manipulation;
+  transition: background-color 160ms ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,23 +104,29 @@ export const CustomTab = styled.div<{ $active?: boolean }>`
     border-right: none;
   }
 
-  /* 除了最后一个 tab，其他 tab 右侧添加向上延伸的分隔线 */
-  &:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    bottom: 100%; /* 从 tab 顶部开始 */
-    right: -1px; /* 对齐到 border-right 的位置 */
-    width: 1px;
-    height: 260px; /* 延伸到 SectionHeader 的 margin-bottom 位置 */
-    background: rgba(44, 62, 93, 0.07);
-    z-index: 0;
-    pointer-events: none; /* 不阻挡点击，不占据高度 */
+  &:focus-visible {
+    outline: 2px solid #3066fd;
+    outline-offset: -4px;
   }
 
   &:hover {
     background: ${(props) =>
       props.$active ? '#343a45' : 'rgba(44, 62, 93, 0.07)'};
   }
+`;
+
+export const TabPanel = styled.div`
+  min-height: 700px;
+`;
+
+export const TabLoading = styled.div`
+  min-height: 700px;
+  display: grid;
+  place-items: center;
+  color: #666;
+  background: rgba(0, 28, 57, 0.03);
+  border-radius: 16px;
+  margin-inline: clamp(16px, 4vw, 64px);
 `;
 
 export const TabTitle = styled.div<{ $active?: boolean }>`
@@ -116,7 +136,7 @@ export const TabTitle = styled.div<{ $active?: boolean }>`
   font-weight: 600;
   line-height: normal;
   color: ${(props) => (props.$active ? '#fff' : '#343a45')};
-  transition: color 0.3s;
+  transition: color 160ms ease;
 `;
 
 export const TabDescription = styled.div<{ $active?: boolean }>`
@@ -126,17 +146,17 @@ export const TabDescription = styled.div<{ $active?: boolean }>`
   font-weight: 400;
   line-height: normal;
   color: ${(props) => (props.$active ? '#fff' : '#666')};
-  transition: color 0.3s;
+  transition: color 160ms ease;
 `;
 
 export const PreviewContainer = styled.div`
   border-radius: 16px 16px 0 0;
   padding: 12px 12px 0 12px;
-  margin: 0 67px;
+  margin: 0 clamp(16px, 4vw, 64px);
   height: 700px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-radius: 16px 16px 0 0;
+  grid-template-rows: auto minmax(0, 1fr);
   background: rgba(0, 28, 57, 0.03);
 
   /* 描边/控件-base */
@@ -245,6 +265,11 @@ export const ContentWrapper = styled.div`
   > * {
     height: 100%;
     min-height: 0;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 180px minmax(0, 1fr);
   }
 `;
 

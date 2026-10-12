@@ -17,8 +17,8 @@ const ExpansionCircle = styled.div`
   z-index: 1; /* 在背景之上，但在内容之下 */
   transform: translate(-50%, -50%) scale(1);
   transition:
-    transform 600ms cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 300ms;
+    transform 280ms cubic-bezier(0.2, 0, 0, 1),
+    opacity 180ms;
   pointer-events: none;
 `;
 
@@ -28,7 +28,9 @@ const ContentDefault = styled.div`
   display: flex;
   align-items: center;
   gap: 0;
-  transition: all 400ms ease;
+  transition:
+    transform 200ms ease,
+    opacity 180ms ease;
 `;
 
 const HoverContent = styled.div`
@@ -46,7 +48,9 @@ const HoverContent = styled.div`
   z-index: 5; /* 确保在最顶层 */
   opacity: 0;
   transform: translateX(-20px);
-  transition: all 400ms ease;
+  transition:
+    transform 200ms ease,
+    opacity 180ms ease;
   pointer-events: none;
 `;
 
@@ -60,35 +64,65 @@ const StyledButton = styled.button`
   border-radius: 200px;
   border: 1px solid rgba(0, 16, 32, 0.06);
   corner-shape: squircle;
-  cursor: default;
+  cursor: pointer;
+  touch-action: manipulation;
   overflow: hidden;
-  outline: none;
   transition:
     background-color 0.2s,
     transform 200ms;
 
-  &:hover {
-    background: #1f2128;
-    cursor: pointer;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: #1f2128;
 
-    ${ExpansionCircle} {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(500); /* 覆盖整个按钮 */
-    }
+      ${ExpansionCircle} {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(500); /* 覆盖整个按钮 */
+      }
 
-    ${ContentDefault} {
-      opacity: 0;
-      transform: translateX(30px);
-    }
+      ${ContentDefault} {
+        opacity: 0;
+        transform: translateX(30px);
+      }
 
-    ${HoverContent} {
-      opacity: 1;
-      transform: translateX(0);
+      ${HoverContent} {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
   }
 
+  &:focus-visible {
+    outline: 2px solid #3066fd;
+    outline-offset: 4px;
+  }
+
   &:active {
-    transform: scale(0.96);
+    transform: scale(0.98);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &,
+    ${ExpansionCircle}, ${ContentDefault}, ${HoverContent} {
+      transition: none;
+    }
+
+    ${ExpansionCircle} {
+      display: none;
+    }
+
+    &:hover ${ContentDefault} {
+      opacity: 1;
+      transform: none;
+    }
+
+    &:hover ${HoverContent} {
+      opacity: 0;
+    }
+
+    &:active {
+      transform: none;
+    }
   }
 `;
 
@@ -101,7 +135,7 @@ const StartButtonComponent = ({
 }) => {
   // 视觉过渡完全由 CSS :hover 驱动；点击不设 hover 门槛，保证触屏与合成点击可用
   return (
-    <StyledButton onClick={onClick}>
+    <StyledButton type="button" onClick={onClick} aria-label={text}>
       {/* 1. 扩张圆：初始隐藏，不占位，z-index 为 1 */}
       <ExpansionCircle />
 
@@ -109,7 +143,7 @@ const StartButtonComponent = ({
       <ContentDefault>
         <img
           src={StartStar}
-          alt="startStar"
+          alt=""
           style={{ width: '24px', height: '23.148px', flexShrink: 0 }}
         />
         <span
@@ -149,7 +183,7 @@ const StartButtonComponent = ({
       </ContentDefault>
 
       {/* 3. 悬浮层：包含黑字和箭头，z-index 为 5 */}
-      <HoverContent>
+      <HoverContent aria-hidden="true">
         <span style={{ fontWeight: 700, fontSize: '16px' }}>{text}</span>
         <svg
           width="20"

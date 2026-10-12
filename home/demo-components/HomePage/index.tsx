@@ -25,21 +25,21 @@ const HomePage: React.FC = () => {
         >
           <DeferredSection
             load={loadSupportDesign}
-            minHeight={1878}
+            minHeight={1800}
             name="support"
           />
         </SectionWithBorders>
         <SectionWithBorders data-section-with-borders>
           <DeferredSection
             load={loadEnhanceDesign}
-            minHeight={1237}
+            minHeight={1200}
             name="enhance"
           />
         </SectionWithBorders>
         <SectionWithDividers>
           <DeferredSection
             load={loadShowroom}
-            minHeight={788}
+            minHeight={720}
             name="showroom"
           />
         </SectionWithDividers>

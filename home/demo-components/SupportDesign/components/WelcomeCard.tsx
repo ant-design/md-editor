@@ -7,7 +7,7 @@ const WelcomeCard: React.FC = () => {
   const { messages } = useSiteI18n();
 
   return (
-    <SmallCard $hasDotPattern={true} hasRightBorder={true}>
+    <SmallCard $hasDotPattern={true} $hasRightBorder={true}>
       <CardTitle>{messages.support.welcome.title}</CardTitle>
       <CardDescription>{messages.support.welcome.description}</CardDescription>
       <div

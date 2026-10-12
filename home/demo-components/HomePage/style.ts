@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const PageWrapper = styled.div`
+  --home-section-space: clamp(64px, 7vw, 112px);
+  --home-section-title-size: clamp(30px, 4vw, 48px);
   width: 100%;
   min-height: 100vh;
   background: #fff;
@@ -8,6 +10,26 @@ export const PageWrapper = styled.div`
 
   [data-prefers-color='dark'] & {
     background: #0a0c10;
+  }
+`;
+
+export const SectionLoading = styled.div`
+  padding: var(--home-section-space, 96px) 24px;
+  color: #666;
+  text-align: center;
+
+  button {
+    padding: 10px 20px;
+    min-height: 44px;
+    border: 1px solid #d8dce2;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid #3066fd;
+      outline-offset: 2px;
+    }
   }
 `;
 
@@ -22,7 +44,7 @@ export const SectionWithDividers = styled.div`
   &::before {
     content: '';
     position: absolute;
-    left: 240px;
+    left: max(24px, calc((100% - 1248px) / 2));
     top: 0;
     bottom: 0;
     width: 1px;
@@ -34,7 +56,7 @@ export const SectionWithDividers = styled.div`
   &::after {
     content: '';
     position: absolute;
-    right: 240px;
+    right: max(24px, calc((100% - 1248px) / 2));
     top: 0;
     bottom: 0;
     width: 1px;
@@ -71,9 +93,9 @@ export const SectionWithBorders = styled.div<{ $backgroundColor?: string }>`
     transform: translateX(-50%);
     top: 0;
     bottom: 0;
-    min-width: 1056px;
-    max-width: 1440px;
+    min-width: 0;
     width: calc(var(--scrollable-content-width, 100%) - 32px);
+    max-width: min(1440px, calc(100% - 32px));
     border-left: 1px solid rgba(44, 62, 93, 0.07);
     border-right: 1px solid rgba(44, 62, 93, 0.07);
     pointer-events: none;

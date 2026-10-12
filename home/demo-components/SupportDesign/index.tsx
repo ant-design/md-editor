@@ -78,18 +78,14 @@ const SupportDesign: React.FC = () => {
           <SectionHeader>
             <SectionTitle>{messages.support.sectionTitle}</SectionTitle>
             <SectionSubtitle>
-              <span
-                style={{ fontSize: '48px', fontWeight: 600, color: '#000' }}
-              >
+              <span style={{ color: '#000' }}>
                 {messages.support.subtitlePrefix}
               </span>
               <span
                 style={{
                   fontFamily: 'PingFang SC',
-                  fontSize: '48px',
                   fontStyle: 'normal',
                   fontWeight: 600,
-                  lineHeight: '67px',
                   marginLeft: '12px',
                   background:
                     'linear-gradient(94deg, #000 4%, #3066FD 66%, #5666EE 100%)',

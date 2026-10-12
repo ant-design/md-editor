@@ -1,50 +1,33 @@
+import { motion } from 'framer-motion';
 import { styled } from 'styled-components';
 
 export const CarouselContainer = styled.div`
   position: relative;
-  min-height: 200vh; /* 给 sticky 足够的滚动空间 */
+  --carousel-card-height: 660px;
   background: white;
-  // scroll-snap-align: start;
-  // scroll-snap-stop: always;
-  padding-top: 48px;
+  padding-block: 32px 48px;
+  overflow: hidden;
+
+  @media (max-width: 767px) {
+    padding-block: 24px 32px;
+  }
 `;
 
 export const StickyContainer = styled.div`
-  position: sticky;
-  top: 48px; /* Header 高度 */
+  position: relative;
   width: 100%;
-  height: calc(100vh - 72px); /* 减去 header 高度 */
-  min-height: 800px; /* 确保最小高度，避免内容被压缩 */
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 16px;
   background: rgba(249, 250, 251, 0.3);
   /* 确保整个容器在分隔线之上 */
   z-index: 10;
   isolation: isolate;
-
-  /* 当视口高度不够时，使用 flex-start 对齐并添加 padding-top */
-  @media (max-height: 900px) {
-    justify-content: flex-start;
-    padding-top: calc(48px + 32px); /* NavigationMenu top + 间距 */
-    align-items: center;
-  }
-
-  @media (min-width: 768px) {
-    min-height: 1000px; /* 桌面端更大的最小高度 */
-
-    @media (max-height: 1100px) {
-      justify-content: flex-start;
-      padding-top: calc(48px + 32px);
-    }
-  }
 `;
 
 export const NavigationMenu = styled.div`
-  position: absolute;
-  top: 48px;
+  position: relative;
   z-index: 110;
   width: 100%;
   max-width: 1280px;
@@ -70,6 +53,8 @@ export const NavButton = styled.button<{ $isActive: boolean }>`
   border: none;
   background: transparent;
   cursor: pointer;
+  touch-action: manipulation;
+  min-height: 44px;
 
   @media (min-width: 768px) {
     font-size: 17px;
@@ -80,6 +65,16 @@ export const NavButton = styled.button<{ $isActive: boolean }>`
 
   &:hover {
     color: ${(props) => (props.$isActive ? '#14161C' : '#343a45')};
+  }
+
+  &:focus-visible {
+    outline: 2px solid #2876ff;
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 767px) {
+    padding-inline: 12px;
+    font-size: 14px;
   }
 `;
 
@@ -94,7 +89,7 @@ export const CarouselWheelContainer = styled.div`
   position: relative;
   width: 100%;
   /* 固定高度，基于卡片高度 + 一些额外空间 */
-  height: 660px;
+  height: calc(var(--carousel-card-height) + 80px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -104,24 +99,19 @@ export const CarouselWheelContainer = styled.div`
   isolation: isolate;
 `;
 
-export const CardMotionContainer = styled.div`
+export const CardMotionContainer = styled(motion.div)`
   position: absolute;
-  width: 406px;
-  height: 660px;
+  width: min(406px, calc(100vw - 48px));
+  height: var(--carousel-card-height);
   /* 确保卡片有基础 z-index，动态 z-index 会覆盖这个值 */
   z-index: 10;
-
-  @media (min-width: 768px) {
-    width: 406px;
-    height: 660px;
-  }
 `;
 
 export const CardWrapper = styled.div<{ $isActive?: boolean }>`
   width: 100%;
   height: 100%;
   position: relative;
-  cursor: ${(props) => (props.$isActive ? 'pointer' : 'default')};
+  cursor: ${(props) => (props.$isActive ? 'default' : 'pointer')};
   perspective: 1000px;
 
   /* 确保按钮等交互元素可以接收点击事件 */
@@ -134,23 +124,46 @@ export const CardWrapper = styled.div<{ $isActive?: boolean }>`
   }
 `;
 
-export const CardFlipContainer = styled.div<{ $isActive?: boolean }>`
+export const CardFlipContainer = styled.div<{ $flipped?: boolean }>`
   width: 100%;
   height: 100%;
   position: relative;
-  transition: transform 0.7s ease-in-out;
+  transition: transform 0.36s cubic-bezier(0.2, 0.8, 0.2, 1);
   transform-style: preserve-3d;
+  transform: rotateY(${(props) => (props.$flipped ? 180 : 0)}deg);
 
-  /* 只有在 isActive 时才允许翻转 */
-  ${(props) =>
-    props.$isActive
-      ? `
-    /* 当父容器 hover 时翻转 */
-    ${CardWrapper}:hover > & {
-      transform: rotateY(180deg);
-    }
-  `
-      : ''}
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`;
+
+export const FlipButton = styled.button<{ $flipped: boolean }>`
+  position: absolute !important;
+  inset-block-start: 22px;
+  inset-inline-end: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  color: ${(props) => (props.$flipped ? '#343a45' : 'white')};
+  background: ${(props) =>
+    props.$flipped ? 'rgba(80, 92, 113, 0.08)' : 'rgba(255, 255, 255, 0.12)'};
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color 0.16s;
+
+  &:hover {
+    background: ${(props) =>
+      props.$flipped ? 'rgba(80, 92, 113, 0.14)' : 'rgba(255, 255, 255, 0.22)'};
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
 `;
 
 export const BackgroundGradient = styled.div`

@@ -145,6 +145,48 @@ describe('carousel particle animation', () => {
     expect(HTMLCanvasElement.prototype.getContext).toHaveBeenCalledTimes(2);
   });
 
+  it('resumes the revealed frame and cached dots after leaving the viewport', () => {
+    const { container } = renderEffect();
+    act(() => enterViewport(true));
+    drawFrame(1000);
+    const context = contexts.get(container.querySelector('canvas')!)!;
+    act(() => enterViewport(false));
+    act(() => enterViewport(true));
+    drawFrame(16);
+    expect(context.drawImage).toHaveBeenCalledTimes(2);
+    expect(HTMLCanvasElement.prototype.getContext).toHaveBeenCalledTimes(2);
+  });
+
+  it('reuses the canvas and settled reveal when flipping back to the front', () => {
+    const { container, rerender } = renderEffect();
+    act(() => enterViewport(true));
+    drawFrame(1000);
+    const context = contexts.get(container.querySelector('canvas')!)!;
+    rerender(
+      <CardAnimationContext.Provider
+        value={{ frontActive: false, backActive: true }}
+      >
+        <div>
+          <MakeCanvasRevealEffect dotSize={1} animationSpeed={1} />
+        </div>
+      </CardAnimationContext.Provider>,
+    );
+    act(() => vi.advanceTimersByTime(2000));
+    expect(frames.size).toBe(0);
+    rerender(
+      <CardAnimationContext.Provider
+        value={{ frontActive: true, backActive: false }}
+      >
+        <div>
+          <MakeCanvasRevealEffect dotSize={1} animationSpeed={1} />
+        </div>
+      </CardAnimationContext.Provider>,
+    );
+    drawFrame(16);
+    expect(context.drawImage).toHaveBeenCalledTimes(2);
+    expect(HTMLCanvasElement.prototype.getContext).toHaveBeenCalledTimes(2);
+  });
+
   it('stops rendering when the page becomes hidden', () => {
     renderEffect();
     act(() => enterViewport(true));

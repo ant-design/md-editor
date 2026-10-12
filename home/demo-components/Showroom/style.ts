@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 export const SectionWrapper = styled.section`
   width: calc(100% - 32px);
-  height: 100%;
+  padding: 32px 0;
   background: #121319;
   position: relative;
   overflow: hidden;
@@ -11,6 +11,12 @@ export const SectionWrapper = styled.section`
   justify-content: center;
   margin: 0 16px;
   border-radius: 40px;
+
+  @media (max-width: 768px) {
+    width: calc(100% - 24px);
+    margin-inline: 12px;
+    border-radius: 24px;
+  }
 `;
 
 export const Container = styled.div`
@@ -62,17 +68,27 @@ export const ShowroomSubtitle = styled.div`
   margin-top: 100px;
   margin-bottom: 12px;
   letter-spacing: 0.3px;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    margin-top: 72px;
+  }
 `;
 
 export const ShowroomTitle = styled.div`
   text-align: center;
-  margin-bottom: 64px;
+  margin-bottom: 48px;
   color: #fff;
   font-family: 'PingFang SC';
   font-size: 48px;
   font-style: normal;
   font-weight: 600;
-  line-height: 67px; /* 139.583% */
+  line-height: 1.4;
+
+  @media (max-width: 768px) {
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
 `;
 
 export const ShowroomTitleHighlight = styled.span`
@@ -80,52 +96,109 @@ export const ShowroomTitleHighlight = styled.span`
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-left: 12px;
+  margin-inline-start: 12px;
 `;
 
 export const CarouselContainer = styled.div`
+  --showroom-card-width: 500px;
+  --showroom-card-height: 300px;
+  --showroom-card-gap: 64px;
+
   position: relative;
   width: 100%;
-  height: 312px;
+  height: calc(var(--showroom-card-height) + 48px);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: visible;
-  /* 确保内容不会超出父容器 */
   contain: layout;
-`;
-
-export const CarouselCard = styled.div<{
-  $isActive: boolean;
-  $isAnimating?: boolean;
-}>`
-  position: absolute;
-  cursor: pointer;
-  transform-style: preserve-3d;
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
-  transform-origin: center center;
 
   @media (max-width: 768px) {
-    width: 320px;
-    height: 200px;
+    --showroom-card-width: min(500px, calc(100vw - 104px));
+    --showroom-card-height: calc(var(--showroom-card-width) * 0.6);
+    --showroom-card-gap: 20px;
   }
 `;
 
-export const ShowroomCard = styled.div<{ $isActive?: boolean }>`
-  width: 500px;
-  height: 300px;
-  position: relative;
+export const CarouselCard = styled.button`
+  position: absolute;
+  left: 50%;
+  width: var(--showroom-card-width);
+  height: var(--showroom-card-height);
+  padding: 0;
+  border: 0;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: ${(props) =>
-    props.$isActive
-      ? '0 24px 64px rgba(0, 0, 0, 0.4)'
-      : '0 16px 48px rgba(0, 0, 0, 0.25)'};
   background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(8px);
-  transition: all 0.3s ease;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transform-origin: center;
+  transition:
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 240ms ease;
+
+  &[aria-pressed='true'] {
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+  }
+
+  &:focus-visible {
+    outline: 3px solid #7ba0ff;
+    outline-offset: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`;
+
+export const CarouselNavigation = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 8px;
+`;
+
+export const CarouselNavigationButton = styled.button`
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transition:
+      transform 180ms ease,
+      background-color 180ms ease;
+  }
+
+  &[aria-current='true']::after {
+    transform: scale(1.4);
+    background: #fff;
+  }
+
+  &:hover::after {
+    background: #fff;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #7ba0ff;
+    outline-offset: -2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      transition: none;
+    }
+  }
 `;
 
 export const ShowroomCardImage = styled.img`
@@ -143,42 +216,15 @@ export const CornerBracket = styled.div<{
   position: absolute;
   z-index: 11;
   pointer-events: none;
-  /* 固定定位在容器中心，基于激活卡片尺寸 */
-  /* 使用统一的定位逻辑确保完全对称 */
+  width: 26px;
+  height: 26px;
   ${(props) => {
-    // ShowroomCard 实际尺寸：500px宽，300px高
-    // 容器中心位置：50% 50%
-    const cardWidth = 500;
-    const cardHeight = 300;
-    const gap = 24; // 角标与卡片边缘的间隙（像素）
-
-    // 计算卡片四个角的精确位置
-    const cardLeft = `calc(50% - ${cardWidth / 2}px)`;
-    const cardRight = `calc(50% + ${cardWidth / 2}px)`;
-    const cardTop = `calc(50% - ${cardHeight / 2}px)`;
-    const cardBottom = `calc(50% + ${cardHeight / 2}px)`;
-
-    if (props.$position === 'top-left') {
-      return `
-        top: calc(${cardTop} - ${gap}px);
-        left: calc(${cardLeft} - ${gap}px);
-      `;
-    } else if (props.$position === 'top-right') {
-      return `
-        top: calc(${cardTop} - ${gap}px);
-        left: calc(${cardRight} - 26px + ${gap}px);
-      `;
-    } else if (props.$position === 'bottom-left') {
-      return `
-        top: calc(${cardBottom} - 26px + ${gap}px);
-        left: calc(${cardLeft} - ${gap}px);
-      `;
-    } else {
-      return `
-        top: calc(${cardBottom} - 26px + ${gap}px);
-        left: calc(${cardRight} - 26px + ${gap}px);
-      `;
-    }
+    const isTop = props.$position.startsWith('top');
+    const isLeft = props.$position.endsWith('left');
+    return `
+      top: calc(50% ${isTop ? '-' : '+'} var(--showroom-card-height) / 2 ${isTop ? '- 24px' : '- 2px'});
+      left: calc(50% ${isLeft ? '-' : '+'} var(--showroom-card-width) / 2 ${isLeft ? '- 24px' : '- 2px'});
+    `;
   }}
 
   svg {
@@ -196,7 +242,7 @@ export const ComingSoonTitle = styled.div`
   font-weight: 400;
   line-height: normal;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 16px;
 `;
 
 export const ComingSoonText = styled.div`
@@ -208,6 +254,10 @@ export const ComingSoonText = styled.div`
   font-weight: 400;
   line-height: normal;
   text-align: center;
-  margin-bottom: 100px;
   margin-top: 10px;
+  margin-bottom: 40px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 16px;
+  }
 `;

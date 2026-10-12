@@ -1,11 +1,11 @@
 import { Button } from 'antd';
-import React from 'react';
+import React, { useContext } from 'react';
 import designStrategyIcon from '../../../../../assets/design-strategy-icon.png';
 import { COMPONENT_LIBRARY_URL } from '../../../../../constants/links';
 import { useSiteI18n } from '../../../../../i18n';
 import { navigateToSiteUrl } from '../../../../../utils/navigate';
 import { getGradientSvg } from '../../BacksideCard';
-import { Rotate3DIcon } from '../../Rotate3DIcon';
+import { CardAnimationContext } from '../../CardAnimationContext';
 import { FeatureItem } from '../types';
 import { CardBack } from './style';
 
@@ -20,9 +20,10 @@ export const IntroBacksideCard: React.FC<IntroBacksideCardProps> = ({
 }) => {
   const bgImage = getGradientSvg(themeColor);
   const { messages } = useSiteI18n();
+  const { backActive } = useContext(CardAnimationContext);
 
   return (
-    <CardBack $borderColor={themeColor}>
+    <CardBack $borderColor={themeColor} aria-hidden={!backActive}>
       {/* Background gradient */}
       <div
         style={{
@@ -83,7 +84,6 @@ export const IntroBacksideCard: React.FC<IntroBacksideCardProps> = ({
                 {messages.common.designPrinciples}
               </span>
             </div>
-            <Rotate3DIcon size={24} color="#343A45" />
           </div>
 
           {/* Title - Single line */}
@@ -132,6 +132,7 @@ export const IntroBacksideCard: React.FC<IntroBacksideCardProps> = ({
         >
           <Button
             block
+            tabIndex={backActive ? 0 : -1}
             onClick={() => {
               navigateToSiteUrl(COMPONENT_LIBRARY_URL);
             }}

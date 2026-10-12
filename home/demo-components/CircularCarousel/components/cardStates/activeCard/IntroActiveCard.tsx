@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import React from 'react';
+import React, { useContext } from 'react';
 import designStrategyIcon from '../../../../../assets/design-strategy-icon-white.png';
 import { useSiteI18n } from '../../../../../i18n';
-import { Rotate3DIcon } from '../../Rotate3DIcon';
+import { CardAnimationContext } from '../../CardAnimationContext';
 import { FeatureItem, useFeatures } from '../types';
 import * as CardStyles from './introActiveCardStyle';
 import { MakeCanvasRevealEffect } from './make-canvas-reveal-effect';
@@ -24,6 +24,7 @@ export const IntroActiveCard: React.FC<IntroActiveCardProps> = ({
   // Get other features (excluding intro)
   const otherFeatures = useFeatures().filter((f) => f.id !== 'intro');
   const { messages } = useSiteI18n();
+  const { backActive, reducedMotion } = useContext(CardAnimationContext);
 
   // 将 themeColor 从 "r, g, b" 格式转换为 [[r, g, b]] 数组格式
   const colors = React.useMemo(() => {
@@ -33,6 +34,7 @@ export const IntroActiveCard: React.FC<IntroActiveCardProps> = ({
 
   return (
     <CardFront
+      aria-hidden={backActive}
       $isActive={true}
       $bgImage={undefined}
       style={{
@@ -72,9 +74,9 @@ export const IntroActiveCard: React.FC<IntroActiveCardProps> = ({
         {/* Top Section */}
         <motion.div
           key="top-active"
-          initial={{ opacity: 0, y: -20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5, delay: 0.2 }}
+          transition={{ duration: reducedMotion ? 0 : 0.24 }}
           style={CardStyles.topSection}
         >
           <div style={CardStyles.topSectionLeft}>
@@ -87,15 +89,17 @@ export const IntroActiveCard: React.FC<IntroActiveCardProps> = ({
               {messages.common.designPrinciples}
             </span>
           </div>
-          <Rotate3DIcon size={24} color="white" />
         </motion.div>
 
         {/* Title Section */}
         <motion.div
           key="title-active"
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{
+            duration: reducedMotion ? 0 : 0.28,
+            delay: reducedMotion ? 0 : 0.04,
+          }}
           style={CardStyles.titleSection}
         >
           <div style={CardStyles.titleContainer()}>
@@ -115,9 +119,12 @@ export const IntroActiveCard: React.FC<IntroActiveCardProps> = ({
         {/* Bottom Section - Vertically Centered */}
         <motion.div
           key="bottom-active"
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{
+            duration: reducedMotion ? 0 : 0.28,
+            delay: reducedMotion ? 0 : 0.08,
+          }}
           style={{
             ...CardStyles.bottomSection,
             display: 'flex',

@@ -13,14 +13,10 @@
 :root {
   /* demo 容器默认背景（dumi --main-bg-color 等价物） */
   --main-bg-color: #fff;
-  --demo-card-border: #e4e9ec;
-  --demo-card-meta-bg: #fff;
 }
 
 html.dark {
   --main-bg-color: #152833;
-  --demo-card-border: #344c59;
-  --demo-card-meta-bg: #0d1b24;
 }
 
 /* Rspress 用 html.dark；组件库/图表用 data-prefers-color，双向同步 */
@@ -36,15 +32,11 @@ html.dark:not([data-prefers-color]) {
 
 /* ---- DemoCard ---- */
 .demo-card {
-  border: 1px solid var(--demo-card-border);
-  border-radius: 8px;
-  margin-block: 16px;
-  overflow: hidden;
+  margin-block: 24px;
 }
 
 .demo-card__canvas {
-  padding: 16px;
-  transition: background-color 0.3s;
+  min-width: 0;
 }
 
 .demo-card__canvas iframe {
@@ -59,9 +51,7 @@ html.dark:not([data-prefers-color]) {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 10px 16px;
-  border-block-start: 1px solid var(--demo-card-border);
-  background: var(--demo-card-meta-bg);
+  padding-block: 12px;
 }
 
 .demo-card__desc h5 {
@@ -81,24 +71,31 @@ html.dark:not([data-prefers-color]) {
   opacity: 0.72;
 }
 
-.demo-card__actions {
-  flex-shrink: 0;
-}
-
 .demo-card__action {
-  border: 1px solid var(--demo-card-border);
-  background: transparent;
-  border-radius: 6px;
-  padding: 4px 10px;
+  flex-shrink: 0;
+  margin-inline-start: auto;
+  border: 0;
+  background: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font: inherit;
   font-size: 13px;
   cursor: pointer;
   color: inherit;
 }
 
 .demo-card__source {
-  padding: 12px 16px;
+  padding-block: 12px;
   font-size: 13px;
-  border-block-start: 1px dashed var(--demo-card-border);
+}
+
+.demo-card__action:hover {
+  color: var(--rp-c-brand);
+}
+
+.demo-card__action:focus-visible {
+  outline: 2px solid var(--rp-c-brand);
+  outline-offset: 2px;
 }
 
 /* ---- standalone demo 容器页（/~demos/<id>）：文档站共享 globalStyles ---- */

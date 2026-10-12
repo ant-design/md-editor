@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSiteI18n } from '../../i18n';
+import { SectionLoading } from './style';
 
 interface DeferredSectionProps {
   load: () => Promise<{ default: React.ComponentType }>;
@@ -36,7 +37,7 @@ const DeferredSection: React.FC<DeferredSectionProps> = ({
           observer.disconnect();
         }
       },
-      { rootMargin: '400px 0px' },
+      { rootMargin: '160px 0px' },
     );
     observer.observe(element);
     return () => observer.disconnect();
@@ -63,14 +64,24 @@ const DeferredSection: React.FC<DeferredSectionProps> = ({
     <div
       ref={containerRef}
       data-home-section={name}
+      aria-busy={isNearViewport && !Component && !hasError}
       style={{ width: '100%', minHeight: Component ? undefined : minHeight }}
     >
       {Component ? (
         <Component />
       ) : hasError ? (
-        <button type="button" onClick={() => setAttempt((value) => value + 1)}>
-          {locale === 'zh-CN' ? '重新加载' : 'Retry loading'}
-        </button>
+        <SectionLoading>
+          <button
+            type="button"
+            onClick={() => setAttempt((value) => value + 1)}
+          >
+            {locale === 'zh-CN' ? '重新加载' : 'Retry loading'}
+          </button>
+        </SectionLoading>
+      ) : isNearViewport ? (
+        <SectionLoading role="status">
+          {locale === 'zh-CN' ? '正在加载演示…' : 'Loading demo…'}
+        </SectionLoading>
       ) : null}
     </div>
   );
