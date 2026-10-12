@@ -9,6 +9,10 @@ group:
 
 # Changelog
 
+## v2.33.1
+
+- 🛠 显式添加 `@types/node` 为 devDependency，修复 `father build` 生成声明文件时 `process` / `NodeJS.Timeout` 类型缺失导致的构建失败。
+
 ## v2.33.0
 
 - MarkdownInputField
