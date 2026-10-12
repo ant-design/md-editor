@@ -110,21 +110,28 @@ export const useComposerDraft = (options: UseComposerDraftOptions) => {
     }
   }, []);
 
-  const commit = useCallback(
-    (reason: DraftCommitReason) => {
-      if (!enabled || !draftKey) return;
+  const commitForKey = useCallback(
+    (key: string, reason: DraftCommitReason) => {
       const value = readCurrentMd();
       const handled = commitRef.current?.(value, reason);
       // 宿主返回 false 表示自行接管持久化
       if (handled !== false) {
         writeDraft(
           resolvedStorage,
-          buildStorageKey(storageKeyPrefix, draftKey),
+          buildStorageKey(storageKeyPrefix, key),
           value,
         );
       }
     },
-    [enabled, draftKey, readCurrentMd, resolvedStorage, storageKeyPrefix],
+    [readCurrentMd, resolvedStorage, storageKeyPrefix],
+  );
+
+  const commit = useCallback(
+    (reason: DraftCommitReason) => {
+      if (!enabled || !draftKey) return;
+      commitForKey(draftKey, reason);
+    },
+    [commitForKey, draftKey, enabled],
   );
 
   // idle 自动 commit：以「提交节流」实现，输入期间每帧重置
@@ -157,8 +164,8 @@ export const useComposerDraft = (options: UseComposerDraftOptions) => {
     prevKeyRef.current = draftKey;
 
     if (prevKey && prevKey !== draftKey) {
-      // 先把旧 key 的内容落盘（用当前编辑器内容，unmount 场景下也是新值）
-      commit('switch');
+      // draftKey 已经是新值，必须显式写回 prevKey，避免覆盖新会话草稿。
+      commitForKey(prevKey, 'switch');
     }
 
     // 恢复新 key 的草稿
@@ -175,7 +182,7 @@ export const useComposerDraft = (options: UseComposerDraftOptions) => {
         }
       }
     }
-    // 仅在 draftKey 变化时执行；commit 内部依赖经 ref 桥接保持最新
+    // 仅在 draftKey 变化时执行；回调与 editor 经 ref 桥接保持最新。
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [draftKey, enabled]);
 

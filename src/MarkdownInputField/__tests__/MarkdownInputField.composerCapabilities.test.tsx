@@ -161,6 +161,39 @@ describe('MarkdownInputField 草稿恢复（draft）', () => {
     });
   });
 
+  it('draftKey 切换时保存旧 key 且不覆盖新 key 的草稿', () => {
+    localStorage.setItem(
+      'agentic-ui-composer-draft:session-new',
+      '新会话草稿',
+    );
+    const getMDContent = vi
+      .fn()
+      .mockReturnValueOnce('旧会话草稿')
+      .mockReturnValue('');
+    const setMDContent = vi.fn();
+    const mdRef = {
+      current: {
+        store: { getMDContent, setMDContent },
+      },
+    } as any;
+
+    const { rerender } = renderHook(
+      ({ draftKey }) =>
+        useComposerDraft({ draftKey, markdownEditorRef: mdRef }),
+      { initialProps: { draftKey: 'session-old' } },
+    );
+
+    rerender({ draftKey: 'session-new' });
+
+    expect(
+      localStorage.getItem('agentic-ui-composer-draft:session-old'),
+    ).toBe('旧会话草稿');
+    expect(
+      localStorage.getItem('agentic-ui-composer-draft:session-new'),
+    ).toBe('新会话草稿');
+    expect(setMDContent).toHaveBeenCalledWith('新会话草稿');
+  });
+
   it('宿主 onDraftCommit 返回 false 时不写 localStorage', async () => {
     const { container } = render(
       <ControlledField
