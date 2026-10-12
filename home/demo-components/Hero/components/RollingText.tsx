@@ -2,11 +2,19 @@
 
 import {
   motion,
+  useAnimationControls,
   useInView,
   type Transition,
   type UseInViewOptions,
 } from 'framer-motion';
 import * as React from 'react';
+import { useAnimationVisibility } from '../../../hooks/useAnimationVisibility';
+
+const DEFAULT_TRANSITION: Transition = {
+  duration: 0.5,
+  delay: 0.1,
+  ease: 'easeOut',
+};
 
 const ENTRY_ANIMATION = {
   initial: { rotateX: 0 },
@@ -47,7 +55,7 @@ export type RollingTextProps = Omit<
 const RollingText = React.forwardRef<HTMLSpanElement, RollingTextProps>(
   (
     {
-      transition = { duration: 0.5, delay: 0.1, ease: 'easeOut' },
+      transition = DEFAULT_TRANSITION,
       inView = false,
       inViewMargin = '0px',
       inViewOnce = true,
@@ -58,6 +66,9 @@ const RollingText = React.forwardRef<HTMLSpanElement, RollingTextProps>(
     ref,
   ) => {
     const localRef = React.useRef<HTMLSpanElement>(null);
+    const entryControls = useAnimationControls();
+    const exitControls = useAnimationControls();
+    const { isVisible, reducedMotion } = useAnimationVisibility(localRef);
 
     // 合并外部 ref 和内部 ref
     React.useImperativeHandle(ref, () => localRef.current!);
@@ -68,39 +79,50 @@ const RollingText = React.forwardRef<HTMLSpanElement, RollingTextProps>(
     });
     const isInView = !inView || inViewResult;
 
-    const characters = React.useMemo(() => text.split(''), [text]);
+    const characters = React.useMemo(() => Array.from(text), [text]);
+    const shouldAnimate = isInView && isVisible && !reducedMotion;
 
-    // 循环控制：使用 key 来强制重新渲染动画
-    const [animationKey, setAnimationKey] = React.useState(0);
-
-    // 计算动画总时长（最后一个字符的 exit 动画完成时间）
-    const transitionDuration =
-      typeof transition === 'object' && 'duration' in transition
-        ? transition.duration
-        : 0.5;
-    const transitionDelay =
-      typeof transition === 'object' && 'delay' in transition
-        ? transition.delay
-        : 0.1;
-    const totalDuration =
-      transitionDuration +
-      (characters.length - 1) * (transitionDelay ?? 0.1) +
-      0.3 + // exit delay
-      transitionDuration; // exit duration
-
-    // 动画完成后重新播放
+    // Replay the existing nodes instead of remounting every character each cycle.
     React.useEffect(() => {
-      if (!isInView) return;
+      if (!shouldAnimate || !characters.length) return;
+      let cancelled = false;
+      let timer: ReturnType<typeof setTimeout>;
+      const duration =
+        'duration' in transition ? (transition.duration ?? 0.5) : 0.5;
+      const stagger = transition.delay ?? 0.1;
 
-      const timer = setTimeout(
-        () => {
-          setAnimationKey((prev) => prev + 1);
-        },
-        totalDuration * 1000 + 500,
-      ); // 动画总时长 + 500ms 等待
+      const runCycle = async () => {
+        entryControls.set(ENTRY_ANIMATION.initial);
+        exitControls.set({ ...EXIT_ANIMATION.initial, opacity: 1, y: '1px' });
+        await Promise.all([
+          entryControls.start((index: number) => ({
+            ...ENTRY_ANIMATION.animate,
+            transition: { ...transition, delay: index * stagger },
+          })),
+          exitControls.start((index: number) => ({
+            ...EXIT_ANIMATION.animate,
+            transition: { ...transition, delay: index * stagger + 0.3 },
+          })),
+        ]);
+        if (!cancelled) timer = setTimeout(runCycle, duration * 1000 + 500);
+      };
+      void runCycle();
 
-      return () => clearTimeout(timer);
-    }, [isInView, animationKey, totalDuration]); // 当 animationKey 更新时，重新启动定时器
+      return () => {
+        cancelled = true;
+        clearTimeout(timer);
+        entryControls.stop();
+        exitControls.stop();
+      };
+    }, [characters, entryControls, exitControls, shouldAnimate, transition]);
+
+    if (reducedMotion) {
+      return (
+        <span ref={localRef} data-slot="rolling-text" style={style} {...props}>
+          {text}
+        </span>
+      );
+    }
 
     return (
       <span
@@ -115,7 +137,7 @@ const RollingText = React.forwardRef<HTMLSpanElement, RollingTextProps>(
       >
         {characters.map((char, idx) => (
           <span
-            key={`${animationKey}-${idx}`}
+            key={idx}
             aria-hidden="true"
             style={{
               position: 'relative',
@@ -130,7 +152,7 @@ const RollingText = React.forwardRef<HTMLSpanElement, RollingTextProps>(
           >
             {/* 第一层文字 */}
             <motion.span
-              key={`entry-${animationKey}-${idx}`}
+              custom={idx}
               style={{
                 position: 'absolute',
                 top: 0,
@@ -144,18 +166,14 @@ const RollingText = React.forwardRef<HTMLSpanElement, RollingTextProps>(
                 lineHeight: '1em',
               }}
               initial={ENTRY_ANIMATION.initial}
-              animate={isInView ? ENTRY_ANIMATION.animate : undefined}
-              transition={{
-                ...transition,
-                delay: idx * (transition?.delay ?? 0.1),
-              }}
+              animate={entryControls}
             >
               {formatCharacter(char)}
             </motion.span>
 
             {/* 第二层文字 */}
             <motion.span
-              key={`exit-${animationKey}-${idx}`}
+              custom={idx}
               style={{
                 position: 'absolute',
                 top: 0,
@@ -169,15 +187,7 @@ const RollingText = React.forwardRef<HTMLSpanElement, RollingTextProps>(
                 lineHeight: '1em',
               }}
               initial={{ ...EXIT_ANIMATION.initial, y: '1px' }}
-              animate={
-                isInView
-                  ? { ...EXIT_ANIMATION.animate, opacity: 1 }
-                  : { ...EXIT_ANIMATION.initial, opacity: 0 }
-              }
-              transition={{
-                ...transition,
-                delay: idx * (transition?.delay ?? 0.1) + 0.3,
-              }}
+              animate={exitControls}
             >
               {formatCharacter(char)}
             </motion.span>

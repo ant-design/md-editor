@@ -1,6 +1,7 @@
 import { motion, useTransform } from 'framer-motion';
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { CardFlipContainer, CardMotionContainer, CardWrapper } from '../style';
+import { CardAnimationContext } from './CardAnimationContext';
 import { ActiveCard, BacksideCardState, InactiveCard } from './cardStates';
 import { CornerMarks } from './cardStates/CornerMarks';
 import { FeatureItem } from './cardStates/types';
@@ -24,6 +25,18 @@ export const CarouselCard: React.FC<CarouselCardProps> = ({
   onCardClick,
   themeColor,
 }) => {
+  const [hovered, setHovered] = useState(false);
+  const [backsideMounted, setBacksideMounted] = useState(false);
+  const backActive = isActive && hovered;
+  const animationState = useMemo(
+    () => ({ frontActive: isActive && !hovered, backActive }),
+    [isActive, hovered, backActive],
+  );
+
+  useEffect(() => {
+    if (backActive) setBacksideMounted(true);
+  }, [backActive]);
+
   // Calculate relative position based on the smooth index
   const relativeIndex = useTransform(smoothIndex, (v: number) => index - v);
 
@@ -74,27 +87,35 @@ export const CarouselCard: React.FC<CarouselCardProps> = ({
       }}
     >
       {/* 3D Perspective Container */}
-      <CardWrapper $isActive={isActive}>
-        {/* Flipping Container */}
-        <CardFlipContainer $isActive={isActive} style={{}}>
-          {/* Corner Plus Marks - Now inside flip container to flip with card */}
-          <CornerMarks />
+      <CardWrapper
+        $isActive={isActive}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <CardAnimationContext.Provider value={animationState}>
+          {/* Flipping Container */}
+          <CardFlipContainer $isActive={isActive} style={{}}>
+            {/* Corner Plus Marks - Now inside flip container to flip with card */}
+            <CornerMarks />
 
-          {/* Front Face - Render different state based on isActive */}
-          {isActive ? (
-            <ActiveCard
-              feature={feature}
-              index={index}
-              smoothIndex={smoothIndex}
-              themeColor={themeColor}
-            />
-          ) : (
-            <InactiveCard feature={feature} themeColor={themeColor} />
-          )}
+            {/* Front Face - Render different state based on isActive */}
+            {isActive ? (
+              <ActiveCard
+                feature={feature}
+                index={index}
+                smoothIndex={smoothIndex}
+                themeColor={themeColor}
+              />
+            ) : (
+              <InactiveCard feature={feature} themeColor={themeColor} />
+            )}
 
-          {/* Back Face */}
-          <BacksideCardState feature={feature} themeColor={themeColor} />
-        </CardFlipContainer>
+            {/* Back Face */}
+            {(backsideMounted || backActive) && (
+              <BacksideCardState feature={feature} themeColor={themeColor} />
+            )}
+          </CardFlipContainer>
+        </CardAnimationContext.Provider>
       </CardWrapper>
     </CardMotionContainer>
   );

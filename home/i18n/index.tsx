@@ -14,12 +14,12 @@ export type { SiteLocale, SiteMessages };
 
 const STORAGE_KEY = 'agentic-ui-site-language';
 
-type SiteLanguageContextValue = {
+interface SiteLanguageContextValue {
   locale: SiteLocale;
   messages: SiteMessages;
   setLocale: (locale: SiteLocale) => void;
   toggleLocale: () => void;
-};
+}
 
 const SiteLanguageContext = createContext<SiteLanguageContextValue>({
   locale: 'zh-CN',
@@ -32,7 +32,12 @@ const SiteLanguageContext = createContext<SiteLanguageContextValue>({
 const detectInitialLocale = (): SiteLocale => {
   if (typeof window === 'undefined') return 'zh-CN';
 
-  const saved = window.localStorage.getItem(STORAGE_KEY);
+  let saved: string | null = null;
+  try {
+    saved = window.localStorage.getItem(STORAGE_KEY);
+  } catch {
+    // 存储不可用时仍可按浏览器语言展示首页。
+  }
   if (saved === 'zh-CN' || saved === 'en-US') return saved;
 
   const browserLang = window.navigator.language?.toLowerCase() ?? 'zh';
@@ -42,7 +47,12 @@ const detectInitialLocale = (): SiteLocale => {
 export const SiteLanguageProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const [locale, setLocaleState] = useState<SiteLocale>(detectInitialLocale);
+  // 首次客户端渲染与 SSG 保持一致，避免语言偏好触发整页 hydration 重建。
+  const [locale, setLocaleState] = useState<SiteLocale>('zh-CN');
+
+  useEffect(() => {
+    setLocaleState(detectInitialLocale());
+  }, []);
 
   // 语言切换时同步 <html lang>，便于读屏与 SEO
   useEffect(() => {
@@ -51,7 +61,11 @@ export const SiteLanguageProvider: React.FC<{
 
   const setLocale = useCallback((next: SiteLocale) => {
     setLocaleState(next);
-    window.localStorage.setItem(STORAGE_KEY, next);
+    try {
+      window.localStorage.setItem(STORAGE_KEY, next);
+    } catch {
+      // 当前会话的语言切换不依赖存储权限。
+    }
   }, []);
 
   const toggleLocale = useCallback(() => {

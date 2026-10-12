@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useAnimationVisibility } from '../../hooks/useAnimationVisibility';
 import { useSiteI18n } from '../../i18n';
-import { navigateToSiteUrl } from '../../utils/navigate';
 import LinkIcon from '../../icons/link.svg';
+import { navigateToSiteUrl } from '../../utils/navigate';
 import BoltIconSelected from './icons/bolt.png';
 import BoltIcon from './icons/bolt.svg';
 import ChartIconSelected from './icons/chart.png';
@@ -50,6 +51,8 @@ const AIChatbot: React.FC = () => {
   const { messages } = useSiteI18n();
   const [selectedDressing, setSelectedDressing] = useState(7); // 放大镜选项
   const [selectedSkin, setSelectedSkin] = useState(1); // 紫色皮肤选项
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { isVisible, reducedMotion } = useAnimationVisibility(containerRef);
 
   // 个性装扮选项（10个）
   const dressingOptions = [
@@ -137,6 +140,7 @@ const AIChatbot: React.FC = () => {
 
   return (
     <div
+      ref={containerRef}
       style={{
         padding: '0 16px',
         minWidth: '1088px',
@@ -185,7 +189,12 @@ const AIChatbot: React.FC = () => {
                 alignItems: 'center',
               }}
             >
-              <RobotTopContainer>
+              <RobotTopContainer
+                style={{
+                  animationPlayState:
+                    isVisible && !reducedMotion ? 'running' : 'paused',
+                }}
+              >
                 {/* Part1 + Part2 组合显示 */}
                 <div
                   style={{

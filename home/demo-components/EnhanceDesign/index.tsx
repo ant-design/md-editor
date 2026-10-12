@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { useSiteI18n } from '../../i18n';
 import VectorIcon from '../../icons/vector.svg';
-import { CanvasTab, CardTab, MarkdownTab, SchemaTab } from './components';
+import LocaleBridge from '../HomePage/LocaleBridge';
 import {
   Container,
   CustomTab,
@@ -11,14 +11,19 @@ import {
   SectionTitle,
   SectionWrapper,
   TabDescription,
-  TabTitle,
   TabsContainer,
+  TabTitle,
 } from './style';
+
+const CanvasTab = lazy(() => import('./components/CanvasTab'));
+const CardTab = lazy(() => import('./components/CardTab'));
+const MarkdownTab = lazy(() => import('./components/MarkdownTab'));
+const SchemaTab = lazy(() => import('./components/SchemaTab'));
 
 const EnhanceDesign: React.FC = () => {
   const [activeTab, setActiveTab] = useState('schema');
   const containerRef = useRef<HTMLDivElement>(null);
-  const { messages } = useSiteI18n();
+  const { locale, messages } = useSiteI18n();
 
   useEffect(() => {
     const element = containerRef.current;
@@ -49,7 +54,7 @@ const EnhanceDesign: React.FC = () => {
     return () => {
       resizeObserver.disconnect();
     };
-  }, []);
+  }, [locale]);
 
   const tabs = [
     {
@@ -90,68 +95,72 @@ const EnhanceDesign: React.FC = () => {
   };
 
   return (
-    <SectionWrapper>
-      <Container ref={containerRef}>
-        <SectionHeader>
-          <img
-            src={VectorIcon}
-            alt="Vector"
-            style={{ width: '25px', height: '25px' }}
-          />
-          <SectionTitle>
-            <span style={{ backgroundColor: 'white' }}>
-              {messages.enhance.sectionTitle}
-            </span>
-          </SectionTitle>
-          <SectionSubtitle>
-            <span
-              style={{
-                fontSize: '48px',
-                fontWeight: 600,
-                color: '#000',
-                backgroundColor: 'white',
-              }}
-            >
-              {messages.enhance.subtitlePrefix}
-            </span>
-            <span
-              style={{
-                fontFamily: 'PingFang SC',
-                fontSize: '48px',
-                fontStyle: 'normal',
-                fontWeight: 600,
-                lineHeight: '67px',
-                marginLeft: '12px',
-                background:
-                  'linear-gradient(94deg, #000 4%, #3066FD 66%, #5666EE 100%)',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
-              }}
-            >
-              {messages.enhance.subtitleSuffix}
-            </span>
-          </SectionSubtitle>
-        </SectionHeader>
+    <LocaleBridge>
+      <SectionWrapper>
+        <Container ref={containerRef}>
+          <SectionHeader>
+            <img
+              src={VectorIcon}
+              alt="Vector"
+              style={{ width: '25px', height: '25px' }}
+            />
+            <SectionTitle>
+              <span style={{ backgroundColor: 'white' }}>
+                {messages.enhance.sectionTitle}
+              </span>
+            </SectionTitle>
+            <SectionSubtitle>
+              <span
+                style={{
+                  fontSize: '48px',
+                  fontWeight: 600,
+                  color: '#000',
+                  backgroundColor: 'white',
+                }}
+              >
+                {messages.enhance.subtitlePrefix}
+              </span>
+              <span
+                style={{
+                  fontFamily: 'PingFang SC',
+                  fontSize: '48px',
+                  fontStyle: 'normal',
+                  fontWeight: 600,
+                  lineHeight: '67px',
+                  marginLeft: '12px',
+                  background:
+                    'linear-gradient(94deg, #000 4%, #3066FD 66%, #5666EE 100%)',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
+                }}
+              >
+                {messages.enhance.subtitleSuffix}
+              </span>
+            </SectionSubtitle>
+          </SectionHeader>
 
-        <TabsContainer>
-          {tabs.map((tab) => (
-            <CustomTab
-              key={tab.key}
-              $active={activeTab === tab.key}
-              onClick={() => setActiveTab(tab.key)}
-            >
-              <TabTitle $active={activeTab === tab.key}>{tab.label}</TabTitle>
-              <TabDescription $active={activeTab === tab.key}>
-                {tab.description}
-              </TabDescription>
-            </CustomTab>
-          ))}
-        </TabsContainer>
+          <TabsContainer>
+            {tabs.map((tab) => (
+              <CustomTab
+                key={tab.key}
+                $active={activeTab === tab.key}
+                onClick={() => setActiveTab(tab.key)}
+              >
+                <TabTitle $active={activeTab === tab.key}>{tab.label}</TabTitle>
+                <TabDescription $active={activeTab === tab.key}>
+                  {tab.description}
+                </TabDescription>
+              </CustomTab>
+            ))}
+          </TabsContainer>
 
-        {renderTabContent()}
-      </Container>
-      <HorizontalDivider />
-    </SectionWrapper>
+          <Suspense fallback={<div style={{ height: 700 }} />}>
+            {renderTabContent()}
+          </Suspense>
+        </Container>
+        <HorizontalDivider />
+      </SectionWrapper>
+    </LocaleBridge>
   );
 };
 

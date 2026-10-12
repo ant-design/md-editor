@@ -9,6 +9,14 @@ group:
 
 # Changelog
 
+## Unreleased
+
+- Docs
+  - 🐞 Fixed Ant Design reset styles vertically misaligning the navigation links with the search box, theme switch, and GitHub icon.
+  - ⚡️ Load homepage demos near the viewport and enhancement tabs on demand, reducing initial editor and chart dependencies and hidden DOM.
+  - ⚡️ Pause homepage particle, carousel, and typing animations offscreen and in background tabs; cache static particles, simplify wheel nodes, and batch demo text updates to reduce ongoing rendering.
+  - 🐞 Match the initial client language to the statically generated homepage to avoid remounting on hydration; language switching also works when browser storage is restricted.
+
 ## v2.33.1
 
 - 🛠 Added explicit `@types/node` devDependency so `father build` declaration emit no longer fails with missing `process` / `NodeJS.Timeout` types.

@@ -1,5 +1,5 @@
-import { MarkdownEditor } from '@ant-design/agentic-ui';
 import React from 'react';
+import ReadonlyMarkdownEditorView from '../../../../src/MarkdownEditor/ReadonlyMarkdownEditorView';
 import { useSiteI18n } from '../../../i18n';
 import { CardContent } from '../style';
 import TabPreview from './TabPreview';
@@ -12,7 +12,7 @@ const MarkdownTab: React.FC = () => {
     <div>
       <CardContent>
         <div style={{ height: '500px', overflow: 'auto' }}>
-          <MarkdownEditor
+          <ReadonlyMarkdownEditorView
             initValue={codeExample}
             readonly={true}
             toolBar={{ enable: false }}

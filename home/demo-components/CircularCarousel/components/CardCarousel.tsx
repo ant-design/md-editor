@@ -1,5 +1,7 @@
 import { motion, TargetAndTransition } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useAnimationVisibility } from '../../../hooks/useAnimationVisibility';
+import { CardAnimationContext } from './CardAnimationContext';
 import { getCardsByFeatureId } from './cardData';
 
 // Animated Card Container
@@ -118,14 +120,18 @@ interface CardCarouselProps {
 }
 
 export function CardCarousel({ feature }: CardCarouselProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [step, setStep] = useState(0);
+  const { isVisible, reducedMotion } = useAnimationVisibility(containerRef);
+  const { backActive } = useContext(CardAnimationContext);
 
   useEffect(() => {
+    if (!isVisible || reducedMotion || !backActive) return;
     const interval = setInterval(() => {
       setStep((prev) => prev + 1);
     }, 2000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isVisible, reducedMotion, backActive]);
 
   // Get cards based on feature.id
   const selectedCards = getCardsByFeatureId(feature?.id);
@@ -137,6 +143,7 @@ export function CardCarousel({ feature }: CardCarouselProps) {
 
   return (
     <div
+      ref={containerRef}
       style={{
         overflow: 'hidden',
         position: 'relative',

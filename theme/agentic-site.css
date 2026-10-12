@@ -29,6 +29,11 @@ html.dark:not([data-prefers-color]) {
   color-scheme: dark;
 }
 
+/* Antd reset 的列表外边距会覆盖 Rspress preflight，使顶栏菜单偏离中心。 */
+.rp-nav-menu {
+  margin-block: 0;
+}
+
 /* ---- DemoCard ---- */
 .demo-card {
   border: 1px solid var(--demo-card-border);

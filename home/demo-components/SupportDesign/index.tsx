@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useSiteI18n } from '../../i18n';
 import VectorIcon from '../../icons/vector.svg';
-import AIChatbot from '../AIChatbot';
+import DeferredSection from '../HomePage/DeferredSection';
+import LocaleBridge from '../HomePage/LocaleBridge';
 import {
   DialogFlowCard,
   SuggestionCard,
@@ -25,8 +26,10 @@ import {
   VerticalDivider,
 } from './style';
 
+const loadAIChatbot = () => import('../AIChatbot');
+
 const SupportDesign: React.FC = () => {
-  const { messages } = useSiteI18n();
+  const { locale, messages } = useSiteI18n();
   const scrollableContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -58,72 +61,80 @@ const SupportDesign: React.FC = () => {
     return () => {
       resizeObserver.disconnect();
     };
-  }, []);
+  }, [locale]);
 
   return (
-    <SectionWrapper>
-      <TopVectorIcon>
-        <img
-          src={VectorIcon}
-          alt="Vector"
-          style={{ width: '25px', height: '25px' }}
-        />
-        <VerticalDivider />
-      </TopVectorIcon>
-      <Container>
-        <SectionHeader>
-          <SectionTitle>{messages.support.sectionTitle}</SectionTitle>
-          <SectionSubtitle>
-            <span style={{ fontSize: '48px', fontWeight: 600, color: '#000' }}>
-              {messages.support.subtitlePrefix}
-            </span>
-            <span
-              style={{
-                fontFamily: 'PingFang SC',
-                fontSize: '48px',
-                fontStyle: 'normal',
-                fontWeight: 600,
-                lineHeight: '67px',
-                marginLeft: '12px',
-                background:
-                  'linear-gradient(94deg, #000 4%, #3066FD 66%, #5666EE 100%)',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
-              }}
-            >
-              {messages.support.subtitleSuffix}
-            </span>
-          </SectionSubtitle>
-        </SectionHeader>
-        <HorizontalDivider />
-        <ScrollableWrapper>
-          <ScrollableInner>
-            <ScrollableContent ref={scrollableContentRef}>
-              <DesignGrid>
-                {/* 左上角：拆分成两个小格子 */}
-                <TopLeftContainer>
-                  <WelcomeCard />
-                  <SuggestionCard />
-                </TopLeftContainer>
+    <LocaleBridge>
+      <SectionWrapper>
+        <TopVectorIcon>
+          <img
+            src={VectorIcon}
+            alt="Vector"
+            style={{ width: '25px', height: '25px' }}
+          />
+          <VerticalDivider />
+        </TopVectorIcon>
+        <Container>
+          <SectionHeader>
+            <SectionTitle>{messages.support.sectionTitle}</SectionTitle>
+            <SectionSubtitle>
+              <span
+                style={{ fontSize: '48px', fontWeight: 600, color: '#000' }}
+              >
+                {messages.support.subtitlePrefix}
+              </span>
+              <span
+                style={{
+                  fontFamily: 'PingFang SC',
+                  fontSize: '48px',
+                  fontStyle: 'normal',
+                  fontWeight: 600,
+                  lineHeight: '67px',
+                  marginLeft: '12px',
+                  background:
+                    'linear-gradient(94deg, #000 4%, #3066FD 66%, #5666EE 100%)',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
+                }}
+              >
+                {messages.support.subtitleSuffix}
+              </span>
+            </SectionSubtitle>
+          </SectionHeader>
+          <HorizontalDivider />
+          <ScrollableWrapper>
+            <ScrollableInner>
+              <ScrollableContent ref={scrollableContentRef}>
+                <DesignGrid>
+                  {/* 左上角：拆分成两个小格子 */}
+                  <TopLeftContainer>
+                    <WelcomeCard />
+                    <SuggestionCard />
+                  </TopLeftContainer>
 
-                {/* 右上角 */}
-                <SuperInputCard />
+                  {/* 右上角 */}
+                  <SuperInputCard />
 
-                {/* 左下角 */}
-                <DialogFlowCard />
+                  {/* 左下角 */}
+                  <DialogFlowCard />
 
-                {/* 右下角 */}
-                <WorkspaceCard />
-              </DesignGrid>
-            </ScrollableContent>
-          </ScrollableInner>
-        </ScrollableWrapper>
-        <HorizontalDivider />
-        <div style={{ height: '32px' }}></div>
-        <HorizontalDivider />
-        <AIChatbot />
-      </Container>
-    </SectionWrapper>
+                  {/* 右下角 */}
+                  <WorkspaceCard />
+                </DesignGrid>
+              </ScrollableContent>
+            </ScrollableInner>
+          </ScrollableWrapper>
+          <HorizontalDivider />
+          <div style={{ height: '32px' }}></div>
+          <HorizontalDivider />
+          <DeferredSection
+            load={loadAIChatbot}
+            minHeight={430}
+            name="chatbot"
+          />
+        </Container>
+      </SectionWrapper>
+    </LocaleBridge>
   );
 };
 

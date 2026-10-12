@@ -1,6 +1,7 @@
 import { BrowserItem, Workspace } from '@ant-design/agentic-ui';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useAnimationVisibility } from '../../../hooks/useAnimationVisibility';
 import { useSiteI18n } from '../../../i18n';
 import {
   CardDescription,
@@ -13,6 +14,13 @@ const WorkspaceCard: React.FC = () => {
   const [mdContent, setMdContent] = useState('');
   const { messages } = useSiteI18n();
   const { workspaceDemo } = messages.support;
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const streamedLengthRef = useRef(0);
+  const { isVisible, reducedMotion } = useAnimationVisibility(wrapperRef);
+  const markdownCharacters = useMemo(
+    () => Array.from(workspaceDemo.mdContent),
+    [workspaceDemo.mdContent],
+  );
 
   // 模拟建议列表
   const [suggestions] = useState(() =>
@@ -119,30 +127,34 @@ const WorkspaceCard: React.FC = () => {
     loading: false,
   });
 
-  // 模拟实时内容更新
+  // A small batch keeps the streaming example responsive without reparsing every character.
   useEffect(() => {
-    const defaultValue = workspaceDemo.mdContent;
+    streamedLengthRef.current = 0;
+    setMdContent('');
+  }, [markdownCharacters]);
 
-    if (process.env.NODE_ENV === 'test') {
-      setMdContent(defaultValue);
-    } else {
-      const list = defaultValue.split('');
-      let currentMd = '';
-      const run = async () => {
-        for (const item of list) {
-          currentMd += item;
-          const mdSnapshot = currentMd; // Capture current value
-          await new Promise<void>((resolve) => {
-            setTimeout(() => {
-              setMdContent(mdSnapshot);
-              resolve();
-            }, 10);
-          });
-        }
-      };
-      run();
+  useEffect(() => {
+    if (reducedMotion || process.env.NODE_ENV === 'test') {
+      streamedLengthRef.current = markdownCharacters.length;
+      setMdContent(workspaceDemo.mdContent);
+      return;
     }
-  }, [workspaceDemo]);
+    if (!isVisible || streamedLengthRef.current >= markdownCharacters.length) {
+      return;
+    }
+
+    const timer = setInterval(() => {
+      const length = Math.min(
+        streamedLengthRef.current + 4,
+        markdownCharacters.length,
+      );
+      streamedLengthRef.current = length;
+      setMdContent(markdownCharacters.slice(0, length).join(''));
+      if (length === markdownCharacters.length) clearInterval(timer);
+    }, 40);
+
+    return () => clearInterval(timer);
+  }, [isVisible, markdownCharacters, reducedMotion, workspaceDemo.mdContent]);
 
   const { files, tasks } = workspaceDemo;
 
@@ -153,6 +165,7 @@ const WorkspaceCard: React.FC = () => {
         {messages.support.workspace.description}
       </CardDescription>
       <WorkspaceWrapper
+        ref={wrapperRef}
         style={{ marginTop: '24px', height: '420px', overflow: 'hidden' }}
       >
         <Workspace

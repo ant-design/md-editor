@@ -55,13 +55,13 @@ export const SectionWithDividers = styled.div`
  * 带左右边框的容器组件
  * 用于 SupportDesign 组件，通过覆盖层的左右 border 形成边界线效果
  */
-export const SectionWithBorders = styled.div<{ backgroundColor?: string }>`
+export const SectionWithBorders = styled.div<{ $backgroundColor?: string }>`
   position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
   min-height: 100%;
-  background: ${(props) => props.backgroundColor ?? 'transparent'};
+  background: ${(props) => props.$backgroundColor ?? 'transparent'};
 
   /* 覆盖层外层容器：动态匹配 ScrollableContent 的宽度（包含 16px padding） */
   &::before {
@@ -82,7 +82,7 @@ export const SectionWithBorders = styled.div<{ backgroundColor?: string }>`
 
   [data-prefers-color='dark'] & {
     background: ${(props) =>
-      props.backgroundColor ? '#101319' : 'transparent'};
+      props.$backgroundColor ? '#101319' : 'transparent'};
 
     &::before {
       border-left-color: rgba(255, 255, 255, 0.08);

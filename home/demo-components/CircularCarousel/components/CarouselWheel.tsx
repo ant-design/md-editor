@@ -3,6 +3,12 @@ import React from 'react';
 
 const ANGLE_STEP = 15;
 const RADIUS = 2000;
+const TICKS_PATH = Array.from({ length: 480 }, (_, index) => {
+  const angle = index * 0.75 * (Math.PI / 180);
+  const innerRadius = RADIUS - 14;
+  const outerRadius = RADIUS + 14;
+  return `M${2200 + innerRadius * Math.sin(angle)},${2200 - innerRadius * Math.cos(angle)}L${2200 + outerRadius * Math.sin(angle)},${2200 - outerRadius * Math.cos(angle)}`;
+}).join('');
 
 interface CarouselWheelProps {
   smoothIndex: any;
@@ -36,29 +42,7 @@ export const CarouselWheel: React.FC<CarouselWheelProps> = ({
         style={{ color: '#9ca3af' }}
       >
         {/* Decorative ticks */}
-        {Array.from({ length: 480 }).map((_, i) => {
-          const angle = i * 0.75 * (Math.PI / 180);
-          const len = 28;
-          const r1 = RADIUS - len / 2;
-          const r2 = RADIUS + len / 2;
-
-          const x1 = 2200 + r1 * Math.sin(angle);
-          const y1 = 2200 - r1 * Math.cos(angle);
-          const x2 = 2200 + r2 * Math.sin(angle);
-          const y2 = 2200 - r2 * Math.cos(angle);
-
-          return (
-            <line
-              key={i}
-              x1={x1}
-              y1={y1}
-              x2={x2}
-              y2={y2}
-              stroke="currentColor"
-              strokeWidth={1}
-            />
-          );
-        })}
+        <path d={TICKS_PATH} stroke="currentColor" strokeWidth={1} />
       </svg>
     </motion.div>
   );

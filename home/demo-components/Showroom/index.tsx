@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSiteI18n } from '../../i18n';
 import showroomImage1 from './assets/showroom-1.png';
 import showroomImage2 from './assets/showroom-2.png';
@@ -40,6 +40,14 @@ const Showroom: React.FC = () => {
   const { messages } = useSiteI18n();
   const [activeIndex, setActiveIndex] = useState(2); // 默认中间卡片激活
   const [isAnimating, setIsAnimating] = useState(false);
+  const animationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(
+    () => () => {
+      if (animationTimerRef.current) clearTimeout(animationTimerRef.current);
+    },
+    [],
+  );
 
   const handleCardClick = (index: number) => {
     if (index === activeIndex || isAnimating) {
@@ -50,7 +58,7 @@ const Showroom: React.FC = () => {
     setActiveIndex(index);
 
     // 动画结束后重置状态
-    setTimeout(() => {
+    animationTimerRef.current = setTimeout(() => {
       setIsAnimating(false);
     }, ANIMATION_DURATION);
   };
@@ -208,7 +216,7 @@ const Showroom: React.FC = () => {
                   zIndex: isActive ? 10 : 5 - distance,
                   opacity,
                   transition: isAnimating
-                    ? `all ${ANIMATION_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1)`
+                    ? `left ${ANIMATION_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1), transform ${ANIMATION_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1), opacity ${ANIMATION_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1)`
                     : 'none',
                 }}
               >
@@ -216,6 +224,7 @@ const Showroom: React.FC = () => {
                   <ShowroomCardImage
                     src={image}
                     alt={`Showroom ${index + 1}`}
+                    decoding="async"
                   />
                 </ShowroomCard>
               </CarouselCard>
