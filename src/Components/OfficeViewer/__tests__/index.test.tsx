@@ -4,7 +4,11 @@ import { ConfigProvider } from 'antd';
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { OfficeViewer } from '..';
-import { getDefaultWasmUrl, inferOfficeFileType } from '../utils';
+import {
+  getDefaultWasmUrl,
+  getOoxmlModuleSpecifiers,
+  inferOfficeFileType,
+} from '../utils';
 
 const loadMock = vi.fn().mockResolvedValue(undefined);
 const destroyMock = vi.fn();
@@ -103,6 +107,13 @@ describe('OfficeViewer utils', () => {
     expect(getDefaultWasmUrl('docx')).toContain('docx_parser_bg.wasm');
     expect(getDefaultWasmUrl('xlsx')).toContain('xlsx_parser_bg.wasm');
     expect(getDefaultWasmUrl('pptx')).toContain('pptx_parser_bg.wasm');
+  });
+
+  it('getOoxmlModuleSpecifiers 返回 npm 与 CDN 路径', () => {
+    expect(getOoxmlModuleSpecifiers('docx')).toEqual({
+      npm: '@silurus/ooxml/docx',
+      cdn: expect.stringContaining('/docx.mjs'),
+    });
   });
 });
 

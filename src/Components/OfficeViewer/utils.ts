@@ -33,6 +33,17 @@ export function getDefaultWasmUrl(fileType: OfficeFileType): string {
   return `${OOXML_CDN_BASE}/${OOXML_WASM_FILE[fileType]}`;
 }
 
+/** 运行时加载 ooxml 子模块：npm 包路径与 jsDelivr ESM 回退 */
+export function getOoxmlModuleSpecifiers(fileType: OfficeFileType): {
+  npm: string;
+  cdn: string;
+} {
+  return {
+    npm: `@silurus/ooxml/${fileType}`,
+    cdn: `${OOXML_CDN_BASE}/${fileType}.mjs`,
+  };
+}
+
 /**
  * 从文件名 / URL 路径推断 OOXML 格式
  *
