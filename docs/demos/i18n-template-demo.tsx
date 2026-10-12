@@ -21,7 +21,7 @@ function TemplateContent() {
   };
 
   return (
-    <Card>
+    <Card variant="borderless" style={{ boxShadow: 'none' }}>
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
         <div>
           <strong>模板字符串:</strong>

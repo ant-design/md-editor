@@ -18,6 +18,13 @@ const genStyle: GenStyleFn<'WorkspaceBrowser'> = (token) => {
   return {
     [componentCls]: {
       '&-suggestion': {
+        boxSizing: 'border-box',
+        touchAction: 'manipulation',
+        borderRadius: 'var(--radius-control-base)',
+        '&:focus-visible': {
+          outline: `${token.lineWidthFocus}px solid ${token.colorPrimaryBorder}`,
+          outlineOffset: -token.lineWidthFocus,
+        },
         '&:hover': {
           borderRadius: 'var(--radius-control-base)',
           background: 'var(--color-gray-control-fill-hover)',
@@ -27,6 +34,7 @@ const genStyle: GenStyleFn<'WorkspaceBrowser'> = (token) => {
           alignItems: 'center',
           gap: '4px',
           width: '100%',
+          minWidth: 0,
           overflow: 'hidden',
           [`${componentCls}-suggestion-icon`]: {
             display: 'flex',
@@ -34,12 +42,15 @@ const genStyle: GenStyleFn<'WorkspaceBrowser'> = (token) => {
             justifyContent: 'center',
             width: '24px',
             height: '24px',
+            boxSizing: 'border-box',
+            flexShrink: 0,
             padding: 'var(--padding-1x)',
             borderRadius: '200px',
             border: '1px solid var(--color-gray-border-dark)',
             color: 'var(--color-gray-text-secondary)',
           },
           [`${componentCls}-suggestion-text`]: {
+            minWidth: 0,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
@@ -57,8 +68,11 @@ const genStyle: GenStyleFn<'WorkspaceBrowser'> = (token) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        height: '48px',
-        width: 'calc(100% - 20px)',
+        boxSizing: 'border-box',
+        minHeight: '48px',
+        minWidth: 0,
+        gap: token.marginXS,
+        width: 'calc(100% - 8px)',
         padding: '8px',
         margin: '4px',
         [`${token.antCls}-tag`]: {
@@ -74,7 +88,7 @@ const genStyle: GenStyleFn<'WorkspaceBrowser'> = (token) => {
           [`${componentCls}-header-title`]: {
             flex: 1,
             minWidth: 0,
-            marginRight: '4px',
+            marginInlineEnd: '4px',
             fontWeight: 500,
             fontSize: '14px',
             overflow: 'hidden',
@@ -92,12 +106,16 @@ const genStyle: GenStyleFn<'WorkspaceBrowser'> = (token) => {
 
       '&-result-item': {
         width: '100%',
+        boxSizing: 'border-box',
         overflow: 'hidden',
         padding: '4px',
         animationName: fadeInUp,
-        animationDuration: '0.3s',
+        animationDuration: token.motionDurationMid,
         animationTimingFunction: 'ease-out',
-        animationFillMode: 'both',
+        animationFillMode: 'backwards',
+        '&:nth-child(n + 7)': {
+          animation: 'none',
+        },
         '&:hover': {
           borderRadius: '12px',
           background: 'var(--color-gray-control-fill-hover)',
@@ -122,6 +140,10 @@ const genStyle: GenStyleFn<'WorkspaceBrowser'> = (token) => {
           font: 'var(--font-text-paragraph-sm)',
           letterSpacing: 'var(--letter-spacing-paragraph-sm, normal)',
           color: 'var(--color-gray-text-light)',
+          minWidth: 0,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
         },
         [`${componentCls}-result-item-site`]: {
           display: 'flex',
@@ -132,6 +154,17 @@ const genStyle: GenStyleFn<'WorkspaceBrowser'> = (token) => {
           whiteSpace: 'nowrap',
           fontSize: '12px',
           cursor: 'pointer',
+          touchAction: 'manipulation',
+          '&:focus-visible': {
+            outline: `${token.lineWidthFocus}px solid ${token.colorPrimaryBorder}`,
+            outlineOffset: -token.lineWidthFocus,
+            borderRadius: token.borderRadiusSM,
+          },
+        },
+      },
+      '@media (prefers-reduced-motion: reduce)': {
+        [`${componentCls}-result-item`]: {
+          animation: 'none',
         },
       },
     },

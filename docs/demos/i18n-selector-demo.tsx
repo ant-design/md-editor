@@ -15,7 +15,7 @@ function LanguageSelectorContent() {
   ];
 
   return (
-    <Card>
+    <Card variant="borderless" style={{ boxShadow: 'none' }}>
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
         <div>
           <Space>
@@ -40,9 +40,10 @@ function LanguageSelectorContent() {
         </Descriptions>
 
         <Card
+          variant="borderless"
           size="small"
           title={locale.preview}
-          style={{ background: '#fafafa' }}
+          style={{ background: '#fafafa', boxShadow: 'none' }}
         >
           <Space direction="vertical">
             <div>

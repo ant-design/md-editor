@@ -308,7 +308,7 @@ export default function MarkdownParseConvertDemo() {
             </Space>
           </div>
 
-          <Card style={{ border: '1px solid #d9d9d9', borderRadius: '8px' }}>
+          <Card variant="borderless" style={{ boxShadow: 'none' }}>
             <MarkdownEditor
               editorRef={editorRef}
               initValue={sampleMarkdown}
@@ -334,7 +334,7 @@ export default function MarkdownParseConvertDemo() {
             </Button>
           </div>
 
-          <Card>
+          <Card variant="borderless" style={{ boxShadow: 'none' }}>
             <pre
               style={{
                 backgroundColor: '#f5f5f5',
@@ -343,7 +343,6 @@ export default function MarkdownParseConvertDemo() {
                 overflow: 'auto',
                 maxHeight: '500px',
                 minHeight: '200px',
-                border: '1px solid #d9d9d9',
                 fontSize: '13px',
                 lineHeight: '1.5',
                 whiteSpace: 'pre-wrap',
@@ -361,7 +360,11 @@ export default function MarkdownParseConvertDemo() {
       label: '插件代码',
       children: (
         <div style={{ padding: '12px' }}>
-          <Card title="Markdown 解析与转换插件">
+          <Card
+            variant="borderless"
+            style={{ boxShadow: 'none' }}
+            title="Markdown 解析与转换插件"
+          >
             <pre
               style={{
                 backgroundColor: '#f5f5f5',

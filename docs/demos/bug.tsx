@@ -997,7 +997,6 @@ export default () => {
             key={index}
             style={{
               padding: 24,
-              border: '1px solid #f0f0f0',
               margin: '20px auto',
               width: '100%',
             }}

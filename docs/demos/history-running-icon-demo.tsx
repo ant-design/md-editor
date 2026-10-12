@@ -159,8 +159,6 @@ const HistoryRunningIconDemo: React.FC = () => {
           <div
             style={{
               height: 400,
-              border: '1px solid #f0f0f0',
-              borderRadius: '16px',
             }}
           >
             <History
@@ -196,8 +194,6 @@ const HistoryRunningIconDemo: React.FC = () => {
           <div
             style={{
               height: 300,
-              border: '1px solid #f0f0f0',
-              borderRadius: 6,
             }}
           >
             <History

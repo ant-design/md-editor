@@ -4,7 +4,7 @@ import type {
   FilePanelViewMode,
   FileTreeNode,
 } from '@ant-design/agentic-ui/Workspace/types';
-import { Alert, Button, Flex, Space, Typography } from 'antd';
+import { Alert, Button, Flex, Typography } from 'antd';
 import React, { useCallback, useMemo, useState } from 'react';
 
 const TREE_ROOT: FileTreeNode[] = [
@@ -340,66 +340,76 @@ const WorkspaceFileListTreeSwitchDemo: React.FC = () => {
   }, [keyword]);
 
   return (
-    <div style={{ padding: 12 }}>
-      <div style={{ maxWidth: 720 }}>
-        <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-          <Typography.Paragraph type="secondary" style={{ marginBottom: 0 }}>
-            通过 <Typography.Text code>fileTreeSwitch</Typography.Text>{' '}
-            开启工具栏上的分段切换；下方按钮演示<strong>受控</strong>的{' '}
-            <Typography.Text code>view</Typography.Text> /{' '}
-            <Typography.Text code>onViewChange</Typography.Text>，与面板内
-            Segmented 同步。列表含多级目录、<strong>200 字符文件名</strong>
-            与超长文件夹名，便于验证单行省略与操作区叠层
-          </Typography.Paragraph>
+    <div
+      style={{
+        height: 560,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+        minWidth: 0,
+      }}
+    >
+      <Typography.Paragraph
+        type="secondary"
+        style={{ marginBottom: 0, flexShrink: 0 }}
+      >
+        通过 <Typography.Text code>fileTreeSwitch</Typography.Text>{' '}
+        开启工具栏上的分段切换；下方按钮演示<strong>受控</strong>的{' '}
+        <Typography.Text code>view</Typography.Text> /{' '}
+        <Typography.Text code>onViewChange</Typography.Text>，与面板内 Segmented
+        同步。列表含多级目录、<strong>200 字符文件名</strong>
+        与超长文件夹名，便于验证单行省略与操作区叠层
+      </Typography.Paragraph>
 
-          <Alert
-            type="info"
-            showIcon
-            message={panelView === 'list' ? '平铺模式' : '文件树模式'}
-            description={
-              panelView === 'list'
-                ? '列表按文件名过滤当前全部 16 个文件条目（含 200 字符文件名与 4 个其它超长名）'
-                : '树内搜索仅匹配已展开目录下已加载的文件名；展开 workspace 可见 200 字符文件夹/文件；再展开 src / docs / assets 浏览更多叶子'
-            }
+      <Alert
+        type="info"
+        style={{ flexShrink: 0, minWidth: 0, overflowWrap: 'anywhere' }}
+        showIcon
+        message={panelView === 'list' ? '平铺模式' : '文件树模式'}
+        description={
+          panelView === 'list'
+            ? '列表按文件名过滤当前全部 16 个文件条目（含 200 字符文件名与 4 个其它超长名）'
+            : '树内搜索仅匹配已展开目录下已加载的文件名；展开 workspace 可见 200 字符文件夹/文件；再展开 src / docs / assets 浏览更多叶子'
+        }
+      />
+
+      <Flex wrap="wrap" gap={8} style={{ flexShrink: 0, minWidth: 0 }}>
+        <Button
+          type={panelView === 'list' ? 'primary' : 'default'}
+          onClick={() => setPanelView('list')}
+        >
+          外部：切到平铺
+        </Button>
+        <Button
+          type={panelView === 'tree' ? 'primary' : 'default'}
+          onClick={() => setPanelView('tree')}
+        >
+          外部：切到文件树
+        </Button>
+      </Flex>
+
+      <div style={{ flex: 1, minHeight: 0, minWidth: 0 }}>
+        <Workspace pure title="文件 — 平铺 / 文件树" activeTabKey="file">
+          <Workspace.File
+            tab={{ key: 'file' }}
+            nodes={filteredNodes}
+            showSearch
+            keyword={keyword}
+            onChange={setKeyword}
+            searchPlaceholder="搜索全部文件名"
+            searchPlaceholderTree="仅搜索已展开目录内已加载的文件"
+            fileTreeSwitch={{
+              view: panelView,
+              onViewChange: setPanelView,
+              listLabel: '平铺',
+              treeLabel: '文件树',
+              treeProps: {
+                treeData: TREE_ROOT,
+                onLoadChildren: handleLoadChildren,
+              },
+            }}
           />
-
-          <Flex wrap="wrap" gap={8}>
-            <Button
-              type={panelView === 'list' ? 'primary' : 'default'}
-              onClick={() => setPanelView('list')}
-            >
-              外部：切到平铺
-            </Button>
-            <Button
-              type={panelView === 'tree' ? 'primary' : 'default'}
-              onClick={() => setPanelView('tree')}
-            >
-              外部：切到文件树
-            </Button>
-          </Flex>
-
-          <Workspace title="文件 — 平铺 / 文件树" activeTabKey="file">
-            <Workspace.File
-              tab={{ key: 'file' }}
-              nodes={filteredNodes}
-              showSearch
-              keyword={keyword}
-              onChange={setKeyword}
-              searchPlaceholder="搜索全部文件名"
-              searchPlaceholderTree="仅搜索已展开目录内已加载的文件"
-              fileTreeSwitch={{
-                view: panelView,
-                onViewChange: setPanelView,
-                listLabel: '平铺',
-                treeLabel: '文件树',
-                treeProps: {
-                  treeData: TREE_ROOT,
-                  onLoadChildren: handleLoadChildren,
-                },
-              }}
-            />
-          </Workspace>
-        </Space>
+        </Workspace>
       </div>
     </div>
   );

@@ -390,7 +390,6 @@ console.log('Hello World');
 
       <div
         style={{
-          border: '1px solid #e2e8f0',
           borderRadius: '8px',
           overflow: 'hidden',
         }}

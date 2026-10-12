@@ -336,7 +336,6 @@ const WorkspaceFileLocateDemo: React.FC = () => {
           style={{
             flex: 1,
             minWidth: 0,
-            border: '1px solid #f0f0f0',
             borderRadius: 8,
             background: '#fff',
             display: 'flex',
@@ -525,7 +524,7 @@ const WorkspaceFileLocateDemo: React.FC = () => {
 
         {/* 右侧：工作空间 */}
         <div style={{ flex: 1, minWidth: 0 }}>
-          <Workspace title="工作空间">
+          <Workspace pure title="工作空间">
             <Workspace.Browser
               tab={{
                 key: 'browser',

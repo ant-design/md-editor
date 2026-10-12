@@ -165,8 +165,6 @@ export default () => {
       <Card title="3. 实时预览（拖拽右栏分隔条可调整宽度）" size="small">
         <div
           style={{
-            border: '1px solid #f0f0f0',
-            borderRadius: 8,
             overflow: 'hidden',
             height: 480,
           }}
@@ -205,8 +203,6 @@ export default () => {
               </Tag>
               <div
                 style={{
-                  border: '1px solid #f0f0f0',
-                  borderRadius: 8,
                   overflow: 'hidden',
                   height: 220,
                 }}

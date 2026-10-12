@@ -201,10 +201,8 @@ export default () => {
 
       <div
         style={{
-          border: '1px solid #e2e8f0',
           borderRadius: '8px',
           overflow: 'hidden',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
         }}
       >
         <MarkdownEditor

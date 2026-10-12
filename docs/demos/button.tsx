@@ -92,7 +92,6 @@ export const BaseButtonDemo = () => {
       <Flex
         gap={12}
         style={{
-          border: '2px dashed #8358F6',
           padding: '24px',
         }}
       >
@@ -118,7 +117,6 @@ export const BaseButtonDemo = () => {
       <Flex
         gap={12}
         style={{
-          border: '2px dashed #8358F6',
           padding: '24px',
         }}
       >
@@ -136,7 +134,6 @@ export const BaseButtonDemo = () => {
       <Flex
         gap={12}
         style={{
-          border: '2px dashed #8358F6',
           padding: '24px',
         }}
       >
@@ -154,7 +151,6 @@ export const BaseButtonDemo = () => {
       <Flex
         gap={12}
         style={{
-          border: '2px dashed #8358F6',
           padding: '24px',
         }}
       >
@@ -170,7 +166,6 @@ export const BaseButtonDemo = () => {
       <Flex
         gap={12}
         style={{
-          border: '2px dashed #8358F6',
           padding: '24px',
         }}
       >
@@ -186,7 +181,6 @@ export const BaseButtonDemo = () => {
       <Flex
         gap={12}
         style={{
-          border: '2px dashed #8358F6',
           padding: '24px',
         }}
       >
@@ -204,7 +198,6 @@ export const BaseButtonDemo = () => {
       <Flex
         gap={12}
         style={{
-          border: '2px dashed #8358F6',
           padding: '24px',
         }}
       >
@@ -252,7 +245,6 @@ export const IconButtonDemo = () => {
         vertical
         gap={12}
         style={{
-          border: '2px dashed #8358F6',
           padding: '24px',
         }}
       >
@@ -260,7 +252,6 @@ export const IconButtonDemo = () => {
         <Flex
           gap={12}
           style={{
-            border: '2px dashed #8358F6',
             padding: '24px',
           }}
         >
@@ -272,7 +263,6 @@ export const IconButtonDemo = () => {
         <Flex
           gap={12}
           style={{
-            border: '2px dashed #8358F6',
             padding: '24px',
           }}
         >
@@ -298,7 +288,6 @@ export const IconButtonDemo = () => {
         <Flex
           gap={12}
           style={{
-            border: '2px dashed #8358F6',
             padding: '24px',
           }}
         >
@@ -321,7 +310,6 @@ export const IconButtonDemo = () => {
       <Flex
         gap={12}
         style={{
-          border: '2px dashed #8358F6',
           padding: '24px',
         }}
       >
@@ -333,7 +321,6 @@ export const IconButtonDemo = () => {
       <Flex
         gap={12}
         style={{
-          border: '2px dashed #8358F6',
           padding: '24px',
         }}
       >
@@ -377,7 +364,6 @@ export const SwitchButtonDemo = () => {
       <Flex
         gap={12}
         style={{
-          border: '2px dashed #8358F6',
           padding: '24px',
         }}
       >

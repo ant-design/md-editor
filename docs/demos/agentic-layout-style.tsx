@@ -238,8 +238,6 @@ const StyleDemo = () => {
           style={{
             height: 480,
             background: 'var(--ant-color-bg-layout, #f5f5f5)',
-            padding: 6,
-            borderRadius: 16,
           }}
         >
           <AgenticLayout
@@ -265,8 +263,6 @@ const StyleDemo = () => {
           style={{
             height: 360,
             background: 'var(--ant-color-bg-layout, #f5f5f5)',
-            padding: 6,
-            borderRadius: 16,
           }}
         >
           <AgenticLayout
@@ -301,8 +297,6 @@ const StyleDemo = () => {
           style={{
             height: 480,
             background: 'var(--ant-color-bg-layout, #f5f5f5)',
-            padding: 6,
-            borderRadius: 16,
           }}
         >
           <AgenticLayout

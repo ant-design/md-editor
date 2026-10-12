@@ -20,7 +20,6 @@ import { useRealtimeFollowStyle } from './style';
 
 const SCROLL_TOLERANCE = 30;
 const SCROLL_TIMEOUT = 100;
-const SCROLL_DELAY = 50;
 
 export type RealtimeFollowMode =
   | 'shell'
@@ -169,6 +168,7 @@ const RealtimeHeader: React.FC<{
               hashId,
             )}
             onClick={data.onBack}
+            aria-label={locale?.['workspace.back'] || '返回'}
           >
             <LeftIcon
               className={classNames(
@@ -215,6 +215,7 @@ const RealtimeHeader: React.FC<{
 
 const BASE_EDITOR_CONFIG: Partial<MarkdownEditorProps> = {
   readonly: true,
+  renderMode: 'markdown',
   toc: false,
   style: { width: '100%' },
   typewriter: true,
@@ -272,13 +273,10 @@ const Overlay: React.FC<{
 
   if (status !== 'loading' && status !== 'error') return null;
 
-  const loadingNode = renderNode(loadingRender);
-  const errorNode = renderNode(errorRender);
-
   const content =
     status === 'loading'
-      ? loadingNode || <Spin />
-      : errorNode || (
+      ? renderNode(loadingRender) || <Spin />
+      : renderNode(errorRender) || (
           <span>{locale?.['htmlPreview.renderFailed'] || '页面渲染失败'}</span>
         );
 
@@ -341,15 +339,24 @@ export const RealtimeFollow: React.FC<{
   const finalPrefixCls = prefixCls || getPrefixCls('workspace-realtime');
   const mdInstance = useRef<MarkdownEditorInstance | null>(null);
   const isTestEnv = isTestEnvironment();
-  const { containerRef: autoScrollRef, scrollToBottom } = useAutoScroll({
+  const { containerRef: autoScrollRef } = useAutoScroll({
     SCROLL_TOLERANCE,
     timeout: SCROLL_TIMEOUT,
-    deps: [isTestEnv],
+    deps: [isTestEnv, data.type, Boolean(data.customContent)],
   });
 
   useEffect(() => {
-    if (isTestEnv || !mdInstance.current?.store) return;
-    if (!shouldUpdateEditor(data.type, htmlViewMode)) return;
+    // Readonly views synchronize initValue themselves. Only an explicitly
+    // editable override still needs the imperative document replacement.
+    if (
+      isTestEnv ||
+      data.customContent ||
+      data.markdownEditorProps?.readonly !== false ||
+      !mdInstance.current?.store ||
+      !shouldUpdateEditor(data.type, htmlViewMode)
+    ) {
+      return;
+    }
 
     const content = getContentForEditor(data.type, data.content);
     const { schema } = parserMdToSchema(
@@ -357,18 +364,13 @@ export const RealtimeFollow: React.FC<{
       mdInstance.current.store.plugins,
     );
     mdInstance.current.store.updateNodeList(schema);
-
-    if ((data.streaming ?? data.typewriter) && !isTestEnv) {
-      setTimeout(() => scrollToBottom(), SCROLL_DELAY);
-    }
   }, [
     data.content,
     data.type,
+    data.customContent,
     htmlViewMode,
     isTestEnv,
-    data.streaming,
-    data.typewriter,
-    scrollToBottom,
+    data.markdownEditorProps?.readonly,
   ]);
 
   if (data.customContent) {
@@ -406,14 +408,32 @@ export const RealtimeFollow: React.FC<{
   }
 
   const defaultProps = getEditorConfig(data.type);
+  const renderMode =
+    data.markdownEditorProps?.renderMode ??
+    data.markdownEditorProps?.renderType ??
+    defaultProps.renderMode;
+  const isReadonlyMarkdown =
+    (data.markdownEditorProps?.readonly ?? defaultProps.readonly) &&
+    renderMode === 'markdown';
+  const configuredContentStyle =
+    data.markdownEditorProps?.contentStyle ?? defaultProps.contentStyle;
   const mergedProps = {
     ...defaultProps,
     ...data.markdownEditorProps,
+    renderMode,
+    // The outer realtime content owns scrolling. A fixed-height readonly shell
+    // would otherwise create an inner scrollbar invisible to useAutoScroll.
+    height:
+      data.markdownEditorProps?.height ??
+      (isReadonlyMarkdown ? 'auto' : defaultProps.height),
+    contentStyle: isReadonlyMarkdown
+      ? { height: 'auto', maxHeight: 'none', ...configuredContentStyle }
+      : configuredContentStyle,
     streaming: isTestEnv
       ? false
       : (data.streaming ?? data.typewriter ?? defaultProps.typewriter),
     style: {
-      maxHeight: 'auto',
+      ...(isReadonlyMarkdown ? { maxHeight: 'none' } : {}),
       ...defaultProps.style,
       ...data.markdownEditorProps?.style,
     },
@@ -426,7 +446,7 @@ export const RealtimeFollow: React.FC<{
     isEmpty &&
     data.status !== 'loading' &&
     data.status !== 'error';
-  const emptyNode = renderNode(data.emptyRender);
+  const emptyNode = shouldShowEmpty ? renderNode(data.emptyRender) : null;
 
   return (
     <div
@@ -450,7 +470,7 @@ export const RealtimeFollow: React.FC<{
         <MarkdownEditor
           {...mergedProps}
           editorRef={mdInstance}
-          initValue={String(data.content)}
+          initValue={contentStr}
         />
       )}
     </div>

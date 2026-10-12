@@ -15,7 +15,6 @@ import {
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 const PREVIEW_STYLE: React.CSSProperties = {
-  border: '1px dashed #d9d9d9',
   borderRadius: 8,
   padding: 16,
   background: '#fafafa',
@@ -148,7 +147,12 @@ export default () => {
         渲染路径的正文文本，代码块与表格不参与拆词。
       </Typography.Paragraph>
 
-      <Card title="1. 配置面板" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="1. 配置面板"
+        size="small"
+      >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <Space wrap size="large">
             <Button type="primary" onClick={handleReplay} disabled={running}>
@@ -210,7 +214,12 @@ export default () => {
       </Card>
 
       {compareMode ? (
-        <Card title="2. 对比预览（fade: true vs false）" size="small">
+        <Card
+          variant="borderless"
+          style={{ boxShadow: 'none' }}
+          title="2. 对比预览（fade: true vs false）"
+          size="small"
+        >
           <div
             style={{
               display: 'grid',
@@ -245,7 +254,12 @@ export default () => {
           </div>
         </Card>
       ) : (
-        <Card title="2. 实时预览" size="small">
+        <Card
+          variant="borderless"
+          style={{ boxShadow: 'none' }}
+          title="2. 实时预览"
+          size="small"
+        >
           <div style={PREVIEW_STYLE}>
             <MarkdownRenderer
               content={content}

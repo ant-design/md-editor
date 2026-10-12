@@ -75,8 +75,6 @@ const BasicHistoryDemo = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          borderRadius: '16px',
-          border: '1px solid var(--color-gray-border-light)',
         }}
       >
         <History

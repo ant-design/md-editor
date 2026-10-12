@@ -20,7 +20,6 @@ const ImageErrorHandlingDemo: React.FC = () => {
 
 ![不存在的图片](https://xxxe.png)`}
         readonly
-        style={{ border: '1px solid #d9d9d9', borderRadius: '6px' }}
       />
 
       <div style={{ marginTop: '20px' }}>

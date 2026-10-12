@@ -168,11 +168,11 @@ export class UrlDataSourceStrategy implements DataSourceStrategy {
  */
 export class ContentDataSourceStrategy implements DataSourceStrategy {
   canHandle(file: FileNode): boolean {
-    return Boolean(file.content);
+    return typeof file.content === 'string';
   }
 
   process(file: FileNode): DataSourceResult {
-    if (!file.content) {
+    if (typeof file.content !== 'string') {
       throw new Error('Content not provided');
     }
 

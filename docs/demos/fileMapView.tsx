@@ -139,7 +139,6 @@ const DemoSection: React.FC<{
         padding: 16,
         background: '#fafafa',
         borderRadius: 8,
-        border: '1px solid #e8e8e8',
       }}
     >
       {children}
@@ -288,7 +287,6 @@ export default () => {
           padding: 16,
           background: '#e6f7ff',
           borderRadius: 8,
-          border: '1px solid #91d5ff',
         }}
       >
         <h2 style={{ margin: '0 0 8px 0', fontSize: 18 }}>
@@ -375,7 +373,6 @@ export default () => {
           padding: 12,
           background: '#fff7e6',
           borderRadius: 8,
-          border: '1px solid #ffd591',
         }}
       >
         <h4 style={{ margin: '0 0 12px 0', fontSize: 16 }}>💡 使用提示</h4>
@@ -407,7 +404,6 @@ export default () => {
           padding: 12,
           background: '#f6ffed',
           borderRadius: 8,
-          border: '1px solid #b7eb8f',
         }}
       >
         <h4 style={{ margin: '0 0 12px 0', fontSize: 16 }}>

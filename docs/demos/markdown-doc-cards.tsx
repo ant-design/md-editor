@@ -48,7 +48,6 @@ export default () => {
     >
       <MarkdownEditor
         readonly
-        style={{ border: '1px solid #eee' }}
         toc={false}
         width={'calc(99vw - 16px)'}
         initValue={defaultValue}

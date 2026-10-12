@@ -43,12 +43,7 @@ const QuadrantFallbackDemo: React.FC = () => {
 
       <QuadrantChart title="组件级空数据" columns={[]} data={[]} />
 
-      <MarkdownEditor
-        readonly
-        toc={false}
-        style={{ border: '1px solid #eee', borderRadius: 8 }}
-        initValue={minimalMarkdown}
-      />
+      <MarkdownEditor readonly toc={false} initValue={minimalMarkdown} />
     </div>
   );
 };

@@ -181,16 +181,14 @@ export default function ToMarkdownPluginDemo() {
         </button>
       </div>
 
-      <div style={{ border: '1px solid #d9d9d9', borderRadius: '6px' }}>
-        <MarkdownEditor
-          initValue={initialValue}
-          plugins={[customCodeBlockPlugin, customBlockquotePlugin]}
-          onChange={(value) => {
-            setMarkdown(value);
-            console.log('编辑器内容变化:', value);
-          }}
-        />
-      </div>
+      <MarkdownEditor
+        initValue={initialValue}
+        plugins={[customCodeBlockPlugin, customBlockquotePlugin]}
+        onChange={(value) => {
+          setMarkdown(value);
+          console.log('编辑器内容变化:', value);
+        }}
+      />
 
       {markdown && (
         <div style={{ marginTop: '20px' }}>

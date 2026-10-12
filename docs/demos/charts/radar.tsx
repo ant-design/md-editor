@@ -364,7 +364,6 @@ const DynamicRadarChartExample: React.FC = () => {
           style={{
             padding: '8px 12px',
             backgroundColor: '#fff',
-            border: '1px solid #d9d9d9',
             borderRadius: '4px',
             fontSize: '12px',
             color: '#666',
@@ -390,7 +389,6 @@ const DynamicRadarChartExample: React.FC = () => {
           backgroundColor: '#f0f8ff',
           padding: '15px',
           borderRadius: '8px',
-          border: '1px solid #e8e8e8',
         }}
       >
         <h4 style={{ marginTop: 0, color: '#333' }}>

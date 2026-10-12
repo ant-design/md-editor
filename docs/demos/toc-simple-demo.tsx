@@ -104,7 +104,10 @@ export default () => {
     >
       <Title level={2}>TocHeading 简单测试</Title>
 
-      <Card style={{ marginBottom: '16px' }}>
+      <Card
+        variant="borderless"
+        style={{ marginBottom: '16px', boxShadow: 'none' }}
+      >
         <Space direction="vertical" style={{ width: '100%' }}>
           <Paragraph>
             这个演示页面用于测试 TocHeading 组件的 Anchor 渲染效果。
@@ -135,7 +138,10 @@ export default () => {
           }}
         />
       </div>
-      <Card style={{ marginBottom: '16px' }}>
+      <Card
+        variant="borderless"
+        style={{ marginBottom: '16px', boxShadow: 'none' }}
+      >
         这个演示页面用于测试 TocHeading 组件的 Anchor 渲染效果。
         右侧应该显示目录，点击目录链接可以定位到对应的标题。
         这个演示页面用于测试 TocHeading 组件的 Anchor 渲染效果。

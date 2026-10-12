@@ -193,7 +193,12 @@ const DemoCard: React.FC<DemoCardProps> = ({
   };
 
   return (
-    <Card title={title} size="small">
+    <Card
+      title={title}
+      size="small"
+      variant="borderless"
+      style={{ boxShadow: 'none' }}
+    >
       <MarkdownInputField
         value={value}
         onChange={setValue}

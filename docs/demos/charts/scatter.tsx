@@ -126,7 +126,6 @@ const ScatterChartDemo: React.FC = () => {
           marginBottom: '20px',
           padding: '8px 12px',
           backgroundColor: '#fff',
-          border: '1px solid #d9d9d9',
           borderRadius: '4px',
           fontSize: '12px',
           color: '#666',
@@ -213,7 +212,6 @@ const ScatterChartDemo: React.FC = () => {
         style={{
           marginTop: '20px',
           padding: '16px',
-          border: '1px solid #e8e8e8',
           borderRadius: '8px',
           backgroundColor: '#f0f8ff',
         }}

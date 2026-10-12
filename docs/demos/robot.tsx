@@ -155,7 +155,6 @@ export default () => {
           alignItems: 'center',
           gap: 40,
           padding: 16,
-          border: '1px solid #f0f0f0',
           borderRadius: 8,
           background: '#fafafa',
         }}

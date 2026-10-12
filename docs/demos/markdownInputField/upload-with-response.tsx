@@ -64,7 +64,12 @@ export default () => {
         />
 
         {fileMap.size > 0 ? (
-          <Card size="small" title="上传响应详情">
+          <Card
+            variant="borderless"
+            style={{ boxShadow: 'none' }}
+            size="small"
+            title="上传响应详情"
+          >
             <pre
               style={{
                 background: '#f5f5f5',

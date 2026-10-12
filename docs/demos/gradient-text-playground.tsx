@@ -54,7 +54,12 @@ export default () => {
 
   return (
     <div style={{ padding: 24, ...SECTION_STYLE }}>
-      <Card title="1. 配置面板" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="1. 配置面板"
+        size="small"
+      >
         <Space direction="vertical" style={{ width: '100%' }} size="middle">
           <Space wrap>
             <span>渐变预设：</span>
@@ -115,7 +120,12 @@ export default () => {
         </Space>
       </Card>
 
-      <Card title="2. 实时预览" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="2. 实时预览"
+        size="small"
+      >
         <GradientText
           colors={colors}
           animationSpeed={animationSpeed}
@@ -125,7 +135,12 @@ export default () => {
         </GradientText>
       </Card>
 
-      <Card title="3. 全部预设并排" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="3. 全部预设并排"
+        size="small"
+      >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           {PRESETS.map((p) => (
             <div key={p.label}>
@@ -143,7 +158,12 @@ export default () => {
         </Space>
       </Card>
 
-      <Card title="4. 不同字号" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="4. 不同字号"
+        size="small"
+      >
         <Space direction="vertical" size="small">
           {[14, 18, 24, 32, 48].map((size) => (
             <GradientText

@@ -117,7 +117,7 @@ describe('RealtimeFollow deepen3 residual branches', () => {
     expect(screen.getByTestId('err-custom')).toBeInTheDocument();
   });
 
-  it('非 test：updateNodeList + streaming 延迟 scroll', async () => {
+  it('只读 streaming 由 initValue 同步，不重复写入或强制滚动', async () => {
     process.env.NODE_ENV = 'development';
     wrap(
       <RealtimeFollow
@@ -133,7 +133,7 @@ describe('RealtimeFollow deepen3 residual branches', () => {
       await Promise.resolve();
       vi.advanceTimersByTime(200);
     });
-    expect(updateNodeList).toHaveBeenCalled();
-    expect(scrollToBottom).toHaveBeenCalled();
+    expect(updateNodeList).not.toHaveBeenCalled();
+    expect(scrollToBottom).not.toHaveBeenCalled();
   });
 });

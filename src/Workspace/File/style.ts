@@ -17,6 +17,8 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
     // 文件组件样式
     [`${token.componentCls}-container`]: {
       height: '100%',
+      flex: 1,
+      minHeight: 0,
       minWidth: 0,
       overflowX: 'hidden',
       display: 'flex',
@@ -38,15 +40,27 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            height: '40px',
+            boxSizing: 'border-box',
+            minWidth: 0,
+            minHeight: '40px',
             padding: '8px 0',
             cursor: 'pointer',
-            transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
+            touchAction: 'manipulation',
+            '&:focus-visible': {
+              outline: `${token.lineWidthFocus}px solid ${token.colorPrimaryBorder}`,
+              outlineOffset: -token.lineWidthFocus,
+              borderRadius: token.borderRadiusSM,
+            },
+            transition: `color ${token.motionDurationFast}, background-color ${token.motionDurationFast}`,
 
             [`&-left, &-right`]: {
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
+              minWidth: 0,
+            },
+            '&-right': {
+              flexShrink: 0,
             },
           },
 
@@ -61,6 +75,7 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
           [`&-type-icon`]: {
             display: 'flex',
             alignItems: 'center',
+            flexShrink: 0,
 
             svg: {
               width: '16px',
@@ -98,7 +113,14 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
           },
           [`&-action-btn`]: {
             cursor: 'pointer',
-            transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
+            transition: `color ${token.motionDurationFast}, background-color ${token.motionDurationFast}`,
+            '&:hover': {
+              backdropFilter: 'none',
+            },
+            '@media (pointer: coarse)': {
+              minWidth: token.controlHeightLG,
+              minHeight: token.controlHeightLG,
+            },
           },
           // 分组内容外壳：使用 grid-template-rows: 0fr ↔ 1fr 实现纯 CSS 折叠动画
           // 不依赖 framer-motion，浏览器原生过渡 grid 行高，避免写死 max-height
@@ -114,6 +136,7 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
               opacity: 0,
               // 折叠完成前后避免触发焦点/点击
               pointerEvents: 'none',
+              visibility: 'hidden',
             },
           },
 
@@ -121,7 +144,7 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
           [`&-content`]: {
             minHeight: 0,
             overflow: 'hidden',
-            paddingLeft: '12px',
+            paddingInlineStart: '12px',
           },
         },
       },
@@ -131,7 +154,7 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
     [`${token.componentCls}-item`]: {
       boxSizing: 'border-box',
       borderRadius: 'var(--radius-control-base)',
-      transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
+      transition: `background-color ${token.motionDurationFast}`,
       maxWidth: '100%',
 
       // 文件图标
@@ -168,6 +191,19 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
         flexWrap: 'wrap',
       },
 
+      [`&-name-text, &-details-text`]: {
+        display: 'block',
+        minWidth: 0,
+        maxWidth: '100%',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+      },
+
+      [`&-details-text`]: {
+        color: token.colorTextSecondary,
+      },
+
       // 文件类型、大小、时间
       [`&-type, &-size, &-time`]: {
         font: 'var(--font-text-body-sm)',
@@ -194,7 +230,7 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
 
       [`&-actions`]: {
         position: 'absolute',
-        right: 0,
+        insetInlineEnd: 0,
         top: 0,
         bottom: 0,
         zIndex: 1,
@@ -210,6 +246,15 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
         visibility: 'hidden',
         pointerEvents: 'none',
         transition: 'opacity 0.2s ease, visibility 0.2s ease',
+        '@media (hover: none), (pointer: coarse)': {
+          position: 'static',
+          flexShrink: 0,
+          alignSelf: 'stretch',
+          opacity: 1,
+          visibility: 'visible',
+          pointerEvents: 'auto',
+          background: 'transparent',
+        },
 
         // 保持图标按钮颜色一致
         [`${token.antCls}-btn, ${token.antCls}-btn ${token.iconCls}`]: {
@@ -223,6 +268,14 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
 
       // 文件项动作按钮（预览/下载等）图标颜色保持一致
       [`&-action-btn`]: {
+        touchAction: 'manipulation',
+        '&:hover': {
+          backdropFilter: 'none',
+        },
+        '@media (pointer: coarse)': {
+          minWidth: token.controlHeightLG,
+          minHeight: token.controlHeightLG,
+        },
         [token.iconCls]: {
           color: 'var(--color-gray-text-light)',
         },
@@ -243,6 +296,12 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
       marginBottom: '4px',
       padding: '4px',
       cursor: 'pointer',
+      touchAction: 'manipulation',
+
+      '&:focus-visible': {
+        outline: `${token.lineWidthFocus}px solid ${token.colorPrimaryBorder}`,
+        outlineOffset: -token.lineWidthFocus,
+      },
 
       '&:target': {
         animationName: 'flash-shadow',
@@ -343,10 +402,11 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
       display: 'flex',
       flexDirection: 'column',
       height: '100%',
+      flex: 1,
+      minHeight: 0,
       minWidth: 0,
       overflowX: 'hidden',
-      marginLeft: '-12px',
-      marginRight: '-12px',
+      marginInline: '-12px',
       background: token.colorBgContainer,
       position: 'relative',
 
@@ -356,6 +416,7 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
         alignItems: 'center',
         gap: '4px',
         minWidth: 0,
+        flexWrap: 'wrap',
         padding: '8px 12px',
         borderBottom: `1px solid ${token.colorBorderSecondary || token.colorBorder}`,
         background: token.colorBgContainer,
@@ -372,15 +433,25 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
         justifyContent: 'center',
         width: '32px',
         height: '32px',
+        flexShrink: 0,
+        touchAction: 'manipulation',
         border: 'none',
         background: 'none',
         cursor: 'pointer',
         color: token.colorTextTertiary || token.colorTextSecondary,
-        transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
+        transition: `color ${token.motionDurationFast}, background-color ${token.motionDurationFast}`,
         borderRadius: token.borderRadiusSM || 4,
 
         '&:hover': {
           background: token.colorFillTertiary || token.colorFillSecondary,
+        },
+        '&:focus-visible': {
+          outline: `${token.lineWidthFocus}px solid ${token.colorPrimaryBorder}`,
+          outlineOffset: token.lineWidth,
+        },
+        '@media (pointer: coarse)': {
+          width: token.controlHeightLG,
+          height: token.controlHeightLG,
         },
       },
 
@@ -391,10 +462,11 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
 
       // 文件信息容器
       [`&-file-info`]: {
-        flex: 1,
+        flex: `1 1 ${token.controlHeightLG * 4}px`,
         display: 'flex',
         flexDirection: 'column',
         gap: '4px',
+        minWidth: 0,
       },
 
       // 文件标题行
@@ -402,12 +474,14 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
         display: 'flex',
         alignItems: 'center',
         gap: '4px',
+        minWidth: 0,
       },
 
       // 文件图标
       [`&-file-icon`]: {
         display: 'flex',
         alignItems: 'center',
+        flexShrink: 0,
 
         svg: {
           width: '20px',
@@ -420,12 +494,19 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
         color: 'var(--color-gray-text-default)',
         font: 'var(--font-text-body-emphasized-sm)',
         letterSpacing: 'var(--letter-spacing-body-emphasized-sm, normal)',
+        minWidth: 0,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
       },
 
       // 生成时间
       [`&-generate-time`]: {
         fontSize: '12px',
         color: token.colorTextTertiary || token.colorTextSecondary,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
       },
 
       // 操作按钮容器
@@ -433,6 +514,10 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
+        flexWrap: 'wrap',
+        flexShrink: 0,
+        maxWidth: '100%',
+        marginInlineStart: 'auto',
 
         // 保持预览头部操作按钮的图标颜色一致
         [`${token.antCls}-btn, ${token.antCls}-btn ${token.iconCls}`]: {
@@ -452,8 +537,19 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
         minWidth: 0,
         overflowX: 'hidden',
         overflowY: 'auto',
+        overscrollBehavior: 'contain',
+        boxSizing: 'border-box',
         minHeight: 0, // 确保 flex 子项可以收缩
         padding: '16px',
+      },
+
+      [`&-text`]: {
+        display: 'flex',
+        flexDirection: 'column',
+        // 短内容撑满预览区；长文保留自然高度，由外层内容区负责滚动。
+        flex: '1 0 auto',
+        minHeight: 0,
+        minWidth: 0,
       },
 
       // Office 文档预览容器：撑满内容区，OfficeViewer 内部按容器自适应
@@ -465,6 +561,8 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
       '&-content-loading': {
         padding: '0 12px',
         flex: 1,
+        minHeight: 0,
+        minWidth: 0,
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
@@ -522,6 +620,8 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
       [`&-iframe`]: {
         width: '100%',
         height: '100%',
+        display: 'block',
+        minHeight: 0,
         border: 'none',
         flex: 1,
       },
@@ -553,7 +653,8 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
         justifyContent: 'center',
         gap: 12,
         height: '100%',
-        minHeight: '500px',
+        minHeight: 'min(100%, 240px)',
+        flex: 1,
       },
       [`&-unsupported-item`]: {
         display: 'flex',
@@ -561,16 +662,18 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
         gap: 8,
         borderRadius: ' var(--radius-card-base)',
         background: 'var(--color-gray-bg-card-white)',
-        border: 'var(--color-gray-border-light)',
+        border: '1px solid var(--color-gray-border-light)',
         boxShadow: 'var(--shadow-control-base)',
         padding: '8px',
-        minWidth: 294,
-        height: 56,
+        boxSizing: 'border-box',
+        width: 'min(294px, 100%)',
+        minWidth: 0,
+        minHeight: 56,
         marginBottom: 0,
         cursor: 'unset',
         '&:hover': {
           background: 'var(--color-gray-bg-card-white)',
-          border: 'var(--color-gray-border-light)',
+          border: '1px solid var(--color-gray-border-light)',
           boxShadow: 'var(--shadow-control-base)',
         },
       },
@@ -685,6 +788,18 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
       overflow: 'hidden',
     },
 
+    '@media (prefers-reduced-motion: reduce)': {
+      [`${token.componentCls}-item, ${token.componentCls}-item-actions, ${token.componentCls}-group-header, ${token.componentCls}-group-action-btn, ${token.componentCls}-group-toggle-icon, ${token.componentCls}-group-content-wrapper, ${token.componentCls}-preview-back-button, ${token.componentCls}-show-more`]:
+        {
+          transition: 'none',
+        },
+      [`${token.componentCls}-item--list:target`]: {
+        animation: 'none',
+        outline: `${token.lineWidthFocus}px solid ${token.colorPrimaryBorder}`,
+        outlineOffset: -token.lineWidthFocus,
+      },
+    },
+
     // 隐藏的图片预览组件
     [`${token.componentCls}-hidden-image`]: {
       display: 'none',
@@ -702,6 +817,13 @@ const genStyle: GenStyleFn<'WorkspaceFile'> = (token) => {
       letterSpacing: 'var(--letter-spacing-body-sm, normal)',
       transition: 'color 0.2s ease',
       userSelect: 'none',
+      touchAction: 'manipulation',
+      borderRadius: token.borderRadiusSM,
+
+      '&:focus-visible': {
+        outline: `${token.lineWidthFocus}px solid ${token.colorPrimaryBorder}`,
+        outlineOffset: -token.lineWidthFocus,
+      },
 
       '&:hover': {
         color: 'var(--color-primary-control-fill-primary-active)',

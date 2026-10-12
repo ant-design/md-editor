@@ -175,7 +175,7 @@ export default () => {
 
   return (
     <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-      <Card size="small">
+      <Card variant="borderless" style={{ boxShadow: 'none' }} size="small">
         <Paragraph style={{ marginBottom: 12 }}>
           本示例将 <Text code>@mlc-ai/web-llm</Text> 与{' '}
           <Text code>MarkdownInputField</Text> 接入同一聊天布局。请先安装依赖{' '}
@@ -272,7 +272,7 @@ export default () => {
         )}
       </ChatLayout>
 
-      <Card size="small">
+      <Card variant="borderless" style={{ boxShadow: 'none' }} size="small">
         <ul style={{ margin: 0, paddingInlineStart: 20 }}>
           <li>
             停止按钮会调用引擎的 <Text code>interruptGenerate()</Text>

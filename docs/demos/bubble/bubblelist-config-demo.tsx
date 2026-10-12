@@ -123,8 +123,6 @@ export default () => {
       {/* 消息列表 */}
       <div
         style={{
-          border: '1px solid #e9ecef',
-          borderRadius: 8,
           overflow: 'hidden',
         }}
       >

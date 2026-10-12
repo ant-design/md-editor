@@ -1,116 +1,131 @@
-import { ActionIconBox, Workspace } from '@ant-design/agentic-ui';
+import { Workspace } from '@ant-design/agentic-ui';
 import { MoreOutlined } from '@ant-design/icons';
-import { Dropdown, message } from 'antd';
+import { Button, Dropdown, Empty, theme } from 'antd';
 import React, { useState } from 'react';
 
+const guide = `# 工作台快捷操作
+
+标题栏的更多菜单可以连接当前任务的常用操作。
+
+- **下载说明**：将本页说明保存为 Markdown 文件。
+- **查看任务**：切换到任务列表，查看交付进度。
+- **关闭工作台**：收起当前工作空间，可随时重新打开。
+
+## 接入示例
+
+\`\`\`tsx
+<Workspace headerExtra={headerExtra} />
+\`\`\`
+`;
+const downloadGuide = () => {
+  const url = URL.createObjectURL(
+    new Blob([guide], { type: 'text/markdown;charset=utf-8' }),
+  );
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'workspace-guide.md';
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 0);
+};
+
 const WorkspaceHeaderExtraDemo: React.FC = () => {
-  const [activeTabKey, setActiveTabKey] = useState<string>('realtime');
-
-  const handleTabChange = (key: string) => {
-    setActiveTabKey(key);
-  };
-
-  const handleClose = () => {
-    message.success('工作空间已关闭');
-  };
-
-  // 示例：使用竖向三点图标展示更多操作
+  const { token } = theme.useToken();
+  const [activeTabKey, setActiveTabKey] = useState('guide');
+  const [open, setOpen] = useState(true);
   const headerExtra = (
     <Dropdown
       menu={{
         items: [
+          { key: 'download', label: '下载说明', onClick: downloadGuide },
           {
-            key: 'download',
-            label: '下载',
-            onClick: () => message.success('开始下载...'),
+            key: 'tasks',
+            label: '查看任务',
+            onClick: () => setActiveTabKey('tasks'),
           },
-          {
-            key: 'share',
-            label: '分享',
-            onClick: () => message.success('分享链接已复制'),
-          },
+          { type: 'divider' },
+          { key: 'close', label: '关闭工作台', onClick: () => setOpen(false) },
         ],
       }}
       placement="bottomRight"
       trigger={['click']}
     >
-      <ActionIconBox aria-label="更多操作">
-        <MoreOutlined />
-      </ActionIconBox>
+      <Button
+        type="text"
+        aria-label="更多工作台操作"
+        icon={<MoreOutlined aria-hidden />}
+      />
     </Dropdown>
   );
-
   return (
-    <div style={{ height: 500, width: '100%' }}>
-      <Workspace
-        title="工作空间"
-        activeTabKey={activeTabKey}
-        onTabChange={handleTabChange}
-        onClose={handleClose}
-        headerExtra={headerExtra}
-      >
-        <Workspace.Realtime
-          tab={{ key: 'realtime', title: '实时跟随' }}
-          data={{
-            type: 'md',
-            content: `# headerExtra
-
-在 Workspace 标题栏右侧插入 \`ReactNode\`（本页为 \`Dropdown\` + \`MoreOutlined\`）。
-
-\`\`\`tsx
-<Workspace headerExtra={headerExtra} />
-\`\`\`
-`,
-            typewriter: false,
+    <div style={{ height: 560, minWidth: 0, fontFamily: token.fontFamily }}>
+      {open ? (
+        <Workspace
+          pure
+          title="工作台快捷操作"
+          activeTabKey={activeTabKey}
+          onTabChange={setActiveTabKey}
+          onClose={() => setOpen(false)}
+          headerExtra={headerExtra}
+        >
+          <Workspace.Realtime
+            tab={{ key: 'guide', title: '使用说明' }}
+            data={{
+              type: 'md',
+              content: guide,
+              title: 'workspace-guide.md',
+              typewriter: false,
+              status: 'done',
+            }}
+          />
+          <Workspace.Task
+            tab={{ key: 'tasks', title: '任务', count: 3 }}
+            data={{
+              items: [
+                {
+                  key: 'header',
+                  title: '配置快捷入口',
+                  content: '将更多菜单放入 headerExtra，保持主界面简洁。',
+                  status: 'success',
+                },
+                {
+                  key: 'actions',
+                  title: '连接菜单操作',
+                  content: '下载文档、切换面板与关闭工作台均可直接体验。',
+                  status: 'success',
+                },
+                {
+                  key: 'verify',
+                  title: '检查操作体验',
+                  content: '尝试键盘打开菜单，并在关闭后重新打开工作台。',
+                  status: 'pending',
+                },
+              ],
+            }}
+          />
+        </Workspace>
+      ) : (
+        <div
+          style={{
+            height: '100%',
+            display: 'grid',
+            placeItems: 'center',
+            padding: token.paddingLG,
+            boxSizing: 'border-box',
           }}
-        />
-
-        <Workspace.Task
-          tab={{ key: 'task', title: '任务列表', count: 3 }}
-          data={{
-            items: [
-              {
-                key: 'task1',
-                title: '任务 1',
-                content: '实现 headerExtra 功能',
-                status: 'success',
-              },
-              {
-                key: 'task2',
-                title: '任务 2',
-                content: '编写使用示例和文档',
-                status: 'success',
-              },
-              {
-                key: 'task3',
-                title: '任务 3',
-                content: '添加单元测试',
-                status: 'pending',
-              },
-            ],
-          }}
-        />
-
-        <Workspace.Custom tab={{ key: 'custom', title: '说明' }}>
-          <div style={{ padding: '16px' }}>
-            <h3>关于 headerExtra</h3>
-            <p>
-              <code>headerExtra</code> 属性接收一个 <code>ReactNode</code>
-              ，会被渲染在 header 右侧区域，位于关闭按钮之前。
-            </p>
-            <p>您可以在这里放置任何自定义内容：</p>
-            <ul>
-              <li>操作按钮（下载、分享、设置等）</li>
-              <li>状态指示器</li>
-              <li>用户信息</li>
-              <li>下拉菜单</li>
-              <li>其他自定义组件</li>
-            </ul>
-          </div>
-        </Workspace.Custom>
-      </Workspace>
+        >
+          <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            description="工作台已关闭"
+          >
+            <Button type="primary" onClick={() => setOpen(true)}>
+              重新打开
+            </Button>
+          </Empty>
+        </div>
+      )}
     </div>
   );
 };
-
 export default WorkspaceHeaderExtraDemo;

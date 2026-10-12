@@ -129,7 +129,12 @@ export default () => {
         gap: 16,
       }}
     >
-      <Card title="1. 配置面板" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="1. 配置面板"
+        size="small"
+      >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <Space wrap size="large">
             <Space>
@@ -205,11 +210,21 @@ export default () => {
         </Space>
       </Card>
 
-      <Card title="2. 实时预览" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="2. 实时预览"
+        size="small"
+      >
         <ToolUseBarThink {...playgroundProps} />
       </Card>
 
-      <Card title="3. 三种 status 并排" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="3. 三种 status 并排"
+        size="small"
+      >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           {STATUS_OPTIONS.map((s) => (
             <div key={s}>
@@ -228,7 +243,12 @@ export default () => {
         </Space>
       </Card>
 
-      <Card title="4. light 轻量模式" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="4. light 轻量模式"
+        size="small"
+      >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <ToolUseBarThink
             light
@@ -244,7 +264,12 @@ export default () => {
         </Space>
       </Card>
 
-      <Card title="5. 自定义 classNames / styles（局部覆盖）" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="5. 自定义 classNames / styles（局部覆盖）"
+        size="small"
+      >
         <ToolUseBarThink
           toolName="带自定义样式的思考"
           toolTarget="自定义 styles"

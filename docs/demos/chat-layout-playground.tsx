@@ -160,8 +160,6 @@ export default () => {
       <Card title="3. 实时预览" size="small">
         <div
           style={{
-            border: '1px solid #f0f0f0',
-            borderRadius: 8,
             overflow: 'hidden',
             height: 520,
           }}
@@ -244,8 +242,6 @@ export default () => {
       <Card title="4. 自定义 classNames / styles 局部覆盖" size="small">
         <div
           style={{
-            border: '1px solid #f0f0f0',
-            borderRadius: 8,
             overflow: 'hidden',
             height: 320,
           }}

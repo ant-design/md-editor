@@ -293,6 +293,7 @@ export const cnLabels = {
   'workspace.file.showMoreFiles': '查看更多文件',
   // 新增：Workspace 标题与搜索相关
   'workspace.title': '工作空间',
+  'workspace.back': '返回',
   'workspace.searchPlaceholder': '搜索文件名',
   'workspace.fileTreeSearchPlaceholder': '搜索已展开目录下的文件名',
   'workspace.noResultsFor': '未找到与「${keyword}」匹配的结果',
@@ -794,6 +795,7 @@ export const enLabels: typeof cnLabels = {
   'workspace.file.showMoreFiles': 'Show more files',
   // New: Workspace title & search
   'workspace.title': 'Workspace',
+  'workspace.back': 'Back',
   'workspace.searchPlaceholder': 'Search file name',
   'workspace.fileTreeSearchPlaceholder':
     'Search loaded files under expanded folders',

@@ -66,7 +66,6 @@ public class HelloWorld {
     >
       <div
         style={{
-          border: '1px solid #f0f0f0',
           width: '40vw',
           margin: '20px auto',
         }}

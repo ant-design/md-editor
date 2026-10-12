@@ -173,9 +173,10 @@ export const FileComponent: FC<{
   );
 
   const safeNodes = nodes || EMPTY_NODES;
+  const isTreeView = !!fileTreeSwitch && panelView === 'tree';
   const fileNodeByRelativePath = useMemo(
-    () => buildFileNodeRelativePathIndex(safeNodes),
-    [safeNodes],
+    () => (isTreeView ? buildFileNodeRelativePathIndex(safeNodes) : undefined),
+    [safeNodes, isTreeView],
   );
   // 优先使用 isLoading，向后兼容 loading
   const loading = isLoading ?? loadingProp;

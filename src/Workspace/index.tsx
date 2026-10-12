@@ -5,6 +5,7 @@ import { ConfigProvider, Segmented } from 'antd';
 import classNames from 'clsx';
 import React, {
   FC,
+  memo,
   useContext,
   useEffect,
   useMemo,
@@ -12,6 +13,7 @@ import React, {
   useState,
 } from 'react';
 import { ActionIconBox } from '../Components/ActionIconBox';
+import { useRefFunction } from '../Hooks/useRefFunction';
 import { I18nContext } from '../I18n';
 import Browser from './Browser';
 import { File, FileTree } from './File';
@@ -218,6 +220,148 @@ const shouldResetFilePreview = (
   return fromTab.key !== toTab.key;
 };
 
+interface WorkspacePanelTab extends TabItem {
+  child: React.ReactElement<BaseChildProps>;
+  count?: number;
+}
+
+interface WorkspaceNavigationProps {
+  tabs: WorkspacePanelTab[];
+  activeKey: string;
+  segmentedKey: number;
+  prefixCls: string;
+  hashId: string;
+  onChange: (key: string | number) => void;
+}
+
+const isSameTabNode = (
+  previous: React.ReactNode,
+  next: React.ReactNode,
+): boolean => {
+  if (previous === next) return true;
+  if (Array.isArray(previous) && Array.isArray(next)) {
+    return (
+      previous.length === next.length &&
+      previous.every((node, index) => isSameTabNode(node, next[index]))
+    );
+  }
+  if (!React.isValidElement(previous) || !React.isValidElement(next)) {
+    return false;
+  }
+  if (previous.type !== next.type || previous.key !== next.key) return false;
+  const previousProps = previous.props as Record<string, unknown>;
+  const nextProps = next.props as Record<string, unknown>;
+  // Legacy React stores refs on the element; avoid React 19's deprecated getter.
+  if (
+    Object.getOwnPropertyDescriptor(previous, 'ref')?.value !==
+    Object.getOwnPropertyDescriptor(next, 'ref')?.value
+  ) {
+    return false;
+  }
+  const keys = Object.keys(previousProps);
+  return (
+    keys.length === Object.keys(nextProps).length &&
+    keys.every(
+      (key) =>
+        Object.prototype.hasOwnProperty.call(nextProps, key) &&
+        (key === 'children'
+          ? isSameTabNode(
+              previousProps[key] as React.ReactNode,
+              nextProps[key] as React.ReactNode,
+            )
+          : previousProps[key] === nextProps[key]),
+    )
+  );
+};
+
+const WorkspaceNavigation = memo(
+  ({
+    tabs,
+    activeKey,
+    segmentedKey,
+    prefixCls,
+    hashId,
+    onChange,
+  }: WorkspaceNavigationProps) => {
+    const options = useMemo(() => {
+      const firstRealtimeIndex = tabs.findIndex(
+        (tab) => tab.componentType === PANEL_TYPES.REALTIME,
+      );
+      const result: NonNullable<SegmentedProps['options']> = [];
+      tabs.forEach((tab, index) => {
+        result.push({
+          value: tab.key,
+          icon: tab.icon,
+          label: (
+            <div className={classNames(`${prefixCls}-tab-item`, hashId)}>
+              <span className={classNames(`${prefixCls}-tab-title`, hashId)}>
+                {tab.title}
+              </span>
+              {tab.count !== undefined && (
+                <span
+                  className={classNames(`${prefixCls}-tab-count`, hashId)}
+                  data-testid={`workspace-tab-count--${tab.key}`}
+                >
+                  <WorkspaceTabCountDigits
+                    tabKey={tab.key}
+                    value={tab.count}
+                    prefixCls={prefixCls}
+                    hashId={hashId}
+                  />
+                </span>
+              )}
+            </div>
+          ),
+        });
+        if (index === firstRealtimeIndex && tabs.length > 1) {
+          result.push({
+            label: '',
+            value: WORKSPACE_SEGMENTED_DIVIDER_KEY,
+            disabled: true,
+          });
+        }
+      });
+      return result;
+    }, [tabs, prefixCls, hashId]);
+
+    return (
+      <div
+        className={classNames(`${prefixCls}-tabs`, hashId)}
+        data-testid="workspace-tabs"
+      >
+        <Segmented
+          key={segmentedKey}
+          className={classNames(`${prefixCls}-segmented`, hashId)}
+          options={options}
+          value={activeKey}
+          onChange={onChange}
+          block
+          data-testid="workspace-segmented"
+        />
+      </div>
+    );
+  },
+  (previous, next) =>
+    previous.activeKey === next.activeKey &&
+    previous.segmentedKey === next.segmentedKey &&
+    previous.prefixCls === next.prefixCls &&
+    previous.hashId === next.hashId &&
+    previous.onChange === next.onChange &&
+    previous.tabs.length === next.tabs.length &&
+    previous.tabs.every((tab, index) => {
+      const nextTab = next.tabs[index];
+      // Panel bodies can stream independently of the navigation metadata.
+      return (
+        tab.key === nextTab.key &&
+        tab.componentType === nextTab.componentType &&
+        isSameTabNode(tab.title, nextTab.title) &&
+        isSameTabNode(tab.icon, nextTab.icon) &&
+        tab.count === nextTab.count
+      );
+    }),
+);
+WorkspaceNavigation.displayName = 'WorkspaceNavigation';
+
 /**
  * 工作空间组件
  * 提供多标签页界面，支持实时跟随、浏览器、任务、文件等功能模块
@@ -259,7 +403,7 @@ const Workspace: FC<WorkspaceProps> & {
     () => defaultActiveTabKey ?? '',
   );
 
-  const { availableTabs, segmentedOptions } = useMemo(() => {
+  const availableTabs = useMemo<WorkspacePanelTab[]>(() => {
     type PanelEntry = {
       wType: PanelType;
       child: React.ReactElement<BaseChildProps>;
@@ -293,89 +437,13 @@ const Workspace: FC<WorkspaceProps> & {
       });
     });
 
-    const keys = panelEntries.map((e) => e.tabConfig.key);
-    const normalizedActiveTabKey = normalizeTabKey(activeTabKey);
-    const normalizedInternalTab = normalizeTabKey(internalActiveTab);
-    const isControlled = activeTabKey !== undefined;
-    const effectiveKeyForReset =
-      isControlled && keys.includes(normalizedActiveTabKey)
-        ? normalizedActiveTabKey
-        : normalizedInternalTab && keys.includes(normalizedInternalTab)
-          ? normalizedInternalTab
-          : (keys[0] ?? '');
-
-    const firstRealtimeIndex = panelEntries.findIndex(
-      (e) => e.wType === PANEL_TYPES.REALTIME,
-    );
-
-    const tabs: TabItem[] = panelEntries.map((entry) => {
-      const { wType, child, tabConfig } = entry;
-      const key = tabConfig.key;
-      const shouldPassResetKey =
-        isFileWorkspacePanel(wType) && key === effectiveKeyForReset;
-
-      return {
-        key,
-        icon: tabConfig.icon,
-        componentType: wType as WorkspacePanelType,
-        label: (
-          <div className={classNames(`${prefixCls}-tab-item`, hashId)}>
-            <span className={classNames(`${prefixCls}-tab-title`, hashId)}>
-              {tabConfig.title}
-            </span>
-            {tabConfig.count !== undefined && (
-              <span
-                className={classNames(`${prefixCls}-tab-count`, hashId)}
-                data-testid={`workspace-tab-count--${tabConfig.key}`}
-              >
-                <WorkspaceTabCountDigits
-                  tabKey={tabConfig.key}
-                  value={tabConfig.count}
-                  prefixCls={prefixCls}
-                  hashId={hashId}
-                />
-              </span>
-            )}
-          </div>
-        ),
-        content: isValidReactPanelType(child.type)
-          ? React.createElement(child.type, {
-              ...child.props,
-              ...(shouldPassResetKey ? { resetKey } : {}),
-            })
-          : null,
-      };
-    });
-
-    const options: NonNullable<SegmentedProps['options']> = [];
-    for (let i = 0; i < tabs.length; i += 1) {
-      const tab = tabs[i];
-      options.push({
-        label: tab.label,
-        value: tab.key,
-        icon: tab.icon,
-      });
-      const isFirstRealtime =
-        firstRealtimeIndex === i && tab.componentType === PANEL_TYPES.REALTIME;
-      if (isFirstRealtime && tabs.length > 1) {
-        options.push({
-          label: '',
-          value: WORKSPACE_SEGMENTED_DIVIDER_KEY,
-          disabled: true,
-        });
-      }
-    }
-
-    return { availableTabs: tabs, segmentedOptions: options };
-  }, [
-    children,
-    defaultConfig,
-    hashId,
-    prefixCls,
-    resetKey,
-    activeTabKey,
-    internalActiveTab,
-  ]);
+    return panelEntries.map(({ wType, child, tabConfig }) => ({
+      ...tabConfig,
+      label: tabConfig.title,
+      componentType: wType,
+      child,
+    }));
+  }, [children, defaultConfig]);
 
   useEffect(() => {
     if (!availableTabs.length) return;
@@ -439,7 +507,7 @@ const Workspace: FC<WorkspaceProps> & {
     availableTabs.find((tab) => tab.key === resolvedActiveKey)?.key ??
     pickFallbackTabKey(availableTabs, defaultActiveTabKey);
 
-  const handleTabChange = (key: string | number) => {
+  const handleTabChange = useRefFunction((key: string | number) => {
     const tabKey = normalizeTabKey(key);
     if (!tabKey || isWorkspaceSegmentedDividerKey(tabKey)) {
       return;
@@ -461,7 +529,21 @@ const Workspace: FC<WorkspaceProps> & {
       setResetKey((prev) => prev + 1);
     }
     onTabChange?.(tabKey);
-  };
+  });
+
+  const activePanel = availableTabs.find((tab) => tab.key === currentActiveTab);
+  const activeChild = activePanel?.child;
+  const activePanelType = activePanel?.componentType;
+  const activeContent = useMemo(
+    () =>
+      activeChild
+        ? React.createElement(activeChild.type, {
+            ...activeChild.props,
+            ...(isFileWorkspacePanel(activePanelType) ? { resetKey } : {}),
+          })
+        : null,
+    [activeChild, activePanelType, resetKey],
+  );
 
   if (!availableTabs.length) {
     return emptyContent ?? null;
@@ -507,27 +589,21 @@ const Workspace: FC<WorkspaceProps> & {
       </div>
 
       {availableTabs.length > 1 && (
-        <div
-          className={classNames(`${prefixCls}-tabs`, hashId)}
-          data-testid="workspace-tabs"
-        >
-          <Segmented
-            key={segmentedKey}
-            className={classNames(`${prefixCls}-segmented`, hashId)}
-            options={segmentedOptions}
-            value={currentActiveTab}
-            onChange={handleTabChange}
-            block
-            data-testid="workspace-segmented"
-          />
-        </div>
+        <WorkspaceNavigation
+          tabs={availableTabs}
+          activeKey={currentActiveTab}
+          segmentedKey={segmentedKey}
+          prefixCls={prefixCls}
+          hashId={hashId}
+          onChange={handleTabChange}
+        />
       )}
 
       <div
         className={classNames(`${prefixCls}-content`, hashId)}
         data-testid="workspace-content"
       >
-        {availableTabs.find((tab) => tab.key === currentActiveTab)?.content}
+        {activeContent}
       </div>
     </div>
   );

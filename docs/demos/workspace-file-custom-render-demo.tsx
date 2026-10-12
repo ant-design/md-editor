@@ -141,7 +141,7 @@ const WorkspaceFileCustomRenderDemo: React.FC = () => {
 
   return (
     <div style={{ height: 500 }}>
-      <Workspace title="文件自定义渲染演示">
+      <Workspace pure title="文件自定义渲染演示">
         <Workspace.File
           nodes={nodes}
           onDownload={(file) => console.log('下载:', file.name)}

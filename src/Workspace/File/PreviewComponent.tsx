@@ -7,14 +7,10 @@ import {
 } from '@sofa-design/icons';
 import { Alert, ConfigProvider, Segmented, Spin } from 'antd';
 import classNames from 'clsx';
-import React, { type FC, useContext, useEffect, useRef, useState } from 'react';
+import React, { type FC, useContext, useEffect, useState } from 'react';
 import { ActionIconBox } from '../../Components/ActionIconBox';
 import { I18nContext } from '../../I18n';
-import {
-  MarkdownEditor,
-  type MarkdownEditorInstance,
-  type MarkdownEditorProps,
-} from '../../MarkdownEditor';
+import { MarkdownEditor, type MarkdownEditorProps } from '../../MarkdownEditor';
 import { HtmlPreview } from '../HtmlPreview';
 import type { FileNode } from '../types';
 import { formatLastModified } from '../utils';
@@ -67,10 +63,10 @@ export interface PreviewComponentProps {
  * 渲染管线：
  * 1. `customContent` 优先 → 自定义节点
  * 2. 文件 `loading` → 流式占位
- * 3. `usePreviewContent` 未就绪 → Spin 占位
- * 4. 内容加载错误 → Alert 占位
+ * 3. 内容加载错误 → Alert 占位
+ * 4. `usePreviewContent` 未就绪 → Spin 占位
  * 5. `canPreview === false` → `UnsupportedFileCard`
- * 6. 文本/代码 → `MarkdownEditor`（HTML 子类型走 `HtmlPreview`，支持 preview/code 切换）
+ * 6. 文本/代码 → 轻量只读 Markdown（HTML 子类型走 `HtmlPreview`，支持 preview/code 切换）
  * 7. 图片/视频/音频/PDF → `MediaPreview`
  * 8. 其它 → 通用占位（含可选下载）
  */
@@ -91,7 +87,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
   const filePrefixCls = getPrefixCls('workspace-file');
   const { hashId } = useFileStyle(filePrefixCls);
   const prefixCls = `${filePrefixCls}-preview`;
-  const editorRef = useRef<MarkdownEditorInstance | null>(null);
 
   const { processResult, contentState } = usePreviewContent(
     file,
@@ -121,22 +116,10 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     onLocate?.(file);
   };
 
-  // 内容就绪后注入到 MarkdownEditor store
-  useEffect(() => {
-    if (customContent) return;
-    if (
-      editorRef.current?.store &&
-      contentState.status === 'ready' &&
-      contentState.mdContent
-    ) {
-      editorRef.current.store.setMDContent(contentState.mdContent);
-    }
-  }, [contentState, customContent]);
-
   // 切换文件时重置 HTML 视图模式
   useEffect(() => {
     setHtmlViewMode('preview');
-  }, [file.name]);
+  }, [file.id, file.name, file.url, file.file]);
 
   const isCurrentFileHtml = isHtmlFile(
     file.name,
@@ -184,11 +167,17 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
     return (
       <div className={classNames(`${prefixCls}-text`, hashId)}>
         <MarkdownEditor
-          editorRef={editorRef}
-          initValue=""
+          initValue={
+            contentState.status === 'ready' ? contentState.mdContent : ''
+          }
           readonly={true}
           contentStyle={{ padding: EDITOR_PADDING }}
           {...markdownEditorProps}
+          renderMode={
+            markdownEditorProps?.renderMode ??
+            markdownEditorProps?.renderType ??
+            'markdown'
+          }
         />
       </div>
     );
@@ -221,6 +210,19 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
       );
     }
 
+    if (contentState.status === 'error') {
+      return (
+        <PlaceholderContent prefixCls={prefixCls} hashId={hashId}>
+          <Alert
+            message={locale?.['workspace.file.processFailed'] || '文件处理失败'}
+            description={contentState.error}
+            type="error"
+            showIcon
+          />
+        </PlaceholderContent>
+      );
+    }
+
     if (!processResult) {
       return (
         <PlaceholderContent prefixCls={prefixCls} hashId={hashId}>
@@ -234,19 +236,6 @@ export const PreviewComponent: FC<PreviewComponentProps> = ({
               aria-hidden
             />
           </Spin>
-        </PlaceholderContent>
-      );
-    }
-
-    if (contentState.status === 'error') {
-      return (
-        <PlaceholderContent prefixCls={prefixCls} hashId={hashId}>
-          <Alert
-            message={locale?.['workspace.file.processFailed'] || '文件处理失败'}
-            description={contentState.error}
-            type="error"
-            showIcon
-          />
         </PlaceholderContent>
       );
     }

@@ -77,10 +77,6 @@ export default () => {
         initValue={longContent}
         readonly={true}
         height={600}
-        style={{
-          border: '1px solid #d9d9d9',
-          borderRadius: 8,
-        }}
       />
     </div>
   );

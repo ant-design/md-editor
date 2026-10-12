@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { FileNode } from '../../types';
 import {
   fileTypeProcessor,
@@ -20,103 +20,137 @@ export interface UsePreviewContentResult {
   contentState: ContentState;
 }
 
+interface PreviewState extends UsePreviewContentResult {
+  source: FileNode;
+}
+
 /**
- * 预览内容加载 hook
- *
- * 串联以下副作用，集中管理生命周期：
- * 1. `file` 变化时跑 `fileTypeProcessor.processFile` 得到类型 + 数据源
- * 2. 仅文本/代码类需要拉取原文，按 dataSource 优先 content -> previewUrl 加载
- * 3. 卸载或文件变化时回收 Blob URL（`cleanupResult`）
- *
- * 当 `customContent` 存在时短路所有逻辑，由调用方直接渲染外部内容。
+ * 按预览数据而非父级对象引用加载；一个 effect 同时拥有请求和 Blob URL，
+ * 切换文件时取消请求并释放资源，过期响应不能覆盖当前文件。
  */
 export const usePreviewContent = (
   file: FileNode,
   customContent: React.ReactNode | undefined,
   locale?: Record<string, any>,
 ): UsePreviewContentResult => {
-  const [processResult, setProcessResult] = useState<FileProcessResult | null>(
-    null,
+  const localeRef = useRef(locale);
+  localeRef.current = locale;
+  const hasCustomContent = Boolean(customContent);
+  const lastModified =
+    file.lastModified instanceof Date
+      ? file.lastModified.getTime()
+      : file.lastModified;
+  const source = useMemo(
+    () => ({ ...file }),
+    [
+      file.id,
+      file.name,
+      file.type,
+      file.displayType,
+      file.content,
+      file.url,
+      file.previewUrl,
+      file.file,
+      file.loading,
+      file.metadata,
+      file.size,
+      lastModified,
+      hasCustomContent,
+    ],
   );
-  const [contentState, setContentState] = useState<ContentState>(INITIAL_STATE);
+  const [state, setState] = useState<PreviewState>({
+    source,
+    processResult: null,
+    contentState: INITIAL_STATE,
+  });
 
-  // 1) 跑类型 + 数据源处理
   useEffect(() => {
-    if (customContent) return;
-    try {
-      const result = fileTypeProcessor.processFile(file);
-      setProcessResult(result);
-    } catch (err) {
-      setContentState({
-        status: 'error',
-        error:
-          err instanceof Error
-            ? err.message
-            : locale?.['workspace.file.processFailed'] || '文件处理失败',
-      });
-    }
-  }, [file, customContent]);
+    if (hasCustomContent || source.loading) return;
 
-  // 2) 文本/代码加载（其他类型仅重置状态）
-  useEffect(() => {
-    if (customContent || !processResult) return;
+    let active = true;
+    let result: FileProcessResult | null = null;
+    let controller: AbortController | undefined;
 
-    const { typeInference, dataSource } = processResult;
-    const isTextOrCode =
-      typeInference.category === 'text' || typeInference.category === 'code';
-
-    if (!isTextOrCode) {
-      setContentState(INITIAL_STATE);
-      return;
-    }
-
+    const update = (contentState: ContentState) => {
+      if (active) {
+        setState({ source, processResult: result, contentState });
+      }
+    };
     const setReadyContent = (raw: string) => {
-      setContentState({
+      if (!active || !result) return;
+      update({
         status: 'ready',
-        mdContent: buildMarkdownContent(raw, typeInference.category, file.name),
+        mdContent: buildMarkdownContent(
+          raw,
+          result.typeInference.category,
+          source.name,
+        ),
         rawContent: raw,
       });
     };
 
-    if (dataSource.content) {
-      setReadyContent(dataSource.content);
-      return;
+    try {
+      result = fileTypeProcessor.processFile(source);
+      const { typeInference, dataSource } = result;
+      const isTextOrCode =
+        typeInference.category === 'text' || typeInference.category === 'code';
+
+      if (!isTextOrCode || !result.canPreview) {
+        update(INITIAL_STATE);
+      } else if (dataSource.content !== undefined) {
+        setReadyContent(dataSource.content);
+      } else if (dataSource.previewUrl) {
+        update({ status: 'loading', mdContent: '', rawContent: '' });
+        controller = new AbortController();
+        fetch(dataSource.previewUrl, { signal: controller.signal })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                `HTTP ${response.status}: ${response.statusText}`,
+              );
+            }
+            return response.text();
+          })
+          .then(setReadyContent)
+          .catch((err: unknown) => {
+            if (!active) return;
+            update({
+              status: 'error',
+              error:
+                err instanceof Error
+                  ? err.message
+                  : localeRef.current?.['common.loadTextFailed'] ||
+                    '加载文本内容失败',
+            });
+          });
+      } else {
+        update(INITIAL_STATE);
+      }
+    } catch (err) {
+      update({
+        status: 'error',
+        error:
+          err instanceof Error
+            ? err.message
+            : localeRef.current?.['workspace.file.processFailed'] ||
+              '文件处理失败',
+      });
     }
 
-    if (dataSource.previewUrl) {
-      setContentState({ status: 'loading', mdContent: '', rawContent: '' });
-
-      fetch(dataSource.previewUrl)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-          }
-          return response.text();
-        })
-        .then(setReadyContent)
-        .catch((err) => {
-          const errorMessage =
-            err instanceof Error
-              ? err.message
-              : locale?.['common.loadTextFailed'] || '加载文本内容失败';
-          setContentState({ status: 'error', error: errorMessage });
-          console.error('加载文本内容失败:', err);
-        });
-      return;
-    }
-
-    // 无数据源时回到 idle，避免显示旧内容
-    setContentState(INITIAL_STATE);
-  }, [processResult, file.name, customContent, locale]);
-
-  // 3) 卸载/重新处理时清理 Blob URL
-  useEffect(() => {
     return () => {
-      if (processResult) {
-        fileTypeProcessor.cleanupResult(processResult);
+      active = false;
+      controller?.abort();
+      if (result) {
+        fileTypeProcessor.cleanupResult(result);
       }
     };
-  }, [processResult]);
+  }, [source, hasCustomContent]);
 
-  return { processResult, contentState };
+  if (hasCustomContent || source.loading || state.source !== source) {
+    return { processResult: null, contentState: INITIAL_STATE };
+  }
+  return {
+    processResult: state.processResult,
+    contentState: state.contentState,
+  };
 };

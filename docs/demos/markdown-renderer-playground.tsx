@@ -13,7 +13,6 @@ import {
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 const SECTION_STYLE: React.CSSProperties = {
-  border: '1px solid #f0f0f0',
   borderRadius: 8,
   padding: 16,
   background: '#fff',

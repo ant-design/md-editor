@@ -150,7 +150,7 @@ console.log('嵌套的代码');
           initValue={value}
           onChange={(val) => setValue(val)}
           readonly={false}
-          style={{ minHeight: '600px', border: '1px solid #d9d9d9' }}
+          style={{ minHeight: '600px' }}
         />
       </div>
       <div style={{ flex: 1, maxWidth: '50%', minWidth: '50%' }}>
@@ -158,7 +158,7 @@ console.log('嵌套的代码');
         <MarkdownEditor
           initValue={value}
           readonly={true}
-          style={{ minHeight: '600px', border: '1px solid #d9d9d9' }}
+          style={{ minHeight: '600px' }}
         />
       </div>
     </div>

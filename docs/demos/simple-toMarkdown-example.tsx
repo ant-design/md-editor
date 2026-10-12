@@ -132,13 +132,11 @@ export default function SimpleToMarkdownExample() {
         </button>
       </div>
 
-      <div style={{ border: '1px solid #d9d9d9', borderRadius: '6px' }}>
-        <MarkdownEditor
-          editorRef={editorRef}
-          initValue={markdown}
-          plugins={[customCodePlugin]}
-        />
-      </div>
+      <MarkdownEditor
+        editorRef={editorRef}
+        initValue={markdown}
+        plugins={[customCodePlugin]}
+      />
 
       <div style={{ marginTop: '20px' }}>
         <h3>导出的 Markdown:</h3>

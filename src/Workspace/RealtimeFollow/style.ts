@@ -7,12 +7,18 @@ const genStyle: GenStyleFn<'WorkspaceRealtimeFollow'> = (token) => {
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
+        flex: 1,
+        minHeight: 0,
+        minWidth: 0,
       },
 
       [`&-header`]: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        flexShrink: 0,
+        flexWrap: 'wrap',
+        gap: token.marginXS,
         padding: '8px 12px',
         marginLeft: '-12px',
         marginRight: '-12px',
@@ -25,16 +31,25 @@ const genStyle: GenStyleFn<'WorkspaceRealtimeFollow'> = (token) => {
           justifyContent: 'center',
           width: '32px',
           height: '32px',
+          flexShrink: 0,
           border: 'none',
           background: 'none',
           cursor: 'pointer',
           color: 'var(--color-gray-text-secondary)',
-          transition: 'all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)',
+          touchAction: 'manipulation',
+          transition: `color ${token.motionDurationFast}, background-color ${token.motionDurationFast}`,
           borderRadius: 'var(--radius-control-base)',
-          backdropFilter: 'blur(20px)',
 
           '&:hover': {
             background: 'var(--color-gray-control-fill-active)',
+          },
+          '&:focus-visible': {
+            outline: `${token.lineWidthFocus}px solid ${token.colorPrimaryBorder}`,
+            outlineOffset: token.lineWidth,
+          },
+          '@media (pointer: coarse)': {
+            width: token.controlHeightLG,
+            height: token.controlHeightLG,
           },
         },
 
@@ -67,7 +82,7 @@ const genStyle: GenStyleFn<'WorkspaceRealtimeFollow'> = (token) => {
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
-          flex: 1,
+          flex: `1 1 ${token.controlHeightLG * 4}px`,
           minWidth: 0,
           overflow: 'hidden',
         },
@@ -78,6 +93,7 @@ const genStyle: GenStyleFn<'WorkspaceRealtimeFollow'> = (token) => {
           justifyContent: 'center',
           borderRadius: '6px',
           fontSize: token.fontSizeHeading3,
+          flexShrink: 0,
 
           [`&--html`]: {
             width: '40px',
@@ -108,12 +124,13 @@ const genStyle: GenStyleFn<'WorkspaceRealtimeFollow'> = (token) => {
           alignItems: 'center',
           gap: '12px',
           minWidth: 0,
+          flex: 1,
         },
 
         [`&-title-wrapper`]: {
           display: 'flex',
           flexDirection: 'column',
-          gap: '-4px',
+          gap: 0,
           flex: 1,
           minWidth: 0,
         },
@@ -128,6 +145,8 @@ const genStyle: GenStyleFn<'WorkspaceRealtimeFollow'> = (token) => {
           lineHeight: '22px',
           letterSpacing: 'normal',
           color: 'var(--color-gray-text-default)',
+          minWidth: 0,
+          overflowWrap: 'anywhere',
         },
 
         [`&-subtitle`]: {
@@ -147,6 +166,9 @@ const genStyle: GenStyleFn<'WorkspaceRealtimeFollow'> = (token) => {
         [`&-right`]: {
           display: 'flex',
           alignItems: 'center',
+          flexShrink: 0,
+          maxWidth: '100%',
+          marginInlineStart: 'auto',
 
           [`${token.antCls}-segmented`]: {
             borderRadius: 'var(--radius-control-base)',
@@ -259,9 +281,12 @@ const genStyle: GenStyleFn<'WorkspaceRealtimeFollow'> = (token) => {
 
       [`&-content`]: {
         position: 'relative',
+        flex: 1,
+        minHeight: 0,
+        minWidth: 0,
         width: 'auto',
-        height: 'calc(100% - 72px)',
         overflow: 'auto',
+        overscrollBehavior: 'contain',
         margin: '0 -12px',
         [`${token.antCls}-workspace-html-preview-content`]: {
           '.ace-container': {
@@ -346,7 +371,14 @@ const genStyle: GenStyleFn<'WorkspaceRealtimeFollow'> = (token) => {
         height: '100%',
         minHeight: '240px',
         padding: '24px',
+        boxSizing: 'border-box',
         textAlign: 'center',
+      },
+      '@media (prefers-reduced-motion: reduce)': {
+        [`${token.componentCls}-header-back-button, .code-editor-container, ${token.antCls}-segmented-thumb`]:
+          {
+            transition: 'none',
+          },
       },
     },
   };

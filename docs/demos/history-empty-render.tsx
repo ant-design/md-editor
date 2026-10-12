@@ -91,8 +91,6 @@ const HistoryEmptyRenderDemo = () => {
         style={{
           maxWidth: 248,
           padding: 16,
-          borderRadius: '16px',
-          border: '1px solid var(--color-gray-border-light)',
           backgroundColor: 'var(--color-gray-bg-container)',
         }}
       >

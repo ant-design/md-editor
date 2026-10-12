@@ -266,12 +266,20 @@ const FormDemo: React.FC = () => {
       }}
     >
       <Space direction="vertical" size="large" style={{ display: 'flex' }}>
-        <Card title="天气数据编辑器" style={{ width: '100%' }}>
+        <Card
+          title="天气数据编辑器"
+          variant="borderless"
+          style={{ width: '100%', boxShadow: 'none' }}
+        >
           <SchemaForm schema={sampleSchema} onValuesChange={setFormValues} />
         </Card>
 
         {formValues && (
-          <Card title="表单数据" style={{ width: '100%' }}>
+          <Card
+            title="表单数据"
+            variant="borderless"
+            style={{ width: '100%', boxShadow: 'none' }}
+          >
             <pre style={{ margin: 0 }}>
               {JSON.stringify(formValues, null, 2)}
             </pre>

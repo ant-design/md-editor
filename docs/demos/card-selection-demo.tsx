@@ -98,7 +98,6 @@ const CardSelectionDemo = () => {
             padding: '16px',
             borderRadius: '8px',
             marginBottom: '20px',
-            border: '1px solid #e1e4e8',
           }}
         >
           <h3>功能特性：</h3>
@@ -145,7 +144,6 @@ const CardSelectionDemo = () => {
 
       <div
         style={{
-          border: '1px solid #e1e4e8',
           borderRadius: '8px',
           overflow: 'hidden',
         }}

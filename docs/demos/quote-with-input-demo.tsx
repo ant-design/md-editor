@@ -23,7 +23,6 @@ export default function QuoteWithInputDemo() {
 
         <div
           style={{
-            border: '1px solid #f0f0f0',
             borderRadius: '8px',
             padding: '16px',
             backgroundColor: '#fafafa',

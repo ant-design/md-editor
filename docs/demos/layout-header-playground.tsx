@@ -4,7 +4,6 @@ import { Button, Card, Input, Space, Switch, Tag, message } from 'antd';
 import React, { useState } from 'react';
 
 const STAGE_STYLE: React.CSSProperties = {
-  border: '1px solid #f0f0f0',
   borderRadius: 8,
   background: '#fafafa',
   overflow: 'hidden',
@@ -31,7 +30,12 @@ export default () => {
         gap: 16,
       }}
     >
-      <Card title="1. 文案与按钮开关" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="1. 文案与按钮开关"
+        size="small"
+      >
         <Space direction="vertical" style={{ width: '100%' }} size="middle">
           <Space wrap>
             <span>title</span>
@@ -72,7 +76,12 @@ export default () => {
         </Space>
       </Card>
 
-      <Card title="2. 受控折叠状态" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="2. 受控折叠状态"
+        size="small"
+      >
         <Space wrap>
           <Tag color={leftCollapsed ? 'orange' : 'green'}>
             leftCollapsed: {String(leftCollapsed)}
@@ -89,7 +98,12 @@ export default () => {
         </Space>
       </Card>
 
-      <Card title="3. 实时预览" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="3. 实时预览"
+        size="small"
+      >
         <div style={STAGE_STYLE}>
           <LayoutHeader
             title={title}
@@ -143,6 +157,8 @@ export default () => {
       </Card>
 
       <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
         title="4. 非受控（leftDefaultCollapsed / rightDefaultCollapsed）"
         size="small"
       >

@@ -101,7 +101,6 @@ export default () => {
         style={{
           height: 400,
           overflow: 'auto',
-          borderRadius: '20px', // 与卡片容器保持一致
         }}
       />
 

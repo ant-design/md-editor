@@ -54,54 +54,73 @@ const StatusIcon: FC<{
   }
 };
 
+interface TaskRowProps {
+  item: TaskItem;
+  prefixCls: string;
+  hashId: string;
+  onItemClick?: TaskListProps['onItemClick'];
+}
+
+const TaskRow = React.memo(function TaskRow({
+  item,
+  prefixCls,
+  hashId,
+  onItemClick,
+}: TaskRowProps) {
+  return (
+    <div
+      className={classNames(
+        `${prefixCls}-item`,
+        `${prefixCls}-item-${item.status}`,
+        hashId,
+      )}
+      role={onItemClick ? 'button' : undefined}
+      tabIndex={onItemClick ? 0 : undefined}
+      onClick={onItemClick ? () => onItemClick(item) : undefined}
+      onKeyDown={
+        onItemClick
+          ? (event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                onItemClick(item);
+              }
+            }
+          : undefined
+      }
+      style={{ cursor: onItemClick ? 'pointer' : undefined }}
+    >
+      <div className={classNames(`${prefixCls}-status`, hashId)}>
+        <StatusIcon status={item.status} />
+      </div>
+      <div className={classNames(`${prefixCls}-content`, hashId)}>
+        <div className={classNames(`${prefixCls}-title`, hashId)}>
+          {item.title}
+        </div>
+        {item.content && (
+          <div className={classNames(`${prefixCls}-description`, hashId)}>
+            {item.content}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+});
+
 export const TaskList: FC<TaskListProps> = ({ data, onItemClick }) => {
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('agentic-workspace-task');
   const { hashId } = useTaskStyle(prefixCls);
 
-  const handleItemClick = (item: TaskItem) => {
-    onItemClick?.(item);
-  };
-
   return (
     <div className={classNames(prefixCls, hashId)} data-testid="task-list">
       {data.items.map((item) => (
-        <div
+        <TaskRow
           key={item.key}
-          className={classNames(
-            `${prefixCls}-item`,
-            `${prefixCls}-item-${item.status}`,
-            hashId,
-          )}
-          role={onItemClick ? 'button' : undefined}
-          tabIndex={onItemClick ? 0 : undefined}
-          onClick={onItemClick ? () => handleItemClick(item) : undefined}
-          onKeyDown={
-            onItemClick
-              ? (e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleItemClick(item);
-                  }
-                }
-              : undefined
-          }
-          style={{ cursor: onItemClick ? 'pointer' : undefined }}
-        >
-          <div className={classNames(`${prefixCls}-status`, hashId)}>
-            <StatusIcon status={item.status} />
-          </div>
-          <div className={classNames(`${prefixCls}-content`, hashId)}>
-            <div className={classNames(`${prefixCls}-title`, hashId)}>
-              {item.title}
-            </div>
-            {item.content && (
-              <div className={classNames(`${prefixCls}-description`, hashId)}>
-                {item.content}
-              </div>
-            )}
-          </div>
-        </div>
+          item={item}
+          prefixCls={prefixCls}
+          hashId={hashId}
+          onItemClick={onItemClick}
+        />
       ))}
     </div>
   );

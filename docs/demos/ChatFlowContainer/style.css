@@ -5,13 +5,9 @@
 
 .custom-chat-container-demo {
   min-height: 600px;
-  /* 圆角-弹窗-base */
-  border-radius: var(--radius-modal-base);
   /* gray/gray-背景-页面-浅 */
   /* 样式描述：1 */
   background: var(--color-gray-bg-page-light);
-  /* 投影-卡片-base */
-  box-shadow: var(--shadow-card-base);
   height: calc(100vh - 16px);
   display: flex;
   box-sizing: border-box;

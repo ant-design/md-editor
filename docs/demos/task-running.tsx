@@ -186,9 +186,7 @@ export default () => {
           gap: 16,
         }}
       >
-        <div
-          style={{ border: '1px solid #f0f0f0', borderRadius: 8, padding: 16 }}
-        >
+        <div style={{ padding: 16 }}>
           <h4 style={{ margin: '0 0 12px 0', color: '#1890ff' }}>
             状态1: 任务运行中
           </h4>
@@ -206,9 +204,7 @@ export default () => {
           />
         </div>
 
-        <div
-          style={{ border: '1px solid #f0f0f0', borderRadius: 8, padding: 16 }}
-        >
+        <div style={{ padding: 16 }}>
           <h4 style={{ margin: '0 0 12px 0', color: '#faad14' }}>
             状态2: 任务已暂停
           </h4>
@@ -226,9 +222,7 @@ export default () => {
           />
         </div>
 
-        <div
-          style={{ border: '1px solid #f0f0f0', borderRadius: 8, padding: 16 }}
-        >
+        <div style={{ padding: 16 }}>
           <h4 style={{ margin: '0 0 12px 0', color: '#ff4d4f' }}>
             状态3: 任务已停止
           </h4>
@@ -246,9 +240,7 @@ export default () => {
           />
         </div>
 
-        <div
-          style={{ border: '1px solid #f0f0f0', borderRadius: 8, padding: 16 }}
-        >
+        <div style={{ padding: 16 }}>
           <h4 style={{ margin: '0 0 12px 0', color: '#52c41a' }}>
             状态4: 任务已完成
           </h4>
@@ -265,9 +257,7 @@ export default () => {
           />
         </div>
 
-        <div
-          style={{ border: '1px solid #f0f0f0', borderRadius: 8, padding: 16 }}
-        >
+        <div style={{ padding: 16 }}>
           <h4 style={{ margin: '0 0 12px 0', color: '#ff4d4f' }}>
             状态5: 任务出错
           </h4>
@@ -285,9 +275,7 @@ export default () => {
           />
         </div>
 
-        <div
-          style={{ border: '1px solid #f0f0f0', borderRadius: 8, padding: 16 }}
-        >
+        <div style={{ padding: 16 }}>
           <h4 style={{ margin: '0 0 12px 0', color: '#999' }}>
             状态6: 任务已取消
           </h4>

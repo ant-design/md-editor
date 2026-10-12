@@ -10,7 +10,7 @@ function I18nContent() {
   const { locale, language, toggleLanguage } = useLanguage();
 
   return (
-    <Card>
+    <Card variant="borderless" style={{ boxShadow: 'none' }}>
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
         <div>
           <strong>当前语言 / Current Language:</strong> {language}

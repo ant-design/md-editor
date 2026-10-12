@@ -6,23 +6,31 @@ const genStyle: GenStyleFn<'WorkspaceHtmlPreview'> = (token) => {
       display: 'flex',
       flexDirection: 'column',
       height: '100%',
+      minHeight: 0,
+      minWidth: 0,
+      flex: 1,
 
       [`${token.componentCls}-actions`]: {
         display: 'flex',
         justifyContent: 'flex-end',
+        flexShrink: 0,
         padding: '8px 0',
       },
 
       [`${token.componentCls}-content`]: {
         position: 'relative',
+        // 无显式父高度时保留可用预览尺寸；固定高度容器中仍允许收缩。
+        flex: '1 1 240px',
+        minHeight: 0,
+        minWidth: 0,
         width: '100%',
-        height: '100%',
+        overflow: 'hidden',
       },
 
       [`${token.componentCls}-iframe`]: {
+        display: 'block',
         width: '100%',
         height: '100%',
-        minHeight: '240px',
         border: 'none',
         background: token.colorBgContainer,
       },
@@ -51,8 +59,9 @@ const genStyle: GenStyleFn<'WorkspaceHtmlPreview'> = (token) => {
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%',
-        minHeight: '240px',
+        minHeight: 0,
         padding: '24px',
+        boxSizing: 'border-box',
         textAlign: 'center',
       },
     },

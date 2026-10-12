@@ -1,48 +1,66 @@
-import { Workspace } from '@ant-design/agentic-ui';
-import { QuestionCircleOutlined } from '@ant-design/icons';
-import React, { useEffect, useState } from 'react';
+import { Workspace, type TaskProps } from '@ant-design/agentic-ui';
+import { Button, theme } from 'antd';
+import React, { useState } from 'react';
+
+const taskSteps = [
+  {
+    key: 'collect',
+    title: '收集需求与约束',
+    content: '读取产品说明，确认用户流程和验收标准。',
+  },
+  {
+    key: 'draft',
+    title: '生成实现方案',
+    content: '拆分组件结构，整理数据流和接口契约。',
+  },
+  {
+    key: 'verify',
+    title: '验证关键交互',
+    content: '检查键盘操作、窄屏布局与异常反馈。',
+  },
+  {
+    key: 'deliver',
+    title: '整理交付结果',
+    content: '输出变更说明、预览文件与后续建议。',
+  },
+];
 
 const WorkspaceTaskDemo: React.FC = () => {
-  const [tasks, setTasks] = useState<any[]>([]);
-
-  useEffect(() => {
-    // 模拟任务数据
-    const initialTasks = [
-      { key: '1', title: '步骤一：完成', status: 'success' },
-      {
-        key: '2',
-        title: '步骤二：失败',
-        content: (
-          <div>
-            已停止
-            <QuestionCircleOutlined style={{ marginLeft: 4 }} />
-          </div>
-        ),
-        status: 'error',
-      },
-      { key: '3', title: '步骤三：进行中', status: 'loading' },
-      { key: '4', title: <span>自定义 title</span>, status: 'pending' },
-    ];
-
-    setTasks(initialTasks);
-  }, []);
-
+  const { token } = theme.useToken();
+  const [completed, setCompleted] = useState(1);
+  const done = completed === taskSteps.length;
+  const items: NonNullable<TaskProps['data']>['items'] = taskSteps.map(
+    (step, index) => ({
+      ...step,
+      status:
+        index < completed
+          ? 'success'
+          : index === completed
+            ? 'loading'
+            : 'pending',
+    }),
+  );
   return (
-    <div style={{ height: 600, width: '100%' }}>
-      <Workspace title="任务管理工作空间">
-        <Workspace.Task
-          tab={{
-            key: 'tasks',
-            title: '任务列表',
-          }}
-          data={{
-            items: tasks,
-          }}
-        />
-        <Workspace.File nodes={[]} />
+    <div style={{ height: 560, minWidth: 0, fontFamily: token.fontFamily }}>
+      <Workspace
+        pure
+        title="任务执行计划"
+        headerExtra={
+          <Button
+            size="small"
+            onClick={() =>
+              setCompleted((value) =>
+                value >= taskSteps.length ? 1 : value + 1,
+              )
+            }
+          >
+            {done ? '重新演示' : '完成当前步骤'}
+          </Button>
+        }
+      >
+        <Workspace.Task data={{ items }} />
       </Workspace>
     </div>
   );
 };
-
 export default WorkspaceTaskDemo;

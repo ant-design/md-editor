@@ -173,7 +173,6 @@ export default () => {
           style={{
             height: 400,
             overflow: 'auto',
-            borderRadius: '20px',
           }}
         />
       </div>

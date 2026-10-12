@@ -62,7 +62,6 @@ export default () => {
           padding: 12,
           background: '#e6f7ff',
           borderRadius: 8,
-          border: '1px solid #91d5ff',
         }}
       >
         <h3 style={{ margin: '0 0 8px 0', fontSize: 16 }}>

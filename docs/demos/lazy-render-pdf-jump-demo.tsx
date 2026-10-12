@@ -210,7 +210,8 @@ export default () => {
       {/* 左侧：段落列表（模拟 PDF） */}
       <Card
         title="PDF 段落列表"
-        style={{ width: 300, overflow: 'auto' }}
+        variant="borderless"
+        style={{ width: 300, overflow: 'auto', boxShadow: 'none' }}
         styles={{ body: { padding: 8 } }}
       >
         <Space direction="vertical" style={{ width: '100%' }}>
@@ -249,7 +250,8 @@ export default () => {
       {/* 右侧：懒加载编辑器 */}
       <Card
         title="文档内容（懒加载）"
-        style={{ flex: 1, overflow: 'hidden' }}
+        variant="borderless"
+        style={{ flex: 1, overflow: 'hidden', boxShadow: 'none' }}
         styles={{ body: { padding: 0, height: 'calc(100% - 57px)' } }}
       >
         <div

@@ -64,8 +64,6 @@ const ScrollStateDemo: React.FC = () => {
           maxWidth: 720,
           margin: '0 auto',
           position: 'relative',
-          borderRadius: 'var(--radius-modal-base)',
-          boxShadow: 'var(--shadow-card-base)',
           background: 'var(--color-gray-bg-page-light)',
           overflow: 'hidden',
           display: 'flex',

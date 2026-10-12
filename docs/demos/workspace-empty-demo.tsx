@@ -1,83 +1,77 @@
 import { Workspace } from '@ant-design/agentic-ui';
-import { Empty } from 'antd';
-import React, { useState } from 'react';
+import { Empty, theme } from 'antd';
+import React from 'react';
 
 const WorkspaceRealtimeEmptyDemo: React.FC = () => {
-  const [htmlContent] = useState('');
-  const [mdContent] = useState('');
-  const [shellContent] = useState('');
-
+  const { token } = theme.useToken();
   return (
-    <div style={{ height: 520, width: '100%' }}>
-      <Workspace title="实时跟随空状态示例">
-        {/* 默认空态：使用 AntD Empty */}
+    <div style={{ height: 560, minWidth: 0, fontFamily: token.fontFamily }}>
+      <Workspace pure title="等待任务输出" style={{ boxShadow: 'none' }}>
         <Workspace.Realtime
-          tab={{ key: 'markdown-empty', title: '实时跟随' }}
-          data={{
-            type: 'md',
-            content: mdContent,
-            title: 'Markdown 内容',
-            status: 'done',
-          }}
+          tab={{ key: 'markdown-empty', title: '文档' }}
+          data={{ type: 'md', content: '', title: '分析报告', status: 'done' }}
         />
-
-        {/* 默认空态：HTML 预览为空，展示 Empty */}
         <Workspace.Realtime
-          tab={{ key: 'html-empty', title: 'HTML 空态' }}
+          tab={{ key: 'html-empty', title: '页面' }}
           data={{
             type: 'html',
-            content: htmlContent,
-            title: 'HTML 渲染',
+            content: '',
+            title: '页面预览',
             status: 'done',
             defaultViewMode: 'preview',
           }}
         />
-
-        {/* 自定义空态：覆盖 emptyRender */}
         <Workspace.Realtime
-          tab={{ key: 'shell-empty-custom', title: 'Shell 空态（自定义）' }}
+          tab={{ key: 'shell-empty', title: '命令' }}
           data={{
             type: 'shell',
-            content: shellContent,
+            content: '',
             title: '命令执行',
             status: 'done',
             emptyRender: (
               <Empty
                 image={Empty.PRESENTED_IMAGE_SIMPLE}
-                description="暂无命令输出"
+                description={
+                  <>
+                    <div>暂无命令输出</div>
+                    <div
+                      style={{
+                        color: token.colorTextSecondary,
+                        marginTop: token.marginXS,
+                      }}
+                    >
+                      任务执行后，日志会显示在这里。
+                    </div>
+                  </>
+                }
               />
             ),
           }}
         />
         <Workspace.File
-          tab={{ key: 'shell-file-empty', title: '文件空态' }}
+          tab={{ key: 'files-empty', title: '文件' }}
           nodes={[]}
-        />
-        <Workspace.File
-          tab={{
-            key: 'shell-file-empty-custom',
-            title: '文件空态（自定义）',
-          }}
-          nodes={[]}
-          emptyRender={() => (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                flexDirection: 'column',
-                justifyContent: 'center',
-                height: '100%',
-              }}
-            >
-              <Empty />
-              自定义空状态
-            </div>
-          )}
+          emptyRender={
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description={
+                <>
+                  <div>还没有生成文件</div>
+                  <div
+                    style={{
+                      color: token.colorTextSecondary,
+                      marginTop: token.marginXS,
+                    }}
+                  >
+                    任务完成后的报告、代码与附件会收集在这里。
+                  </div>
+                </>
+              }
+            />
+          }
         />
       </Workspace>
     </div>
   );
 };
-
 export default WorkspaceRealtimeEmptyDemo;

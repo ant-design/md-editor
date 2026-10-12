@@ -78,7 +78,6 @@ const DonutMultiCategorizedDemo: React.FC = () => {
           backgroundColor: '#f0f8ff',
           padding: 12,
           borderRadius: 8,
-          border: '1px solid #e8e8e8',
           color: '#333',
         }}
       >

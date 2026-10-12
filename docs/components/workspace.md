@@ -1,4 +1,6 @@
 ---
+pageType: doc-wide
+outline: false
 title: Workspace - 工作空间
 atomId: Workspace
 group:
@@ -19,56 +21,62 @@ Workspace 是一个功能强大的工作空间组件，提供了标签页式的�
 - 🎛️ **自定义内容**: 支持自定义组件和内容渲染（通过 customContent 或 Workspace.Custom）
 - 📱 **响应式设计**: 适配不同屏幕尺寸，提供良好的用户体验
 
+## 性能与布局 {#performance-and-layout}
+
+实时内容、HTML 代码视图和文本文件预览默认使用轻量只读 Markdown，不创建 Slate 编辑器。需要 Slate 文档行为时，可设置对应的 `markdownEditorProps={{ renderMode: 'slate' }}`；实时面板显式设置 `readonly: false` 仍使用可编辑视图。
+
+Workspace 按实际标题和标签栏高度分配内容空间。嵌入固定高度面板时，为父容器设置高度；窄屏标签在标签栏内横向滚动。流式内容仅在用户处于跟随状态时自动滚动，向上浏览历史内容会暂停跟随。
+
+文件列表默认渐进展示 50 项，查看更多时追加 100 项。更新文件数据时尽量复用未变节点引用；使用 `id` 标识文件，更新远程文件版本时同步更新 `lastModified`。切换文件会取消旧预览请求并释放其临时资源。
+
 ## 代码演示
 
 > 已废弃事件保留向下兼容：`onToggleGroup` → `onGroupToggle`、`loading` → `isLoading`，详见各 API 表里带删除线 + version 标记的行。
 
 ### 基础用法
 
-<code src="../demos/workspace-demo.tsx" description="展示工作空间的基本功能和标签页切换" description="基础用法 - 多标签工作台"></code>
+<code src="../demos/workspace-demo.tsx" iframe="560" description="从交付概览进入任务、参考资料和文件，按需重播流式生成过程"></code>
 
 ### 文件管理
 
-<code src="../demos/workspace-file-demo.tsx" description="演示文件上传、预览、下载等文件管理功能" description="文件管理 - 预览与下载"></code>
-<code src="../demos/workspace-file-large-demo.tsx" description="演示约 120 个文件的分页展示效果，支持分组与扁平两种视图，每组默认展示 50 条，点击查看更多每次追加 100 条" description="文件管理 - 大数据量"></code>
-<code src="../demos/workspace-file-share-demo.tsx" description="演示不分组文件分享功能（列表 + 预览页分享按钮）" description="文件管理 - 分享功能"></code>
-<code src="../demos/workspace-file-custom-preview-flow.tsx" description="演示自定义预览流程（onPreview 拦截并替换内容）" description="文件管理 - 自定义预览流程"></code>
-<code src="../demos/workspace-file-actionref-demo.tsx" description="演示通过 actionRef 在外部控制预览页打开/返回" description="文件管理 - ActionRef 外部控制"></code>
-<code src="../demos/workspace-file-search-demo.tsx" description="演示文件名搜索过滤" description="文件管理 - 搜索过滤"></code>
-<code src="../demos/workspace-file-tree-demo.tsx" description="树形展示文件，展开目录时通过 onLoadChildren 懒加载子节点" description="文件管理 - 文件树（懒加载）"></code>
-<code src="../demos/workspace-file-list-tree-switch-demo.tsx" description="fileTreeSwitch 分段切换；树模式与平铺共用搜索框，树筛选仅作用于已展开分支" description="文件管理 - 平铺与文件树动态切换"></code>
-<code src="../demos/workspace-locate.tsx" description="演示文件与网页结果的定位回调（onLocate）" description="定位功能 - 文件与网页"></code>
-<code src="../demos/workspace-file-custom-render-demo.tsx" description="演示通过 renderName / renderDetails / renderActions 自定义文件卡片" description="文件管理 - 自定义渲染"></code>
-
-{/* <code src="../demos/workspace-file-previewComponent.tsx" description="导出文件预览组件"></code> */}
+<code src="../demos/workspace-file-demo.tsx" iframe="560" description="浏览本地生成的交付文件，支持内容预览、下载与刷新加载状态"></code>
+<code src="../demos/workspace-file-large-demo.tsx" iframe="560" description="演示约 120 个文件的分页展示效果，支持分组与扁平两种视图，每组默认展示 50 条，点击查看更多每次追加 100 条"></code>
+<code src="../demos/workspace-file-share-demo.tsx" iframe="560" description="演示不分组文件分享功能（列表 + 预览页分享按钮）"></code>
+<code src="../demos/workspace-file-custom-preview-flow.tsx" iframe="560" description="演示自定义预览流程（onPreview 拦截并替换内容）"></code>
+<code src="../demos/workspace-file-actionref-demo.tsx" iframe="560" description="演示通过 actionRef 在外部控制预览页打开/返回"></code>
+<code src="../demos/workspace-file-search-demo.tsx" iframe="560" description="演示文件名搜索过滤"></code>
+<code src="../demos/workspace-file-tree-demo.tsx" iframe="560" description="树形展示文件，展开目录时通过 onLoadChildren 懒加载子节点"></code>
+<code src="../demos/workspace-file-list-tree-switch-demo.tsx" iframe="560" description="fileTreeSwitch 分段切换；树模式与平铺共用搜索框，树筛选仅作用于已展开分支"></code>
+<code src="../demos/workspace-locate.tsx" iframe="624" description="演示文件与网页结果的定位回调（onLocate）"></code>
+<code src="../demos/workspace-file-custom-render-demo.tsx" iframe="500" description="演示通过 renderName / renderDetails / renderActions 自定义文件卡片"></code>
 
 ### 实时跟随
 
-<code src="../demos/workspace-realtime-demo.tsx" description="展示实时内容更新和跟随功能" description="实时跟随 - Markdown / Shell / HTML"></code>
+<code src="../demos/workspace-realtime-demo.tsx" iframe="560" description="展示实时内容更新和跟随功能"></code>
 
 ### 浏览器
 
-<code src="../demos/workspace-browser-demo.tsx" description="展示浏览器搜索结果" description="浏览器 - 联网搜索结果展示"></code>
+<code src="../demos/workspace-browser-demo.tsx" iframe="560" description="展示浏览器搜索结果"></code>
 
 ### 任务管理
 
-<code src="../demos/workspace-task-demo.tsx" description="演示任务创建、编辑、状态管理等功能" description="任务管理 - 状态跟踪"></code>
+<code src="../demos/workspace-task-demo.tsx" iframe="560" description="查看任务状态与执行说明，体验任务推进和重置"></code>
 
 ### 空状态
 
-<code src="../demos/workspace-empty-demo.tsx" description="演示空状态功能" description="空状态处理"></code>
+<code src="../demos/workspace-empty-demo.tsx" iframe="560" description="演示空状态功能"></code>
 
 ### 自定义内容
 
-<code src="../demos/workspace-custom-demo.tsx" description="展示如何添加自定义组件和内容" description="自定义标签页内容"></code>
+<code src="../demos/workspace-custom-demo.tsx" iframe="560" description="展示如何添加自定义组件和内容"></code>
 
 ### 高级用法
 
-<code src="../demos/workspace-advanced-demo.tsx" description="展示复杂场景下的工作空间配置和使用" description="高级用法 - 复杂场景配置"></code>
+<code src="../demos/workspace-advanced-demo.tsx" iframe="560" description="展示复杂场景下的工作空间配置和使用"></code>
 
 ### Header 右侧自定义
 
-<code src="../demos/workspace-header-extra-demo.tsx" description="展示如何自定义 header 右侧区域，添加自定义按钮或操作" description="Header 右侧自定义操作"></code>
+<code src="../demos/workspace-header-extra-demo.tsx" iframe="560" description="展示如何自定义 header 右侧区域，添加自定义按钮或操作"></code>
 
 ## API
 

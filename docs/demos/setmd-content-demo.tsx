@@ -349,15 +349,7 @@ export default () => {
         </Space>
       </div>
 
-      <BaseMarkdownEditor
-        editorRef={editorRef}
-        readonly={true}
-        height={480}
-        style={{
-          border: '1px solid #d9d9d9',
-          borderRadius: 8,
-        }}
-      />
+      <BaseMarkdownEditor editorRef={editorRef} readonly={true} height={480} />
     </div>
   );
 };

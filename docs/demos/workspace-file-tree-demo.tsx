@@ -1,6 +1,6 @@
 import { Workspace } from '@ant-design/agentic-ui';
 import type { FileTreeNode } from '@ant-design/agentic-ui/Workspace/types';
-import { Alert, Space, Typography } from 'antd';
+import { Alert, Typography } from 'antd';
 import React, { useState } from 'react';
 
 /**
@@ -36,49 +36,58 @@ const WorkspaceFileTreeDemo: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: 12 }}>
-      <div style={{ maxWidth: 560 }}>
-        <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-          <Typography.Paragraph type="secondary" style={{ marginBottom: 0 }}>
-            展开目录时通过{' '}
-            <Typography.Text code>onLoadChildren</Typography.Text>{' '}
-            拉取子节点（本示例为本地模拟延迟）
-          </Typography.Paragraph>
-          {lastSelected && (
-            <Alert
-              type="info"
-              showIcon
-              message="onSelect"
-              description={
-                <span>
-                  <Typography.Text code>{lastSelected.key}</Typography.Text> —{' '}
-                  {lastSelected.name}
-                </span>
-              }
-            />
-          )}
-          <Workspace title="文件树 - 懒加载" activeTabKey="fileTree">
-            <Workspace.Realtime
-              data={{
-                type: 'markdown',
-                content: '### 说明\n与 **文件树** 同屏时，可在此查看说明。',
-              }}
-            />
-            <Workspace.FileTree
-              tab={{ key: 'fileTree' }}
-              treeData={[
-                {
-                  key: 'root',
-                  name: 'project',
-                  isLeaf: false,
-                  children: [] as FileTreeNode[],
-                },
-              ]}
-              onLoadChildren={handleLoadChildren}
-              onSelect={setLastSelected}
-            />
-          </Workspace>
-        </Space>
+    <div
+      style={{
+        height: 560,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+        minWidth: 0,
+      }}
+    >
+      <Typography.Paragraph
+        type="secondary"
+        style={{ marginBottom: 0, flexShrink: 0 }}
+      >
+        展开目录时通过 <Typography.Text code>onLoadChildren</Typography.Text>{' '}
+        拉取子节点（本示例为本地模拟延迟）
+      </Typography.Paragraph>
+      {lastSelected && (
+        <Alert
+          type="info"
+          style={{ flexShrink: 0, minWidth: 0, overflowWrap: 'anywhere' }}
+          showIcon
+          message="onSelect"
+          description={
+            <span>
+              <Typography.Text code>{lastSelected.key}</Typography.Text> —{' '}
+              {lastSelected.name}
+            </span>
+          }
+        />
+      )}
+      <div style={{ flex: 1, minHeight: 0, minWidth: 0 }}>
+        <Workspace pure title="文件树 - 懒加载" activeTabKey="fileTree">
+          <Workspace.Realtime
+            data={{
+              type: 'markdown',
+              content: '### 说明\n与 **文件树** 同屏时，可在此查看说明。',
+            }}
+          />
+          <Workspace.FileTree
+            tab={{ key: 'fileTree' }}
+            treeData={[
+              {
+                key: 'root',
+                name: 'project',
+                isLeaf: false,
+                children: [] as FileTreeNode[],
+              },
+            ]}
+            onLoadChildren={handleLoadChildren}
+            onSelect={setLastSelected}
+          />
+        </Workspace>
       </div>
     </div>
   );

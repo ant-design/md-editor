@@ -11,9 +11,17 @@ group:
 
 ## Unreleased
 
+- Workspace
+  - 💄 Refine Workspace demos with a delivery overview, file browsing and realtime previews; align spacing and embedded sizing, show complete results initially, replay generation on demand, and remove continuous random updates and placeholder actions.
+  - ⚡️ Use lightweight Markdown for readonly realtime content and text previews, remove duplicate document synchronization, and isolate tab navigation from streamed body updates while preserving explicit Slate configuration.
+  - ⚡️ Truncate file text with CSS, build tree path indexes on demand, and reuse browser result and task rows to reduce measurement and unrelated updates.
+  - 🐞 Cancel stale preview requests and release Blob URLs without reloading unchanged sources or on locale changes; fix empty content fallback, failed previews remaining in loading state, and forced streaming scroll.
+  - 💄 Correct panel sizing and scroll areas, improve narrow tabs and long filenames, simplify transitions and count animations, and support touch actions, keyboard focus, and reduced motion.
+
 - Docs
+  - 💄 Restore the default outer border and description separator for all documentation demos, adapting to light and dark themes while preserving their full preview height.
   - 🐞 Include homepage styles in the initial HTML and provide matching static entries for extensionless document and demo URLs, preventing an unstyled homepage from flashing on first load.
-  - 💄 Remove preview frames and redundant shadows, rounded corners, and separators from Bubble demo containers, reducing nesting while keeping code actions.
+  - 💄 Remove decorative borders and shadows from editor, chat, chart, and utility demo wrappers to avoid nested frames; preserve control, table, and style customization borders.
   - 🐞 Render standalone demo routes with a minimal layout to prevent duplicate site navigation and document sidebars inside code previews.
   - 💄 Tighten homepage section spacing and adapt demo previews to narrow screens; size the carousel to its content instead of reserving two screens of unused scroll space.
   - 🐞 Use explicit card flip buttons to prevent accidental hover flips; respond immediately to consecutive showroom selections, support keyboard and touch navigation, and display demo loading feedback.

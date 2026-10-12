@@ -171,9 +171,6 @@ export default () => {
     >
       <MarkdownEditor
         readonly
-        style={{
-          border: '1px solid #eee',
-        }}
         toc={false}
         width={'calc(99vw - 16px)'}
         initValue={defaultValue}
@@ -183,9 +180,6 @@ export default () => {
         <ul>
           <li>
             <code>readonly</code> - 只读模式，用户无法编辑内容
-          </li>
-          <li>
-            <code>style</code> - 样式配置，设置边框样式
           </li>
           <li>
             <code>toc</code> - 是否显示目录，设置为 false 隐藏目录

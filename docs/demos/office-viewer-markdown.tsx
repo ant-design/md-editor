@@ -416,7 +416,6 @@ const OfficeViewerMarkdownDemo: React.FC = () => {
       {view === 'render' ? (
         <div
           style={{
-            border: '1px dashed #d9d9d9',
             borderRadius: 8,
             padding: 16,
             background: '#fafafa',

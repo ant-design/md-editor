@@ -47,8 +47,6 @@ const FooterHeightDemo: React.FC = () => {
           height: 520,
           maxWidth: 720,
           margin: '0 auto',
-          borderRadius: 'var(--radius-modal-base)',
-          boxShadow: 'var(--shadow-card-base)',
           background: 'var(--color-gray-bg-page-light)',
           overflow: 'hidden',
           display: 'flex',

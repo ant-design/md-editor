@@ -23,7 +23,7 @@ function DemoContent() {
   const { language, locale, toggleLanguage } = useLanguage();
 
   return (
-    <Card>
+    <Card variant="borderless" style={{ boxShadow: 'none' }}>
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <Space wrap>
           <Typography.Text>

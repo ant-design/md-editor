@@ -135,7 +135,6 @@ const SchemaJsonEditor: React.FC = () => {
           </div>
           <div
             style={{
-              border: '1px solid #d9d9d9',
               padding: '16px',
               borderRadius: '2px',
               minHeight: '500px',

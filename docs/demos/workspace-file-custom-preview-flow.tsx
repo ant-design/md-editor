@@ -641,13 +641,22 @@ console.log(sum(1, 2));`}
   };
 
   return (
-    <div style={{ padding: '12px' }}>
+    <div
+      style={{
+        height: 560,
+        display: 'flex',
+        flexDirection: 'column',
+        minWidth: 0,
+      }}
+    >
       <div
         style={{
-          maxWidth: '600px',
+          flex: 1,
+          minHeight: 0,
+          minWidth: 0,
         }}
       >
-        <Workspace title="文件管理 - 自定义预览流程">
+        <Workspace pure title="文件管理 - 自定义预览流程">
           <Workspace.File
             tab={{
               key: 'cusFilesPreview',

@@ -281,8 +281,6 @@ export default function ClassNamesExtendedDemo() {
       <div
         style={{
           height: '500px',
-          border: '1px solid #e8e8e8',
-          borderRadius: '8px',
           overflow: 'hidden',
         }}
       >

@@ -106,7 +106,9 @@ describe('usePreviewContent', () => {
     expect(result.current.contentState).toMatchObject({
       rawContent: 'fetched text',
     });
-    expect(global.fetch).toHaveBeenCalledWith('https://example.com/readme.md');
+    expect(global.fetch).toHaveBeenCalledWith('https://example.com/readme.md', {
+      signal: expect.any(AbortSignal),
+    });
   });
 
   it('sets error when fetch fails', async () => {

@@ -11,9 +11,7 @@ export const ChatContainer = ({
   return (
     <div
       style={{
-        borderRadius: 'var(--radius-modal-base)',
         background: 'var(--color-gray-bg-page-light)',
-        boxShadow: 'var(--shadow-control-base)',
         ...style,
       }}
     >

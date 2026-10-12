@@ -1,6 +1,6 @@
 import { Workspace } from '@ant-design/agentic-ui';
-import { Button, Card, Progress, Statistic, Table, Tag } from 'antd';
-import React, { useState } from 'react';
+import { Button, Progress, Statistic, Table, Tag, theme } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   CartesianGrid,
   Line,
@@ -11,166 +11,260 @@ import {
   YAxis,
 } from 'recharts';
 
-// 自定义图表组件
-const CustomChart: React.FC = () => {
-  const data = [
-    { name: 'Q1', value: 400 },
-    { name: 'Q2', value: 600 },
-    { name: 'Q3', value: 800 },
-  ];
+const chartData = [
+  { name: '周一', value: 320 },
+  { name: '周二', value: 420 },
+  { name: '周三', value: 380 },
+  { name: '周四', value: 560 },
+  { name: '周五', value: 640 },
+  { name: '周六', value: 590 },
+  { name: '周日', value: 720 },
+];
+const teamData = [
+  { key: 'design', name: '体验设计', owner: '陈晨', tasks: 12, status: '完成' },
+  { key: 'web', name: '前端研发', owner: '林悦', tasks: 18, status: '进行中' },
+  { key: 'qa', name: '质量验证', owner: '周明', tasks: 8, status: '待开始' },
+];
+const teamColumns = [
+  { title: '工作组', dataIndex: 'name', width: 120 },
+  { title: '负责人', dataIndex: 'owner', width: 100 },
+  { title: '任务数', dataIndex: 'tasks', width: 90 },
+  {
+    title: '状态',
+    dataIndex: 'status',
+    width: 110,
+    render: (status: string) => (
+      <Tag
+        color={
+          status === '完成'
+            ? 'success'
+            : status === '进行中'
+              ? 'processing'
+              : 'default'
+        }
+      >
+        {status}
+      </Tag>
+    ),
+  },
+];
 
+const CustomChart: React.FC = () => {
+  const { token } = theme.useToken();
   return (
-    <Card title="销售趋势图" size="small">
-      <ResponsiveContainer width="100%" height={200}>
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Line type="monotone" dataKey="value" stroke="#8884d8" />
+    <>
+      <div style={{ marginBottom: token.marginLG }}>
+        <div style={{ fontWeight: token.fontWeightStrong }}>每周任务处理量</div>
+        <div
+          style={{ color: token.colorTextSecondary, marginTop: token.marginXS }}
+        >
+          最近 7 天 · 单位：次
+        </div>
+      </div>
+      <ResponsiveContainer width="100%" height={280}>
+        <LineChart
+          data={chartData}
+          margin={{ top: 12, right: 12, bottom: 8, left: -20 }}
+        >
+          <CartesianGrid stroke={token.colorBorderSecondary} vertical={false} />
+          <XAxis
+            dataKey="name"
+            axisLine={false}
+            tickLine={false}
+            tick={{
+              fill: token.colorTextSecondary,
+              fontSize: token.fontSizeSM,
+            }}
+          />
+          <YAxis
+            axisLine={false}
+            tickLine={false}
+            tick={{
+              fill: token.colorTextSecondary,
+              fontSize: token.fontSizeSM,
+            }}
+          />
+          <Tooltip
+            isAnimationActive={false}
+            contentStyle={{
+              background: token.colorBgElevated,
+              borderColor: token.colorBorderSecondary,
+              borderRadius: token.borderRadius,
+            }}
+          />
+          <Line
+            type="monotone"
+            dataKey="value"
+            name="处理任务"
+            stroke={token.colorPrimary}
+            strokeWidth={2}
+            dot={false}
+            activeDot={{ r: 4 }}
+            isAnimationActive={false}
+          />
         </LineChart>
       </ResponsiveContainer>
-    </Card>
+    </>
   );
 };
 
-// 自定义统计面板
 const CustomStats: React.FC = () => {
+  const { token } = theme.useToken();
   return (
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(2, 1fr)',
-        gap: 16,
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 180px), 1fr))',
+        gap: token.marginLG,
       }}
     >
-      <Card size="small">
-        <Statistic title="总用户数" value={11280} />
-      </Card>
-      <Card size="small">
-        <Statistic title="今日活跃" value={1128} />
-      </Card>
-      <Card size="small">
-        <Statistic title="总收入" value={11280} prefix="¥" />
-      </Card>
-      <Card size="small">
-        <Statistic title="转化率" value={11.28} suffix="%" />
-      </Card>
+      {[
+        { title: '累计处理任务', value: 11280, suffix: '次' },
+        { title: '今日处理任务', value: 1128, suffix: '次' },
+        { title: '平均处理时间', value: 2.4, suffix: '秒' },
+        { title: '任务完成率', value: 98.6, suffix: '%' },
+      ].map((item) => (
+        <div
+          key={item.title}
+          style={{
+            padding: token.paddingLG,
+            borderRadius: token.borderRadiusLG,
+            background: token.colorFillAlter,
+          }}
+        >
+          <Statistic
+            title={item.title}
+            value={item.value}
+            suffix={item.suffix}
+          />
+        </div>
+      ))}
     </div>
   );
 };
 
-// 自定义表格组件
-const CustomTable: React.FC = () => {
-  const [data] = useState([
-    {
-      key: '1',
-      name: '张三',
-      age: 32,
-      address: '北京',
-      status: 'active',
-    },
-    {
-      key: '2',
-      name: '李四',
-      age: 42,
-      address: '上海',
-      status: 'inactive',
-    },
-  ]);
-
-  const columns = [
-    { title: '姓名', dataIndex: 'name', key: 'name' },
-    { title: '年龄', dataIndex: 'age', key: 'age' },
-    { title: '地址', dataIndex: 'address', key: 'address' },
-    {
-      title: '状态',
-      dataIndex: 'status',
-      key: 'status',
-      render: (status: string) => (
-        <Tag color={status === 'active' ? 'green' : 'red'}>
-          {status === 'active' ? '活跃' : '非活跃'}
-        </Tag>
-      ),
-    },
-  ];
-
-  return (
-    <Card title="用户列表" size="small">
-      <Table
-        columns={columns}
-        dataSource={data}
-        pagination={false}
-        size="small"
-      />
-    </Card>
-  );
-};
-
-// 自定义控制面板
 const CustomControlPanel: React.FC = () => {
+  const { token } = theme.useToken();
   const [progress, setProgress] = useState(0);
-
-  const handleStart = () => {
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
-        }
-        return prev + 10;
-      });
-    }, 500);
+  const [running, setRunning] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const stop = () => {
+    if (timerRef.current !== null) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
   };
-
-  const handleReset = () => {
-    setProgress(0);
+  useEffect(() => stop, []);
+  const start = () => {
+    if (timerRef.current !== null) return;
+    let value = progress === 100 ? 0 : progress;
+    setProgress(value);
+    setRunning(true);
+    timerRef.current = setInterval(() => {
+      value = Math.min(value + 10, 100);
+      setProgress(value);
+      if (value === 100) {
+        stop();
+        setRunning(false);
+      }
+    }, 240);
   };
-
   return (
-    <Card title="控制面板" size="small">
-      <div style={{ marginBottom: 16 }}>
+    <div style={{ maxWidth: 560 }}>
+      <div
+        style={{
+          fontWeight: token.fontWeightStrong,
+          marginBottom: token.marginXS,
+        }}
+      >
+        批量分析任务
+      </div>
+      <p
+        style={{
+          color: token.colorTextSecondary,
+          margin: `0 0 ${token.marginLG}px`,
+        }}
+      >
+        点击开始模拟处理 10 份文档，重置会取消当前任务。
+      </p>
+      <div aria-live="polite" style={{ marginBottom: token.marginLG }}>
         <Progress
           percent={progress}
-          status={progress === 100 ? 'success' : 'active'}
+          status={running ? 'active' : progress === 100 ? 'success' : 'normal'}
         />
+        <span style={{ color: token.colorTextSecondary }}>
+          {running
+            ? `已处理 ${progress / 10} / 10 份文档`
+            : progress === 100
+              ? '全部文档已处理完成'
+              : '准备就绪'}
+        </span>
       </div>
-      <div style={{ display: 'flex', gap: 8 }}>
-        <Button
-          type="primary"
-          onClick={handleStart}
-          disabled={progress > 0 && progress < 100}
-        >
-          开始
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: token.marginSM }}>
+        <Button type="primary" onClick={start} disabled={running}>
+          {progress === 100 ? '重新开始' : '开始处理'}
         </Button>
-        <Button onClick={handleReset}>重置</Button>
+        <Button
+          onClick={() => {
+            stop();
+            setRunning(false);
+            setProgress(0);
+          }}
+          disabled={!running && progress === 0}
+        >
+          重置
+        </Button>
       </div>
-    </Card>
+    </div>
   );
 };
 
 const WorkspaceCustomDemo: React.FC = () => {
+  const { token } = theme.useToken();
+  const panelStyle: React.CSSProperties = {
+    height: '100%',
+    overflow: 'auto',
+    boxSizing: 'border-box',
+    padding: token.paddingLG,
+  };
   return (
-    <div style={{ height: 600, width: '100%' }}>
-      <Workspace title="自定义内容工作空间">
-        <Workspace.Custom tab={{ key: 'chart', title: '图表展示' }}>
-          <CustomChart />
+    <div
+      style={{
+        height: 560,
+        width: '100%',
+        minWidth: 0,
+        fontFamily: token.fontFamily,
+      }}
+    >
+      <Workspace pure title="数据分析工作台" style={{ boxShadow: 'none' }}>
+        <Workspace.Custom tab={{ key: 'chart', title: '趋势' }}>
+          <div style={panelStyle}>
+            <CustomChart />
+          </div>
         </Workspace.Custom>
-
-        <Workspace.Custom tab={{ key: 'stats', title: '数据统计' }}>
-          <CustomStats />
+        <Workspace.Custom tab={{ key: 'stats', title: '指标' }}>
+          <div style={panelStyle}>
+            <CustomStats />
+          </div>
         </Workspace.Custom>
-
-        <Workspace.Custom tab={{ key: 'table', title: '数据表格' }}>
-          <CustomTable />
+        <Workspace.Custom tab={{ key: 'table', title: '团队' }}>
+          <div style={panelStyle}>
+            <Table
+              columns={teamColumns}
+              dataSource={teamData}
+              pagination={false}
+              size="middle"
+              scroll={{ x: 420 }}
+            />
+          </div>
         </Workspace.Custom>
-
-        <Workspace.Custom tab={{ key: 'control', title: '控制面板' }}>
-          <CustomControlPanel />
+        <Workspace.Custom tab={{ key: 'control', title: '处理任务' }}>
+          <div style={panelStyle}>
+            <CustomControlPanel />
+          </div>
         </Workspace.Custom>
       </Workspace>
     </div>
   );
 };
-
 export default WorkspaceCustomDemo;

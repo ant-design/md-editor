@@ -105,8 +105,11 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
     onViewModeChange?.(m);
   };
 
-  // 始终在 html 变化时更新 iframe 内容，避免首次未显示
-  const iframeHtml = useMemo(() => DOMPurify.sanitize(html || ''), [html]);
+  // Code view does not mount an iframe, so avoid parsing its HTML as well.
+  const iframeHtml = useMemo(
+    () => (mode === 'preview' ? DOMPurify.sanitize(html || '') : ''),
+    [html, mode],
+  );
 
   const labelsMap = {
     preview: labels?.preview || locale?.['htmlPreview.preview'] || '预览',
@@ -119,10 +122,8 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
 
   const overlayNode = (() => {
     if (status !== 'loading' && status !== 'error') return null;
-    const loadingNode =
-      typeof loadingRender === 'function' ? loadingRender() : loadingRender;
-    const errorNode =
-      typeof errorRender === 'function' ? errorRender() : errorRender;
+    const renderer = status === 'loading' ? loadingRender : errorRender;
+    const content = typeof renderer === 'function' ? renderer() : renderer;
     return (
       <div
         className={classNames(`${prefixCls}-overlay`, {
@@ -131,8 +132,8 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
         })}
       >
         {status === 'loading'
-          ? loadingNode || <Spin />
-          : errorNode || (
+          ? content || <Spin />
+          : content || (
               <span>
                 {locale?.['htmlPreview.renderFailed'] || '页面渲染失败'}
               </span>
@@ -145,6 +146,7 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
     const defaultMdConfig: Partial<MarkdownEditorProps> = {
       width: '100%',
       height: '100%',
+      renderMode: 'markdown',
       contentStyle: {
         width: '100%',
         padding: 0,
@@ -159,6 +161,10 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
     return {
       ...defaultMdConfig,
       ...markdownEditorProps,
+      renderMode:
+        markdownEditorProps?.renderMode ??
+        markdownEditorProps?.renderType ??
+        defaultMdConfig.renderMode,
     };
   };
 
@@ -166,8 +172,11 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
 
   const isEmpty = (html ?? '').trim() === '';
   const shouldShowEmpty = isEmpty && status !== 'loading' && status !== 'error';
-  const emptyNode =
-    typeof emptyRender === 'function' ? emptyRender() : emptyRender;
+  const emptyNode = shouldShowEmpty
+    ? typeof emptyRender === 'function'
+      ? emptyRender()
+      : emptyRender
+    : null;
 
   return (
     <div className={classNames(prefixCls, className, hashId)} style={style}>
@@ -193,10 +202,7 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
         </div>
       )}
 
-      <div
-        className={classNames(`${prefixCls}-content`, hashId)}
-        style={{ minHeight: 240 }}
-      >
+      <div className={classNames(`${prefixCls}-content`, hashId)}>
         {overlayNode}
         {shouldShowEmpty ? (
           <div className={classNames(`${prefixCls}-empty`, hashId)}>
@@ -217,7 +223,6 @@ export const HtmlPreview: React.FC<HtmlPreviewProps> = (props) => {
             className={classNames(`${prefixCls}-iframe`, hashId)}
             sandbox={iframeProps?.sandbox || 'allow-scripts'}
             srcDoc={iframeHtml}
-            key={iframeHtml}
             {...iframeProps}
           />
         )}

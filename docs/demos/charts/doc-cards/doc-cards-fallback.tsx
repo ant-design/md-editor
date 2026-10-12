@@ -46,12 +46,7 @@ const DocCardsFallbackDemo: React.FC = () => {
         cardColumns={2}
       />
 
-      <MarkdownEditor
-        readonly
-        toc={false}
-        style={{ border: '1px solid #eee', borderRadius: 8 }}
-        initValue={downgradedMarkdown}
-      />
+      <MarkdownEditor readonly toc={false} initValue={downgradedMarkdown} />
     </div>
   );
 };

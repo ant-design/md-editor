@@ -10,6 +10,8 @@ const genStyle: GenStyleFn<'WorkspaceFileTree'> = (token) => {
     [componentCls]: {
       height: '100%',
       minHeight: 0,
+      minWidth: 0,
+      flex: 1,
       display: 'flex',
       flexDirection: 'column',
       overflow: 'hidden',
@@ -22,6 +24,7 @@ const genStyle: GenStyleFn<'WorkspaceFileTree'> = (token) => {
         minWidth: 0,
         overflowX: 'hidden',
         overflowY: 'auto',
+        overscrollBehavior: 'contain',
         background: 'transparent',
 
         [`${componentCls}-icon`]: {

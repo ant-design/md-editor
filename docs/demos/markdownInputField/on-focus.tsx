@@ -39,7 +39,7 @@ export default () => {
         获得或失去焦点时更新状态；可与埋点、高亮边框等逻辑联动。
       </Text>
 
-      <Card size="small">
+      <Card variant="borderless" style={{ boxShadow: 'none' }} size="small">
         <Space size="middle" wrap>
           <Text>焦点：</Text>
           <Tag color={isFocused ? 'processing' : 'default'}>

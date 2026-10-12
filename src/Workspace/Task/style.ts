@@ -12,6 +12,17 @@ const genStyle: GenStyleFn<'WorkspaceTask'> = (token) => {
         margin: '12px 0',
         font: 'var(--font-text-h6-base)',
         color: 'var(--color-gray-text-default)',
+        '&[role="button"]': {
+          touchAction: 'manipulation',
+          borderRadius: token.borderRadiusSM,
+          '&:focus-visible': {
+            outline: `${token.lineWidthFocus}px solid ${token.colorPrimaryBorder}`,
+            outlineOffset: token.lineWidth,
+          },
+          '@media (pointer: coarse)': {
+            minHeight: token.controlHeightLG,
+          },
+        },
       },
 
       '&-status': {

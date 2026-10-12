@@ -243,8 +243,8 @@ describe('DataSourceStrategy', () => {
 
     it('应该处理空内容', () => {
       const file = { id: 'f1', name: 'file.txt', content: '' };
-      // 空字符串被视为 falsy，会抛出错误
-      expect(() => strategy.process(file)).toThrow('Content not provided');
+      expect(strategy.canHandle(file)).toBe(true);
+      expect(strategy.process(file).content).toBe('');
     });
 
     it('应该处理多行内容', () => {

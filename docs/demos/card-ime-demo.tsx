@@ -81,7 +81,6 @@ const CardIMEDemo = () => {
 
       <div
         style={{
-          border: '1px solid #e1e4e8',
           borderRadius: '8px',
           overflow: 'hidden',
         }}

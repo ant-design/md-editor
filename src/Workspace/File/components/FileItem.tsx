@@ -4,7 +4,6 @@ import {
   Locate,
   SquareArrowOutUpRight as ShareIcon,
 } from '@sofa-design/icons';
-import { Typography } from 'antd';
 import classNames from 'clsx';
 import React, { type FC, memo } from 'react';
 import { ActionIconBox } from '../../../Components/ActionIconBox';
@@ -275,13 +274,16 @@ const FileItemComponent: FC<FileItemProps> = ({
                 {fileWithId.renderName(renderContext)}
               </div>
             ) : (
-              <Typography.Text
-                className={classNames(`${prefixCls}-item-name`, hashId)}
-                style={{ display: 'block' }}
-                ellipsis={{ tooltip: fileWithId.name }}
+              <span
+                className={classNames(
+                  `${prefixCls}-item-name`,
+                  `${prefixCls}-item-name-text`,
+                  hashId,
+                )}
+                title={fileWithId.name}
               >
                 {fileWithId.name}
-              </Typography.Text>
+              </span>
             )}
             {(fileWithId.renderDetails ||
               fileTypeInfo.displayType ||
@@ -291,7 +293,12 @@ const FileItemComponent: FC<FileItemProps> = ({
                 {fileWithId.renderDetails ? (
                   fileWithId.renderDetails(renderContext)
                 ) : (
-                  <Typography.Text type="secondary" ellipsis>
+                  <span
+                    className={classNames(
+                      `${prefixCls}-item-details-text`,
+                      hashId,
+                    )}
+                  >
                     {fileTypeInfo.displayType && (
                       <span
                         className={classNames(`${prefixCls}-item-type`, hashId)}
@@ -343,7 +350,7 @@ const FileItemComponent: FC<FileItemProps> = ({
                         </span>
                       </>
                     )}
-                  </Typography.Text>
+                  </span>
                 )}
               </div>
             )}

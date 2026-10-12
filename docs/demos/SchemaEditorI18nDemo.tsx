@@ -48,14 +48,12 @@ export const SchemaEditorI18nDemo: React.FC = () => {
           </Space>
         </div>
 
-        <div style={{ border: '1px solid #d9d9d9', borderRadius: '6px' }}>
-          <SchemaEditor
-            initialSchema={mockSchema}
-            initialValues={mockSchema.initialValues}
-            height={600}
-            showPreview={true}
-          />
-        </div>
+        <SchemaEditor
+          initialSchema={mockSchema}
+          initialValues={mockSchema.initialValues}
+          height={600}
+          showPreview={true}
+        />
 
         <div
           style={{

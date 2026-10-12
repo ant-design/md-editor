@@ -103,13 +103,24 @@ const WorkspaceFileLargeDemo: React.FC = () => {
   );
 
   return (
-    <div style={{ padding: '12px' }}>
+    <div
+      style={{
+        height: 560,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+        minWidth: 0,
+      }}
+    >
       <div
         style={{
           display: 'flex',
+          flexWrap: 'wrap',
+          flexShrink: 0,
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginBottom: 12,
+          gap: 12,
+          minWidth: 0,
         }}
       >
         <span style={{ color: '#666', fontSize: 13 }}>
@@ -126,8 +137,8 @@ const WorkspaceFileLargeDemo: React.FC = () => {
         />
       </div>
 
-      <div style={{ height: 560 }}>
-        <Workspace title="大数据量文件演示">
+      <div style={{ flex: 1, minHeight: 0, minWidth: 0 }}>
+        <Workspace pure title="大数据量文件演示">
           <Workspace.File
             tab={{ count: TOTAL_FILE_COUNT }}
             nodes={nodes}

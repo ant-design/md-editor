@@ -305,7 +305,6 @@ export default () => {
                 padding: 24,
                 borderRadius: 24,
                 backgroundColor: '#fff',
-                border: '1px solid #f0f0f0',
                 margin: '20px auto',
                 width: '100%',
                 position: 'relative',

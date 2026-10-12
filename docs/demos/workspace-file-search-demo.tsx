@@ -41,9 +41,16 @@ const WorkspaceFileSearchDemo: React.FC = () => {
   }, [files, keyword]);
 
   return (
-    <div style={{ padding: 12 }}>
-      <div style={{ maxWidth: 640 }}>
-        <Workspace title="文件管理-搜索">
+    <div
+      style={{
+        height: 560,
+        display: 'flex',
+        flexDirection: 'column',
+        minWidth: 0,
+      }}
+    >
+      <div style={{ flex: 1, minHeight: 0, minWidth: 0 }}>
+        <Workspace pure title="文件管理-搜索">
           <Workspace.File
             nodes={filteredFiles}
             // 受控搜索：仅用于展示搜索框与回调，过滤在外部完成

@@ -302,5 +302,9 @@ export const isAudioFile = (file: FileNode): boolean =>
 
 export const getMimeType = (file: FileNode): string => {
   const result = fileTypeProcessor.processFile(file);
-  return result.dataSource.mimeType || DEFAULT_MIME_TYPE;
+  try {
+    return result.dataSource.mimeType || DEFAULT_MIME_TYPE;
+  } finally {
+    fileTypeProcessor.cleanupResult(result);
+  }
 };

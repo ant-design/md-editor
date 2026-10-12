@@ -54,7 +54,12 @@ export default () => {
         gap: 16,
       }}
     >
-      <Card title="1. 配置面板" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="1. 配置面板"
+        size="small"
+      >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           <Space wrap size="large">
             <Space>
@@ -129,11 +134,15 @@ export default () => {
         </Space>
       </Card>
 
-      <Card title="2. 实时预览" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="2. 实时预览"
+        size="small"
+      >
         <div
           key={replayKey}
           style={{
-            border: '1px dashed #d9d9d9',
             borderRadius: 8,
             padding: 24,
             background: '#fafafa',
@@ -156,7 +165,12 @@ export default () => {
         </div>
       </Card>
 
-      <Card title="3. 全部 animation 预设" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="3. 全部 animation 预设"
+        size="small"
+      >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           {ANIMATIONS.map((a) => (
             <div
@@ -182,7 +196,12 @@ export default () => {
         </Space>
       </Card>
 
-      <Card title="4. 不同 by 拆分模式" size="small">
+      <Card
+        variant="borderless"
+        style={{ boxShadow: 'none' }}
+        title="4. 不同 by 拆分模式"
+        size="small"
+      >
         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
           {BY_OPTIONS.map((b) => (
             <div key={`${b}-${replayKey}`}>

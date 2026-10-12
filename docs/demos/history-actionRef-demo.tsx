@@ -60,9 +60,7 @@ const HistoryActionRefDemo: React.FC = () => {
         <Button onClick={handleAddNewSession}>添加新会话</Button>
       </Space>
 
-      <div
-        style={{ border: '1px solid #d9d9d9', borderRadius: 6, padding: 16 }}
-      >
+      <div style={{ padding: 16 }}>
         <History
           agentId="demo-agent"
           sessionId="current-session"

@@ -47,7 +47,6 @@ const BarMaxThicknessExample: React.FC = () => {
           padding: '16px',
           backgroundColor: '#f0f8ff',
           borderRadius: '8px',
-          border: '1px solid #e8e8e8',
         }}
       >
         <div style={{ marginBottom: '12px', color: '#333', fontWeight: 500 }}>
@@ -101,7 +100,6 @@ const BarMaxThicknessExample: React.FC = () => {
           backgroundColor: '#fff',
           padding: '15px',
           borderRadius: '8px',
-          border: '1px solid #e8e8e8',
         }}
       >
         <h4 style={{ marginTop: 0, color: '#333' }}>使用场景说明：</h4>

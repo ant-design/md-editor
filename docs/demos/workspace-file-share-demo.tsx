@@ -103,14 +103,21 @@ const WorkspaceFileShareDemo: React.FC = () => {
   );
 
   return (
-    <div style={{ padding: '12px' }}>
-      <h2>文件分享</h2>
-
+    <div
+      style={{
+        height: 560,
+        display: 'flex',
+        flexDirection: 'column',
+        minWidth: 0,
+      }}
+    >
       <div
         ref={containerRef}
         style={{
           position: 'relative',
-          maxWidth: '600px',
+          flex: 1,
+          minHeight: 0,
+          minWidth: 0,
         }}
       >
         {/* 锚点：位于被点击分享按钮右下方 */}
@@ -132,7 +139,7 @@ const WorkspaceFileShareDemo: React.FC = () => {
           />
         </Popover>
 
-        <Workspace title="文件管理">
+        <Workspace pure title="文件管理">
           <Workspace.File
             tab={{
               key: 'filesDefaultShare',

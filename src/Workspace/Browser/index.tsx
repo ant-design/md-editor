@@ -58,6 +58,8 @@ const renderSiteAvatar = (site: string, icon?: string) => {
         width={20}
         height={20}
         preview={false}
+        loading="lazy"
+        decoding="async"
         style={{ borderRadius: 4 }}
         alt={site}
       />
@@ -82,13 +84,13 @@ export interface BrowserItemProps {
   onOpen?: (item: BrowserItem) => void;
 }
 
-export const BrowserItemComponent: React.FC<BrowserItemProps> = ({
+export const BrowserItemComponent = React.memo(function BrowserItemComponent({
   item,
   itemStyle = SUGGESTION_ITEM_STYLE,
   className,
   onLocate,
   onOpen,
-}) => {
+}: BrowserItemProps) {
   const { prefixCls, hashId } = useBrowserContext();
   const { locale } = useContext(I18nContext);
 
@@ -186,7 +188,7 @@ export const BrowserItemComponent: React.FC<BrowserItemProps> = ({
       </div>
     </List.Item>
   );
-};
+});
 
 export interface BrowserHeaderProps {
   activeLabel: string;
@@ -198,6 +200,7 @@ export const BrowserHeader: React.FC<BrowserHeaderProps> = ({
   onBack,
 }) => {
   const { prefixCls, hashId } = useBrowserContext();
+  const { locale } = useContext(I18nContext);
   const headerTooltipProps = useAdaptiveTooltipProps('informational');
 
   return (
@@ -205,6 +208,7 @@ export const BrowserHeader: React.FC<BrowserHeaderProps> = ({
       {onBack && (
         <Button
           type="text"
+          aria-label={locale?.['workspace.back'] || '返回'}
           icon={
             <ArrowLeft
               style={{
@@ -293,6 +297,7 @@ export const BrowserList: React.FC<BrowserListProps> = ({
       )}
       <List
         dataSource={safeItems}
+        rowKey="id"
         split={false}
         loading={false}
         locale={{
@@ -373,7 +378,7 @@ const Browser: React.FC<BrowserProps> = ({
   const suggestionLabelTooltipProps = useAdaptiveTooltipProps('informational');
 
   const { items: results, loading } = useMemo(() => {
-    if (!activeSuggestion) {
+    if (currentView !== 'results' || !activeSuggestion) {
       return { items: [], loading: false };
     }
     const result = request(activeSuggestion);
@@ -381,7 +386,7 @@ const Browser: React.FC<BrowserProps> = ({
       items: result.items || [],
       loading: result.loading || false,
     };
-  }, [activeSuggestion, request]);
+  }, [activeSuggestion, currentView, request]);
 
   const handleExecuteSearch = (suggestion: BrowserSuggestion) => {
     setActiveSuggestion(suggestion);
@@ -398,11 +403,20 @@ const Browser: React.FC<BrowserProps> = ({
         <div>
           <List
             dataSource={suggestions}
+            rowKey="id"
             split={false}
             renderItem={(item: BrowserSuggestion) => (
               <List.Item
                 style={SUGGESTION_ITEM_STYLE}
                 onClick={() => handleExecuteSearch(item)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    handleExecuteSearch(item);
+                  }
+                }}
                 className={classNames(`${prefixCls}-suggestion`, hashId)}
                 actions={[
                   <div key="count">
