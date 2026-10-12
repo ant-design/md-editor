@@ -8,20 +8,20 @@ group:
 
 # OfficeViewer Office 文档预览
 
-`OfficeViewer` 基于 optional peer 依赖 [`@silurus/ooxml`](https://www.npmjs.com/package/@silurus/ooxml)（[office-open-xml-viewer](https://github.com/yukiyokotani/office-open-xml-viewer)）在浏览器 Canvas 中预览 **docx / xlsx / pptx**。未安装该依赖时组件展示降级提示，不影响主包体积。
+`OfficeViewer` 基于 optional peer 依赖 [`@silurus/ooxml`](https://www.npmjs.com/package/@silurus/ooxml)（[office-open-xml-viewer](https://github.com/yukiyokotani/office-open-xml-viewer)）在浏览器 Canvas 中预览 **docx / xlsx / pptx**。运行时优先加载本地 peer，未安装时自动从 jsDelivr 拉取 ESM 回退，业务工程构建阶段不再强依赖该包。
 
 ## 何时使用
 
 - Workspace 文件树或对话附件中需要内联预览 Office 三件套
 - 希望按需引入 WASM 解析器（默认 CDN，可 `wasmUrl` 覆盖）而不打进主包
 
-## 安装依赖
+## 安装依赖（可选）
 
 ```bash
 pnpm add @silurus/ooxml
 ```
 
-`@silurus/ooxml` 为 **optional peerDependency**，仅在使用本组件时安装。
+`@silurus/ooxml` 为 **optional peerDependency**。不安装时预览模块默认从 CDN 加载；内网或需锁定版本时可安装 peer 以走本地包。
 
 ## 代码演示
 

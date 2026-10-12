@@ -16,7 +16,7 @@ import {
  *
  * @component
  * @description 在浏览器 Canvas 中预览 docx / xlsx / pptx。运行时动态 `import` 对合格式子模块，
- * 未安装 `@silurus/ooxml` 时展示降级提示，不影响主包体积。DOCX 连续滚动；XLSX 自带 Sheet
+ * 未安装 `@silurus/ooxml` 时默认从 jsDelivr 加载 ESM 回退；仍失败则展示降级提示。DOCX 连续滚动；XLSX 自带 Sheet
  * 页签；PPTX 单页浏览 + 左侧缩略图侧栏（可展开/收起）。三种格式均支持划选复制。
  * WASM 解析器默认从 jsDelivr CDN 加载，生产环境可经 `wasmUrl` 切换为自有 CDN。
  *
@@ -124,10 +124,10 @@ const OfficeViewerComponent: React.FC<OfficeViewerProps> = ({
         <div className={`${prefixCls}-status`}>
           {missingDependencyRender ?? (
             <>
-              <div>未安装 Office 预览依赖</div>
+              <div>Office 预览依赖加载失败</div>
               <p className={`${prefixCls}-hint`}>
-                请在业务项目中安装 optional peer 依赖后即可启用 docx / xlsx /
-                pptx 预览：
+                请检查网络或安装 optional peer 以使用本地包（亦可经 jsDelivr
+                自动加载）：
               </p>
               <code className={`${prefixCls}-code`}>
                 pnpm add @silurus/ooxml

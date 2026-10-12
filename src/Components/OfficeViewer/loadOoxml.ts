@@ -1,3 +1,24 @@
+import { getOoxmlModuleSpecifiers } from './utils';
+
+const MODULE_LOAD_ERROR_RE =
+  /Cannot find module|Failed to fetch|Failed to resolve|MODULE_NOT_FOUND|error loading dynamically imported module/i;
+
+/**
+ * 对打包器不可见的 dynamic import，避免业务工程未安装 optional peer 时构建失败
+ */
+async function importModuleIgnoredByBundler(specifier: string) {
+  return import(
+    /* webpackIgnore: true */
+    /* @vite-ignore */
+    specifier
+  );
+}
+
+function isModuleLoadError(error: unknown): boolean {
+  const message = error instanceof Error ? error.message : String(error);
+  return MODULE_LOAD_ERROR_RE.test(message);
+}
+
 /**
  * 将 File / Blob / URL / ArrayBuffer 统一为 viewer.load 可接受的源
  *
@@ -49,23 +70,18 @@ export class OfficeViewerUnsupportedTypeError extends Error {
  * @throws OfficeViewerMissingDependencyError 依赖未安装或资产加载失败
  */
 export async function importOoxmlModule(fileType: 'docx' | 'xlsx' | 'pptx') {
-  try {
-    if (fileType === 'docx') {
-      return await import('@silurus/ooxml/docx');
+  const { npm, cdn } = getOoxmlModuleSpecifiers(fileType);
+  const specifiers = [npm, cdn];
+
+  for (const specifier of specifiers) {
+    try {
+      return await importModuleIgnoredByBundler(specifier);
+    } catch (error) {
+      if (!isModuleLoadError(error)) {
+        throw error;
+      }
     }
-    if (fileType === 'xlsx') {
-      return await import('@silurus/ooxml/xlsx');
-    }
-    return await import('@silurus/ooxml/pptx');
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    if (
-      /Cannot find module|Failed to fetch|Failed to resolve|MODULE_NOT_FOUND/i.test(
-        message,
-      )
-    ) {
-      throw new OfficeViewerMissingDependencyError();
-    }
-    throw error;
   }
+
+  throw new OfficeViewerMissingDependencyError();
 }

@@ -22,6 +22,12 @@ group:
 - MarkdownRenderer
   - 🐞 Fixed cached blocks reusing the stale token tree after toggling `throttleOptions.fade`: fade config changes now rebuild the processor to re-parse, while finishing a stream still keeps the processor stable so heavy components are not remounted.
 
+## v2.32.49
+
+- OfficeViewer
+  - 🐞 Dynamic `@silurus/ooxml` subpath imports use Webpack / Vite ignore hints so consumer builds succeed without the optional peer; when the peer is missing at runtime, ESM is loaded from jsDelivr as a fallback.
+  - 🛠 Workspace Office preview statically imports only `inferOfficeFileType` utilities so the full `OfficeViewer` implementation is not pulled in synchronously.
+
 ## v2.32.48
 
 - OfficeViewer

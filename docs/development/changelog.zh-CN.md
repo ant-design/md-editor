@@ -22,6 +22,12 @@ group:
 - MarkdownRenderer
   - 🐞 修复 `throttleOptions.fade` 切换后缓存块复用旧 token 树的问题：fade 配置变化现在会重建 processor 触发重解析，流式结束仍保持 processor 稳定不卸载重组件。
 
+## v2.32.49
+
+- OfficeViewer
+  - 🐞 动态加载 `@silurus/ooxml` 子模块时对 Webpack / Vite 使用 ignore 注释，业务工程未安装 optional peer 时不再构建失败；运行时未安装 peer 时回退 jsDelivr ESM。
+  - 🛠 `Workspace` Office 预览仅静态引用 `inferOfficeFileType` 工具，避免同步打入完整 `OfficeViewer` 实现。
+
 ## v2.32.48
 
 - OfficeViewer
