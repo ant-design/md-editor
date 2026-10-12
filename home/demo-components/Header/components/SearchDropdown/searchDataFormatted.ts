@@ -176,13 +176,6 @@ export const searchResults: SearchResultItem[] = [
     url: '/components/chat-boot',
   },
   {
-    id: 'docs/components/segmented',
-    type: 'component',
-    title: 'Segmented 分段控制器',
-    description: '分段控制器用于在多个选项之间进行选择。',
-    url: '/components/segmented',
-  },
-  {
     id: 'docs/components/task-list',
     type: 'component',
     title: 'TaskList 任务列表',
@@ -262,25 +255,11 @@ export const searchResults: SearchResultItem[] = [
     url: '/components/bubble',
   },
   {
-    id: 'docs/components/button',
-    type: 'component',
-    title: 'Button 按钮',
-    description: '按钮组件用于触发操作，提供多种样式和交互方式。',
-    url: '/components/button',
-  },
-  {
     id: 'docs/components/schema',
     type: 'component',
     title: 'Schema - 低代码渲染',
     description: '本文档介绍如何使用 Schema 系统来创建和配置组件。',
     url: '/components/schema',
-  },
-  {
-    id: 'docs/components/input',
-    type: 'component',
-    title: 'Input 输入框',
-    description: '输入框组件用于用户输入文本。',
-    url: '/components/input',
   },
   {
     id: 'docs/components/quote',

@@ -217,7 +217,7 @@ describe('AttachmentFileList', () => {
       />,
     );
 
-    // IconButton 渲染为 div 包裹 button，查找 div 内的 button
+    // 通过清空操作的类名查找 ActionIconBox
     const clearButtonContainer = container.querySelector(
       '.ant-agentic-md-editor-attachment-list-close-icon',
     );

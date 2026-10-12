@@ -676,14 +676,6 @@ export {
 } from './Components/ActionIconBox';
 export { ActionItemBox } from './Components/ActionItemBox';
 export {
-  IconButton,
-  SwitchButton,
-  ToggleButton,
-  type IconButtonProps,
-  type SwitchButtonProps,
-  type ToggleButtonProps,
-} from './Components/Button';
-export {
   GradientText,
   type GradientTextProps,
 } from './Components/GradientText';

@@ -11,6 +11,9 @@ group:
 
 ## Unreleased
 
+- Components
+  - 🛠 Remove the redundant `IconButton`, `SwitchButton`, and `ToggleButton` components and their Props exports. Use Ant Design `Button` and `Tooltip` directly, replace `isLoading` with `loading`, render trailing icons as children, and manage toggle state in the caller.
+
 - Workspace
   - 💄 Refine Workspace demos with a delivery overview, file browsing and realtime previews; align spacing and embedded sizing, show complete results initially, replay generation on demand, and remove continuous random updates and placeholder actions.
   - ⚡️ Use lightweight Markdown for readonly realtime content and text previews, remove duplicate document synchronization, and isolate tab navigation from streamed body updates while preserving explicit Slate configuration.
@@ -19,6 +22,7 @@ group:
   - 💄 Correct panel sizing and scroll areas, improve narrow tabs and long filenames, simplify transitions and count animations, and support touch actions, keyboard focus, and reduced motion.
 
 - Docs
+  - 📖 Remove native Input/Select, Segmented, and redundant button pages, demos, and navigation/search entries; retain specialized Markdown input scenarios and migrate their button examples.
   - ⚡️ Bound and batch long-document generation with cancellation, replay streamed code, charts, and tasks on demand, stop completed updates, retain histogram samples, and cancel asynchronous work on unmount.
   - 🐞 Fix duplicate chat sends and stale replies, conflicting demo styles, lost task expansion state, and clipped or compressed editors, charts, and configuration panels in narrow containers.
   - 💄 Restore the default outer border and description separator for all documentation demos, adapting to light and dark themes while preserving their full preview height.

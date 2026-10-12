@@ -148,7 +148,7 @@ function collectCodeEmbeds(mdPath, docsDir) {
 
 /**
  * demo 模块组件名：default 导出优先；dumi 兼容——无 default 时
- * 取第一个具名导出（如 docs/demos/button.tsx 的 BaseButtonDemo）。
+ * 取第一个具名导出作为演示组件。
  */
 function pickDemoExportName(srcAbs) {
   const src = fs.readFileSync(srcAbs, 'utf8');

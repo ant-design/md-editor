@@ -14,17 +14,16 @@ group:
 
 ## 通用
 
+按钮、输入框、选择器和分段控制器等基础控件请直接从 `antd` 引入，参考 [Ant Design 组件文档](https://ant.design/components/overview-cn)。
+
 | 组件 | 描述 |
 | --- | --- |
 | [ActionIconBox](/components/action-icon-box) | 操作图标容器 |
 | [ActionItemBox](/components/action-item-box) | 操作项容器 |
-| [Button](/components/button) | 按钮 |
 | [GradientText](/components/gradient-text) | 渐变文字 |
 | [Icon](/components/icon) | 图标 |
-| [Input](/components/input) | 输入框 |
 | [OfficeViewer](/components/office-viewer) | Office 文档预览 |
 | [SandboxRenderer](/components/sandbox-renderer) | 沙箱渲染器 |
-| [Segmented](/components/segmented) | 分段控制器 |
 | [TextAnimate](/components/text-animate) | 文字动画 |
 | [TypingAnimation](/components/typing-animation) | 打字机动画 |
 | [VisualList](/components/VisualList) | 视觉图片列表 |

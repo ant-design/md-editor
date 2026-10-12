@@ -23,7 +23,7 @@ group:
 <code src="../demos/markdownInputField/basic.tsx" background="var(--main-bg-color)" iframe="640"></code>
 
 ```tsx
-import { message } from 'antd';
+import { Button, message } from 'antd';
 import { AimOutlined, GlobalOutlined, EditOutlined } from '@ant-design/icons';
 import { Sparkles, ChevronDown } from '@sofa-design/icons';
 import {
@@ -32,7 +32,6 @@ import {
   MarkdownInputField,
   SuggestionList,
   ActionIconBox,
-  ToggleButton,
   CreateRecognizer,
   type MarkdownEditorInstance,
 } from '@ant-design/agentic-ui';
@@ -147,27 +146,30 @@ export default () => {
           );
         }}
         toolsRender={() => [
-          <ToggleButton
+          <Button
+            type="text"
             key="bold"
-            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
-          </ToggleButton>,
-          <ToggleButton
+            <ChevronDown />
+          </Button>,
+          <Button
+            type="text"
             key="italic"
             icon={<GlobalOutlined />}
             onClick={() => console.log('深度思考 clicked')}
           >
             深度思考
-          </ToggleButton>,
-          <ToggleButton
+          </Button>,
+          <Button
+            type="text"
             key="link"
             icon={<AimOutlined />}
             onClick={() => console.log('联网搜索 clicked')}
           >
             联网搜索
-          </ToggleButton>,
+          </Button>,
         ]}
         onChange={(newValue) => {
           setValue(newValue);
@@ -398,7 +400,7 @@ export default () => {
 ### 基础使用
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 import { Button } from 'antd';
 import { ChevronDown } from '@sofa-design/icons';
 
@@ -417,25 +419,28 @@ const App = () => {
       <MarkdownInputField
         value={value}
         toolsRender={() => [
-          <ToggleButton
+          <Button
+            type="text"
             key="bold"
-            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
-          </ToggleButton>,
-          <ToggleButton
+            <ChevronDown />
+          </Button>,
+          <Button
+            type="text"
             key="italic"
             onClick={() => console.log('深度思考 clicked')}
           >
             深度思考
-          </ToggleButton>,
-          <ToggleButton
+          </Button>,
+          <Button
+            type="text"
             key="link"
             onClick={() => console.log('联网搜索 clicked')}
           >
             联网搜索
-          </ToggleButton>,
+          </Button>,
         ]}
         onChange={(newValue) => setValue(newValue)}
         placeholder="请输入内容..."
@@ -485,7 +490,7 @@ export default App;
 ### 小屏幕
 
 ```tsx
-import { message } from 'antd';
+import { Button, message } from 'antd';
 import { AimOutlined, GlobalOutlined, EditOutlined } from '@ant-design/icons';
 import { Sparkles, ChevronDown } from '@sofa-design/icons';
 import {
@@ -494,7 +499,6 @@ import {
   MarkdownInputField,
   SuggestionList,
   ActionIconBox,
-  ToggleButton,
   CreateRecognizer,
   type MarkdownEditorInstance,
 } from '@ant-design/agentic-ui';
@@ -611,20 +615,22 @@ export default () => {
           );
         }}
         toolsRender={() => [
-          <ToggleButton
+          <Button
+            type="text"
             key="bold"
-            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
-          </ToggleButton>,
-          <ToggleButton
+            <ChevronDown />
+          </Button>,
+          <Button
+            type="text"
             key="italic"
             icon={<GlobalOutlined />}
             onClick={() => console.log('深度思考 clicked')}
           >
             深度思考
-          </ToggleButton>,
+          </Button>,
         ]}
         onChange={(newValue) => {
           setValue(newValue);
@@ -676,10 +682,10 @@ export default () => {
 ### 启用语音输入按钮（支持句级回调）
 
 ```tsx
+import { Button } from 'antd';
 import {
   MarkdownInputField,
   type CreateRecognizer,
-  ToggleButton,
 } from '@ant-design/agentic-ui';
 import { ChevronDown } from '@sofa-design/icons';
 export default () => {
@@ -715,25 +721,28 @@ export default () => {
     <MarkdownInputField
       placeholder="请开始讲话..."
       toolsRender={() => [
-        <ToggleButton
+        <Button
+          type="text"
           key="bold"
-          triggerIcon={<ChevronDown />}
           onClick={() => console.log('DeepThink clicked')}
         >
           DeepThink
-        </ToggleButton>,
-        <ToggleButton
+          <ChevronDown />
+        </Button>,
+        <Button
+          type="text"
           key="italic"
           onClick={() => console.log('深度思考 clicked')}
         >
           深度思考
-        </ToggleButton>,
-        <ToggleButton
+        </Button>,
+        <Button
+          type="text"
           key="link"
           onClick={() => console.log('联网搜索 clicked')}
         >
           联网搜索
-        </ToggleButton>,
+        </Button>,
       ]}
       voiceRecognizer={createRecognizer}
       onChange={(a) => console.log(a)}
@@ -754,8 +763,7 @@ export default () => {
 ### 自定义触发键和样式
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
-import { ChevronDown } from '@sofa-design/icons';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 export default () => {
   const [value, setValue] = React.useState('');
   return (
@@ -790,7 +798,7 @@ export default () => {
 ### 启用提示词优化
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 
 export default () => {
   const [value, setValue] = React.useState(
@@ -857,7 +865,7 @@ export default () => {
 #### 基本示例
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 
 export default () => {
   const [value, setValue] = React.useState(
@@ -1027,7 +1035,8 @@ export default () => {
 ### 启用附件功能
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+import { Button } from 'antd';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 import { ChevronDown } from '@sofa-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
@@ -1037,25 +1046,28 @@ export default () => {
         value={value}
         onChange={setValue}
         toolsRender={() => [
-          <ToggleButton
+          <Button
+            type="text"
             key="bold"
-            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
-          </ToggleButton>,
-          <ToggleButton
+            <ChevronDown />
+          </Button>,
+          <Button
+            type="text"
             key="italic"
             onClick={() => console.log('深度思考 clicked')}
           >
             深度思考
-          </ToggleButton>,
-          <ToggleButton
+          </Button>,
+          <Button
+            type="text"
             key="link"
             onClick={() => console.log('联网搜索 clicked')}
           >
             联网搜索
-          </ToggleButton>,
+          </Button>,
         ]}
         attachment={{
           enable: true,
@@ -1218,8 +1230,11 @@ uploadWithResponse?: (
 
 ### 自定义操作按钮
 
+普通操作按钮可直接使用 Ant Design 的 `Button`，通过 `toolsRender`、`actionsRender` 和 `quickActionRender` 接入输入框。
+
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+import { Button } from 'antd';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 import { ChevronDown } from '@sofa-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
@@ -1233,31 +1248,35 @@ export default () => {
         <MarkdownInputField
           value={value}
           toolsRender={() => [
-            <ToggleButton
+            <Button
+              type="text"
               key="custom"
               onClick={() => console.log('自定义工具栏按钮')}
             >
               自定义
-            </ToggleButton>,
-            <ToggleButton
+            </Button>,
+            <Button
+              type="text"
               key="bold"
-              triggerIcon={<ChevronDown />}
               onClick={() => console.log('DeepThink clicked')}
             >
               DeepThink
-            </ToggleButton>,
-            <ToggleButton
+              <ChevronDown />
+            </Button>,
+            <Button
+              type="text"
               key="italic"
               onClick={() => console.log('深度思考 clicked')}
             >
               深度思考
-            </ToggleButton>,
-            <ToggleButton
+            </Button>,
+            <Button
+              type="text"
               key="link"
               onClick={() => console.log('联网搜索 clicked')}
             >
               联网搜索
-            </ToggleButton>,
+            </Button>,
           ]}
           onChange={setValue}
           actionsRender={(props) => [
@@ -1303,7 +1322,8 @@ export default () => {
 ### 获取编辑器实例
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+import { Button } from 'antd';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 import { ChevronDown } from '@sofa-design/icons';
 
 const App = () => {
@@ -1316,25 +1336,28 @@ const App = () => {
         value={value}
         onChange={setValue}
         toolsRender={() => [
-          <ToggleButton
+          <Button
+            type="text"
             key="bold"
-            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
-          </ToggleButton>,
-          <ToggleButton
+            <ChevronDown />
+          </Button>,
+          <Button
+            type="text"
             key="italic"
             onClick={() => console.log('深度思考 clicked')}
           >
             深度思考
-          </ToggleButton>,
-          <ToggleButton
+          </Button>,
+          <Button
+            type="text"
             key="link"
             onClick={() => console.log('联网搜索 clicked')}
           >
             联网搜索
-          </ToggleButton>,
+          </Button>,
         ]}
       />
       <button
@@ -1357,7 +1380,8 @@ export default App;
 ### 焦点事件处理
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+import { Button } from 'antd';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 import { ChevronDown } from '@sofa-design/icons';
 export default () => {
   const [value, setValue] = React.useState('');
@@ -1369,25 +1393,28 @@ export default () => {
         value={value}
         onChange={setValue}
         toolsRender={() => [
-          <ToggleButton
+          <Button
+            type="text"
             key="bold"
-            triggerIcon={<ChevronDown />}
             onClick={() => console.log('DeepThink clicked')}
           >
             DeepThink
-          </ToggleButton>,
-          <ToggleButton
+            <ChevronDown />
+          </Button>,
+          <Button
+            type="text"
             key="italic"
             onClick={() => console.log('深度思考 clicked')}
           >
             深度思考
-          </ToggleButton>,
-          <ToggleButton
+          </Button>,
+          <Button
+            type="text"
             key="link"
             onClick={() => console.log('联网搜索 clicked')}
           >
             联网搜索
-          </ToggleButton>,
+          </Button>,
         ]}
         placeholder="点击输入框获得焦点..."
         onFocus={(value, schema) => {
@@ -1426,7 +1453,7 @@ export default () => {
 ### 自定义叶子节点渲染
 
 ```tsx
-import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 export default () => {
   const [value, setValue] = React.useState('**粗体文本** *斜体文本* `代码`');
 
@@ -1473,14 +1500,18 @@ export default () => {
         // 自定义代码样式
         if (leaf.code) {
           return (
-            <code style="{{"
+            <code
+              style={{
                 color: '#d83931',
                 backgroundColor: '#fff2f0',
                 padding: '2px 6px',
                 borderRadius: '6px',
                 border: '1px solid #ffccc7',
                 fontFamily: 'Monaco, Consolas, monospace',
-              }} description="{children}"></code>
+              }}
+            >
+              {children}
+            </code>
           );
         }
 
@@ -1501,7 +1532,7 @@ export default () => {
 ```tsx
 import { Tag, Button, Space, Switch, Divider } from 'antd';
 import { ExperimentOutlined, SettingOutlined } from '@ant-design/icons';
-import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 
 export default () => {
   const [skillModeEnabled, setSkillModeEnabled] = React.useState(true);
@@ -1830,7 +1861,7 @@ insertComposerChip(editor, {
 ### 粘贴配置
 
 ```tsx pure
-import { MarkdownInputField, ToggleButton } from '@ant-design/agentic-ui';
+import { MarkdownInputField } from '@ant-design/agentic-ui';
 
 export default () => {
   const [value, setValue] = React.useState('');

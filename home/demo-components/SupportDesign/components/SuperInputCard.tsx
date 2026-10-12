@@ -4,9 +4,9 @@ import {
   ActionItemContainer,
   CreateRecognizer,
   MarkdownInputField,
-  ToggleButton,
 } from '@ant-design/agentic-ui';
 import { AimOutlined, GlobalOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 import React from 'react';
 import { useSiteI18n } from '../../../i18n';
 import ChartIcon from '../../../icons/chart.svg';
@@ -162,20 +162,22 @@ const SuperInputCard: React.FC = () => {
             );
           }}
           toolsRender={() => [
-            <ToggleButton
+            <Button
+              type="text"
               key="deepThink"
               icon={<AimOutlined />}
               onClick={() => console.log('深度思考 clicked')}
             >
               {messages.support.superInput.deepThink}
-            </ToggleButton>,
-            <ToggleButton
+            </Button>,
+            <Button
+              type="text"
               key="internetSearch"
               icon={<GlobalOutlined />}
               onClick={() => console.log('联网搜索 clicked')}
             >
               {messages.support.superInput.webSearch}
-            </ToggleButton>,
+            </Button>,
           ]}
           actionsRender={(state, defaultActions) => {
             return [

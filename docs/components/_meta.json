@@ -15,11 +15,6 @@
   },
   {
     "type": "file",
-    "name": "button",
-    "label": "Button"
-  },
-  {
-    "type": "file",
     "name": "gradient-text",
     "label": "GradientText"
   },
@@ -30,11 +25,6 @@
   },
   {
     "type": "file",
-    "name": "input",
-    "label": "Input"
-  },
-  {
-    "type": "file",
     "name": "office-viewer",
     "label": "OfficeViewer"
   },
@@ -42,11 +32,6 @@
     "type": "file",
     "name": "sandbox-renderer",
     "label": "SandboxRenderer"
-  },
-  {
-    "type": "file",
-    "name": "segmented",
-    "label": "Segmented"
   },
   {
     "type": "file",

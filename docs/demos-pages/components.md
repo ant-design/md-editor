@@ -37,10 +37,6 @@ group:
 
 <code src="../demos/quote-demo.tsx" background="var(--main-bg-color)" iframe="540"></code>
 
-## 按钮组件
-
-<code src="../demos/button.tsx" background="var(--main-bg-color)" iframe="540"></code>
-
 ## 文件映射视图
 
 <code src="../demos/fileMapView.tsx" background="var(--main-bg-color)" iframe="540"></code>

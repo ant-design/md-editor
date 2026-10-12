@@ -523,26 +523,6 @@ export const searchData = {
       texts: [],
     },
   },
-  'docs/components/segmented': {
-    path: 'components/segmented',
-    id: 'docs/components/segmented',
-    parentId: 'DocLayout',
-    meta: {
-      frontmatter: {
-        title: 'Segmented 分段控制器',
-        toc: 'menu',
-        filename: 'docs/components/segmented.md',
-        lastUpdated: 1761461156000,
-        group: {
-          title: '通用',
-          order: 1,
-        },
-        description: '分段控制器用于在多个选项之间进行选择。',
-      },
-      toc: [],
-      texts: [],
-    },
-  },
   'docs/components/task-list': {
     path: 'components/task-list',
     id: 'docs/components/task-list',
@@ -762,26 +742,6 @@ export const searchData = {
       texts: [],
     },
   },
-  'docs/components/button': {
-    path: 'components/button',
-    id: 'docs/components/button',
-    parentId: 'DocLayout',
-    meta: {
-      frontmatter: {
-        title: 'Button 按钮',
-        toc: 'menu',
-        filename: 'docs/components/button.md',
-        lastUpdated: 1760672984000,
-        group: {
-          title: '通用',
-          order: 1,
-        },
-        description: '按钮组件用于触发操作，提供多种样式和交互方式。',
-      },
-      toc: [],
-      texts: [],
-    },
-  },
   'docs/components/schema': {
     path: 'components/schema',
     id: 'docs/components/schema',
@@ -802,26 +762,6 @@ export const searchData = {
           order: 4,
         },
         description: '本文档介绍如何使用 Schema 系统来创建和配置组件。',
-      },
-      toc: [],
-      texts: [],
-    },
-  },
-  'docs/components/input': {
-    path: 'components/input',
-    id: 'docs/components/input',
-    parentId: 'DocLayout',
-    meta: {
-      frontmatter: {
-        title: 'Input 输入框',
-        toc: 'menu',
-        filename: 'docs/components/input.md',
-        lastUpdated: 1761461156000,
-        group: {
-          title: '通用',
-          order: 1,
-        },
-        description: '输入框组件用于用户输入文本。',
       },
       toc: [],
       texts: [],
