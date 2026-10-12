@@ -1,7 +1,7 @@
 import { Spin } from 'antd';
 import classNames from 'clsx';
 import React, { type FC, lazy, Suspense } from 'react';
-import { inferOfficeFileType } from '../../../../Components/OfficeViewer';
+import { inferOfficeFileType } from '../../../../Components/OfficeViewer/utils';
 import type { FileNode } from '../../../types';
 import { PlaceholderContent } from './PlaceholderContent';
 
