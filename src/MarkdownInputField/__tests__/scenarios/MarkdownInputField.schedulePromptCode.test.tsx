@@ -44,11 +44,19 @@ describe('MarkdownInputField schedule prompt code block', () => {
       <MarkdownInputField value={schedulePromptMd} onChange={onChange} />,
     );
 
-    const textarea = await screen.findByTestId(
+    await screen.findByTestId(
       'simple-code-block-editor',
       {},
       { timeout: 8000 },
     );
+    await waitFor(() => {
+      expect(
+        screen
+          .getByTestId('simple-code-block-editor')
+          .closest('[data-be="code"]'),
+      ).toBeInTheDocument();
+    });
+    const textarea = screen.getByTestId('simple-code-block-editor');
 
     expect(textarea).toHaveValue('任务内容');
     expect(container.querySelector('[data-be="code"]')).toBeInTheDocument();

@@ -8,11 +8,11 @@ group:
   order: 4
 ---
 
-# MarkdownRenderer - 流式 Markdown 渲染器 {#markdown-renderer}
+# MarkdownRenderer - 流式 Markdown 渲染器
 
 `MarkdownRenderer` 是轻量只读 Markdown 渲染组件，面向 LLM **流式输出**。相比 `MarkdownEditor` 只读模式，无 Slate 依赖，体积更小、首屏更快；内置 GPT 风格逐词淡入，并支持图表 / 思维链 / 工具调用 / 文件预览 / Mermaid / 公式等代码块扩展。
 
-## 何时使用 {#when-to-use}
+## 何时使用
 
 - 聊天 / Agent 场景渲染 LLM 的 Markdown 输出
 - 内容流式追加（`streaming` + 持续更新 `content`），需要 GPT 风格逐词淡入
@@ -21,19 +21,19 @@ group:
 
 > 如需可编辑能力（评论、富文本、表格 inline 编辑等），请使用 [MarkdownEditor](./api)。
 
-## 代码演示 {#demos}
+## 代码演示
 
-### API Playground {#api-playground}
+### API Playground
 
-<code src="../demos/markdown-renderer-playground.tsx">串联调试流式、链接、自定义渲染与 ref</code>
+<code src="../demos/markdown-renderer-playground.tsx" description="串联调试流式、链接、自定义渲染与 ref"></code>
 
-### 流式与逐词淡入 {#streaming-fade}
+### 流式与逐词淡入
 
-<code src="../demos/markdown-renderer-streaming.tsx">流式输出 · 限流 / 淡入开关与对比预览</code>
+<code src="../demos/markdown-renderer-streaming.tsx" description="流式输出 · 限流 / 淡入开关与对比预览"></code>
 
 `streaming={true}` 时默认开启 GPT 风格逐词淡入：新词各自淡入一次，已显示内容复用 DOM、不闪烁；纯 CSS 驱动，尊重 `prefers-reduced-motion`。代码块、表格、公式不参与拆词。关闭方式：
 
-```tsx | pure
+```tsx pure
 <MarkdownRenderer
   content={content}
   streaming
@@ -47,13 +47,13 @@ group:
 
 流式追加会复用未变块的 React 元素与解析结果，普通正文只重新切分末尾窗口；脚注保留定义上下文并增量解析尾部，新增全局定义或正文修订时重新校验。代码块、表格分别订阅自身配置，更新表格预览配置不会刷新代码块。自定义解析插件数组建议保持引用稳定，实际插件变更会重建解析器并重新解析。
 
-### Mark 标签颜色与 Label {#mark-label}
+### Mark 标签颜色与 Label
 
-<code src="../demos/mark-color-label-demo.tsx">Mark 颜色定制与 Label 显示</code>
+<code src="../demos/mark-color-label-demo.tsx" description="Mark 颜色定制与 Label 显示"></code>
 
-## 快速上手 {#quick-start}
+## 快速上手
 
-### 静态 Markdown {#static}
+### 静态 Markdown
 
 ```tsx
 import { MarkdownRenderer } from '@ant-design/agentic-ui';
@@ -66,7 +66,7 @@ export default () => (
 );
 ```
 
-### 流式渲染 {#streaming}
+### 流式渲染
 
 ```tsx
 import { MarkdownRenderer } from '@ant-design/agentic-ui';
@@ -104,7 +104,7 @@ export default () => {
 
 在 Bubble 中经 `markdownRenderConfig` 透传即可：
 
-```tsx | pure
+```tsx pure
 <BubbleList
   markdownRenderConfig={{
     renderMode: 'markdown',
@@ -113,7 +113,7 @@ export default () => {
 />
 ```
 
-### 自定义代码块渲染 {#custom-code-block}
+### 自定义代码块渲染
 
 通过 `plugins[].renderer.rendererComponents` 注册渲染器，键名对应代码块 `language`。内置语言（`mermaid`、`chart`、`schema` 等）的同名键会**优先**覆盖默认渲染。
 
@@ -144,9 +144,9 @@ export default () => (
 
 > 完整示例见 [OfficeViewer - Markdown 中渲染卡片](./office-viewer)：Word / Excel 渲染为文件卡片、PPTX 卡片内展示幻灯片缩略图列表，点击打开详情预览。
 
-## API {#api}
+## API
 
-### MarkdownRendererProps {#markdown-renderer-props}
+### MarkdownRendererProps
 
 | Property        | Description                                                                                           | Type                                                                                | Default                  | Version |
 | --------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ------------------------ | ------- |
@@ -168,14 +168,14 @@ export default () => (
 | tableConfig     | 原生只读表格预览配置，支持按需挂载全屏弹窗或抽屉                                                      | `MarkdownRendererTableConfig`                                                       | -                        | 2.32.48 |
 | throttleOptions | 流式限流与展示配置（含逐词淡入 `fade`）；`streaming={true}` 且未设 `enabled: false` 时默认开启限流    | `ContentThrottleOptions`                                                            | -                        | -       |
 
-### MarkdownRendererTableConfig {#markdown-renderer-table-config}
+### MarkdownRendererTableConfig
 
 | Property           | Description              | Type                  | Default | Version |
 | ------------------ | ------------------------ | --------------------- | ------- | ------- |
 | actions.fullScreen | 表格全屏预览容器         | `'modal' \| 'drawer'` | -       | 2.32.48 |
 | previewTitle       | 预览标题，默认使用语言包 | `string`              | -       | 2.32.48 |
 
-```tsx | pure
+```tsx pure
 <MarkdownRenderer
   content={markdown}
   tableConfig={{ actions: { fullScreen: 'modal' } }}
@@ -184,14 +184,14 @@ export default () => (
 
 表格操作在悬停或聚焦后挂载，预览正文在打开后挂载，关闭后释放。视频与音频默认 `preload="none"`，自动播放时加载元数据；HTML 中显式指定的 `preload` 优先。
 
-### MarkdownRendererRef {#markdown-renderer-ref}
+### MarkdownRendererRef
 
 | Property / Method   | Description                                | Type                     |
 | ------------------- | ------------------------------------------ | ------------------------ |
 | getDisplayedContent | 获取当前已实际渲染（含限流推进）的文本内容 | `() => string`           |
 | nativeElement       | 根 DOM 节点                                | `HTMLDivElement \| null` |
 
-### ContentThrottleOptions {#content-throttle-options}
+### ContentThrottleOptions
 
 控制流式内容按帧推进的节奏，并统一承载逐词淡入开关。
 
@@ -205,7 +205,7 @@ export default () => (
 | flushOnComplete           | 流式结束时是否立即展示剩余内容                           | `boolean` | `true`  | -       |
 | speed                     | 速度倍率                                                 | `number`  | `1`     | -       |
 
-### MarkdownToHtmlConfig {#markdowntohtmlconfig}
+### MarkdownToHtmlConfig
 
 | Property          | Description                                                           | Type                     | Default |
 | ----------------- | --------------------------------------------------------------------- | ------------------------ | ------- |
@@ -213,7 +213,7 @@ export default () => (
 | openLinksInNewTab | 是否在新标签页打开链接（与外层 `linkConfig.openInNewTab` 二选一即可） | `boolean`                | -       |
 | paragraphTag      | 自定义段落标签                                                        | `string`                 | `'p'`   |
 
-### FileMapConfig {#filemapconfig}
+### FileMapConfig
 
 | Property      | Description                                                   | Type                                                                                    |
 | ------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
@@ -221,7 +221,7 @@ export default () => (
 | normalizeFile | 将原始 JSON 条目转为 `AttachmentFile`，返回 `null` 过滤该条目 | `(raw: Record<string, unknown>, defaultFile: AttachmentFile) => AttachmentFile \| null` |
 | onPreview     | 自定义预览（传入则阻止内置灯箱 / 弹窗 / window.open）         | `(file: AttachmentFile) => void`                                                        |
 
-## 内置代码块渲染器 {#built-in-renderers}
+## 内置代码块渲染器
 
 按代码块 `language` 路由；业务可直接书写带语言标记的代码块触发：
 
@@ -237,7 +237,7 @@ export default () => (
 
 > 上述渲染器均由 `MarkdownRenderer` 顶层导出，可在自定义流水线中独立复用。
 
-## 相关 Hook 与工具 {#hooks}
+## 相关 Hook 与工具
 
 | Name                        | Description                                                                                                  |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------ |
@@ -247,7 +247,7 @@ export default () => (
 | `useStreamingMarkdownReact` | 与 `useMarkdownToReact` 同一函数（互为别名）；token 缓存 + Markdown→React 组合发生在 `MarkdownRenderer` 内部 |
 | `useContentThrottle`        | 按 `ContentThrottleOptions` 限流推进已展示内容                                                               |
 
-## 注意事项 {#notes}
+## 注意事项
 
 1. **`isFinished` vs `streaming`**：流式过程保持 `streaming={true}`；结束时将 `isFinished` 置 `true` 会立即展示剩余字符并退出流式状态。未设置结束标记时，限流器也会按 `charsPerFrame` 自然推完，但仍保留流式展示模式。
 2. **`throttleOptions.fade`**：仅 `streaming={true}` 时生效，默认开启；仅显式 `fade: false` 关闭。代码块、表格、公式不参与拆词。Slate 模式（默认 `renderMode: 'slate'`）无逐词淡入。

@@ -59,7 +59,7 @@ group:
   - 🛠 移除 `useGenStyle` 返回的废弃 `wrapSSR` 包装函数，`useStyle` 不再返回 `wrapSSR`。
   - 🛠 全量移除 70+ 组件中的 `wrapSSR(...)` 包裹调用，组件直接返回 JSX。
 
-## 未发布 {#unreleased}
+## 未发布
 
 - Bubble
   - 🐞 完成或停止生成时立即展示缓冲正文并退出流式状态，即使配置仍显式开启 `streaming`；清理逐词节点并保留音视频播放状态。
