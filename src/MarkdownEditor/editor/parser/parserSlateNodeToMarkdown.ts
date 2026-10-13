@@ -76,9 +76,15 @@ const convertPluginNode = (
   }
 };
 
-/**
- * 转换代码节点
- */
+const getCodeFence = (source: string): string => {
+  let length = 3;
+  for (const match of source.matchAll(/`{3,}/g)) {
+    length = Math.max(length, match[0].length + 1);
+  }
+  return '`'.repeat(length);
+};
+
+/** 转换插件返回的代码节点，保留正文中的嵌套围栏。 */
 const convertCodeNode = (codeNode: any, preString: string): string => {
   const language = codeNode.lang || '';
   const value = codeNode.value || '';
@@ -88,6 +94,7 @@ const convertCodeNode = (codeNode: any, preString: string): string => {
   }
 
   const codeLines = value.split('\n');
+  const fence = getCodeFence(value);
   const indentedCode = codeLines
     .map((line: string, index: number) => {
       const isFirstOrLast = index === 0 || index === codeLines.length - 1;
@@ -95,7 +102,7 @@ const convertCodeNode = (codeNode: any, preString: string): string => {
     })
     .join('\n');
 
-  return `${preString}\`\`\`${language}\n${indentedCode}\n${preString}\`\`\``;
+  return `${preString}${fence}${language}\n${indentedCode}\n${preString}${fence}`;
 };
 
 /**
@@ -1355,6 +1362,7 @@ const handleCode = (node: any, preString: string) => {
   }
 
   const codeLines = code.split('\n');
+  const fence = getCodeFence(code);
   const indentedCode = codeLines
     .map((line: string, index: number) => {
       if (index === 0 || index === codeLines.length - 1) {
@@ -1364,7 +1372,7 @@ const handleCode = (node: any, preString: string) => {
     })
     .join('\n');
 
-  return `${preString}\`\`\`${language}\n${indentedCode}\n${preString}\`\`\``;
+  return `${preString}${fence}${language}\n${indentedCode}\n${preString}${fence}`;
 };
 
 /**

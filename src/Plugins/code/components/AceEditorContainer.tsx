@@ -11,24 +11,43 @@ interface AceEditorContainerProps {
   dom: RefObject<HTMLDivElement | null>;
   element: CodeNode;
   children: React.ReactNode;
+  active?: boolean;
+  loading?: boolean;
 }
 
 export function AceEditorContainer({
   dom,
   element,
   children,
+  active = true,
+  loading = false,
 }: AceEditorContainerProps) {
   return (
     <>
-      <div
-        data-testid="ace-editor-container"
-        ref={dom}
-        style={{ height: 200, lineHeight: 1.6 }}
-      />
+      {active && (
+        <div
+          data-testid="ace-editor-container"
+          ref={dom}
+          style={{ height: loading ? 0 : 200, lineHeight: 1.6 }}
+        />
+      )}
+      {active && loading && (
+        <pre
+          style={{
+            margin: 0,
+            padding: '0 12px',
+            whiteSpace: 'pre-wrap',
+            overflowWrap: 'anywhere',
+          }}
+        >
+          <code>{getCodeBlockPlainText(element)}</code>
+        </pre>
+      )}
 
-      {/* 隐藏的内容副本（用于搜索和 SEO） */}
+      {/* Slate 仍需要子节点锚点；Ace 已渲染正文，无需再复制整份代码。 */}
       <div
         data-testid="code-content-copy"
+        aria-hidden="true"
         style={{
           height: '0.5px',
           overflow: 'hidden',
@@ -36,7 +55,6 @@ export function AceEditorContainer({
           pointerEvents: 'none',
         }}
       >
-        {getCodeBlockPlainText(element)?.replaceAll('\n', ' ')}
         {children}
       </div>
     </>

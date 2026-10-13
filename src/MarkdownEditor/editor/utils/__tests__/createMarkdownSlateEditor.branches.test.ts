@@ -32,7 +32,7 @@ describe('createMarkdownSlateEditor residual options', () => {
         {},
         { withEditorKey: 'a', withEditor: (editor: any) => editor },
       ] as any),
-    ).toBe('0:_|1:a');
+    ).toBe('0:a');
   });
 
   it('creates an editor and composes supplied editor plugins', () => {

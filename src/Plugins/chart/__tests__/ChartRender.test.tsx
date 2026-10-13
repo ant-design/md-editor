@@ -1337,8 +1337,8 @@ describe('ChartRender', () => {
       });
     });
 
-    it('提交配置后应该重新挂载图表运行时，避免底层图表实例复用旧配置', async () => {
-      renderChart(
+    it('提交轴配置后应该更新数据并保留图表实例', async () => {
+      const view = renderChart(
         <I18nContext.Provider value={mockI18n}>
           <ChartRender {...defaultProps} />
         </I18nContext.Provider>,
@@ -1353,6 +1353,12 @@ describe('ChartRender', () => {
         chartBeforeSubmit.getAttribute('data-mount-id');
 
       await openChartConfigForm();
+      fireEvent.mouseDown(screen.getAllByRole('combobox')[0]);
+      fireEvent.click(
+        await screen.findByText('Value', {
+          selector: '.ant-select-item-option-content',
+        }),
+      );
 
       const submitButton = await getChartConfigSubmitButton();
       await act(async () => {
@@ -1360,10 +1366,39 @@ describe('ChartRender', () => {
       });
 
       await waitFor(() => {
-        expect(screen.getByTestId('bar-chart')).not.toHaveAttribute(
-          'data-mount-id',
-          mountIdBeforeSubmit,
+        const chart = screen.getByTestId('bar-chart');
+        expect(JSON.parse(chart.getAttribute('data-chart-data')!)[0].x).toBe(
+          10,
         );
+        expect(chart).toHaveAttribute('data-mount-id', mountIdBeforeSubmit);
+      });
+
+      view.rerender(
+        <ConfigProvider>
+          <I18nContext.Provider value={mockI18n}>
+            <ChartRender
+              {...defaultProps}
+              chartData={defaultProps.chartData.map((row) => ({
+                ...row,
+                value: row.value + 1,
+              }))}
+              config={{
+                ...defaultProps.config,
+                rest: { ...defaultProps.config.rest },
+                columns: defaultProps.config.columns.map((column) => ({
+                  ...column,
+                })),
+              }}
+            />
+          </I18nContext.Provider>
+        </ConfigProvider>,
+      );
+      await waitFor(() => {
+        const chart = screen.getByTestId('bar-chart');
+        expect(JSON.parse(chart.getAttribute('data-chart-data')!)[0].x).toBe(
+          11,
+        );
+        expect(chart).toHaveAttribute('data-mount-id', mountIdBeforeSubmit);
       });
     });
 

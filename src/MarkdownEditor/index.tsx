@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { standardPlugins } from '../Plugins/defaultPlugins';
 import { BaseMarkdownEditor, MarkdownEditorProps } from './BaseMarkdownEditor';
 export * from './BaseMarkdownEditor';
@@ -42,12 +42,11 @@ export * from './BaseMarkdownEditor';
  * - 提供编辑器引用
  */
 const MarkdownEditorComponent: React.FC<MarkdownEditorProps> = (props) => {
-  return (
-    <BaseMarkdownEditor
-      {...props}
-      plugins={[...(standardPlugins || []), ...(props?.plugins || [])]}
-    />
+  const plugins = useMemo(
+    () => [...standardPlugins, ...(props.plugins || [])],
+    [props.plugins],
   );
+  return <BaseMarkdownEditor {...props} plugins={plugins} />;
 };
 
 MarkdownEditorComponent.displayName = 'MarkdownEditor';

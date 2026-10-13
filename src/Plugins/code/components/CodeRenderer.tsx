@@ -117,13 +117,15 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
   const codePlainText = getCodeBlockPlainText(props.element);
 
   // 检测 HTML 代码中是否包含 JavaScript
-  const hasJavaScript =
-    language === 'html' && containsJavaScript(codePlainText);
+  const hasJavaScript = useMemo(
+    () => language === 'html' && containsJavaScript(codePlainText),
+    [language, codePlainText],
+  );
 
   // 如果禁用了 HTML 预览或包含 JavaScript，强制使用代码模式
   const shouldDisablePreview = disableHtmlPreview || hasJavaScript;
 
-  const [viewMode, setViewMode] = useState<'preview' | 'code'>(() =>
+  const [preferredViewMode, setViewMode] = useState<'preview' | 'code'>(() =>
     resolveInitialCodeBlockViewMode({
       readonly,
       language,
@@ -131,8 +133,22 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
     }),
   );
 
+  // Resolve the visible view immediately when streaming or external updates
+  // change the language; languages without previews immediately display source.
+  const canPreview =
+    language === 'markdown' || (language === 'html' && !shouldDisablePreview);
+  const viewMode = canPreview ? preferredViewMode : 'code';
+
+  const {
+    shouldHideConfigHtml,
+    shouldRenderAsThinkBlock,
+    shouldRenderAsCodeEditor,
+  } = useRenderConditions(props.element, readonly);
+  const codeVisible =
+    shouldRenderAsCodeEditor && viewMode === 'code' && isExpanded;
+
   // 使用Ace编辑器Hook
-  const { dom, setLanguage, focusEditor } = AceEditor({
+  const { dom, setLanguage, focusEditor, loading } = AceEditor({
     element: props.element,
     theme,
     onUpdate: update,
@@ -141,23 +157,19 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
     path,
     isSelected,
     onSelectionChange: setIsSelected,
+    enabled: codeVisible,
   });
 
-  // 使用渲染条件Hook
-  const {
-    shouldHideConfigHtml,
-    shouldRenderAsThinkBlock,
-    shouldRenderAsCodeEditor,
-  } = useRenderConditions(props.element, readonly);
-
   // 视图模式切换处理函数
-  const handleViewModeToggle = () => {
+  const handleViewModeToggle = (nextMode?: 'preview' | 'code') => {
     // 如果禁用了 HTML 预览或包含 JavaScript，不允许切换到预览模式
     if (shouldDisablePreview && language === 'html') {
       setViewMode('code');
       return;
     }
-    setViewMode((prev) => (prev === 'preview' ? 'code' : 'preview'));
+    setViewMode(
+      (prev) => nextMode ?? (prev === 'preview' ? 'code' : 'preview'),
+    );
   };
 
   // 本地预览处理函数
@@ -205,13 +217,6 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
       };
     }
   }, [isUnclosed, readonly, props.element.otherProps?.finished, update]);
-
-  // 如果禁用了 HTML 预览或包含 JavaScript，强制使用代码模式
-  useEffect(() => {
-    if (shouldDisablePreview && language === 'html' && viewMode === 'preview') {
-      setViewMode('code');
-    }
-  }, [shouldDisablePreview, language, viewMode]);
 
   // 渲染组件
   return useMemo(() => {
@@ -275,14 +280,15 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
                   display: isExpanded ? 'block' : 'none',
                 }}
               >
-                {viewMode === 'preview' &&
-                  props.element.language === 'html' &&
+                {isExpanded &&
+                  viewMode === 'preview' &&
+                  language === 'html' &&
                   !shouldDisablePreview && (
                     <HtmlPreview htmlStr={codePlainText} />
                   )}
-                {viewMode === 'preview' &&
-                  props.element.language &&
-                  props.element.language === 'markdown' && (
+                {isExpanded &&
+                  viewMode === 'preview' &&
+                  language === 'markdown' && (
                     <MarkdownEditor
                       initValue={codePlainText}
                       readonly
@@ -299,7 +305,12 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
                     display: viewMode === 'code' ? 'block' : 'none',
                   }}
                 >
-                  <AceEditorContainer dom={dom} element={props.element}>
+                  <AceEditorContainer
+                    dom={dom}
+                    element={props.element}
+                    active={codeVisible}
+                    loading={loading}
+                  >
                     {props.children}
                   </AceEditorContainer>
                 </div>
@@ -320,6 +331,9 @@ export function CodeRenderer(props: ElementProps<CodeNode>) {
     props.children,
     state.showBorder,
     state.hide,
+    isExpanded,
+    codeVisible,
+    loading,
     isSelected,
     editorProps.codeProps?.hideToolBar,
     editorProps.codeProps?.disableHtmlPreview,

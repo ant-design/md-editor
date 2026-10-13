@@ -9,6 +9,25 @@ import {
   renderSvgToContainer,
 } from './utils';
 
+// Mermaid owns a shared configuration and temporary DOM. Keep initialize/render
+// together until each render settles, including when a newer request replaces it.
+const renderQueues = new WeakMap<MermaidApi, Promise<unknown>>();
+
+const enqueueRender = <T>(api: MermaidApi, render: () => Promise<T>) => {
+  const previous = renderQueues.get(api) ?? Promise.resolve();
+  const next = previous.catch(() => {}).then(render);
+  renderQueues.set(api, next);
+  void next.then(
+    () => {
+      if (renderQueues.get(api) === next) renderQueues.delete(api);
+    },
+    () => {
+      if (renderQueues.get(api) === next) renderQueues.delete(api);
+    },
+  );
+  return next;
+};
+
 /**
  * Mermaid 渲染 Hook
  */
@@ -19,11 +38,9 @@ export const useMermaidRender = (
   isVisible: boolean,
   themeToken?: MermaidThemeToken,
 ) => {
-  const timer = useRef<number | null>(null);
   const mermaidRef = useRef<MermaidApi | null>(null);
   const renderedSignatureRef = useRef<string>('');
   const latestRenderSignatureRef = useRef<string>('');
-  const appliedThemeCacheKeyRef = useRef<string>('');
   const [error, setError] = useState<string>('');
   const [renderedCode, setRenderedCode] = useState<string>('');
   const themeConfig = useMemo(
@@ -46,11 +63,7 @@ export const useMermaidRender = (
       return;
     }
 
-    if (timer.current) {
-      window.clearTimeout(timer.current);
-    }
-
-    if (!code) {
+    if (!code.trim()) {
       renderedSignatureRef.current = '';
       setRenderedCode('');
       setError('');
@@ -60,49 +73,41 @@ export const useMermaidRender = (
       return;
     }
 
+    let cancelled = false;
     const currentSignature = renderSignature;
-    timer.current = window.setTimeout(async () => {
-      if (latestRenderSignatureRef.current !== currentSignature) {
-        timer.current = null;
-        return;
-      }
+    const isCurrent = () =>
+      !cancelled && latestRenderSignatureRef.current === currentSignature;
+    const timeout = window.setTimeout(async () => {
+      if (!isCurrent()) return;
 
       try {
         const api = mermaidRef.current ?? (await loadMermaid());
+        if (!isCurrent()) return;
         mermaidRef.current = api;
-        if (appliedThemeCacheKeyRef.current !== themeConfig.cacheKey) {
-          applyMermaidTheme(api, themeConfig);
-          appliedThemeCacheKeyRef.current = themeConfig.cacheKey;
-        }
 
-        const trimmedCode = code.trim();
-        if (!trimmedCode) {
-          renderedSignatureRef.current = '';
-          setRenderedCode('');
-          setError('');
-          if (divRef.current) {
-            divRef.current.innerHTML = '';
+        const result = await enqueueRender(api, async () => {
+          // Loading or an earlier diagram may have occupied the queue while this
+          // request became stale. Do not parse that stale source at all.
+          if (!isCurrent()) return;
+          try {
+            applyMermaidTheme(api, themeConfig);
+            return await api.render(id, code.trim());
+          } finally {
+            cleanupTempElement(id);
           }
-          timer.current = null;
-          return;
-        }
+        });
 
-        const { svg } = await api.render(id, trimmedCode);
-
-        if (latestRenderSignatureRef.current !== currentSignature) {
-          timer.current = null;
-          return;
-        }
+        if (!result || !isCurrent()) return;
 
         if (divRef.current) {
-          renderSvgToContainer(svg, divRef.current);
+          renderSvgToContainer(result.svg, divRef.current);
         }
 
         renderedSignatureRef.current = currentSignature;
         setRenderedCode(code);
         setError('');
       } catch (err) {
-        if (latestRenderSignatureRef.current === currentSignature) {
+        if (isCurrent()) {
           setError(String(err));
           renderedSignatureRef.current = currentSignature;
           setRenderedCode(code);
@@ -110,17 +115,12 @@ export const useMermaidRender = (
             divRef.current.innerHTML = '';
           }
         }
-      } finally {
-        cleanupTempElement(id);
-        timer.current = null;
       }
     }, 100);
 
     return () => {
-      if (timer.current) {
-        window.clearTimeout(timer.current);
-        timer.current = null;
-      }
+      cancelled = true;
+      window.clearTimeout(timeout);
     };
   }, [code, id, isVisible, renderSignature, themeConfig, divRef]);
 

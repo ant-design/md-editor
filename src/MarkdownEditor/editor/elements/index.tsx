@@ -72,7 +72,7 @@ import { markTagChipWave } from './TagPopup/chipWaveMotion';
  * 2. **快速引用比较**：首先进行引用比较，这是最快的比较方式
  * 4. **批量属性检查**：对 MLeaf 组件使用数组批量检查关键属性
  *
- * 性能测试结果显示约 43% 的渲染性能提升，在相同 props 的情况下避免了重复渲染。
+ * 比较文档节点时仍需同步 Slate children、DOM 属性和只读模式。
  */
 
 export const dragStart = (e: React.DragEvent) => {
@@ -101,6 +101,10 @@ const areElementPropsEqual = (
   prevProps: RenderElementProps & { readonly?: boolean; deps?: string[] },
   nextProps: RenderElementProps & { readonly?: boolean; deps?: string[] },
 ) => {
+  if (prevProps.readonly !== nextProps.readonly) return false;
+  if (prevProps.children !== nextProps.children) return false;
+  if (prevProps.attributes !== nextProps.attributes) return false;
+
   // 比较 deps，如果 deps 发生变化，需要重新渲染
   if (!areDepsEqual(prevProps.deps, nextProps.deps)) {
     return false;

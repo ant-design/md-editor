@@ -11,6 +11,17 @@ group:
 
 ## Unreleased
 
+- MarkdownEditor
+  - ⚡️ Stabilize plugin lists and index node renderers once per configuration; adding display-only plugins preserves the Slate instance and selection.
+  - 🐞 Allow later node renderers to override defaults, synchronize readonly mode, Slate children and DOM attributes, and preserve nested code fences during parsing and export.
+
+- Plugins
+  - 🐞 Show source immediately when code languages change, preserve accepted drafts across effect restarts and unmounts, and retain formula source until the first paint without overlapping fallback content.
+  - ⚡️ Avoid hidden Ace instances for previews, collapsed code and think blocks; cancel stale theme/event tasks and show source while loading.
+  - 🐞 Update charts for same-length data edits, column titles and external configuration without delayed remounts; preserve Slate refs and observe local container sizing.
+  - 🐞 Cancel stale Mermaid loading and output, serialize shared rendering to isolate themes, and remove excess fallback space in narrow containers.
+  - ⚡️ Reuse KaTeX DOM for unchanged source and clear formulas immediately; show source for unfinished formulas and load failures, with horizontal scrolling for long formulas.
+
 - Components
   - 🛠 Remove the redundant `IconButton`, `SwitchButton`, and `ToggleButton` components and their Props exports. Use Ant Design `Button` and `Tooltip` directly, replace `isLoading` with `loading`, render trailing icons as children, and manage toggle state in the caller.
 

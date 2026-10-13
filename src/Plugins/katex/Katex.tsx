@@ -1,5 +1,5 @@
 import classNames from 'clsx';
-import React, { startTransition, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useGetSetState } from 'react-use';
 import { getSlateElementPlainText } from '../../MarkdownEditor/editor/utils/codeBlockPlainText';
 import { CodeNode } from '../../MarkdownEditor/el';
@@ -47,65 +47,77 @@ export const Katex = (props: { el: CodeNode }) => {
   const [katexLoaded, setKatexLoaded] = useState(false);
   const katexRef = useRef<typeof import('katex').default | null>(null);
   const divRef = useRef<HTMLDivElement>(null);
-  const timer = useRef(0);
   const katexSource = getSlateElementPlainText(props.el);
+  const isUnfinished = props.el.otherProps?.finished === false;
+  const [loadError, setLoadError] = useState(false);
 
-  // 异步加载 Katex 库和 CSS
+  // Keep incomplete streaming formulas as source until their fence closes.
   useEffect(() => {
+    if (isUnfinished || katexRef.current) return;
     if (process.env.NODE_ENV === 'test') {
-      // 测试环境跳过加载
       setKatexLoaded(true);
       return;
     }
 
-    startTransition(() => {
-      // 异步加载在 startTransition 外部执行
-      (async () => {
-        try {
-          const katexModule = await loadKatex();
-          katexRef.current = katexModule.default;
-          setKatexLoaded(true);
-        } catch (error) {
-          console.error('Failed to load Katex:', error);
-          // 即使加载失败也设置 loaded，避免无限加载
-          setKatexLoaded(true);
-        }
-      })();
-    });
-  }, []);
+    let cancelled = false;
+    void loadKatex().then(
+      (katexModule) => {
+        if (cancelled) return;
+        katexRef.current = katexModule.default;
+        setLoadError(false);
+        setKatexLoaded(true);
+      },
+      (error) => {
+        if (cancelled) return;
+        console.error('Failed to load Katex:', error);
+        setLoadError(true);
+        setKatexLoaded(true);
+      },
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, [isUnfinished]);
 
   useEffect(() => {
+    if (isUnfinished || !katexSource.trim()) {
+      if (divRef.current) divRef.current.textContent = '';
+      setState({ code: '', error: '' });
+      return;
+    }
     if (!katexLoaded || !katexRef.current) return;
 
-    const code = katexSource || '';
-    clearTimeout(timer.current);
-    timer.current = window.setTimeout(
+    const timeout = window.setTimeout(
       () => {
-        setState({
-          code: code,
-        });
-        if (state().code) {
-          try {
-            if (divRef.current && katexRef.current) {
-              katexRef.current.render(state().code, divRef.current!, {
-                strict: false,
-                output: 'htmlAndMathml',
-                throwOnError: false,
-                displayMode: true,
-                macros: {
-                  '\\f': '#1f(#2)',
-                },
-              });
-            }
-          } catch (e) {}
-        } else {
-          setState({ error: '' });
+        if (!divRef.current || !katexRef.current) return;
+        try {
+          katexRef.current.render(katexSource, divRef.current, {
+            strict: false,
+            output: 'htmlAndMathml',
+            throwOnError: false,
+            displayMode: true,
+            macros: {
+              '\\f': '#1f(#2)',
+            },
+          });
+          setState({ code: katexSource, error: '' });
+        } catch (error) {
+          divRef.current.textContent = '';
+          setState({ code: '', error: String(error) });
         }
       },
-      !state().code ? 0 : 300,
+      state().code ? 300 : 0,
     );
-    return () => window.clearTimeout(timer.current);
-  }, [katexSource, props.el, katexLoaded, state]);
+    return () => window.clearTimeout(timeout);
+  }, [katexSource, isUnfinished, katexLoaded, setState, state]);
+
+  const showSource =
+    !!katexSource.trim() &&
+    (isUnfinished ||
+      !katexLoaded ||
+      !state().code.trim() ||
+      loadError ||
+      !!state().error);
   return (
     <div
       style={{
@@ -117,16 +129,42 @@ export const Katex = (props: { el: CodeNode }) => {
         paddingTop: '1em',
         paddingBottom: '1em',
         borderRadius: '0.25em',
+        minWidth: 0,
+        maxWidth: '100%',
+        boxSizing: 'border-box',
       }}
       contentEditable={false}
+      aria-busy={
+        !isUnfinished &&
+        !!katexSource.trim() &&
+        !loadError &&
+        !state().error &&
+        state().code !== katexSource
+      }
     >
       <div
         ref={divRef}
         className={classNames('katex-container', {
-          hidden: !state().code.trim(),
+          hidden: showSource || !state().code.trim(),
         })}
+        style={{
+          maxWidth: '100%',
+          overflowX: 'auto',
+          display: showSource || !state().code.trim() ? 'none' : undefined,
+        }}
       />
-      {!state().code.trim() && (
+      {showSource && (
+        <pre
+          style={{
+            margin: 0,
+            whiteSpace: 'pre-wrap',
+            overflowWrap: 'anywhere',
+          }}
+        >
+          {katexSource}
+        </pre>
+      )}
+      {!showSource && !state().code.trim() && (
         <div style={{ textAlign: 'center', color: '#6B7280' }}>Formula</div>
       )}
     </div>

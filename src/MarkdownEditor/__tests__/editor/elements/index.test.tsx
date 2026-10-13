@@ -744,7 +744,7 @@ describe('Elements Index', () => {
   });
 
   describe('性能优化测试', () => {
-    it('MElement：memo 与 element、attributes、readonly、value 变更后仍渲染 paragraph', () => {
+    it('MElement：同步节点和 DOM 属性，切换 readonly 时使用只读段落', () => {
       const baseAttrs = {
         'data-slate-node': 'element' as const,
         ref: { current: null },
@@ -787,7 +787,8 @@ describe('Elements Index', () => {
       expect(screen.getByTestId('paragraph')).toBeInTheDocument();
 
       rerender(<MElement {...propsStable} readonly />);
-      expect(screen.getByTestId('paragraph')).toBeInTheDocument();
+      expect(screen.queryByTestId('paragraph')).not.toBeInTheDocument();
+      expect(screen.getByText('Test Content')).toBeInTheDocument();
 
       rerender(
         <MElement

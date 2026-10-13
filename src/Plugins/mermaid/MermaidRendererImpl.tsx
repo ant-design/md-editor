@@ -146,6 +146,7 @@ export const MermaidRendererImpl = (props: { element: CodeNode }) => {
         contentEditable={false}
         className={classNames(`${baseCls}-viewport`, hashId)}
         data-mermaid-viewport="true"
+        style={!isRendered ? { minHeight: 0, padding: 0 } : undefined}
       >
         <div
           contentEditable={false}

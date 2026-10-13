@@ -94,9 +94,9 @@ const INIT_VALUE = `\`\`\`html
 ${HTML_SAMPLE}
 \`\`\`
 
-\`\`\`markdown
+\`\`\`\`markdown
 ${MARKDOWN_SAMPLE}
-\`\`\``;
+\`\`\`\``;
 
 const CodeLocalPreviewDemo: React.FC = () => {
   return (
