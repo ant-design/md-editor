@@ -9,8 +9,9 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { CodeRenderer } from '../../components/CodeRenderer';
 
 // 使用 vi.hoisted() 定义变量，使其与 vi.mock 一起被提升
-const { mockEditorStore, mockUpdate } = vi.hoisted(() => {
+const { mockEditorStore, mockUpdate, mockAce } = vi.hoisted(() => {
   return {
+    mockAce: vi.fn(),
     mockEditorStore: {
       store: {
         editor: {
@@ -103,16 +104,26 @@ vi.mock('../../hooks', () => ({
 
 // Mock AceEditor hook
 vi.mock('../../components/AceEditor', () => ({
-  AceEditor: () => ({
-    dom: { current: document.createElement('div') },
-    setLanguage: vi.fn(),
-    focusEditor: vi.fn(),
-  }),
+  AceEditor: (props: { enabled: boolean }) => {
+    mockAce(props);
+    return {
+      dom: { current: document.createElement('div') },
+      setLanguage: vi.fn(),
+      focusEditor: vi.fn(),
+      loading: false,
+    };
+  },
 }));
 
 // Mock CodeToolbar 组件
 vi.mock('../../components/CodeToolbar', () => ({
-  CodeToolbar: ({ element, readonly, isSelected, onViewModeToggle }: any) => (
+  CodeToolbar: ({
+    element,
+    readonly,
+    isSelected,
+    onViewModeToggle,
+    onExpandToggle,
+  }: any) => (
     <div data-testid="code-toolbar">
       <span>Code Toolbar</span>
       <span data-testid="toolbar-language">
@@ -133,6 +144,9 @@ vi.mock('../../components/CodeToolbar', () => ({
           Toggle View
         </button>
       )}
+      <button type="button" onClick={onExpandToggle}>
+        Collapse code
+      </button>
     </div>
   ),
 }));
@@ -161,6 +175,62 @@ describe('CodeRenderer Component', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    mockEditorStore.readonly = false;
+  });
+
+  it('does not mount an Ace host for readonly previews and switches it on only in code view', () => {
+    mockEditorStore.readonly = true;
+    render(<CodeRenderer {...defaultProps} />);
+    expect(mockAce.mock.lastCall?.[0].enabled).toBe(false);
+    expect(
+      screen.queryByTestId('ace-editor-container'),
+    ).not.toBeInTheDocument();
+    fireEvent.click(screen.getByTestId('view-mode-toggle'));
+    expect(mockAce.mock.lastCall?.[0].enabled).toBe(true);
+    expect(screen.getByTestId('ace-editor-container')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Collapse code' }));
+    expect(mockAce.mock.lastCall?.[0].enabled).toBe(false);
+    expect(
+      screen.queryByTestId('ace-editor-container'),
+    ).not.toBeInTheDocument();
+  });
+
+  it('shows source immediately when a preview changes to a code-only language', () => {
+    mockEditorStore.readonly = true;
+    const { rerender } = render(
+      <CodeRenderer
+        {...defaultProps}
+        element={{ ...defaultProps.element, language: 'markdown' }}
+      />,
+    );
+    expect(screen.getByTestId('markdown-editor')).toBeInTheDocument();
+    rerender(
+      <CodeRenderer
+        {...defaultProps}
+        element={{ ...defaultProps.element, language: 'javascript' }}
+      />,
+    );
+    expect(screen.queryByTestId('markdown-editor')).not.toBeInTheDocument();
+    expect(mockAce.mock.lastCall?.[0].enabled).toBe(true);
+    expect(screen.getByTestId('ace-editor-container')).toBeVisible();
+  });
+
+  it('does not request Ace for readonly think or hidden config blocks', () => {
+    mockEditorStore.readonly = true;
+    const { rerender } = render(
+      <CodeRenderer
+        {...defaultProps}
+        element={{ ...defaultProps.element, language: 'think' }}
+      />,
+    );
+    expect(mockAce.mock.lastCall?.[0].enabled).toBe(false);
+    rerender(
+      <CodeRenderer
+        {...defaultProps}
+        element={{ ...defaultProps.element, isConfig: true }}
+      />,
+    );
+    expect(mockAce.mock.lastCall?.[0].enabled).toBe(false);
   });
 
   describe('基本渲染测试', () => {

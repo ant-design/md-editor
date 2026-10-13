@@ -14,10 +14,12 @@ const genStyle: GenStyleFn<'Mermaid'> = (token) => {
       userSelect: 'none',
       padding: MERMAID_ROOT_PADDING_PX,
       borderRadius: '1em',
+      width: '100%',
       maxWidth: '800px',
+      boxSizing: 'border-box',
       border: `1px solid ${token.colorBorder}`,
       backgroundColor: token.colorBgContainer,
-      minWidth: '240px',
+      minWidth: 0,
       minHeight: 'auto',
       display: 'flex',
       justifyContent: 'center',
@@ -99,6 +101,7 @@ const genStyle: GenStyleFn<'Mermaid'> = (token) => {
       },
 
       '&-error': {
+        boxSizing: 'border-box',
         textAlign: 'center',
         color: token.colorError,
         padding: '0.5rem',
@@ -113,6 +116,7 @@ const genStyle: GenStyleFn<'Mermaid'> = (token) => {
       },
 
       '&-empty': {
+        boxSizing: 'border-box',
         textAlign: 'left',
         color: token.colorTextSecondary,
         padding: '0.75rem 1.5rem',

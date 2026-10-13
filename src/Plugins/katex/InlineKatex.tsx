@@ -1,5 +1,5 @@
 import classNames from 'clsx';
-import React, { startTransition, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Editor, Node, Transforms } from 'slate';
 import { useEditorStore } from '../../MarkdownEditor/editor/store';
 import { findElementPath } from '../../MarkdownEditor/editor/utils/findElementPath';
@@ -55,6 +55,10 @@ export const InlineKatex = ({
   const [selected, path] = useSelStatus(element);
   const [katexLoaded, setKatexLoaded] = useState(false);
   const katexRef = useRef<typeof import('katex').default | null>(null);
+  const value = Node.string(element);
+  const renderedRef = useRef<{ source: string; target: HTMLElement } | null>(
+    null,
+  );
 
   // 异步加载 Katex 库和 CSS
   useEffect(() => {
@@ -63,27 +67,41 @@ export const InlineKatex = ({
       return;
     }
 
-    startTransition(() => {
-      // 异步加载在 startTransition 外部执行
-      (async () => {
-        try {
-          const katexModule = await loadKatex();
-          katexRef.current = katexModule.default;
-          setKatexLoaded(true);
-        } catch (error) {
-          console.error('Failed to load Katex:', error);
-          setKatexLoaded(true);
-        }
-      })();
-    });
+    let cancelled = false;
+    void loadKatex().then(
+      (katexModule) => {
+        if (cancelled) return;
+        katexRef.current = katexModule.default;
+        setKatexLoaded(true);
+      },
+      (error) => {
+        if (cancelled) return;
+        console.error('Failed to load Katex:', error);
+        setKatexLoaded(true);
+      },
+    );
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
-    if (!katexLoaded || !katexRef.current || selected) return;
+    if ((!readonly && selected) || !renderEl.current) return;
+    const target = renderEl.current;
+    if (!katexLoaded || !katexRef.current) {
+      target.textContent = value;
+      renderedRef.current = null;
+      return;
+    }
+    if (
+      renderedRef.current?.source === value &&
+      renderedRef.current.target === target
+    ) {
+      return;
+    }
 
-    const value = Node.string(element);
-    if (renderEl.current) {
-      katexRef.current.render(`${value}`, renderEl.current, {
+    try {
+      katexRef.current.render(value, target, {
         strict: false,
         output: 'html',
         throwOnError: false,
@@ -91,8 +109,12 @@ export const InlineKatex = ({
           '\\f': '#1f(#2)',
         },
       });
+      renderedRef.current = { source: value, target };
+    } catch {
+      target.textContent = value;
+      renderedRef.current = null;
     }
-  }, [selected, katexLoaded, element]);
+  }, [selected, katexLoaded, readonly, value]);
   if (process.env.NODE_ENV === 'test') {
     return <span contentEditable={false} />;
   }

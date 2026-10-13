@@ -134,7 +134,7 @@ const handleExportMarkdown = () => {
 withEditor?: (editor: Editor) => Editor
 ```
 
-当 `plugins` 中 `withEditor` 的实现或顺序变化时，编辑器会 remount Slate 子树并尽量保留文档。参与检测的 key 为：插件顺序、是否含 `withEditor`、以及 `withEditorKey` 或具名 `withEditor` 的函数名（匿名函数视为同一槽位 `w`，替换实现不会 remount，请设置 `withEditorKey`）。
+当行为插件的 `withEditor` 配置或顺序变化时，编辑器会 remount Slate 子树并尽量保留文档。检测只包含有 `withEditor` 的插件，使用其相对顺序及 `withEditorKey` 或具名函数名生成 key；添加或移动纯渲染、解析插件不会重建 Slate 实例。匿名函数视为同一槽位 `w`，替换实现时请设置 `withEditorKey`。
 
 ```typescript pure
 withEditorKey?: string
@@ -560,7 +560,7 @@ console.log("这是普通的 JavaScript 代码");
 
 2. **插件优先级**：当多个插件处理相同类型的节点时，插件列表中靠后的插件优先级更高。
 
-3. **性能考虑**：在实现转换函数时，应该注意性能优化，特别是在处理大文档时。
+3. **性能考虑**：将插件对象和节点组件定义放在模块作用域；需要依赖组件状态时使用 `useMemo` 保持插件列表稳定。避免每次渲染创建新的节点组件类型，否则会丢失节点内部状态并重新挂载代码编辑器或图表。`elements` 中靠后的注册可覆盖默认渲染器，更新纯渲染插件不需要重建编辑器。
 
 4. **错误处理**：插件应该优雅地处理异常情况，不应该因为单个插件的错误而影响整个编辑器的功能。
 

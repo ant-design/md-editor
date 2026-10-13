@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
 import React, { useEffect, useMemo } from 'react';
-import { RenderElementProps, useSlate } from 'slate-react';
+import { RenderElementProps } from 'slate-react';
 import { ErrorBoundary } from '../../MarkdownEditor/editor/elements/ErrorBoundary';
 import { TableNode } from '../../MarkdownEditor/editor/elements/Table';
 import { useEditorStore } from '../../MarkdownEditor/editor/store';
 import { DragHandle } from '../../MarkdownEditor/editor/tools/DragHandle';
 import { useMEditor } from '../../MarkdownEditor/hooks/editor';
 import { ChartRender } from './ChartRender';
-import { getDataHash, sortChartDataRowsByXField } from './utils';
+import { sortChartDataRowsByXField } from './utils';
 
 /**
  * @fileoverview 图表插件主入口文件
@@ -236,16 +236,9 @@ const groupByCategory = (data: any[], key: any) => {
 export const ChartElement = (props: RenderElementProps) => {
   const { store, readonly, markdownContainerRef, rootContainer } =
     useEditorStore();
-  const editor = useSlate();
   const { element: node, attributes, children } = props;
 
-  // 使用更高效的依赖项比较，避免 JSON.stringify 的性能开销
-  const dataSourceHash = useMemo(
-    () => getDataHash(node.otherProps?.dataSource || []),
-    [node.otherProps?.dataSource],
-  );
-
-  let chartData = useMemo(() => {
+  const chartData = useMemo(() => {
     const dataSource = node.otherProps?.dataSource || [];
     if (dataSource.length === 0) {
       return [];
@@ -279,9 +272,12 @@ export const ChartElement = (props: RenderElementProps) => {
     }
 
     return processed;
-  }, [dataSourceHash, node.otherProps?.dataSource]);
+  }, [node.otherProps?.dataSource]);
 
-  const columns = (node as TableNode).otherProps?.columns || [];
+  const columns = useMemo(
+    () => (node as TableNode).otherProps?.columns || [],
+    [(node as TableNode).otherProps?.columns],
+  );
 
   // 检查图表是否未闭合
   const isUnclosed = node?.otherProps?.finished === false;
@@ -341,256 +337,272 @@ export const ChartElement = (props: RenderElementProps) => {
   }, [isUnclosed, readonly, isLastNode, node, update]);
 
   const [columnLength, setColumnLength] = React.useState(2);
-  const config = [node.otherProps?.config || node.otherProps].flat(1);
-  const htmlRef = React.useRef<HTMLDivElement>(null);
+  const config = useMemo(
+    () => [node.otherProps?.config || node.otherProps].flat(1),
+    [node.otherProps?.config, node.otherProps],
+  );
+  const htmlRef = React.useRef<HTMLDivElement | null>(null);
+  const setChartRef = React.useCallback(
+    (element: HTMLDivElement | null) => {
+      htmlRef.current = element;
+      if (typeof attributes.ref === 'function') {
+        attributes.ref(element);
+      } else if (attributes.ref) {
+        attributes.ref.current = element;
+      }
+    },
+    [attributes.ref],
+  );
   const [minWidth, setMinWidth] = React.useState(256);
 
   useEffect(() => {
+    const element = htmlRef.current;
+    if (!element) return;
+    let previousWidth = 0;
     const updateWidth = () => {
-      const width = Math.max(
+      const width =
+        element.clientWidth ||
+        element.parentElement?.clientWidth ||
         rootContainer?.current?.clientWidth ||
-          htmlRef.current?.parentElement?.clientWidth ||
-          256,
-        256,
+        256;
+      if (width === previousWidth) return;
+      previousWidth = width;
+      setMinWidth(width);
+      setColumnLength(
+        Math.max(1, Math.min(Math.floor(width / 256), config.length)),
       );
-      setMinWidth(width || 256);
-      setColumnLength(Math.min(Math.floor(width / 256), config.length));
     };
 
     updateWidth();
+    if (typeof ResizeObserver !== 'undefined') {
+      const observer = new ResizeObserver(updateWidth);
+      observer.observe(element);
+      return () => observer.disconnect();
+    }
     window.addEventListener('resize', updateWidth);
     return () => window.removeEventListener('resize', updateWidth);
-  }, [config.length]);
+  }, [config.length, rootContainer]);
 
-  return useMemo(
-    () => (
+  const chartItems = useMemo(
+    () =>
+      config
+        .map(({ chartType, x, y, ...rest }, index) => {
+          const height = Math.min(400, minWidth);
+          if (
+            typeof window === 'undefined' ||
+            typeof document === 'undefined'
+          ) {
+            return (
+              <div
+                key={index}
+                style={{
+                  margin: 'auto',
+                  position: 'relative',
+                  zIndex: 9,
+                }}
+              ></div>
+            );
+          }
+
+          const normalizedData = sortChartDataRowsByXField(
+            chartData.map((item: any) => ({
+              ...item,
+              [x]: numberString(item[x]),
+              [y]: numberString(item[y]),
+            })),
+            x,
+          );
+
+          const subgraphBy = rest?.subgraphBy;
+
+          if (subgraphBy) {
+            const groupData = groupByCategory(normalizedData, subgraphBy);
+            return Object.keys(groupData).map((key, subIndex) => {
+              const group = groupData[key];
+              if (!Array.isArray(group) || group.length < 1) {
+                return null;
+              }
+              const dom = (
+                <ChartRender
+                  key={`${index}-${key}`}
+                  chartType={chartType}
+                  chartData={group}
+                  columnLength={columnLength}
+                  onColumnLengthChange={setColumnLength}
+                  isChartList
+                  config={{
+                    height,
+                    x,
+                    y,
+                    columns,
+                    index: index * 10 + subIndex,
+                    rest,
+                  }}
+                  title={key}
+                  dataTime={rest?.dataTime}
+                  groupBy={rest?.groupBy}
+                  filterBy={rest?.filterBy}
+                  colorLegend={rest?.colorLegend}
+                  loading={isUnclosed}
+                />
+              );
+              return dom;
+            });
+          }
+
+          return (
+            <ChartRender
+              key={index}
+              columnLength={columnLength}
+              onColumnLengthChange={setColumnLength}
+              chartType={chartType}
+              chartData={normalizedData}
+              title={rest?.title}
+              dataTime={rest?.dataTime}
+              groupBy={rest?.groupBy}
+              loading={isUnclosed}
+              filterBy={rest?.filterBy}
+              colorLegend={rest?.colorLegend}
+              config={{
+                height,
+                x,
+                y,
+                columns,
+                index: index,
+                rest,
+              }}
+            />
+          );
+        })
+        .map((itemList, index) => {
+          if (Array.isArray(itemList)) {
+            return itemList?.map((item, subIndex) => {
+              if (!item) return null;
+              return (
+                <div
+                  key={`${index}-${subIndex}`}
+                  style={{
+                    margin: 'auto',
+                    minWidth: 0,
+                    width:
+                      columnLength === 1
+                        ? '100%'
+                        : `calc(${100 / columnLength}% - 8px)`,
+                    maxWidth: '100%',
+                    flex: 1,
+                    userSelect: 'none',
+                  }}
+                  contentEditable={false}
+                >
+                  {item}
+                </div>
+              );
+            });
+          }
+          return (
+            <div
+              key={index}
+              contentEditable={false}
+              style={{
+                userSelect: 'none',
+                margin: 'auto',
+                minWidth: 0,
+                width:
+                  columnLength === 1
+                    ? '100%'
+                    : `calc(${100 / columnLength}% - 8px)`,
+                maxWidth: '100%',
+                flex: 1,
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              {itemList}
+            </div>
+          );
+        }),
+    [chartData, config, columns, columnLength, minWidth, isUnclosed],
+  );
+
+  return (
+    <div
+      data-drag-el
+      {...attributes}
+      data-be={'chart'}
+      style={{
+        flex: 1,
+        minWidth: 0,
+        width: '100%',
+        maxWidth: '100%',
+        margin: '1em 0',
+        overflow: 'hidden',
+      }}
+      ref={setChartRef}
+      onDragStart={(e) => store.dragStart(e, markdownContainerRef.current!)}
+    >
+      <DragHandle />
       <div
-        data-drag-el
-        {...attributes}
-        data-be={'chart'}
+        data-chart-box
         style={{
-          flex: 1,
-          minWidth: 0,
-          width: '100%',
-          maxWidth: '100%',
-          margin: '1em 0',
-          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          borderRadius: '0.5em',
         }}
-        ref={htmlRef}
-        onDragStart={(e) => store.dragStart(e, markdownContainerRef.current!)}
       >
-        <DragHandle />
-        <div
-          data-chart-box
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            borderRadius: '0.5em',
-          }}
+        <ErrorBoundary
+          fallback={
+            <table>
+              <tbody>{children}</tbody>
+            </table>
+          }
         >
-          <ErrorBoundary
-            fallback={
-              <table>
-                <tbody>{children}</tbody>
-              </table>
-            }
+          <div
+            style={{
+              position: 'relative',
+            }}
           >
+            {/* Slate 表格占位：必须在图表下方，避免 z-index 盖住 Canvas（否则部分浏览器只显示容器边框） */}
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 0,
+                width: '100%',
+                opacity: 0,
+                height: '100%',
+                overflow: 'hidden',
+                pointerEvents: 'none',
+              }}
+            >
+              {children}
+            </div>
             <div
               style={{
                 position: 'relative',
+                zIndex: 1,
+                display: 'flex',
+                flexWrap: 'wrap',
+                flexDirection: minWidth < 400 ? 'column' : 'row',
+                gap: 8,
+                userSelect: 'none',
+              }}
+              contentEditable={false}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              onKeyDown={(e) => {
+                e.stopPropagation();
               }}
             >
-              {/* Slate 表格占位：必须在图表下方，避免 z-index 盖住 Canvas（否则部分浏览器只显示容器边框） */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  zIndex: 0,
-                  width: '100%',
-                  opacity: 0,
-                  height: '100%',
-                  overflow: 'hidden',
-                  pointerEvents: 'none',
-                }}
-              >
-                {children}
-              </div>
-              <div
-                style={{
-                  position: 'relative',
-                  zIndex: 1,
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  flexDirection: minWidth < 400 ? 'column' : 'row',
-                  gap: 8,
-                  userSelect: 'none',
-                }}
-                contentEditable={false}
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-                onKeyDown={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                {config
-                  .map(({ chartType, x, y, ...rest }, index) => {
-                    const height = Math.min(
-                      400,
-                      htmlRef.current?.clientWidth || 400,
-                    );
-                    if (
-                      typeof window === 'undefined' ||
-                      typeof document === 'undefined'
-                    ) {
-                      return (
-                        <div
-                          key={index}
-                          style={{
-                            margin: 'auto',
-                            position: 'relative',
-                            zIndex: 9,
-                          }}
-                        ></div>
-                      );
-                    }
-
-                    chartData = sortChartDataRowsByXField(
-                      chartData.map((item: any) => ({
-                        ...item,
-                        [x]: numberString(item[x]),
-                        [y]: numberString(item[y]),
-                      })),
-                      x,
-                    );
-
-                    const subgraphBy = rest?.subgraphBy;
-
-                    if (subgraphBy) {
-                      const groupData = groupByCategory(chartData, subgraphBy);
-                      return Object.keys(groupData).map((key, subIndex) => {
-                        const group = groupData[key];
-                        if (!Array.isArray(group) || group.length < 1) {
-                          return null;
-                        }
-                        const dom = (
-                          <ChartRender
-                            chartType={chartType}
-                            chartData={group}
-                            columnLength={columnLength}
-                            onColumnLengthChange={setColumnLength}
-                            isChartList
-                            config={{
-                              height,
-                              x,
-                              y,
-                              columns,
-                              index: index * 10 + subIndex,
-                              rest,
-                            }}
-                            title={key}
-                            dataTime={rest?.dataTime}
-                            groupBy={rest?.groupBy}
-                            filterBy={rest?.filterBy}
-                            colorLegend={rest?.colorLegend}
-                            loading={isUnclosed}
-                          />
-                        );
-                        return dom;
-                      });
-                    }
-
-                    return (
-                      <ChartRender
-                        key={index}
-                        columnLength={columnLength}
-                        onColumnLengthChange={setColumnLength}
-                        chartType={chartType}
-                        chartData={chartData}
-                        title={rest?.title}
-                        dataTime={rest?.dataTime}
-                        groupBy={rest?.groupBy}
-                        loading={isUnclosed}
-                        filterBy={rest?.filterBy}
-                        colorLegend={rest?.colorLegend}
-                        config={{
-                          height,
-                          x,
-                          y,
-                          columns,
-                          index: index,
-                          rest,
-                        }}
-                      />
-                    );
-                  })
-                  .map((itemList, index) => {
-                    if (Array.isArray(itemList)) {
-                      return itemList?.map((item, subIndex) => {
-                        if (!item) return null;
-                        return (
-                          <div
-                            key={index + subIndex}
-                            style={{
-                              margin: 'auto',
-                              minWidth: 0,
-                              width:
-                                columnLength === 1
-                                  ? '100%'
-                                  : `calc(${100 / columnLength}% - 8px)`,
-                              maxWidth: '100%',
-                              flex: 1,
-                              userSelect: 'none',
-                            }}
-                            contentEditable={false}
-                          >
-                            {item}
-                          </div>
-                        );
-                      });
-                    }
-                    return (
-                      <div
-                        key={index}
-                        contentEditable={false}
-                        style={{
-                          userSelect: 'none',
-                          margin: 'auto',
-                          minWidth: 0,
-                          width:
-                            columnLength === 1
-                              ? '100%'
-                              : `calc(${100 / columnLength}% - 8px)`,
-                          maxWidth: '100%',
-                          flex: 1,
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                        }}
-                      >
-                        {itemList}
-                      </div>
-                    );
-                  })}
-              </div>
+              {chartItems}
             </div>
-          </ErrorBoundary>
-        </div>
+          </div>
+        </ErrorBoundary>
       </div>
-    ),
-    [
-      attributes,
-      // 使用更高效的依赖项比较
-      dataSourceHash,
-      (node as TableNode).otherProps?.config,
-      (node as TableNode).otherProps?.columns?.length,
-      editor,
-      columnLength,
-      readonly,
-      minWidth,
-    ],
+    </div>
   );
 };

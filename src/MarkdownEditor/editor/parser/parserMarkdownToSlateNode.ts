@@ -2,6 +2,10 @@ import type { RootContent } from 'mdast';
 import { Element } from 'slate';
 
 import type { FormulaConfig } from '../../../Config/formulaConfig';
+import {
+  INITIAL_FENCE_STATE,
+  updateFenceStateForLine,
+} from '../../../MarkdownRenderer/streaming/fenceTracker';
 import { ChartTypeConfig, Elements } from '../../el';
 import { MarkdownEditorPlugin } from '../../plugin';
 import { preprocessNormalizeLeafToContainerDirective } from './constants';
@@ -183,7 +187,7 @@ const splitMarkdownIntoBlocks = (
 ): MarkdownBlock[] => {
   const blocks: string[] = [];
   let currentBlock = '';
-  let inCodeBlock = false;
+  let fenceState = INITIAL_FENCE_STATE;
   let htmlTagDepth = 0;
 
   const lines = md.split('\n');
@@ -191,10 +195,9 @@ const splitMarkdownIntoBlocks = (
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
-    // 检测代码块开始/结束
-    if (line.trim().startsWith('```')) {
-      inCodeBlock = !inCodeBlock;
-    }
+    // Nested snippets and tilde fences must not split plugin source into cache blocks.
+    fenceState = updateFenceStateForLine(fenceState, line);
+    const inCodeBlock = fenceState.inFenced;
 
     // 检测 HTML 标签深度（非代码块时）
     if (!inCodeBlock) {

@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ChartRender } from '../ChartRender';
@@ -7,6 +7,8 @@ import { ChartRender } from '../ChartRender';
 const runtimeCalls = vi.hoisted(() => ({
   barData: [] as any[][],
   radarData: [] as any[][],
+  barMounts: 0,
+  barUnmounts: 0,
 }));
 
 vi.mock('../../../Hooks/useIntersectionOnce', () => ({
@@ -16,6 +18,13 @@ vi.mock('../../../Hooks/useIntersectionOnce', () => ({
 const createRuntimeChart =
   (testId: string, calls: any[][]) => (props: { data: any[] }) => {
     calls.push(props.data);
+    React.useEffect(() => {
+      if (testId !== 'bar-chart') return;
+      runtimeCalls.barMounts += 1;
+      return () => {
+        runtimeCalls.barUnmounts += 1;
+      };
+    }, []);
     return <div data-testid={testId} />;
   };
 
@@ -61,6 +70,8 @@ describe('ChartRender data mapping', () => {
     vi.clearAllMocks();
     runtimeCalls.barData.length = 0;
     runtimeCalls.radarData.length = 0;
+    runtimeCalls.barMounts = 0;
+    runtimeCalls.barUnmounts = 0;
     process.env.NODE_ENV = 'test-chart';
     Object.defineProperty(window, 'notRenderChart', {
       configurable: true,
@@ -188,5 +199,115 @@ describe('ChartRender data mapping', () => {
         },
       ]);
     });
+  });
+  it('updates a cell value without changing the row count or field names', async () => {
+    const { rerender } = render(
+      <ChartRender
+        {...baseProps}
+        chartType="bar"
+        chartData={[{ stage: 'A', value: 10 }]}
+      />,
+    );
+    await screen.findByTestId('bar-chart');
+    expect(runtimeCalls.barData.at(-1)?.[0].y).toBe(10);
+
+    rerender(
+      <ChartRender
+        {...baseProps}
+        chartType="bar"
+        chartData={[{ stage: 'A', value: 35 }]}
+      />,
+    );
+    expect(runtimeCalls.barData.at(-1)?.[0].y).toBe(35);
+  });
+
+  it('uses updated axis fields and column titles from the parent configuration', async () => {
+    const chartData = [{ stage: 'A', value: 10, revised: 45 }];
+    const { rerender } = render(
+      <ChartRender {...baseProps} chartType="bar" chartData={chartData} />,
+    );
+    await screen.findByTestId('bar-chart');
+
+    rerender(
+      <ChartRender
+        {...baseProps}
+        chartType="bar"
+        chartData={chartData}
+        config={{
+          ...baseProps.config,
+          y: 'revised',
+          columns: [
+            { title: 'Updated stage', dataIndex: 'stage' },
+            { title: 'Revised value', dataIndex: 'revised' },
+          ],
+        }}
+      />,
+    );
+    await waitFor(() => {
+      expect(runtimeCalls.barData.at(-1)?.[0]).toMatchObject({
+        x: 'A',
+        y: 45,
+        xtitle: 'Updated stage',
+        ytitle: 'Revised value',
+      });
+    });
+  });
+
+  it('updates axis labels when only column titles change', async () => {
+    const chartData = [{ stage: 'A', value: 10 }];
+    const { rerender } = render(
+      <ChartRender {...baseProps} chartType="bar" chartData={chartData} />,
+    );
+    await screen.findByTestId('bar-chart');
+    rerender(
+      <ChartRender
+        {...baseProps}
+        chartType="bar"
+        chartData={chartData}
+        config={{
+          ...baseProps.config,
+          columns: [
+            { title: 'Renamed stage', dataIndex: 'stage' },
+            { title: 'Renamed value', dataIndex: 'value' },
+          ],
+        }}
+      />,
+    );
+    await waitFor(() =>
+      expect(runtimeCalls.barData.at(-1)?.[0]).toMatchObject({
+        xtitle: 'Renamed stage',
+        ytitle: 'Renamed value',
+      }),
+    );
+  });
+
+  it('keeps the runtime mounted after streaming updates settle', async () => {
+    const { rerender } = render(
+      <ChartRender
+        {...baseProps}
+        chartType="bar"
+        chartData={[{ stage: 'A', value: 10 }]}
+      />,
+    );
+    await screen.findByTestId('bar-chart');
+    expect(runtimeCalls.barMounts).toBe(1);
+    vi.useFakeTimers();
+    rerender(
+      <ChartRender
+        {...baseProps}
+        chartType="bar"
+        chartData={[
+          { stage: 'A', value: 10 },
+          { stage: 'B', value: 20 },
+        ]}
+      />,
+    );
+    act(() => {
+      vi.advanceTimersByTime(1000);
+    });
+    expect(runtimeCalls.barData.at(-1)).toHaveLength(2);
+    expect(runtimeCalls.barMounts).toBe(1);
+    expect(runtimeCalls.barUnmounts).toBe(0);
+    vi.useRealTimers();
   });
 });

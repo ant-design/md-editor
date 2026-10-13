@@ -30,7 +30,7 @@ import { useRefFunction } from '../../Hooks/useRefFunction';
 import { isWeChat } from '../../Utils/env';
 import { parserMdToSchema } from '../BaseMarkdownEditor';
 import { Elements } from '../el';
-import { PluginContext } from '../plugin';
+import { PluginContext, type MarkdownEditorPlugin } from '../plugin';
 import {
   CommentDataType,
   MarkdownEditorInstance,
@@ -217,6 +217,12 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
   const sawCompositionUpdateRef = useRef(false);
 
   const plugins = useContext(PluginContext);
+  const pluginElements = useMemo(() => {
+    const elements: NonNullable<MarkdownEditorPlugin['elements']> =
+      Object.create(null);
+    for (const plugin of plugins) Object.assign(elements, plugin.elements);
+    return elements;
+  }, [plugins]);
   const selectionRectInvalidatedRef = useRef(false);
   const previousSelectionNotificationRef = useRef<{
     editor: ReactEditor;
@@ -1196,14 +1202,9 @@ export const SlateMarkdownEditor = React.memo((props: MEditorProps) => {
 
       let renderedDom = defaultDom;
 
-      // First check for plugin components
-      for (const plugin of plugins) {
-        const Component = plugin.elements?.[eleProps.element.type];
-        if (Component) {
-          renderedDom = <Component {...eleProps} />;
-          break;
-        }
-      }
+      // Resolve once per plugin configuration; later registrations override defaults.
+      const Component = pluginElements[eleProps.element.type];
+      if (Component) renderedDom = <Component {...eleProps} />;
 
       // Then allow eleItemRender to process the result
       if (props.eleItemRender) {

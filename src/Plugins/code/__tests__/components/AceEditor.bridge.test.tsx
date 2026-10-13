@@ -13,10 +13,12 @@ import { AceEditor } from '../../components/AceEditor';
 
 const aceFactory = vi.hoisted(() => ({
   edit: vi.fn(),
+  load: vi.fn(),
+  loadTheme: vi.fn(),
 }));
 vi.mock('../../loadAceEditor', () => ({
-  loadAceEditor: async () => ({ default: aceFactory }),
-  loadAceTheme: async () => {},
+  loadAceEditor: () => aceFactory.load(),
+  loadAceTheme: (theme: string) => aceFactory.loadTheme(theme),
 }));
 vi.mock('../../../../MarkdownEditor/editor/utils/ace', () => ({
   modeMap: new Map(),
@@ -59,7 +61,7 @@ function makeAce(host: HTMLElement, value: string) {
   };
 }
 
-async function renderAce(value = '') {
+async function renderAce(value = '', enabled = true) {
   const editor = withCodeBlockPlugin(withReact(withHistory(createEditor())));
   const store = new EditorStore({ current: editor });
   const element: CodeNode = {
@@ -83,23 +85,36 @@ async function renderAce(value = '') {
   function Host({
     readonly = false,
     node = element,
+    enabled: active = enabled,
+    theme = 'github',
   }: {
     readonly?: boolean;
     node?: CodeNode;
+    enabled?: boolean;
+    theme?: string;
   }) {
     return (
       <EditorStoreTestProvider value={{ readonly, store }}>
-        <Code node={node} />
+        <Code node={node} enabled={active} theme={theme} />
       </EditorStoreTestProvider>
     );
   }
-  function Code({ node }: { node: CodeNode }) {
+  function Code({
+    node,
+    enabled,
+    theme,
+  }: {
+    node: CodeNode;
+    enabled: boolean;
+    theme: string;
+  }) {
     const { dom } = AceEditor({
       element: node,
       onUpdate,
       onShowBorderChange: () => {},
       onHideChange: () => {},
-      theme: 'github',
+      theme,
+      enabled,
     });
     return <div ref={dom} />;
   }
@@ -112,6 +127,8 @@ beforeEach(() => {
   vi.stubEnv('NODE_ENV', 'development');
   vi.useFakeTimers();
   aceFactory.edit.mockClear();
+  aceFactory.load.mockReset().mockResolvedValue({ default: aceFactory });
+  aceFactory.loadTheme.mockReset().mockResolvedValue(undefined);
 });
 afterEach(() => {
   cleanup();
@@ -121,6 +138,69 @@ afterEach(() => {
 });
 
 describe('Ace and Slate bridge', () => {
+  it('defers loading and mounting Ace until the code view is visible', async () => {
+    const { rerender, Host } = await renderAce('preview only', false);
+    expect(aceFactory.load).not.toHaveBeenCalled();
+    expect(aceFactory.edit).not.toHaveBeenCalled();
+    rerender(<Host enabled />);
+    await act(async () => {});
+    expect(aceFactory.edit).toHaveBeenCalledTimes(1);
+  });
+
+  it('ignores a pending loader after the code view is hidden', async () => {
+    let resolve!: (module: { default: typeof aceFactory }) => void;
+    aceFactory.load.mockReturnValueOnce(
+      new Promise((done) => {
+        resolve = done;
+      }),
+    );
+    const { rerender, Host } = await renderAce('initial');
+    rerender(<Host enabled={false} />);
+    await act(async () => resolve({ default: aceFactory }));
+    expect(aceFactory.edit).not.toHaveBeenCalled();
+  });
+
+  it('flushes accepted edits before hiding the code view and restores them on reopening', async () => {
+    const { editor, ace, onUpdate, rerender, Host } =
+      await renderAce('initial');
+    ace.value = 'draft';
+    ace.emit('change');
+    rerender(<Host enabled={false} />);
+    expect(editor.children[0]).toMatchObject({ value: 'draft' });
+    expect(ace.destroy).toHaveBeenCalledTimes(1);
+    rerender(<Host enabled />);
+    await act(async () => {});
+    expect(aceFactory.edit.mock.results.at(-1)?.value.getValue()).toBe('draft');
+    await act(async () => vi.advanceTimersByTime(200));
+    expect(onUpdate).not.toHaveBeenCalled();
+  });
+
+  it('keeps the latest theme when older theme loading finishes later', async () => {
+    let resolveFirst!: () => void;
+    let resolveLatest!: () => void;
+    aceFactory.loadTheme.mockImplementation(
+      (theme: string) =>
+        new Promise<void>((done) => {
+          if (theme === 'github') resolveFirst = done;
+          else resolveLatest = done;
+        }),
+    );
+    const { ace, rerender, Host } = await renderAce('initial');
+    rerender(<Host theme="chaos" />);
+    await act(async () => resolveLatest());
+    await act(async () => resolveFirst());
+    expect(ace.setTheme).toHaveBeenCalledExactlyOnceWith('ace/theme/chaos');
+  });
+
+  it('cancels delayed blur selection updates on unmount', async () => {
+    const { ace, unmount } = await renderAce('initial');
+    await act(async () => vi.advanceTimersByTime(20));
+    ace.emit('blur');
+    expect(vi.getTimerCount()).toBe(1);
+    unmount();
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
   it('uses current Ace text for Backspace while the Slate update is still debounced', async () => {
     const { editor, ace } = await renderAce();
     ace.value = 'const value = 1';
@@ -159,11 +239,12 @@ describe('Ace and Slate bridge', () => {
     );
   });
 
-  it('cancels pending changes on unmount', async () => {
-    const { ace, onUpdate, unmount } = await renderAce();
+  it('preserves accepted input on cleanup without firing a delayed callback', async () => {
+    const { editor, ace, onUpdate, unmount } = await renderAce();
     ace.value = 'queued';
     ace.emit('change');
     unmount();
+    expect(editor.children[0]).toMatchObject({ value: 'queued' });
     await act(async () => vi.advanceTimersByTime(120));
     expect(onUpdate).not.toHaveBeenCalled();
   });

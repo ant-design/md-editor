@@ -23,13 +23,15 @@ export function getWithEditorSlotKey(plugin: MarkdownEditorPlugin): string {
 
 /**
  * 检测 `withEditor` 栈是否变化，用于 Slate 子树 remount。
- * 比较插件顺序、是否含 `withEditor`、以及 `withEditorKey` / 具名函数名（匿名函数均为 `w`）。
+ * 仅比较行为插件的顺序及 `withEditorKey` / 具名函数名（匿名函数均为 `w`）。
+ * 新增或移动纯渲染、解析插件不会重建编辑器。
  * 仅替换匿名 `withEditor` 实现且未设 `withEditorKey` 时 **不会** remount。
  */
 export function getPluginsEditorCompositionKey(
   plugins: MarkdownEditorPlugin[] = [],
 ): string {
   return plugins
+    .filter((plugin) => !!plugin.withEditor)
     .map((plugin, index) => `${index}:${getWithEditorSlotKey(plugin)}`)
     .join('|');
 }

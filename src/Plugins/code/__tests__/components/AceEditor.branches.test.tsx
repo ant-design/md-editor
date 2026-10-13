@@ -385,8 +385,7 @@ describe('AceEditor 覆盖率 (NODE_ENV=development)', () => {
     expect(pasteEvent.text).toBe('');
   });
 
-  it('setupEditorEvents: changeCursor 更新 posRef', async () => {
-    mockEditor.getCursorPosition.mockReturnValue({ row: 2, column: 5 });
+  it('setupEditorEvents: does not schedule unused cursor tracking work', async () => {
     function Wrapper() {
       const result = AceEditor(defaultProps);
       return (
@@ -406,14 +405,8 @@ describe('AceEditor 覆盖率 (NODE_ENV=development)', () => {
       await Promise.resolve();
     });
 
-    const changeCursorHandlers = eventHandlers['selection.changeCursor'];
-    expect(changeCursorHandlers?.length).toBeGreaterThan(0);
-    changeCursorHandlers?.forEach((h) => h());
-    await act(async () => {
-      vi.advanceTimersByTime(10);
-      await Promise.resolve();
-    });
-    expect(mockEditor.getCursorPosition).toHaveBeenCalled();
+    expect(eventHandlers['selection.changeCursor']).toBeUndefined();
+    expect(mockEditor.getCursorPosition).not.toHaveBeenCalled();
   });
 
   it('handleKeyDown: backspace 空代码块时删除并插入段落', async () => {

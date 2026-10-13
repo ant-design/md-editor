@@ -20,14 +20,34 @@ import { DocCards, type DocCardsFieldMap } from './DocCards';
 import { QuadrantChart } from './QuadrantChart';
 import { loadChartRuntime, type ChartRuntime } from './loadChartRuntime';
 import {
-  debounce,
-  getDataHash,
   isConfigEqual,
   isNotEmpty,
   parseSortByValue,
   resolveChartSortByField,
   toNumber,
 } from './utils';
+
+const areColumnsEqual = (
+  previous?: ReadonlyArray<Record<string, unknown>>,
+  next?: ReadonlyArray<Record<string, unknown>>,
+) => {
+  if (previous === next) return true;
+  if (!previous || !next || previous.length !== next.length) return false;
+  return previous.every((column, index) => {
+    const other = next[index];
+    if (column === other) return true;
+    if (!column || !other) return false;
+    const keys = Object.keys(column);
+    return (
+      keys.length === Object.keys(other).length &&
+      keys.every(
+        (key) =>
+          Object.prototype.hasOwnProperty.call(other, key) &&
+          column[key] === other[key],
+      )
+    );
+  });
+};
 
 /**
  * @fileoverview 图表渲染组件文件
@@ -156,7 +176,6 @@ const ChartRuntimeRendererImpl: React.FC<{
   convertDonutData: any[];
   convertFlatData: any[];
   config: any;
-  renderKey: number;
   title?: any;
   dataTime?: string;
   toolBar: JSX.Element[];
@@ -173,7 +192,6 @@ const ChartRuntimeRendererImpl: React.FC<{
   convertDonutData,
   convertFlatData,
   config,
-  renderKey,
   title,
   dataTime,
   toolBar,
@@ -202,7 +220,7 @@ const ChartRuntimeRendererImpl: React.FC<{
     const pieSize = config?.height || 400;
     return (
       <DonutChart
-        key={`${config?.index}-pie-${renderKey}`}
+        key={`${config?.index}-pie`}
         data={convertDonutData}
         configs={[{ chartStyle: 'pie', showLegend: true }]}
         width={pieSize}
@@ -219,7 +237,7 @@ const ChartRuntimeRendererImpl: React.FC<{
   if (chartType === 'donut') {
     return (
       <DonutChart
-        key={`${config?.index}-donut-${renderKey}`}
+        key={`${config?.index}-donut`}
         data={convertDonutData}
         configs={[{ chartStyle: 'donut', showLegend: true }]}
         height={config?.height || 400}
@@ -235,7 +253,7 @@ const ChartRuntimeRendererImpl: React.FC<{
   if (chartType === 'bar') {
     return (
       <BarChart
-        key={`${config?.index}-bar-${renderKey}`}
+        key={`${config?.index}-bar`}
         data={convertFlatData}
         height={config?.height || 400}
         title={title || ''}
@@ -253,7 +271,7 @@ const ChartRuntimeRendererImpl: React.FC<{
   if (chartType === 'line') {
     return (
       <LineChart
-        key={`${config?.index}-line-${renderKey}`}
+        key={`${config?.index}-line`}
         data={convertFlatData}
         height={config?.height || 400}
         title={title || ''}
@@ -269,7 +287,7 @@ const ChartRuntimeRendererImpl: React.FC<{
   if (chartType === 'column') {
     return (
       <BarChart
-        key={`${config?.index}-column-${renderKey}`}
+        key={`${config?.index}-column`}
         data={convertFlatData}
         height={config?.height || 400}
         title={title || ''}
@@ -287,7 +305,7 @@ const ChartRuntimeRendererImpl: React.FC<{
   if (chartType === 'area') {
     return (
       <AreaChart
-        key={`${config?.index}-area-${renderKey}`}
+        key={`${config?.index}-area`}
         data={convertFlatData}
         height={config?.height || 400}
         title={title || ''}
@@ -322,7 +340,7 @@ const ChartRuntimeRendererImpl: React.FC<{
 
     return (
       <RadarChart
-        key={`${config?.index}-radar-${renderKey}`}
+        key={`${config?.index}-radar`}
         data={radarData}
         height={config?.height || 400}
         title={title || ''}
@@ -352,7 +370,7 @@ const ChartRuntimeRendererImpl: React.FC<{
 
     return (
       <ScatterChart
-        key={`${config?.index}-scatter-${renderKey}`}
+        key={`${config?.index}-scatter`}
         data={scatterData}
         height={config?.height || 400}
         title={title || ''}
@@ -383,7 +401,7 @@ const ChartRuntimeRendererImpl: React.FC<{
 
     return (
       <FunnelChart
-        key={`${config?.index}-funnel-${renderKey}`}
+        key={`${config?.index}-funnel`}
         data={funnelData}
         height={config?.height || 400}
         title={title || ''}
@@ -447,7 +465,7 @@ const ChartRuntimeRendererImpl: React.FC<{
 
     return (
       <BoxPlotChart
-        key={`${config?.index}-boxplot-${renderKey}`}
+        key={`${config?.index}-boxplot`}
         data={boxplotData}
         height={config?.height || 400}
         title={title || ''}
@@ -503,7 +521,7 @@ const ChartRuntimeRendererImpl: React.FC<{
 
     return (
       <HistogramChart
-        key={`${config?.index}-histogram-${renderKey}`}
+        key={`${config?.index}-histogram`}
         data={histogramData}
         height={config?.height || 400}
         title={title || ''}
@@ -542,7 +560,6 @@ const ChartRuntimeRenderer = lazy(async () => {
       convertDonutData: any[];
       convertFlatData: any[];
       config: any;
-      renderKey: number;
       title?: any;
       dataTime?: string;
       toolBar: JSX.Element[];
@@ -708,41 +725,20 @@ export const ChartRender: React.FC<{
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
   const prefixCls = getPrefixCls('agentic-plugin-chart');
   const [config, setConfig] = useState(() => props.config);
-  const [renderKey, setRenderKey] = useState(0);
-  const containerRef = React.useRef<HTMLDivElement>(null);
+  const previousConfigRef = React.useRef(props.config);
 
-  // 用于缓存上一次的数据和配置，避免不必要的重新计算
-  const prevDataRef = React.useRef<{
-    dataHash: string;
-    config: any;
-    groupBy?: string;
-    colorLegend?: string;
-    filterBy?: string;
-  }>({
-    dataHash: '',
-    config: null,
-  });
-
-  // 计算数据哈希值，用于依赖项比较
-  const dataHash = React.useMemo(
-    () => getDataHash(chartData || []),
-    [chartData],
-  );
-
-  // 防抖更新 renderKey，避免流式数据频繁更新导致的性能问题
-  // 增加延迟时间以减少抖动
-  const debouncedUpdateRenderKeyRef = React.useRef(
-    debounce(() => {
-      setRenderKey((k) => k + 1);
-    }, 800), // 从 300ms 增加到 800ms
-  );
-
-  // 卸载时取消未执行的防抖，避免在测试或 SSR 环境下 teardown 后回调触发 setState
+  // Keep locally edited axes until the incoming configuration actually changes.
+  // Data-only rerenders often recreate the config object with identical fields.
   React.useEffect(() => {
-    return () => {
-      debouncedUpdateRenderKeyRef.current?.cancel?.();
-    };
-  }, []);
+    const previous = previousConfigRef.current;
+    previousConfigRef.current = props.config;
+    if (
+      !isConfigEqual(previous, props.config) ||
+      !areColumnsEqual(previous.columns, props.config.columns)
+    ) {
+      setConfig(props.config);
+    }
+  }, [props.config]);
 
   const renderDescriptionsFallback = React.useMemo(() => {
     const columnCount = config?.columns?.length || 0;
@@ -874,19 +870,12 @@ export const ChartRender: React.FC<{
       };
     });
   }, [
-    // 使用更高效的依赖项比较
-    dataHash,
+    chartData,
     config?.x,
     config?.y,
-    config?.height,
-    config?.index,
-    // 对于 rest 对象，使用浅比较
-    config?.rest?.stacked,
-    config?.rest?.showLegend,
-    config?.rest?.showGrid,
+    config?.columns,
     config?.sortBy,
     config?.rest?.sortBy,
-    title,
     groupBy,
     colorLegend,
     filterBy,
@@ -906,56 +895,11 @@ export const ChartRender: React.FC<{
         ...(filterLabel ? { filterLabel } : {}),
       };
     });
-  }, [
-    // 使用更高效的依赖项比较
-    dataHash,
-    config?.x,
-    config?.y,
-    config?.height,
-    config?.index,
-    title,
-    groupBy,
-    filterBy,
-  ]);
+  }, [chartData, config?.x, config?.y, groupBy, filterBy]);
 
   React.useEffect(() => {
     setChartType(props.chartType);
   }, [props.chartType]);
-
-  // 监听数据变化，使用防抖更新渲染键
-  React.useEffect(() => {
-    const configChanged = !isConfigEqual(prevDataRef.current.config, config);
-    const groupByChanged = prevDataRef.current.groupBy !== groupBy;
-    const colorLegendChanged = prevDataRef.current.colorLegend !== colorLegend;
-    const filterByChanged = prevDataRef.current.filterBy !== filterBy;
-
-    const hasChanged =
-      prevDataRef.current.dataHash !== dataHash ||
-      configChanged ||
-      groupByChanged ||
-      colorLegendChanged ||
-      filterByChanged;
-
-    if (hasChanged) {
-      const dataHashChanged = prevDataRef.current.dataHash !== dataHash;
-      // 更新缓存
-      prevDataRef.current = {
-        dataHash,
-        config,
-        groupBy,
-        colorLegend,
-        filterBy,
-      };
-
-      // 对于流式数据，使用防抖更新，避免频繁渲染
-      if (dataHashChanged) {
-        debouncedUpdateRenderKeyRef.current();
-      } else {
-        // 配置变化时立即更新
-        setRenderKey((k) => k + 1);
-      }
-    }
-  }, [dataHash, config, groupBy, colorLegend, filterBy]);
 
   const chartConfigFormPrefixCls =
     getPrefixCls('agentic-chart-config-form') ??
@@ -1115,7 +1059,6 @@ export const ChartRender: React.FC<{
                   ...prev,
                   ...values,
                 }));
-                setRenderKey((k) => k + 1);
               }}
             >
               <div
@@ -1360,7 +1303,6 @@ export const ChartRender: React.FC<{
             convertDonutData={convertDonutData}
             convertFlatData={convertFlatData}
             config={config}
-            renderKey={renderKey}
             title={title}
             dataTime={dataTime}
             toolBar={toolBar}
@@ -1378,13 +1320,10 @@ export const ChartRender: React.FC<{
     return null;
   }, [
     chartType,
-    // 使用更高效的依赖项
-    dataHash,
     config?.x,
     config?.y,
     config?.height,
     config?.index,
-    renderKey,
     toolBar,
     convertDonutData,
     convertFlatData,
@@ -1405,7 +1344,6 @@ export const ChartRender: React.FC<{
 
   return (
     <div
-      ref={containerRef}
       className={prefixCls}
       style={{ width: '100%' }}
       contentEditable={false}

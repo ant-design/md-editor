@@ -14,7 +14,7 @@
 
 import type { Ace } from 'ace-builds';
 import isHotkey from 'is-hotkey';
-import { startTransition, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Node, type Editor, type Path } from 'slate';
 import { useRefFunction } from '../../../Hooks/useRefFunction';
 import partialParse from '../../../MarkdownEditor/editor/parser/json-parse';
@@ -52,6 +52,7 @@ interface AceEditorProps {
   isSelected?: boolean;
   onSelectionChange?: (selected: boolean) => void;
   theme: string;
+  enabled?: boolean;
 }
 
 interface PendingCodeDraft {
@@ -94,6 +95,7 @@ export function AceEditor({
   onHideChange,
   isSelected = false,
   onSelectionChange,
+  enabled = true,
   ...props
 }: AceEditorProps) {
   const { store, editorProps, readonly } = useEditorStore();
@@ -101,7 +103,6 @@ export function AceEditor({
 
   // 各种引用
   const codeRef = useRef(codePlainSource);
-  const posRef = useRef({ row: 0, column: 0 });
   const pasted = useRef(false);
   const debounceTimer = useRef(0);
   const editorRef = useRef<Ace.Editor | null>(null);
@@ -110,6 +111,7 @@ export function AceEditor({
   const dom = useRef<HTMLDivElement>(null);
   // 记录 Ace 会话当前使用的语言，用于语言变更时动态切换而不是销毁重建
   const aceLanguageRef = useRef<string | null | undefined>(element.language);
+  const modeRequestRef = useRef(0);
 
   // Ace Editor 异步加载状态
   const [aceLoaded, setAceLoaded] = useState(false);
@@ -117,34 +119,27 @@ export function AceEditor({
 
   // 异步加载 Ace Editor 库
   useEffect(() => {
+    if (!enabled) return;
     if (process.env.NODE_ENV === 'test') {
       // 测试环境跳过加载
       setAceLoaded(true);
       return;
     }
 
-    // 使用 startTransition 标记为非紧急更新
-    startTransition(() => {
-      // 异步加载在 startTransition 外部执行
-      (async () => {
-        try {
-          // 加载 Ace Editor 核心库
-          const aceModule = await loadAceEditor();
-          aceModuleRef.current = aceModule;
-
-          // 加载主题
-          const theme = editorProps.codeProps?.theme || props.theme || 'github';
-          await loadAceTheme(theme);
-
-          setAceLoaded(true);
-        } catch (error) {
-          console.error('Failed to load Ace Editor:', error);
-          // 即使加载失败也设置 loaded，避免无限加载
-          setAceLoaded(true);
-        }
-      })();
-    });
-  }, [editorProps.codeProps?.theme, props.theme]);
+    let cancelled = false;
+    loadAceEditor()
+      .then((aceModule) => {
+        if (cancelled) return;
+        aceModuleRef.current = aceModule;
+        setAceLoaded(true);
+      })
+      .catch((error) => {
+        if (!cancelled) console.error('Failed to load Ace Editor:', error);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [enabled]);
 
   // 键盘：空块删除、Mod+Enter 跳出；Enter/Tab 等由 Ace 处理，不再 dispatch 到 window
   const handleKeyDown = useRefFunction((e: KeyboardEvent) => {
@@ -206,9 +201,11 @@ export function AceEditor({
     codeRef.current = value;
   });
 
-  const flushDraftBeforeReadonly = useRefFunction(() => {
+  const flushPendingDraft = useRefFunction(() => {
     const draft = pendingDraftRef.current;
-    if (!readonly || !draft || draft.editor !== store.editor) return;
+    if (!draft || draft.editor !== store.editor) {
+      return;
+    }
     const currentPath = findElementPath(store.editor, draft.element, {
       matchKey: true,
       search: true,
@@ -221,7 +218,8 @@ export function AceEditor({
     ) {
       return;
     }
-    // Preserve edits accepted while editable; readonly itself accepts no input.
+    // Preserve accepted input when effects restart (including Fast Refresh),
+    // or the view closes. The identity/value checks protect newer documents.
     setCodeBlockNodes(store.editor, currentPath, { value: draft.value });
     codeRef.current = draft.value;
   });
@@ -251,6 +249,9 @@ export function AceEditor({
 
   // 配置编辑器事件
   const setupEditorEvents = useRefFunction((codeEditor: Ace.Editor) => {
+    let blurTimer = 0;
+    let pasteTimer = 0;
+    let active = true;
     // 禁用默认查找快捷键
     codeEditor.commands.addCommand({
       name: 'disableFind',
@@ -270,6 +271,7 @@ export function AceEditor({
 
     // 聚焦事件
     codeEditor.on('focus', () => {
+      clearTimeout(blurTimer);
       onShowBorderChange(false);
       onHideChange(false);
     });
@@ -279,21 +281,13 @@ export function AceEditor({
       codeEditor.selection.clearSelection();
     });
 
-    // 光标变化事件
-    codeEditor.selection.on('changeCursor', () => {
-      setTimeout(() => {
-        const pos = codeEditor.getCursorPosition();
-        posRef.current = { row: pos.row, column: pos.column };
-      });
-    });
-
     // 粘贴事件
     codeEditor.on('paste', (e) => {
       if (pasted.current) {
         e.text = '';
       } else {
         pasted.current = true;
-        setTimeout(() => {
+        pasteTimer = window.setTimeout(() => {
           pasted.current = false;
         }, 60);
       }
@@ -302,8 +296,9 @@ export function AceEditor({
       onSelectionChange?.(true);
     });
     codeEditor.on('blur', () => {
-      setTimeout(() => {
-        onSelectionChange?.(false);
+      clearTimeout(blurTimer);
+      blurTimer = window.setTimeout(() => {
+        if (active) onSelectionChange?.(false);
       }, 160);
     });
 
@@ -319,6 +314,10 @@ export function AceEditor({
     });
 
     return () => {
+      active = false;
+      clearTimeout(blurTimer);
+      clearTimeout(pasteTimer);
+      pasted.current = false;
       textarea?.removeEventListener('keydown', handleKeyDown);
       textarea?.removeEventListener('compositionstart', onCompositionStart);
       textarea?.removeEventListener('compositionend', onCompositionEnd);
@@ -333,13 +332,19 @@ export function AceEditor({
       language: string | null | undefined,
       fallbackToText = true,
     ) => {
+      const request = ++modeRequestRef.current;
       let lang = (language || '') as string;
       if (modeMap.has(lang)) {
         lang = modeMap.get(lang)!;
       }
 
       const aceLangs = await getAceLangs();
-      if (editorRef.current !== codeEditor) return;
+      if (
+        editorRef.current !== codeEditor ||
+        request !== modeRequestRef.current
+      ) {
+        return;
+      }
 
       const mode = aceLangs.has(lang)
         ? `ace/mode/${lang}`
@@ -367,7 +372,7 @@ export function AceEditor({
   // 逐字符变化时触发编辑器销毁重建。
   useEffect(() => {
     if (process.env.NODE_ENV === 'test') return;
-    if (!aceLoaded || !aceModuleRef.current || !dom.current) return;
+    if (!enabled || !aceLoaded || !aceModuleRef.current || !dom.current) return;
 
     const codeProps = editorProps.codeProps || {};
 
@@ -403,13 +408,9 @@ export function AceEditor({
     editorRef.current = codeEditor;
     aceLanguageRef.current = element.language;
 
-    // 设置主题
-    const theme = codeProps.theme || props.theme || 'github';
-    codeEditor.setTheme(`ace/theme/${theme}`);
-
     // 设置语法高亮
     const modeTimer = window.setTimeout(() => {
-      setAceMode(codeEditor, element.language, false);
+      setAceMode(codeEditor, aceLanguageRef.current, false);
     }, 16);
 
     const cleanupEvents = !readonly ? setupEditorEvents(codeEditor) : undefined;
@@ -417,7 +418,7 @@ export function AceEditor({
     return () => {
       clearTimeout(modeTimer);
       clearTimeout(debounceTimer.current);
-      if (!readonly) flushDraftBeforeReadonly();
+      if (!readonly) flushPendingDraft();
       pendingDraftRef.current = null;
       cleanupEvents?.();
       if (editorRef.current === codeEditor) {
@@ -426,17 +427,17 @@ export function AceEditor({
       codeEditor.destroy();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [aceLoaded, readonly, setupEditorEvents]);
+  }, [aceLoaded, enabled, readonly, setupEditorEvents]);
 
   // 语言切换时动态更新 Ace 会话模式，无需销毁重建编辑器
   useEffect(() => {
-    if (!editorRef.current || !aceLoaded) return;
+    if (!enabled || !editorRef.current || !aceLoaded) return;
     if (aceLanguageRef.current === element.language) return;
 
     aceLanguageRef.current = element.language;
 
     setAceMode(editorRef.current, element.language);
-  }, [element.language, aceLoaded, setAceMode]);
+  }, [element.language, aceLoaded, enabled, setAceMode]);
 
   // 监听外部值变化
   useEffect(() => {
@@ -477,24 +478,28 @@ export function AceEditor({
 
   // 监听主题变化
   useEffect(() => {
-    if (!editorRef.current || !aceLoaded) return;
+    if (!enabled || !editorRef.current || !aceLoaded) return;
 
     const theme = editorProps.codeProps?.theme || props.theme || 'github';
 
-    // 异步加载新主题
-    startTransition(() => {
-      (async () => {
-        try {
-          await loadAceTheme(theme);
-          editorRef.current?.setTheme(`ace/theme/${theme}`);
-        } catch (error) {
-          console.warn(`Failed to load theme: ${theme}`, error);
-          // 尝试使用默认主题
-          editorRef.current?.setTheme(`ace/theme/github`);
+    const codeEditor = editorRef.current;
+    let cancelled = false;
+    loadAceTheme(theme)
+      .then(() => {
+        if (!cancelled && editorRef.current === codeEditor) {
+          codeEditor.setTheme(`ace/theme/${theme}`);
         }
-      })();
-    });
-  }, [editorProps.codeProps?.theme, props.theme, aceLoaded]);
+      })
+      .catch((error) => {
+        if (!cancelled && editorRef.current === codeEditor) {
+          console.warn(`Failed to load theme: ${theme}`, error);
+          codeEditor.setTheme('ace/theme/github');
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [editorProps.codeProps?.theme, props.theme, aceLoaded, enabled, readonly]);
 
   // 暴露设置语言的方法
   const setLanguage = useRefFunction(async (changeLang: string) => {
@@ -515,6 +520,7 @@ export function AceEditor({
   return {
     dom,
     editorRef,
+    loading: !aceLoaded,
     setLanguage,
     focusEditor: () => editorRef.current?.focus(),
     isSelected,
